@@ -1,0 +1,93 @@
+@import "../definitions/colors"
+@import "../definitions/shadows"
+@import "../definitions/common_dimensions"
+@import "common_elements"
+
+
+#material_plane
+  a
+    @include FontSize(6)
+    font-variant-caps: petite-caps
+
+  .country_space
+    display: flex
+    flex-flow: row wrap
+    flex-grow: 1
+
+    h2, h3, h4, h5, h6
+      color: $color-primary !important
+
+    .country_names
+      width: 180px
+      flex-grow: 1
+      margin-left: $margin_default
+      margin-right: $margin_default
+
+      .country_name
+        font-weight: bold
+        font-variant-caps: small-caps
+        color: $color-primary
+        margin: $margin_default
+        padding: $padding_default
+        border-radius: 4px
+        background-color: rgba($color_secondary_dark, 0.03)
+
+        @include FontSize(4)
+
+        &.active
+          background-color: rgba($color_secondary_dark, 0.07)
+
+
+    .country_desc
+      width: 70%
+      min-height: 800px
+      flex-grow: 9
+
+      .country
+        display: flex
+        flex-flow: row wrap
+        justify-content: space-evenly
+        gap: $margin_default
+        padding: $padding_default
+
+        .country_card
+          width: 300px
+          flex-grow: 1
+          border-radius: 4px
+          background-color: $color_white
+          @include BoxShadowHelper(1)
+          padding: $padding_default
+          @include FontSize(7)
+
+          table
+            width: 100%
+            border-collapse: collapse
+
+            td
+              padding-right: $padding_default
+
+              &:first-child
+                font-variant-caps: small-caps
+                color: $color_primary
+
+              &:last-child
+                width: 100%
+
+          .tags
+            padding-top: 1.5 * $padding_default
+            padding-bottom: $padding_default
+            display: flex
+            flex-flow: row wrap
+            align-items: center
+            justify-content: center
+
+          .card_info
+            font-style: italic
+            @include FontSize(8)
+
+        .desc
+          @include FontSize()
+          width: 100%
+
+          .capital_info
+            font-style: italic

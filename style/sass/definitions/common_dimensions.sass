@@ -1,0 +1,26 @@
+$padding_default: 8px
+$margin_default: 8px
+
+// Changing this will change font sizes for the entire page.
+$base_font_size: 14px
+
+
+// Changing the default value will change the font sized used in common text.
+// Do not make it 5 or less as it will become larger than headers.
+@mixin FontSize($level: 7)
+  @if ($level==1)
+    font-size: $base_font_size + 10px
+  @else if ($level == 2)
+    font-size: $base_font_size + 6px
+  @else if ($level == 3)
+    font-size: $base_font_size + 4px
+  @else if ($level == 4)
+    font-size: $base_font_size + 2px
+  @else if ($level == 5)
+    font-size: $base_font_size + 1px
+  @else if ($level == 6)
+    font-size: $base_font_size
+  @else if ($level == 7)
+    font-size: $base_font_size - 2px
+  @else if ($level == 8)
+    font-size: $base_font_size - 3px

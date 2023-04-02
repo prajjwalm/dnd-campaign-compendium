@@ -1,0 +1,1400 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto/Roboto-bold.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 500;
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+* {
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+}
+
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+h6, h5, h4, h3, h2, h1 {
+  color: #240B36;
+}
+
+h1 {
+  font-size: 24px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  width: 100%;
+  padding: 48px 32px 16px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #FAFCFF;
+  background-color: #240B36;
+}
+
+h2 {
+  font-size: 20px;
+  font-family: Montserrat, sans-serif;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+h4 {
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+h5 {
+  font-size: 15px;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+h6 {
+  font-size: 14px;
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+p {
+  font-size: 12px;
+  text-align: justify;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+li {
+  font-size: 12px;
+  text-align: justify;
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.section {
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 0 0 24px;
+  margin: 8px 0;
+}
+.section .section_header {
+  padding: 16px 8px;
+  margin: 0;
+  min-width: 80px;
+}
+
+.tag {
+  background-color: #822000;
+  color: #FAFCFF;
+  border-radius: 3px;
+  padding: 4px;
+  margin: 0 4px 4px 0;
+  display: inline-block;
+  font-size: 11px;
+}
+.tag.leveled {
+  color: #FAFCFF;
+}
+.tag.leveled.t1 {
+  background-color: #444548;
+}
+.tag.leveled.t2 {
+  background-color: #0F720C;
+}
+.tag.leveled.t3 {
+  background-color: #003b81;
+}
+.tag.leveled.t4 {
+  background-color: #7400be;
+}
+.tag.leveled.t5 {
+  background-color: #cf7b00;
+}
+.tag.leveled.t6 {
+  background-color: #7a4c37;
+}
+
+.card_link {
+  color: #576CA8;
+}
+
+.page {
+  background-color: #FAFCFF;
+  border-radius: 4px;
+  width: 80vw;
+  min-width: 320px;
+  margin: 64px auto auto;
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.page .page_content {
+  padding: 16px 32px;
+}
+
+#page_nav {
+  display: none;
+}
+#page_nav .page_nav_link {
+  width: 100%;
+  padding: 24px 8px;
+  cursor: pointer;
+  color: #FAFCFF;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  transition: all 0.3s;
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+}
+#page_nav .page_nav_link:hover {
+  background-color: rgba(87, 108, 168, 0.1);
+}
+
+@media screen and (min-width: 960px) {
+  .page {
+    width: calc(80vw - 100px);
+    margin: 64px 5vw 16px calc(100px + 15vw);
+  }
+
+  #page_nav {
+    display: unset;
+    width: calc(100px + 10vw);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vw;
+    background-color: #240B36;
+  }
+}
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+h1, h2, h3, h4, h5, h6 {
+  color: #240B36;
+}
+
+h1 {
+  font-size: 24px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  width: 100%;
+  padding: 48px 32px 16px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #FAFCFF;
+  background-color: #240B36;
+}
+
+h2 {
+  font-size: 20px;
+  font-family: Montserrat, sans-serif;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+h4 {
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+h5 {
+  font-size: 15px;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+h6 {
+  font-size: 14px;
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+p {
+  font-size: 12px;
+  text-align: justify;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+li {
+  font-size: 12px;
+  text-align: justify;
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.section {
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 0 0 24px;
+  margin: 8px 0;
+}
+.section .section_header {
+  padding: 16px 8px;
+  margin: 0;
+  min-width: 80px;
+}
+
+.tag {
+  background-color: #822000;
+  color: #FAFCFF;
+  border-radius: 3px;
+  padding: 4px;
+  margin: 0 4px 4px 0;
+  display: inline-block;
+  font-size: 11px;
+}
+.tag.leveled {
+  color: #FAFCFF;
+}
+.tag.leveled.t1 {
+  background-color: #444548;
+}
+.tag.leveled.t2 {
+  background-color: #0F720C;
+}
+.tag.leveled.t3 {
+  background-color: #003b81;
+}
+.tag.leveled.t4 {
+  background-color: #7400be;
+}
+.tag.leveled.t5 {
+  background-color: #cf7b00;
+}
+.tag.leveled.t6 {
+  background-color: #7a4c37;
+}
+
+.card_link {
+  color: #576CA8;
+}
+
+.page {
+  background-color: #FAFCFF;
+  border-radius: 4px;
+  width: 80vw;
+  min-width: 320px;
+  margin: 64px auto auto;
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.page .page_content {
+  padding: 16px 32px;
+}
+
+#page_nav {
+  display: none;
+}
+#page_nav .page_nav_link {
+  width: 100%;
+  padding: 24px 8px;
+  cursor: pointer;
+  color: #FAFCFF;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  transition: all 0.3s;
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+}
+#page_nav .page_nav_link:hover {
+  background-color: rgba(87, 108, 168, 0.1);
+}
+
+@media screen and (min-width: 960px) {
+  .page {
+    width: calc(80vw - 100px);
+    margin: 64px 5vw 16px calc(100px + 15vw);
+  }
+
+  #page_nav {
+    display: unset;
+    width: calc(100px + 10vw);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vw;
+    background-color: #240B36;
+  }
+}
+#tokens .token {
+  display: inline-block;
+  margin: 8px;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.character_card {
+  width: 100%;
+  min-width: 300px;
+  background-color: #FAFCFF;
+  margin: 8px auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  gap: 5vw;
+}
+.character_card .tags {
+  margin-bottom: 4px;
+}
+.character_card .personality_tags {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.character_card .token_space {
+  width: 256px;
+  padding: 8px;
+  order: -1;
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
+}
+.character_card .token_space .token {
+  width: 100%;
+  height: 256px;
+  object-fit: contain;
+}
+.character_card .token_space .tokens {
+  width: 100%;
+}
+.character_card .content {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100%;
+}
+.character_card .content .name {
+  color: #822000 !important;
+}
+.character_card .content .summary {
+  font-style: italic;
+  color: #00031D;
+  text-align: justify;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  flex-shrink: 1;
+  font-size: 12px;
+}
+.character_card .content .details {
+  color: #00031D;
+  flex-grow: 1;
+  text-align: justify;
+  font-size: 12px;
+}
+.character_card .content {
+  min-width: 300px;
+  flex: 1;
+}
+.character_card.floating {
+  width: 660px;
+  min-height: 144px;
+  border-radius: 5px;
+  padding: 8px;
+  gap: 16px;
+  flex-flow: row nowrap;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.character_card.floating .verbose {
+  display: none !important;
+}
+.character_card.floating .token_space {
+  width: 128px;
+}
+.character_card.floating .token_space .token {
+  height: 128px;
+}
+.character_card.floating .content .details {
+  display: None;
+}
+.character_card.floating .content .name {
+  font-size: 18px;
+  margin: 0;
+}
+
+#floating_card {
+  position: fixed;
+}
+
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+h1, h2, h3, h4, h5, h6 {
+  color: #240B36;
+}
+
+h1 {
+  font-size: 24px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  width: 100%;
+  padding: 48px 32px 16px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #FAFCFF;
+  background-color: #240B36;
+}
+
+h2 {
+  font-size: 20px;
+  font-family: Montserrat, sans-serif;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+h4 {
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+h5 {
+  font-size: 15px;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+h6 {
+  font-size: 14px;
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+p {
+  font-size: 12px;
+  text-align: justify;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+li {
+  font-size: 12px;
+  text-align: justify;
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.section {
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 0 0 24px;
+  margin: 8px 0;
+}
+.section .section_header {
+  padding: 16px 8px;
+  margin: 0;
+  min-width: 80px;
+}
+
+.tag {
+  background-color: #822000;
+  color: #FAFCFF;
+  border-radius: 3px;
+  padding: 4px;
+  margin: 0 4px 4px 0;
+  display: inline-block;
+  font-size: 11px;
+}
+.tag.leveled {
+  color: #FAFCFF;
+}
+.tag.leveled.t1 {
+  background-color: #444548;
+}
+.tag.leveled.t2 {
+  background-color: #0F720C;
+}
+.tag.leveled.t3 {
+  background-color: #003b81;
+}
+.tag.leveled.t4 {
+  background-color: #7400be;
+}
+.tag.leveled.t5 {
+  background-color: #cf7b00;
+}
+.tag.leveled.t6 {
+  background-color: #7a4c37;
+}
+
+.card_link {
+  color: #576CA8;
+}
+
+.page {
+  background-color: #FAFCFF;
+  border-radius: 4px;
+  width: 80vw;
+  min-width: 320px;
+  margin: 64px auto auto;
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.page .page_content {
+  padding: 16px 32px;
+}
+
+#page_nav {
+  display: none;
+}
+#page_nav .page_nav_link {
+  width: 100%;
+  padding: 24px 8px;
+  cursor: pointer;
+  color: #FAFCFF;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  transition: all 0.3s;
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+}
+#page_nav .page_nav_link:hover {
+  background-color: rgba(87, 108, 168, 0.1);
+}
+
+@media screen and (min-width: 960px) {
+  .page {
+    width: calc(80vw - 100px);
+    margin: 64px 5vw 16px calc(100px + 15vw);
+  }
+
+  #page_nav {
+    display: unset;
+    width: calc(100px + 10vw);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vw;
+    background-color: #240B36;
+  }
+}
+#material_plane a {
+  font-size: 14px;
+  font-variant-caps: petite-caps;
+}
+#material_plane .country_space {
+  display: flex;
+  flex-flow: row wrap;
+  flex-grow: 1;
+}
+#material_plane .country_space h2, #material_plane .country_space h3, #material_plane .country_space h4, #material_plane .country_space h5, #material_plane .country_space h6 {
+  color: #822000 !important;
+}
+#material_plane .country_space .country_names {
+  width: 180px;
+  flex-grow: 1;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+#material_plane .country_space .country_names .country_name {
+  font-weight: bold;
+  font-variant-caps: small-caps;
+  color: #822000;
+  margin: 8px;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: rgba(36, 11, 54, 0.03);
+  font-size: 16px;
+}
+#material_plane .country_space .country_names .country_name.active {
+  background-color: rgba(36, 11, 54, 0.07);
+}
+#material_plane .country_space .country_desc {
+  width: 70%;
+  min-height: 800px;
+  flex-grow: 9;
+}
+#material_plane .country_space .country_desc .country {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  gap: 8px;
+  padding: 8px;
+}
+#material_plane .country_space .country_desc .country .country_card {
+  width: 300px;
+  flex-grow: 1;
+  border-radius: 4px;
+  background-color: #FAFCFF;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 8px;
+  font-size: 12px;
+}
+#material_plane .country_space .country_desc .country .country_card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#material_plane .country_space .country_desc .country .country_card table td {
+  padding-right: 8px;
+}
+#material_plane .country_space .country_desc .country .country_card table td:first-child {
+  font-variant-caps: small-caps;
+  color: #822000;
+}
+#material_plane .country_space .country_desc .country .country_card table td:last-child {
+  width: 100%;
+}
+#material_plane .country_space .country_desc .country .country_card .tags {
+  padding-top: 12px;
+  padding-bottom: 8px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+}
+#material_plane .country_space .country_desc .country .country_card .card_info {
+  font-style: italic;
+  font-size: 11px;
+}
+#material_plane .country_space .country_desc .country .desc {
+  font-size: 12px;
+  width: 100%;
+}
+#material_plane .country_space .country_desc .country .desc .capital_info {
+  font-style: italic;
+}
+
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+h1, h2, h3, h4, h5, h6 {
+  color: #240B36;
+}
+
+h1 {
+  font-size: 24px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  width: 100%;
+  padding: 48px 32px 16px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #FAFCFF;
+  background-color: #240B36;
+}
+
+h2 {
+  font-size: 20px;
+  font-family: Montserrat, sans-serif;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+h4 {
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+h5 {
+  font-size: 15px;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+h6 {
+  font-size: 14px;
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+p {
+  font-size: 12px;
+  text-align: justify;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+li {
+  font-size: 12px;
+  text-align: justify;
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.section {
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 0 0 24px;
+  margin: 8px 0;
+}
+.section .section_header {
+  padding: 16px 8px;
+  margin: 0;
+  min-width: 80px;
+}
+
+.tag {
+  background-color: #822000;
+  color: #FAFCFF;
+  border-radius: 3px;
+  padding: 4px;
+  margin: 0 4px 4px 0;
+  display: inline-block;
+  font-size: 11px;
+}
+.tag.leveled {
+  color: #FAFCFF;
+}
+.tag.leveled.t1 {
+  background-color: #444548;
+}
+.tag.leveled.t2 {
+  background-color: #0F720C;
+}
+.tag.leveled.t3 {
+  background-color: #003b81;
+}
+.tag.leveled.t4 {
+  background-color: #7400be;
+}
+.tag.leveled.t5 {
+  background-color: #cf7b00;
+}
+.tag.leveled.t6 {
+  background-color: #7a4c37;
+}
+
+.card_link {
+  color: #576CA8;
+}
+
+.page {
+  background-color: #FAFCFF;
+  border-radius: 4px;
+  width: 80vw;
+  min-width: 320px;
+  margin: 64px auto auto;
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.page .page_content {
+  padding: 16px 32px;
+}
+
+#page_nav {
+  display: none;
+}
+#page_nav .page_nav_link {
+  width: 100%;
+  padding: 24px 8px;
+  cursor: pointer;
+  color: #FAFCFF;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  transition: all 0.3s;
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+}
+#page_nav .page_nav_link:hover {
+  background-color: rgba(87, 108, 168, 0.1);
+}
+
+@media screen and (min-width: 960px) {
+  .page {
+    width: calc(80vw - 100px);
+    margin: 64px 5vw 16px calc(100px + 15vw);
+  }
+
+  #page_nav {
+    display: unset;
+    width: calc(100px + 10vw);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vw;
+    background-color: #240B36;
+  }
+}
+#history_space {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  overflow: visible;
+  align-items: stretch;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  box-sizing: content-box;
+}
+#history_space #history_bar {
+  width: 4px;
+  border-radius: 2px;
+  background-color: #7286A0;
+  flex-grow: 0;
+  z-index: 3;
+}
+#history_space #history_zones {
+  transform: translate(4px);
+  width: 320px;
+  flex-grow: 0;
+  border-radius: 6px 4px 4px 6px;
+  overflow: visible;
+  background-color: #21364d;
+  font-variant-caps: small-caps;
+  color: #FAFCFF;
+  flex-shrink: 0;
+  z-index: 2;
+}
+#history_space #history_zones .history_zone {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-variant-caps: small-caps;
+  padding: 16px 16px 8px 8px;
+}
+#history_space #history_zones .history_zone .zone_start {
+  position: absolute;
+  top: 4px;
+  left: 8px;
+  font-size: 11px;
+}
+#history_space #history_zones .history_zone:not(:first-child):before {
+  position: absolute;
+  display: block;
+  width: 60%;
+  height: 2px;
+  background-color: #00031D;
+  top: 0;
+  right: auto;
+  left: auto;
+  content: "";
+}
+#history_space #history_zones .history_zone:nth-child(2n+1) {
+  background: linear-gradient(0deg, rgba(114, 134, 160, 0.1) 0%, rgba(114, 134, 160, 0.04) 22%, rgba(114, 134, 160, 0.02) 50%, rgba(114, 134, 160, 0.04) 78%, rgba(114, 134, 160, 0.1) 100%);
+}
+#history_space #history_right_desc {
+  width: 30%;
+  flex-grow: 8;
+  padding: 8px;
+}
+#history_space #history_right_tags, #history_space #history_left_tags {
+  width: 280px;
+  flex-grow: 0;
+  position: relative;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+#history_space #history_right_tags .history_event, #history_space #history_left_tags .history_event {
+  position: absolute;
+  left: 0;
+  padding: 8px;
+  transform: translate(0, -50%);
+  border-radius: 4px;
+  text-align: center;
+  background-color: #822000;
+  color: #FAFCFF;
+  font-size: 11px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+#history_space #history_right_tags .history_event:before, #history_space #history_left_tags .history_event:before {
+  position: absolute;
+  width: 320px;
+  left: 0;
+  top: 50%;
+  bottom: 50%;
+  transform: translate(-100%);
+  content: "";
+  height: 4px;
+  background-color: #7286A0;
+  display: block;
+  z-index: -1;
+}
+#history_space #history_left_tags {
+  z-index: 1;
+}
+#history_space #history_right_tags {
+  z-index: 0;
+}
+
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+h1, h2, h3, h4, h5, h6 {
+  color: #240B36;
+}
+
+h1 {
+  font-size: 24px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  width: 100%;
+  padding: 48px 32px 16px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #FAFCFF;
+  background-color: #240B36;
+}
+
+h2 {
+  font-size: 20px;
+  font-family: Montserrat, sans-serif;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+h4 {
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+h5 {
+  font-size: 15px;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+h6 {
+  font-size: 14px;
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+p {
+  font-size: 12px;
+  text-align: justify;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+li {
+  font-size: 12px;
+  text-align: justify;
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.section {
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 0 0 24px;
+  margin: 8px 0;
+}
+.section .section_header {
+  padding: 16px 8px;
+  margin: 0;
+  min-width: 80px;
+}
+
+.tag {
+  background-color: #822000;
+  color: #FAFCFF;
+  border-radius: 3px;
+  padding: 4px;
+  margin: 0 4px 4px 0;
+  display: inline-block;
+  font-size: 11px;
+}
+.tag.leveled {
+  color: #FAFCFF;
+}
+.tag.leveled.t1 {
+  background-color: #444548;
+}
+.tag.leveled.t2 {
+  background-color: #0F720C;
+}
+.tag.leveled.t3 {
+  background-color: #003b81;
+}
+.tag.leveled.t4 {
+  background-color: #7400be;
+}
+.tag.leveled.t5 {
+  background-color: #cf7b00;
+}
+.tag.leveled.t6 {
+  background-color: #7a4c37;
+}
+
+.card_link {
+  color: #576CA8;
+}
+
+.page {
+  background-color: #FAFCFF;
+  border-radius: 4px;
+  width: 80vw;
+  min-width: 320px;
+  margin: 64px auto auto;
+  overflow: hidden;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.page .page_content {
+  padding: 16px 32px;
+}
+
+#page_nav {
+  display: none;
+}
+#page_nav .page_nav_link {
+  width: 100%;
+  padding: 24px 8px;
+  cursor: pointer;
+  color: #FAFCFF;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  transition: all 0.3s;
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+}
+#page_nav .page_nav_link:hover {
+  background-color: rgba(87, 108, 168, 0.1);
+}
+
+@media screen and (min-width: 960px) {
+  .page {
+    width: calc(80vw - 100px);
+    margin: 64px 5vw 16px calc(100px + 15vw);
+  }
+
+  #page_nav {
+    display: unset;
+    width: calc(100px + 10vw);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vw;
+    background-color: #240B36;
+  }
+}
+.cool_intro {
+  text-align: justify;
+  text-align-last: center;
+  padding-right: 16%;
+  padding-left: 16%;
+  font-family: "Montserrat", sans-serif;
+  font-style: italic;
+}
+
+/*# sourceMappingURL=main.css.map */

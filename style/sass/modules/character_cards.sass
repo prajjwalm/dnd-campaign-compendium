@@ -1,0 +1,114 @@
+@import "../definitions/colors"
+@import "../definitions/shadows"
+@import "../definitions/common_dimensions"
+@import "common_elements"
+
+$character_card_floating_width: 660px
+$character_card_floating_image_diameter: 128px
+$character_card_floating_height: $character_card_floating_image_diameter + 2 * $margin_default
+$character_card_floating_title_font_size: $base_font_size + 6px
+
+$character_card_fixed_image_diameter: 256px
+$character_card_fixed_title_font_size: $base_font_size + 8px
+
+$token_icon_diameter: 64px
+
+#tokens
+  .token
+    display: inline-block
+    margin: $margin_default
+    width: $token_icon_diameter
+    height: $token_icon_diameter
+    object-fit: contain
+
+.character_card
+  width: 100%
+  min-width: 300px
+  background-color: $color_white
+  margin: $margin_default auto
+  display: flex
+  flex-flow: row wrap
+  justify-content: space-between
+  gap: 5vw
+
+  .tags
+    margin-bottom: $margin_default / 2
+
+  .personality_tags
+    margin-top: $margin_default / 2
+    margin-bottom: $margin_default / 2
+
+  .token_space
+    width: $character_card_fixed_image_diameter
+    padding: $padding_default
+    order: -1
+    display: flex
+    flex-flow: column nowrap
+    overflow: hidden
+    justify-content: space-between
+    align-items: center
+
+    .token
+      width: 100%
+      height: $character_card_fixed_image_diameter
+      object-fit: contain
+
+    .tokens
+      width: 100%
+
+  .content
+    display: flex
+    flex-flow: column nowrap
+    min-height: 100%
+
+    .name
+      color: $color-primary !important
+
+    .summary
+      font-style: italic
+      color: $color_black
+      text-align: justify
+      margin-top: $margin_default
+      margin-bottom: $margin_default
+      flex-shrink: 1
+      @include FontSize()
+
+    .details
+      color: $color_black
+      flex-grow: 1
+      text-align: justify
+      @include FontSize(7)
+
+  .content
+    min-width: 300px
+    flex: 1
+
+  &.floating
+    width: $character_card_floating_width
+    min-height: $character_card_floating_height
+    border-radius: 5px
+    padding: $padding_default
+    gap: $margin_default * 2
+    flex-flow: row nowrap
+    overflow: hidden
+
+    @include BoxShadowHelper(1)
+
+    .verbose
+      display: none !important
+
+    .token_space
+      width: $character_card_floating_image_diameter
+      .token
+        height: $character_card_floating_image_diameter
+
+    .content
+      .details
+        display: None
+
+      .name
+        @include FontSize(3)
+        margin: 0
+
+
+

@@ -1,0 +1,134 @@
+// 'Sienna', D&D char sheet foreground color.
+$color_primary: #822000
+
+// 'Cornsilk', D&D char sheet background color.
+$color_primary_light: #F8F3D7
+
+// 'True Blue', Picked by color picker (https://coolors.co/) iteration.
+$color_secondary: #576CA8
+
+// 'Russian Violet', Picked by color picker iteration.
+$color_secondary_dark: #240B36
+
+// 'Slate Gray', Picked by color picker iteration.
+$color_grey: #7286A0
+$color_grey_dark: #21364d
+
+// Picked by https://mycolor.space/?hex=%237286A0&sub=1
+$color_black: #00031D
+
+
+$color_white: #FAFCFF
+
+
+$color_dnd_original_common_light: #FFE
+$color_dnd_original_common_dark: #242528
+$color_dnd_original_uncommon_light: #5cbe3e
+$color_dnd_original_uncommon_dark: #1FC219
+$color_dnd_original_rare_light: #5991dc
+$color_dnd_original_rare_dark: #4990E2
+$color_dnd_original_epic_light: #b55dff
+$color_dnd_original_epic_dark: #9810E0
+$color_dnd_original_legendary_light: #f2a546
+$color_dnd_original_legendary_dark: #FEA227
+$color_dnd_original_artefact: #BE8972
+
+$color_dnd_common_light: #FFE
+$color_dnd_common_dark: #444548
+$color_dnd_uncommon_light: #5cbe3e
+$color_dnd_uncommon_dark: #0F720C
+$color_dnd_rare_light: #5991dc
+$color_dnd_rare_dark: #003b81
+$color_dnd_epic_light: #b55dff
+$color_dnd_epic_dark: #7400be
+$color_dnd_legendary_light: #f2a546
+$color_dnd_legendary_dark: #cf7b00
+$color_dnd_artefact_light: #d59e86
+$color_dnd_artefact_dark: #7a4c37
+
+@mixin _light_rarity_foreground
+  &.t1
+    color: $color_dnd_common_light
+  &.t2
+    color: $color_dnd_uncommon_light
+  &.t3
+    color: $color_dnd_rare_light
+  &.t4
+    color: $color_dnd_epic_light
+  &.t5
+    color: $color_dnd_legendary_light
+  &.t6
+    color: $color_dnd_artefact_light
+
+@mixin _dark_rarity_foreground
+  &.t1
+    color: $color_dnd_common_dark
+  &.t2
+    color: $color_dnd_uncommon_dark
+  &.t3
+    color: $color_dnd_rare_dark
+  &.t4
+    color: $color_dnd_epic_dark
+  &.t5
+    color: $color_dnd_legendary_dark
+  &.t6
+    color: $color_dnd_artefact_dark
+
+@mixin _light_rarity_background
+  &.t1
+    background-color: $color_dnd_common_light
+  &.t2
+    background-color: $color_dnd_uncommon_light
+  &.t3
+    background-color: $color_dnd_rare_light
+  &.t4
+    background-color: $color_dnd_epic_light
+  &.t5
+    background-color: $color_dnd_legendary_light
+  &.t6
+    background-color: $color_dnd_artefact_light
+
+@mixin _dark_rarity_background
+  &.t1
+    background-color: $color_dnd_common_dark
+  &.t2
+    background-color: $color_dnd_uncommon_dark
+  &.t3
+    background-color: $color_dnd_rare_dark
+  &.t4
+    background-color: $color_dnd_epic_dark
+  &.t5
+    background-color: $color_dnd_legendary_dark
+  &.t6
+    background-color: $color_dnd_artefact_dark
+
+@mixin rarity_foreground_dark_background
+  background-color: $color-black
+  @include _light_rarity_foreground
+
+@mixin rarity_foreground_light_background
+  background-color: $color-white
+  @include _dark_rarity_foreground
+
+@mixin rarity_background_light_foreground
+  color: $color-white
+  @include _dark_rarity_background
+
+@mixin rarity_background_dark_foreground
+  color: $color-black
+  @include _light_rarity_background
+
+@mixin gradient($val, $reverse: false)
+  $angle: 90deg
+  @if ($reverse==true)
+    $angle: 270deg
+
+  $v1: 0.05
+  $v2: 0.07
+  $v3: 0.08
+
+  background: linear-gradient($angle, rgba($val, $v1) 0%, rgba($val, $v2) 73%, rgba($val, $v3) 100%)
+
+
+@mixin centralGradient($val)
+  background: linear-gradient(0deg, rgba($val,0.1) 0%, rgba($val,0.04) 22%, rgba($val,0.02) 50%, rgba($val,0.04) 78%, rgba($val,0.1) 100%)

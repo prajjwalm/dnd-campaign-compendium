@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outFile": "../build/main.js",
+    "module": "commonjs",
+    "target": "es6",
+    "sourceMap": true,
+    "lib": [
+      "DOM",
+      "es2021",
+      "es2018.promise"
+    ]
+  },
+  "include": [
+    "./**/*"
+  ]
+}

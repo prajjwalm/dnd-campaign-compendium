@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PM's Campaign Info</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+            crossorigin="anonymous"></script>
+
+    <!-- Local stuff. All paths must be relative. -->
+
+    <script src="./code/build/main.js"></script>
+
+    <link rel="stylesheet" href="./style/css/main.css">
+</head>
+<body>
+<div id="floating_card" style="display: none;"></div>
+<div id="card_graveyard" style="display: none !important;"></div>
+<div id="page_nav">
+</div>
+<div id="character_idx" class="page">
+    <h1 class="page_header" data-nav-id="charIdx">Character Index</h1>
+    <div class="page_content">
+        <div class="central_view"></div>
+        <div id="tokens">
+            <div class="campaign">
+                <h4>Campaign 1</h4>
+                <div class="section arc">
+                    <h5 class="section_header">Arc 1</h5>
+                    <div class="token_space" data-campaign="1" data-arc="1"></div>
+                </div>
+                <div class="section arc">
+                    <h5 class="section_header">Arc 2</h5>
+                    <div class="token_space" data-campaign="1" data-arc="2"></div>
+                </div>
+            </div>
+            <div class="campaign">
+                <h4>Campaign 2</h4>
+                <div class="section arc">
+                    <h5 class="section_header">Arc 1</h5>
+                    <div class="token_space" data-campaign="2" data-arc="1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="material_plane" class="page">
+    <h1 class="page_header" data-nav-id="material">Materia</h1>
+    <div class="page_content">
+        <div class="planet_info" id="planet_terra">
+            <h4>Terra Prima</h4>
+            <div class="section planet_maps">
+                <h5 class="section_header">Maps</h5>
+                <div>
+                    <a class="tag" href="assets/svg/prima/Political.svg" target="_blank" rel="noopener noreferrer">
+                        Political Map
+                    </a>
+                    <a class="tag" href="assets/svg/prima/Cultures.svg" target="_blank" rel="noopener noreferrer">
+                        Cultural Spread
+                    </a>
+                    <a class="tag" href="assets/svg/prima/Heightmap.svg" target="_blank" rel="noopener noreferrer">
+                        Heightmap
+                    </a>
+                    <a class="tag" href="assets/svg/prima/Biomes.svg" target="_blank" rel="noopener noreferrer">
+                        Biomes
+                    </a>
+                    <a class="tag" href="assets/svg/prima/Climate.svg" target="_blank" rel="noopener noreferrer">
+                        Climatic conditions
+                    </a>
+                </div>
+            </div>
+            <div class="section planet_countries">
+                <h5 class="section_header">Countries</h5>
+                <div class="country_space">
+                    <div class="country_names">
+                    </div>
+                    <div class="country_desc"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page">
+    <h1 class="page_header" data-nav-id="shards">Shards & Planes</h1>
+    <div class="page_content">
+        <h3>Explaining the Shards</h3>
+        <p>
+            Sixteen shards govern the entire multiverse. As their name suggests they are fragments, pieces of a whole,
+            pieces of a God who once was, who predated the multiverse these adventures take place in - a God who was killed.
+            Each shard is referred to by an ideal that represents the Shard's primary purpose or motivation. They are the
+            final sources and custodians of all energy, all investiture, all magic, even of all space and time itself. Yet,
+            to function properly, a shard needs a mind to control it, to direct its actions. A mind belonging to a
+            sentient being who 'holds' the shard. Such a person who has taken up the power of a Shard is known as the
+            Vessel of that Shard.<br/>
+            Shards typically choose their vessels, but regardless the intent and nature of the shard eventually become
+            the intent and nature of the vessel, though individuals with strong wills can retain their own
+            personality for long, yet even the strongest of wills would eventually find their ideals being twisted to
+            match the shard they hold.
+        </p>
+        <p>
+            The Shards are the most powerful known entities in the multiverse, and for all intents and purposes,
+            serve as its Gods. Most powers that mortals and immortals wield alike come from them. Yet some entities,
+            aberrations of unknown origin, noticeably do not fall under any of their domains and are not allied with
+            any of them, typically. Each shard has a outer plane of their own, though are better linked than others -
+            this generally depends on how well the relations between the vessels are.
+            For example, Leras and Ati were very close before becoming shards, and so it is possible to go directly from
+            the Gardens of Preservation to the Castle of Ruin (but not the other way round) without using
+            perpendicularities. Some shards are even said to share planes. Outer planes typically get moulded
+            following the nature of the Shard. When creatures of the inner planes die, the Shards may choose to
+            summon their souls to their own planes, typically this doesn't involve active action on part of the vessel.
+        </p>
+        <p>
+            Despite all this, the Shards themselves are almost unknown in the inner planes, and completely unknown in
+            Materia, the material plane that forms the center of the multiverse. Instead, the pantheon that people
+            worship are often aspects of the shard Devotion, who is - behind the veils - the final source of power
+            for 'Gods' and their clerics alike. Similarly, other shards also grant powers to creatures - powers far
+            beyond commoners, powers that give them supernatural abilities. Some shards' powers typically cause their
+            recipients to go down a certain course - like Honor's powers generally give rise to Paladins (aka. Knights
+            Radiant), while Ruin's powers generally produce the greatest Rogues.
+        </p>
+        <h4>The Nature of Investiture</h4>
+        <p>
+            Shardic powers manifest in the realms as investiture. While it may occur in all physical, cognitive and
+            spiritual states, the greatest amount of it is present in its spiritual form. Highly 'invested' people
+            are kept alive by the investiture that has become a part of their souls - becoming one of the reasons
+            why a high enough level barbarian could survive a fall from outer space while a commoner would die if
+            shoved from the fifth floor - even if they had the same hulking body with the same physical anatomy /
+            constitution. Investiture also fuels all the abilities that creatures in the multiverse use -
+            the ki of monks, the spell slots of wizards, etc. all are representations of how much investiture they hold
+            presently.
+        </p>
+        <p>
+            That said some investiture also takes physical forms - like Preservation's mists, Ruin's Atium or Honor's
+            'Stormlight' - such investiture can be absorbed by creatures whose souls are invested enough to hold it and
+            used to 'recharge' their abilities or grant them new ones. However, investiture of this form is also
+            generally tied to the shard, and so can only be absorbed by beings with a connection to them. For
+            example, only those bonded with spren can absorb Stormlight, or only those not touched by Ruin (i.e.
+            those not pierced by metal) and gifted by Preservation can benefit from the mists.
+        </p>
+        <p>
+            Like the shards, the concepts of investiture is almost unknown in Materia, even if they do make use of it in
+            rather considerable amounts.
+        </p>
+        <p>
+            Strangely, a metal yet undiscovered in the Material plane - Aluminium - repels investiture in its pure
+            state. If some investiture is forced into it anyway (the process being a closely guarded secret), then
+            enchanted aluminum becomes a complete void to investiture in all forms.
+        </p>
+        <h4>Honor's Sacrifice</h4>
+        <p>
+            Shards are near-infinite in their command over all physical, mental and spiritual. They can move planets
+            on a whim, their minds are infinitely expanded and can compute the probabilities of various potential
+            routes the future upto centuries may take with near-absolute certainly and they are the owners of all the
+            power that circulate in the multiverse. As mentioned above, for all intents and purposes, each of them is
+            'God'. Yet they stand with conflicting ideals and natures - and so all conflict between mortals, or even
+            immortals, would fade before or be subsumed under a conflict of shards. (Shardic calculations of the
+            future, which approach near vision-level of the future gets greatly obfuscated when another being who can
+            'see' the future - typically another shard - is involved.)<br/>
+            And needless to say, a conflict between shard could've been, and once was near devastating for mortals.
+            Plus given that shards were initially all exactly equal in strength, such a conflict would be seen
+            through to brutal ends, and to an inconclusive result.
+        </p>
+        <p>
+            So like Preservation had long ago given a piece of himself to form sentient life - becoming weaker than Ruin
+            in the process - Honor too made all the shards subject to a pact, a bond, a deal they couldn't refuse
+            (and most didn't even want to) at the cost of making himself weaker than other shards. A pact which made
+            them unable to use their powers to overwhelm a sentient creature from within the multiverse or use their
+            infinite intelligence to trick or outwit it until the creature itself willed so - with full awareness of
+            what they asked for. And so, shards were restricted to achieve their ends through sentient, often mortal,
+            beings - people whom they would grant help and power in exchange for having them become their agents and
+            subject to their authority.
+        </p>
+        <p>
+            This pact was made by invoking powers older than, and stronger than, even Shards themselves - and should
+            they violate it, they would immediately become far weaker, and at the mercy of other shards. The same
+            went for all future deals between sentient beings and shards. There would be no tricking or wordplay
+            involved in such deals - both sides would have full awareness of what the other side asked for and intended.
+            Trying to break out of such an oath would weaken the shard by a fair magnitude which depended upon the
+            implications of breaking it. If the opposing side were to willingly break the oath, they would instantly
+            be obliterated - erased from existence itself.
+        </p>
+        <p>
+            Despite that, such agreements, while not common-place, aren't exactly uncommon either. Even after knowing
+            all implications, many mortals find that agreeing is a wiser strategy/tactic than staying away.
+        </p>
+        <p>
+            Of course, things from without are not subject to such restrictions...
+        </p>
+        <h3>Preservation</h3>
+        <p class="cool_intro">
+            And in that moment, K. was reminded why he had named this creature a God in the first place. There was an
+            infinity beyond those eyes. He was the infinity of a note held perfectly, never wavering. The majesty of a
+            painting, frozen and still, capturing a slice of life from a time gone by. It was the power of many, many
+            moments compressed somehow into one.
+        </p>
+<!--        <h4>The Shard</h4>-->
+<!--        <h4>The Vessel(s)</h4>-->
+<!--        <h4>Preservation's Domain</h4>-->
+<!--        <h4>Powers bestowed</h4>-->
+        <h3>Ruin</h3>
+        <p class="cool_intro">
+            The sky — misty and shifting — seemed so faint, so distant. It felt as if it had pulled back, like people
+            in a crowd shying away from a corpse. In that vastness K. saw something dark, thrashing, writhing upon
+            itself. More solid than mist, like an ocean of black snakes slithering across one another, stretching to the
+            horizon in all directions, obscuring the tiny sun.<p/>
+        <p class="cool_intro">
+            In that dark expanse, he found destruction.<p/>
+        <p class="cool_intro">
+            Decay. Not blackness, for blackness was too complete, too whole to represent this thing. It was a vast
+            force that would gleefully take something as simple as darkness, then rip it apart. This force was time
+            infinite. It was the winds that weathered, the storms that broke, the timeless waves running slowly,
+            slowly, slowly to a stop as the stars and the planets cooled to nothing.<p/>
+        <p class="cool_intro">
+            It was the ultimate end and destiny of all things. And it was watching. It was here...</p>
+<!--        <h4>The Shard</h4>-->
+<!--        <h4>The Vessel</h4>-->
+<!--        <h4>Ruin's Domain</h4>-->
+<!--        <h4>Powers bestowed</h4>-->
+    </div>
+</div>
+<div class="page">
+    <h1 class="page_header" data-nav-id="aberrations">Aberrations</h1>
+</div>
+<div class="page">
+    <h1 class="page_header" data-nav-id="history">History</h1>
+    <div class="page_content">
+        <div class="intro">
+            <h4>Note</h4>
+            <p>Time flows differently in all realms - the more the shardic focus (i.e. the greater the
+               investiture) in a realm / point in space, the faster time moves there. For example time has not moved at
+               all in the outer fringes of the Gardens of Preservation, where no shard focuses. So a day there would be
+               equivalent to a century in Materia.</p>
+            <p>At first, time moved slowest in Materia - since the shards all focused on their realms. But as
+               threats from without started to take shape in Materia, and because there was a clash of interests which
+               unfolded there, shards shifted their focus completely over there. This reached a climax during the Silent
+               Age, where time passed in there nearly a dozen times as fast as in the other planes. After that,
+               during the archaic age the shards agreed to step away - causing time in the inner planes to
+               drop till it became around half the pace of the mean of the outer planes.</p>
+            <p>However, in the last few centuries, Preservation was weakening, again causing time to go slower in the
+               Gardens. One day there would roughly be a week in Materia. When the Survivor took up the Shard
+               however, he immediately focused on clearing the mess in his domain, which caused time to accelerate
+               rapidly in there causing hours spent in Ruin equivalent to weeks in the Gardens.</p>
+            <p>The Graph which follows is with respect to Materia, unless specific points mention otherwise...</p>
+        </div>
+        <div id="history_space">
+            <div id="history_zones"></div>
+            <div id="history_bar"></div>
+            <div id="history_left_tags"></div>
+            <div id="history_right_tags"></div>
+            <div id="history_right_desc"></div>
+        </div>
+    </div>
+</div>
+<div class="page">
+    <h1 class="page_header" data-nav-id="factions">Factions</h1>
+</div>
+<div class="page">
+    <h1 class="page_header" data-nav-id="rules">House Rules</h1>
+    <div class="page_content">
+        <h3>In game rules</h3>
+        <p>
+            Disclaimer: These rules are based on what I felt should be appropriate based on previous experience.
+            While I will generally stick to them, I may occasionally change them based on how the gameplay feels.
+            Most of these are addons and interpretations, and should change anything to fundamental to the system.
+            These take the last spot because they are entirely system dependant - and not really of much significance
+            to the campaign itself. I may change the system, but the characters/shards would remain, while these all
+            would become obsolete. To me the system is secondary to the narrative and world building. As
+            such I am also typically chill with homebrew as long as I feel it won't reduce the fun other people,
+            including myself, are having. <br/>
+            Of course, I will continue to add stuff here as we go along.
+        </p>
+
+        <h4>AoE attacks with a hit roll</h4>
+        <p>
+            Most of the times attacks targeting multiple creatures require saving throws, which typically makes
+            sense. However, in rare cases, there may be attacks which I feel can cover multiple creatures in their
+            impact, yet would be resisted by a sturdy piece of plate armor. Simple examples being the hail of machine
+            gun fire or a sweeping blade of a giant. In such case I'll make a single attack roll which would apply to
+            the primary target(s) and an amount (typically 0, 2 or 5) subtracted from the roll would apply to
+            secondary targets in range.
+        </p>
+        <h4>Continuous Damage</h4>
+        <p>If an effect deals continuous damage, it is approximated dealing D<sub>1</sub> damage in
+           initiative counts 24, 16 and 8 and D<sub>2</sub> at initiative count 0, where,</p>
+        <ul>
+            <li>D<sub>1</sub> is total damage / 4, rounded down.</li>
+            <li>D<sub>2</sub> is total damage - 3 &times; D<sub>1</sub>.</li>
+        </ul>
+
+        <h3>Meta-game rules</h3>
+        <p>
+            Note: This section of the rules aren't really to do with either the narrative or the system, but are more
+            of implementation details I thought I should be clear upon, so that we can all have the best time
+            possible with the resources available to us.
+        </p>
+        <h4>On optimization and Roleplay</h4>
+        <p>
+            As an optimizer myself, there's no way I'd ever frown on optimization. It's totally fine for players to
+            optimize their builds, and they will feel rewarded for optimization by having their character excel in
+            whatever they are optimized for. But I would prefer if players build characters with what they want to
+            role-play as first in mind as compared to what is mechanically strong. As I've mentioned before, gameplay is
+            secondary to narrative in my games, so I'm totally fine with homebrewing something if players (and I) feel
+            their character is weaker because of a choice they made for roleplaying's sake. (And the best way to convince
+            me would be to present an alternate build with similar resources as your character was built with but with
+            better gameplay.)
+        </p>
+        <p>
+            The reason I mention this specifically is that I will take the rp-aspects of builds as seriously as I
+            would take the mechanics, if not more. If someone plays a paladin, they would have to roleplay all the
+            oaths. If someone plays a wizard, I will expect them to do some arcane research in character. Conversely, if
+            someone plays a melee class, odds are I will not even allow them to attempt arcana checks, as their
+            characters would have no idea of most arcane bullshit that can only be found in libraries. If you are a
+            Cleric/Druid with 16+ Wis I would very much frown upon roleplaying an edgy character. If you are a warlock,
+            well your patron probably owns your soul, and they would use that sometime for their personal gain -
+            possibly in ways you, as a player, may not like.
+        </p>
+        <p>
+            Following with the character sheet being consistent with RP, I will allow players to 'make trades' with
+            their character sheets. Give something up to gain something else. An example that comes to mind is that
+            someone may be playing an introvert warlock - whose patron chose them because of their inner force of
+            personality, force of will - not because they were good at singing or dancing. If someone wants to rp
+            that I'll allow them to give up their charisma bonus to performance (and probably persuasion) in exchange
+            for a bonus to Cha saves. I'm not yet fully sure how I'll implement that - but most probably any player
+            who wants a trade will list the things they gain/loose, and I'll allocate points (positive or
+            negative) to each separately. Then each player would be allowed to add anything from the joint pool of
+            traits such that the sum of their points is close to zero.
+        </p>
+        <h4>Campaign monitoring</h4>
+        <p>
+            While I was relatively lazy in the previous campaign to go through the character sheets in depth - this
+            time I will make sure to give each of them thorough scrutiny pre-session to make sure the gameplay is in
+            sync with what's in there. And I would prefer there to the no surprises on the mechanics front. I would
+            love to be surprised by how you use what you can do, but hate to be surprised to learn what you can do.
+            As such I'd strongly prefer if players tell me upfront what they think they're the strongest moves and
+            weakest points are themselves. The stuff they've optimized and the stuff they've dumped.
+        </p>
+        <p>
+            Like I said, I like to reward optimization, so you needn't worry that I will design enemies just to bring
+            out the weak points of an optimized character. But I will have players commit to a build if they want to
+            use it. One example that comes to mind is the free usage of mounts in the first campaign. I've
+            no issues in having players with mounts that can fly, climb walls, or zoom past at 120 ft/turn speed,
+            but giving them for free seems a disservice to the other players. This time there will be enemies who
+            will first target the mount before they take down the character. So if you want to do a mounted gameplay,
+            better commit resources into protecting your mount. Likewise, if you want to play a flying character,
+            better think of a contingency plan for when you're knocked unconscious in the sky, etc.
+        </p>
+        <p>
+            Another thing I'll be taking much more seriously in future games is roll fudging. While being honest
+            about their dice rolls is something I'd have liked to entrust to players (after all bad rolls offer just
+            as good roleplaying opportunities as good ones), I personally want every Nat 20 to be a celebration, to
+            all players as well as myself, and that cannot happen, at least for me, if I'm paranoid of whether the
+            rolls were fudged. And so, while I allowed the use of beyond20 and irl dice in the first campaign - I'm
+            going to crack down on it henceforth.<p/>
+        <p>
+            While I understand the motivations of those using irl dice, and know fudging is definitely not among
+            them, I will reserve the right to <i>not</i> allow irl dice for any roll I deem significant.
+            Beyond20 is still allowed, but only for rolls that are macros (like you press a button on your sheet and
+            auto-generated stuff rolls), examples being an attack/damage roll made together. For arbitrary dice rolls
+            - like a simple 2d6 or 1d12 + 1d8 without context, I will not accept anything outside of roll 20.
+            Notably, luck rolls are covered in this - only rolls made within r20 are accepted. In return, I won't
+            have to do something like making 1 the best result, or choosing 4 random numbers, ever again.
+            Furthermore, for any roll made outside roll 20, which comes after a noticeable delay, I reserve the right
+            to ask the player to re-roll should I wish to. I will also be going through the roll20 logs and comparing
+            them to the D&D Beyond logs arbitrarily, and really hope I do not come across any discrepancies.
+        </p>
+    </div>
+</div>
+</body>
+</html>
