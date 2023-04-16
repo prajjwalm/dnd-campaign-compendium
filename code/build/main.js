@@ -1699,6 +1699,13 @@ Character.$tokenSpace = null;
           braincell). While he liked to boast and think he'd seen everything the castle had to offer while working 
           under Verrader, only after his death - after failed attempts to assassinate ${Card.link("[character|Rin Shima]", "Shimarin")}
           and then ${Card.link("[character|Ken Shima]", "Shimaken")} did he realize just how insignificant his life so far had been...`],
+        ["Andoain",
+            `An aasimar with a halo and glowing wings like reflected glass who mysteriously appeared in Veteres in around 
+          1580 AR. Seemed to be supernaturally gifted in the use of firearms and preferred them to swords. Known by all 
+          to be an extremely generous and kind soul, but seemed to be haunted by demons of his own, and was always 
+          begging God for forgiveness. Was randomly assaulted by a 
+          ${Card.link("[character|Mostima]", "mysterious half-blood fallen aasimar")} while peacefully exploring the
+          coast of Aegir.<br/>[INCOMPLETE]`],
         ["", ``],
     ]);
     const caelynnDesc = `
@@ -2095,7 +2102,7 @@ Character.$tokenSpace = null;
     there was one other - a single Honorspren who stood next to her, waiting, and had gone unnoticed by all...  
     `;
     $(() => {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31, _32;
         Character.loadStaticElements();
         /************************* Campaign 1, Arc 1 **************************/
         new Character({
@@ -2700,22 +2707,6 @@ Character.$tokenSpace = null;
             summary: (_7 = summaries.get("Eugrud")) !== null && _7 !== void 0 ? _7 : "???",
             description: "",
         });
-        // new Character({
-        //     name         : "Roth",
-        //     tokenName    : "roth",
-        //     campaign     : 1,
-        //     arc          : 2,
-        //     age          : "54",
-        //     gender       : "M",
-        //     tags         : ['Deceased',
-        //                     'From | Ruin',
-        //                     `Race | Bugbear`,
-        //                     `Class | ${Card.verbose("Gunslinger")} Fighter`,
-        //                     `Class | ${Card.verbose("Grave")} Cleric`,
-        //                     'CR | 7'],
-        //     summary      : summaries.get("roth") ?? "???",
-        //     description  : "",
-        // });
         /************************* Campaign 2, Arc 1 **************************/
         new Character({
             name: "Andoain 'The Martyr'",
@@ -2725,9 +2716,422 @@ Character.$tokenSpace = null;
             arc: 1,
             age: "221",
             gender: "M",
-            tags: [],
+            tags: [
+                "From | ? / Materia",
+                "Race | Aasimar",
+                `Class | ${Card.verbose("Gunslinger")} Fighter`,
+                `Class | ${Card.verbose("Hexblade")} Warlock`,
+                `Class | ${Card.verbose("War")} Cleric`,
+                "'Saint'",
+                "CR | 21",
+            ],
             summary: (_8 = summaries.get("Andoain")) !== null && _8 !== void 0 ? _8 : "???",
             description: "",
+        });
+        // new Character({
+        //     name         : "Dusk",
+        //     tokenName    : "Dusk",
+        //     campaign     : 2,
+        //     arc          : 1,
+        //     age          : "",
+        //     gender       : "F",
+        //     tags         : [],
+        //     summary      : summaries.get("Dusk") ?? "???",
+        //     description  : "",
+        // });
+        new Character({
+            name: "Dawn",
+            tokenName: "Dawn",
+            campaign: 2,
+            arc: 1,
+            age: 32,
+            gender: "F",
+            tags: [],
+            summary: (_9 = summaries.get("Dawn")) !== null && _9 !== void 0 ? _9 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag["Nature Lover"], 3],
+            // [NpcPersonalityTag.Industrious, 2],
+            // [NpcPersonalityTag.Ascetic, 2],
+            // [NpcPersonalityTag["Abhors Violence"], 2],
+            // [NpcPersonalityTag.Homosexual, 1],
+            // [NpcPersonalityTag.Accepting, 1],
+            // [NpcPersonalityTag.Depressive, 1],
+            ])
+        });
+        new Character({
+            name: "Andri",
+            tokenName: "Andri",
+            campaign: 2,
+            arc: 1,
+            age: 37,
+            gender: "M",
+            tags: [],
+            summary: (_10 = summaries.get("Andri")) !== null && _10 !== void 0 ? _10 : "???",
+            description: "",
+        });
+        new Character({
+            name: "Athlon",
+            tokenName: "Athlon",
+            campaign: 2,
+            arc: 1,
+            age: 58,
+            gender: "M",
+            tags: [],
+            summary: (_11 = summaries.get("Athlon")) !== null && _11 !== void 0 ? _11 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag.Addict, 4],
+            // [NpcPersonalityTag["Guilt-ridden"], 2],
+            // [NpcPersonalityTag.Depressive, 2],
+            // [NpcPersonalityTag.Accepting, 1],
+            // [NpcPersonalityTag.Psychopath, 1],
+            // [NpcPersonalityTag["Abhors Violence"], 1],
+            ]),
+            // tiesToOtherNpcs: new Map([
+            //     [`${Card.link("[character|Yuki]", "Yuki")}`,
+            //      `Although he would never say it aloud, he deeply hurts inside for what his son had to go through, and
+            //       what it made of him. Has realized the futility of preaching to him, but keeps hope that his family's
+            //       noble blood will guide Yuki to the right path.`],
+            //     [`${Card.link("[character|Ken Shima]", "Shimaken")}`,
+            //      `Saw him as divinity, a saviour and an ideal. Would've died several times over for his sake.
+            //       Also kept the others who were with him, like ${Card.link("[character|Rin Shima]", "Shimarin")} and
+            //       ${Card.link("[character|Fiest]", "Fiest")}, in very high regard.`],
+            // ]),
+        });
+        new Character({
+            name: "Bjorn",
+            tokenName: "Bjorn",
+            campaign: 2,
+            arc: 1,
+            age: 35,
+            gender: "M",
+            tags: [],
+            summary: (_12 = summaries.get("Bjorn")) !== null && _12 !== void 0 ? _12 : "???",
+            description: "",
+        });
+        new Character({
+            name: "Cecilia",
+            tokenName: "Cecilia",
+            campaign: 2,
+            arc: 1,
+            age: 11,
+            gender: "F",
+            tags: [],
+            summary: (_13 = summaries.get("Cecilia")) !== null && _13 !== void 0 ? _13 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag.Conciliatory, 3],
+            // [NpcPersonalityTag.Naive, 3],
+            // [NpcPersonalityTag.Ascetic, 1],
+            // [NpcPersonalityTag.Kind, 1],
+            // [NpcPersonalityTag.Depressive, 1],
+            // [NpcPersonalityTag["Abhors Violence"], 1],
+            ])
+        });
+        new Character({
+            name: "Coroto",
+            tokenName: "Coroto",
+            campaign: 2,
+            arc: 1,
+            age: 54,
+            gender: "M",
+            tags: [],
+            summary: (_14 = summaries.get("Coroto")) !== null && _14 !== void 0 ? _14 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag.Paranoid, 3],
+            // [NpcPersonalityTag.Industrious, 3],
+            // [NpcPersonalityTag.Stern, 2],
+            // [NpcPersonalityTag.Confrontational, 2],
+            // [NpcPersonalityTag.Insecure, 1],
+            // [NpcPersonalityTag.Abusive, 1],
+            // [NpcPersonalityTag.Vain, 1],
+            ])
+        });
+        new Character({
+            name: "Elysium",
+            tokenName: "Elysium",
+            campaign: 2,
+            arc: 1,
+            age: 33,
+            gender: "M",
+            tags: [],
+            summary: (_15 = summaries.get("Elysium")) !== null && _15 !== void 0 ? _15 : "???",
+            description: "",
+        });
+        new Character({
+            name: "Erica",
+            tokenName: "Erica",
+            campaign: 2,
+            arc: 1,
+            age: 50,
+            gender: "F",
+            tags: [],
+            summary: (_16 = summaries.get("Erica")) !== null && _16 !== void 0 ? _16 : "???",
+            description: "",
+        });
+        new Character({
+            name: "Genefe",
+            tokenName: "Genefe",
+            campaign: 2,
+            arc: 1,
+            age: 28,
+            gender: "F",
+            tags: [],
+            summary: (_17 = summaries.get("Genefe")) !== null && _17 !== void 0 ? _17 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag.Conciliatory, 2],
+            // [NpcPersonalityTag.Abusive, 2],
+            // [NpcPersonalityTag.Ascetic, 1],
+            // [NpcPersonalityTag.Depressive, 1],
+            // [NpcPersonalityTag.Insecure, 1],
+            // [NpcPersonalityTag.Hypocrite, 1],
+            // [NpcPersonalityTag.Jealous, 1],
+            ])
+        });
+        new Character({
+            name: "Hav",
+            tokenName: "Hav",
+            campaign: 2,
+            arc: 1,
+            age: 47,
+            gender: "M",
+            tags: [],
+            summary: (_18 = summaries.get("Hav")) !== null && _18 !== void 0 ? _18 : "???",
+            description: "",
+        });
+        new Character({
+            name: "Hina",
+            tokenName: "Hina",
+            campaign: 2,
+            arc: 1,
+            age: 14,
+            gender: "F",
+            tags: [],
+            summary: (_19 = summaries.get("Hina")) !== null && _19 !== void 0 ? _19 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag.Gourmand, 3],
+            // [NpcPersonalityTag.Bloodlust, 2],
+            // [NpcPersonalityTag.Slothful, 2],
+            // [NpcPersonalityTag.Sanguine, 2],
+            // [NpcPersonalityTag.Quiet, 1],
+            // [NpcPersonalityTag.Distant, 1],
+            // [NpcPersonalityTag.Psychopath, 1],
+            ]),
+        });
+        new Character({
+            name: "Ingrid",
+            tokenName: "Ingrid",
+            campaign: 2,
+            arc: 1,
+            age: 24,
+            gender: "F",
+            tags: [],
+            summary: (_20 = summaries.get("Ingrid")) !== null && _20 !== void 0 ? _20 : "???",
+            description: "",
+        });
+        new Character({
+            name: "Iona",
+            tokenName: "Iona",
+            campaign: 2,
+            arc: 1,
+            age: 13,
+            gender: "F",
+            tags: [],
+            summary: (_21 = summaries.get("Iona")) !== null && _21 !== void 0 ? _21 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag.Sanguine, 2],
+            // [NpcPersonalityTag.Optimist, 2],
+            // [NpcPersonalityTag.Trusting, 1],
+            // [NpcPersonalityTag.Social, 1],
+            // [NpcPersonalityTag.Psychopath, 1],
+            // [NpcPersonalityTag.Modest, 1],
+            ])
+        });
+        new Character({
+            name: "Jaye",
+            tokenName: "Jaye",
+            campaign: 2,
+            arc: 1,
+            age: 26,
+            gender: "M",
+            tags: [],
+            summary: (_22 = summaries.get("Jaye")) !== null && _22 !== void 0 ? _22 : "???",
+            description: "",
+        });
+        new Character({
+            name: "Jordi",
+            tokenName: "Jordi",
+            campaign: 2,
+            arc: 1,
+            age: 23,
+            gender: "M",
+            tags: [],
+            summary: (_23 = summaries.get("Jordi")) !== null && _23 !== void 0 ? _23 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag.Modest, 3],
+            // [NpcPersonalityTag.Quiet, 2],
+            // [NpcPersonalityTag.Trusting, 1],
+            // [NpcPersonalityTag.Insecure, 1],
+            // [NpcPersonalityTag["Guilt-ridden"], 1],
+            // [NpcPersonalityTag.Industrious, 1],
+            ])
+        });
+        new Character({
+            name: "Kastor",
+            tokenName: "Kastor",
+            campaign: 2,
+            arc: 1,
+            age: 26,
+            gender: "M",
+            tags: [],
+            summary: (_24 = summaries.get("Kastor")) !== null && _24 !== void 0 ? _24 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag.Arrogant, 3],
+            // [NpcPersonalityTag.Judging, 2],
+            // [NpcPersonalityTag.Insecure, 2],
+            // [NpcPersonalityTag.Abrasive, 2],
+            // [NpcPersonalityTag.Vain, 1],
+            // [NpcPersonalityTag.Confrontational, 1],
+            ])
+        });
+        new Character({
+            name: "Roberta",
+            tokenName: "Roberta",
+            campaign: 2,
+            arc: 1,
+            age: 25,
+            gender: "F",
+            tags: [],
+            summary: (_25 = summaries.get("Roberta")) !== null && _25 !== void 0 ? _25 : "???",
+            description: ""
+        });
+        new Character({
+            name: "Sasha",
+            tokenName: "Sasha",
+            campaign: 2,
+            arc: 1,
+            age: 13,
+            gender: "M",
+            tags: [],
+            summary: (_26 = summaries.get("Sasha")) !== null && _26 !== void 0 ? _26 : "???",
+            description: "",
+        });
+        new Character({
+            name: "Sybilla",
+            tokenName: "Sybilla",
+            campaign: 2,
+            arc: 1,
+            age: 34,
+            gender: "F",
+            tags: [],
+            summary: (_27 = summaries.get("Sybilla")) !== null && _27 !== void 0 ? _27 : "???",
+            description: "",
+        });
+        new Character({
+            name: "Taihe",
+            tokenName: "Taihe",
+            campaign: 2,
+            arc: 1,
+            age: 22,
+            gender: "M",
+            tags: [],
+            summary: (_28 = summaries.get("Taihe")) !== null && _28 !== void 0 ? _28 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag.Kind, 3],
+            // [NpcPersonalityTag["Nature Lover"], 2],
+            // [NpcPersonalityTag.Accepting, 2],
+            // [NpcPersonalityTag.Jealous, 1],
+            // [NpcPersonalityTag.Modest, 1],
+            // [NpcPersonalityTag.Industrious, 1],
+            ])
+        });
+        new Character({
+            name: "Tomasa",
+            tokenName: "Tomasa",
+            campaign: 2,
+            arc: 1,
+            age: 27,
+            gender: "F",
+            tags: [],
+            summary: (_29 = summaries.get("Tomasa")) !== null && _29 !== void 0 ? _29 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag.Sanguine, 2],
+            // [NpcPersonalityTag.Accepting, 2],
+            // [NpcPersonalityTag.Gourmand, 1],
+            // [NpcPersonalityTag.Industrious, 1],
+            // [NpcPersonalityTag.Abrasive, 1],
+            ])
+        });
+        new Character({
+            name: "Verna",
+            tokenName: "Verna",
+            campaign: 2,
+            arc: 1,
+            age: 24,
+            gender: "F",
+            tags: [],
+            summary: (_30 = summaries.get("Verna")) !== null && _30 !== void 0 ? _30 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag.Confident, 2],
+            // [NpcPersonalityTag.Abrasive, 2],
+            // [NpcPersonalityTag.Stern, 2],
+            // [NpcPersonalityTag.Optimist, 1],
+            // [NpcPersonalityTag.Judging, 1],
+            ])
+        });
+        new Character({
+            name: "Vitacia",
+            tokenName: "Vitacia",
+            campaign: 2,
+            arc: 1,
+            age: 25,
+            gender: "F",
+            tags: [],
+            summary: (_31 = summaries.get("Vitacia")) !== null && _31 !== void 0 ? _31 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag["Nature Lover"], 2],
+            // [NpcPersonalityTag.Distant, 2],
+            // [NpcPersonalityTag.Nervous, 1],
+            // [NpcPersonalityTag.Recluse, 1],
+            // [NpcPersonalityTag.Lazy, 1],
+            // [NpcPersonalityTag.Vain, 1],
+            ])
+        });
+        new Character({
+            name: "Yuki",
+            tokenName: "Yuki",
+            campaign: 2,
+            arc: 1,
+            age: 27,
+            gender: "M",
+            tags: [
+            // "From | Ruin / Devotion",
+            // `Class | ${Card.verbose("Oathbreaker")} Paladin`,
+            // `CR | 10`
+            ],
+            summary: (_32 = summaries.get("Yuki")) !== null && _32 !== void 0 ? _32 : "???",
+            description: "",
+            personalityTags: new Map([
+            // [NpcPersonalityTag.Recluse, 2],
+            // [NpcPersonalityTag.Judging, 2],
+            // [NpcPersonalityTag.Distant, 2],
+            // [NpcPersonalityTag["Guilt-ridden"], 1],
+            // [NpcPersonalityTag.Kind, 1],
+            // [NpcPersonalityTag.Quiet, 1],
+            // [NpcPersonalityTag.Pessimist, 1],
+            // [NpcPersonalityTag["Night owl"], 1],
+            ]),
         });
     });
 })();
