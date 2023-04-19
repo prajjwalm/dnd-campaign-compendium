@@ -1720,6 +1720,17 @@ class Character extends Card
             ])
         });
         new Character({
+            name         : "Petra",
+            tokenName    : "Petra",
+            campaign     : 2,
+            arc          : 1,
+            age          : 84,
+            gender       : "F",
+            tags         : [],
+            summary      : summaries.get("Petra") ?? "???",
+            description  : ""
+        });
+        new Character({
             name         : "Roberta",
             tokenName    : "Roberta",
             campaign     : 2,

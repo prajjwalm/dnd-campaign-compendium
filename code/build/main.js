@@ -2102,7 +2102,7 @@ Character.$tokenSpace = null;
     there was one other - a single Honorspren who stood next to her, waiting, and had gone unnoticed by all...  
     `;
     $(() => {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31, _32;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31, _32, _33;
         Character.loadStaticElements();
         /************************* Campaign 1, Arc 1 **************************/
         new Character({
@@ -3002,6 +3002,17 @@ Character.$tokenSpace = null;
             ])
         });
         new Character({
+            name: "Petra",
+            tokenName: "Petra",
+            campaign: 2,
+            arc: 1,
+            age: 84,
+            gender: "F",
+            tags: [],
+            summary: (_25 = summaries.get("Petra")) !== null && _25 !== void 0 ? _25 : "???",
+            description: ""
+        });
+        new Character({
             name: "Roberta",
             tokenName: "Roberta",
             campaign: 2,
@@ -3009,7 +3020,7 @@ Character.$tokenSpace = null;
             age: 25,
             gender: "F",
             tags: [],
-            summary: (_25 = summaries.get("Roberta")) !== null && _25 !== void 0 ? _25 : "???",
+            summary: (_26 = summaries.get("Roberta")) !== null && _26 !== void 0 ? _26 : "???",
             description: ""
         });
         new Character({
@@ -3020,7 +3031,7 @@ Character.$tokenSpace = null;
             age: 13,
             gender: "M",
             tags: [],
-            summary: (_26 = summaries.get("Sasha")) !== null && _26 !== void 0 ? _26 : "???",
+            summary: (_27 = summaries.get("Sasha")) !== null && _27 !== void 0 ? _27 : "???",
             description: "",
         });
         new Character({
@@ -3031,7 +3042,7 @@ Character.$tokenSpace = null;
             age: 34,
             gender: "F",
             tags: [],
-            summary: (_27 = summaries.get("Sybilla")) !== null && _27 !== void 0 ? _27 : "???",
+            summary: (_28 = summaries.get("Sybilla")) !== null && _28 !== void 0 ? _28 : "???",
             description: "",
         });
         new Character({
@@ -3042,7 +3053,7 @@ Character.$tokenSpace = null;
             age: 22,
             gender: "M",
             tags: [],
-            summary: (_28 = summaries.get("Taihe")) !== null && _28 !== void 0 ? _28 : "???",
+            summary: (_29 = summaries.get("Taihe")) !== null && _29 !== void 0 ? _29 : "???",
             description: "",
             personalityTags: new Map([
             // [NpcPersonalityTag.Kind, 3],
@@ -3061,7 +3072,7 @@ Character.$tokenSpace = null;
             age: 27,
             gender: "F",
             tags: [],
-            summary: (_29 = summaries.get("Tomasa")) !== null && _29 !== void 0 ? _29 : "???",
+            summary: (_30 = summaries.get("Tomasa")) !== null && _30 !== void 0 ? _30 : "???",
             description: "",
             personalityTags: new Map([
             // [NpcPersonalityTag.Sanguine, 2],
@@ -3079,7 +3090,7 @@ Character.$tokenSpace = null;
             age: 24,
             gender: "F",
             tags: [],
-            summary: (_30 = summaries.get("Verna")) !== null && _30 !== void 0 ? _30 : "???",
+            summary: (_31 = summaries.get("Verna")) !== null && _31 !== void 0 ? _31 : "???",
             description: "",
             personalityTags: new Map([
             // [NpcPersonalityTag.Confident, 2],
@@ -3097,7 +3108,7 @@ Character.$tokenSpace = null;
             age: 25,
             gender: "F",
             tags: [],
-            summary: (_31 = summaries.get("Vitacia")) !== null && _31 !== void 0 ? _31 : "???",
+            summary: (_32 = summaries.get("Vitacia")) !== null && _32 !== void 0 ? _32 : "???",
             description: "",
             personalityTags: new Map([
             // [NpcPersonalityTag["Nature Lover"], 2],
@@ -3120,7 +3131,7 @@ Character.$tokenSpace = null;
             // `Class | ${Card.verbose("Oathbreaker")} Paladin`,
             // `CR | 10`
             ],
-            summary: (_32 = summaries.get("Yuki")) !== null && _32 !== void 0 ? _32 : "???",
+            summary: (_33 = summaries.get("Yuki")) !== null && _33 !== void 0 ? _33 : "???",
             description: "",
             personalityTags: new Map([
             // [NpcPersonalityTag.Recluse, 2],
