@@ -1,8 +1,12 @@
+import {waitForFinalEvent} from "../../common/common";
+
+
 /**
  * Defines an object that can be indexed. Hovering on it will display a snippet
  * in card style and clicking on it will navigate to some section of the page.
  */
-abstract class Card {
+export abstract class Card
+{
     private static Index: Map<string, Card> = new Map<string, Card>();
 
     private static $floatingCard: JQuery;
@@ -13,10 +17,11 @@ abstract class Card {
     private static viewportWidthInPx: number;
     private static viewportHeightInPx: number;
 
-    protected constructor() {
-    }
+    protected constructor()
+    { }
 
-    public static loadFromDOM(): void {
+    public static loadFromDOM(): void
+    {
         this.$floatingCard = $("#floating_card");
         this.$cardGraveyard = $("#card_graveyard");
         this.snapWindowDimensions();
@@ -29,31 +34,37 @@ abstract class Card {
         });
     }
 
-    public static verbose(s: string): string {
+    public static verbose(s: string): string
+    {
         return `<span class="verbose">${s}</span>`;
     }
 
-    public static link(indexKey: string, displayText: string): string {
+    public static link(indexKey: string, displayText: string): string
+    {
         return `<span class="card_link" data-index-key="${indexKey}">${displayText}</span>`
     }
 
-    public static snapWindowDimensions(): void {
+    public static snapWindowDimensions(): void
+    {
         const $window = $(window);
         this.viewportHeightInPx = $window.height();
         this.viewportWidthInPx = $window.width();
     }
 
-    public static revealFloatingCard(): void {
+    public static revealFloatingCard(): void
+    {
         this.$floatingCard.show();
         this.floatingCardWidth = this.$floatingCard.width();
         this.floatingCardHeight = this.$floatingCard.height();
     }
 
-    public static hideFloatingCard(): void {
+    public static hideFloatingCard(): void
+    {
         this.$floatingCard.hide();
     }
 
-    public static moveFloatingCard(x:number, y:number): void {
+    public static moveFloatingCard(x: number, y: number): void
+    {
 
         const postX: boolean = x + this.floatingCardWidth + 24 < this.viewportWidthInPx;
         const preX: boolean = x > this.floatingCardWidth + 24;
@@ -64,12 +75,12 @@ abstract class Card {
         if (postX) {
             if (postY) {
                 this.$floatingCard.css({
-                    top: y + 12,
+                    top : y + 12,
                     left: x + 12,
                 });
             } else if (preY) {
                 this.$floatingCard.css({
-                    top: y - 12 - this.floatingCardHeight,
+                    top : y - 12 - this.floatingCardHeight,
                     left: x + 12,
                 });
             } else {
@@ -78,12 +89,12 @@ abstract class Card {
         } else if (preX) {
             if (postY) {
                 this.$floatingCard.css({
-                    top: y + 12,
+                    top : y + 12,
                     left: x - 12 - this.floatingCardWidth,
                 });
             } else if (preY) {
                 this.$floatingCard.css({
-                    top: y - 12 - this.floatingCardHeight,
+                    top : y - 12 - this.floatingCardHeight,
                     left: x - 12 - this.floatingCardWidth,
                 });
             } else {
@@ -96,11 +107,13 @@ abstract class Card {
         }
     }
 
-    public static getIndexible(key: string): Card {
+    public static getIndexible(key: string): Card
+    {
         return this.Index.get(key);
     }
 
-    public showCardFullSize(): void {
+    public showCardFullSize(): void
+    {
         this.$centralView.children().hide();
 
         const cardIndex = this.indexKey;
@@ -114,7 +127,8 @@ abstract class Card {
         }
     }
 
-    public showCardFloating(): void {
+    public showCardFloating(): void
+    {
         Card.$floatingCard.children().hide();
 
         const cardIndex = this.indexKey;
@@ -129,11 +143,12 @@ abstract class Card {
         }
     }
 
-    protected registerSelf(): void {
+    protected registerSelf(): void
+    {
         Card.Index.set(this.indexKey, this);
     }
 
-    protected abstract generateCard(floating:boolean): JQuery;
+    protected abstract generateCard(floating: boolean): JQuery;
 
     protected abstract get indexKey(): string;
 
@@ -141,7 +156,8 @@ abstract class Card {
 }
 
 
-$(() => {
+export function setupCards()
+{
     Card.loadFromDOM();
 
     const $tokens = $("#tokens");
@@ -191,6 +207,4 @@ $(() => {
 
         indexible.showCardFullSize();
     });
-
-
-});
+}

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outFile": "../build/main.js",
+    "outDir": "../build/",
     "module": "commonjs",
     "target": "es6",
     "sourceMap": true,
