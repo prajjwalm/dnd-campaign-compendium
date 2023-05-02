@@ -1,19 +1,21 @@
-import {setupHistory}        from "./history";
-import {setupNav}            from "./common/common";
-import {setupCountries}      from "./data/country";
-import {setupCards}          from "./data/cards/card";
-import {setupCharacterCards} from "./data/cards/character";
+import {setupNav}               from "./common/common";
+import {setupCards}             from "./data/cards/card";
+import {setupCharacterCards}    from "./data/cards/character";
+import {setupCountries}         from "./data/country";
+import {setupHistory}           from "./history";
 
 // Test Suites.
-import {test as rollableTest} from "./homebrew/common/rollable";
+import {setupNpcOpinions, test as testNpcOpinion} from "./campaigns/npcOpinions";
+import {test as testRollable}                     from "./homebrew/common/rollable";
 
 $(() => {
+    testRollable();
+    testNpcOpinion();
+
     setupNav();
     setupCards();
-    setupCharacterCards()
+    setupCharacterCards();
     setupHistory();
     setupCountries();
-
-    // Run tests.
-    rollableTest()
+    setupNpcOpinions()
 });

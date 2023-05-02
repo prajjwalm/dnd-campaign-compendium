@@ -1,19 +1,66 @@
 import { Card } from "./card";
 
-interface CharacterArgs {
-    name: string;
-    indexName?: string;
-    campaign: number;
-    arc: number;
-    tokenName: string;
-    tags: string[];
-    summary: string;
-    description: string;
-    age: string | number;
-    altImagePaths?:  Map<string, string>;
-    personalityTags?:  Map<NpcPersonalityTag, number>;
-    tiesToOtherNpcs?: Map<string, string>
-    gender: "M" | "F" | "-";
+export enum NpcIndex {
+    ID_LUCIAN,
+    ID_EBENEZAR,
+    ID_CAELYNN,
+    ID_LESLEY,
+    ID_IRENE,
+    ID_LING,
+    ID_DAVE_RUHL,
+    ID_ULRICH,
+    ID_LIA,
+    ID_CONLEY,
+    ID_VAHARETH,
+    ID_G_ORDER,
+    ID_LOGOS,
+    ID_MOSTIMA,
+    ID_SHIMA_KEN,
+    ID_SHIMA_RIN,
+    ID_VERRADER,
+    ID_FIEST,
+    ID_MOUTHPIECE,
+    ID_SANGUINE_ARCH,
+    ID_DECROA_SAL,
+    ID_BAPHOMET,
+    ID_KJERA,
+    ID_G_DEFENSE,
+    ID_TRAITOR_OTHELLO,
+    ID_MANDY,
+    ID_GEN,
+    ID_MUMU,
+    ID_SHAMARE,
+    ID_AMAIA,
+    ID_LEMUEN,
+    ID_LEMUEL,
+    ID_EUGRUD,
+    ID_ANDOAIN,
+    ID_DUSK,
+    ID_DAWN,
+    ID_ANDRI,
+    ID_ATHLON,
+    ID_BJORN,
+    ID_CECELIA,
+    ID_COROTO,
+    ID_ELYSIUM,
+    ID_ERICA,
+    ID_GENEFE,
+    ID_HAV,
+    ID_HINA,
+    ID_INGRID,
+    ID_IONA,
+    ID_JAYE,
+    ID_JORDI,
+    ID_KASTOR,
+    ID_PETRA,
+    ID_ROBERTA,
+    ID_SASHA,
+    ID_SYBILLA,
+    ID_TAIHE,
+    ID_TOMASA,
+    ID_VERNA,
+    ID_VITACIA,
+    ID_YUKI,
 }
 
 enum NpcPersonalityTag {
@@ -80,20 +127,42 @@ enum NpcPersonalityTag {
     "Bibliophile",
 }
 
-class Character extends Card
+interface CharacterArgs {
+    name: string;
+    id: NpcIndex;
+    campaign: number;
+    arc: number;
+    tokenName: string;
+    tags: string[];
+    summary: string;
+    description: string;
+    age: string | number;
+    altImagePaths?:  Map<string, string>;
+    personalityTags?:  Map<NpcPersonalityTag, number>;
+    tiesToOtherNpcs?: Map<string, string>
+    gender: "M" | "F" | "-";
+}
+
+export class Character
+    extends Card
 {
+    // Shift to a collection class eventually? Also don't like how both this and
+    // parent class have the same static thing. Now that we're taking this code
+    // seriously, can we please clean this up?
+    public static readonly IndexById: Map<NpcIndex, Character> = new Map();
+
     private static $commonCentralView: JQuery = null;
     private static $tokenSpace: JQuery = null;
     public readonly $centralView: JQuery;
     public readonly indexKey: string;
     private readonly name: string;
-    private readonly indexName?: string;
-    private readonly imgPath: string;
+    public readonly id: NpcIndex;
+    public readonly imgPath: string;
     private readonly altImagePaths?: Map<string, string>;
     private readonly personalityTags?: Map<NpcPersonalityTag, number>;
     private readonly summary: string;
-    private readonly campaign: number;
-    private readonly arc: number;
+    public readonly campaign: number;
+    public readonly arc: number;
     private readonly description: string;
     private readonly tags: string[];
 
@@ -107,12 +176,11 @@ class Character extends Card
         }
 
         this.name = args.name;
-        this.indexName = args.indexName;
+        this.id = args.id;
         this.campaign = args.campaign;
         this.arc = args.arc;
         this.imgPath = `./assets/images/character_tokens/C${(args.campaign)}/Arc${(args.arc)}/${(args.tokenName)}.png`;
-
-        this.indexKey = this.indexName ? `[character|${this.indexName}]`:`[character|${this.name}]`;
+        this.indexKey = Character.getIndex(this.id);
 
         Character.$tokenSpace.find(`.token_space[data-campaign='${this.campaign}'][data-arc='${this.arc}']`).append($(`
             <img src=${this.imgPath} class="token" alt="[Img Not Found]" data-index-key="${this.indexKey}">
@@ -129,7 +197,18 @@ class Character extends Card
 
         this.$centralView = Character.$commonCentralView;
 
+        Character.IndexById.set(this.id, this);
         this.registerSelf();
+    }
+
+    private static getIndex(id: NpcIndex)
+    {
+        return `[character|${id}]`;
+    }
+
+    public static linkNpc(id: NpcIndex, displayText: string)
+    {
+        return Card.link(Character.getIndex(id), displayText);
     }
 
     public static loadStaticElements()
@@ -203,6 +282,11 @@ class Character extends Card
             </div>
         </div>`);
     }
+
+    public get isVillageNpc()
+    {
+        return (this.campaign == 2 && this.arc == 1) && (this.id != NpcIndex.ID_ANDOAIN);
+    }
 }
 
 
@@ -212,16 +296,16 @@ const summaries: Map<string, string> = new Map([
      the world from atop their bones... Seeing me as I am now, do you still want to hear my song? Do you still 
      dare... to stand before me?"<br/>
      Calamity of The Troupe - an unfinished masterpiece of their leader. Was once raised as their rising star in 
-     response to the threat that was ${Card.link("[character|Ebenezar]", "the Lich")}. But turned against them only 
+     response to the threat that was ${Character.linkNpc(NpcIndex.ID_EBENEZAR, "the Lich")}. But turned against them only 
      as he slaughtered all the troupe's senior members in one night and escaped into Materia - sealing his 
      memories and powers. He returned to the outer planes by accident and sought out the troupe when he did. 
-     Descended into insanity after killing ${Card.link("[character|Mouthpiece]", "The Mouthpiece")} and inheriting 
-     his curse. Following which he stealthily assassinated ${Card.link("[character|Othello]", "The Traitor")}, who was 
+     Descended into insanity after killing ${Character.linkNpc(NpcIndex.ID_MOUTHPIECE, "The Mouthpiece")} and inheriting 
+     his curse. Following which he stealthily assassinated ${Character.linkNpc(NpcIndex.ID_TRAITOR_OTHELLO, "The Traitor")}, who was 
      preoccupied in fighting 'Agents of the Fifth', thus freeing the Primordial nightmares.`],
     ["Ebenezar",
      `A human kid born in the the classical era. Accidentally entered a perpendicularity inside a 
      subterranean lake into the Gardens. Lived there for a few centuries and trained fanatically as a mage under his
-     then-girlfriend ${Card.link("[character|Lesley]", "Lesley")}'s tutelage and soon surpassed her. Became a Lich
+     then-girlfriend ${Character.linkNpc(NpcIndex.ID_LESLEY, "Lesley")}'s tutelage and soon surpassed her. Became a Lich
      and would often roam in shady alleys of Materia, appearing helpless - then feeding on the souls of any who 
      assaulted him. Stabilized the perpendicularity between the lake he once drowned in - making it his 'lair' - and 
      the Mistflame in the Gardens near Bunker#371. Went to the castle to 'fight death', but failed and died, his 
@@ -229,30 +313,30 @@ const summaries: Map<string, string> = new Map([
     ["Caelynn",
      `Born in the last years of the heroic age, fled into The Gardens due to an accidental encounter with the Fifth
       Nightmare. Being extremely gifted, she received guidance from various orders - often from Guardians themselves.
-      Was once close to ${Card.link("[character|Othello]", "The Traitor")}. Currently leads the people of the Garden
-      as the Guardian of Life. Now an ${Card.link("object", "Atium")} savant.`],
+      Was once close to ${Character.linkNpc(NpcIndex.ID_TRAITOR_OTHELLO, "The Traitor")}. Currently leads the people of the Garden
+      as the Guardian of Life. Now an Atium savant.`],
     ["Lesley",
      `A rich higher vampire mage with powerful time control powers. Came to The Gardens after a failed attempt to
-      kill ${Card.link("[character|Caelynn Nightbreeze]", "Caelynn")}. Now her best friend  / advisor. Detests her
+      kill ${Character.linkNpc(NpcIndex.ID_CAELYNN, "Caelynn")}. Now her best friend  / advisor. Detests her
        family and curbs her bloodlust. Was depressed until recently.`],
     ["Irene",
      `An air genasi who was a junior member of the inquisition of the gardens. All her bunker-mates were killed in 
-      an attack by The Troupe around 300 years ago, but the ${Card.link("[character|Kjera]", "Guardian of Magic")}
+      an attack by The Troupe around 300 years ago, but the ${Character.linkNpc(NpcIndex.ID_KJERA, "Guardian of Magic")}
       took pity on her and replaced them all with physically intractable and sentient illusions. Despite them being 
       near-perfect replicas, Irene eventually figured out their true nature, but being grateful for the concern, she 
-      kept the pretense of believing in them. Even so, ${Card.link("[character|Lesley]", "Lesley")} took a personal 
+      kept the pretense of believing in them. Even so, ${Character.linkNpc(NpcIndex.ID_LESLEY, "Lesley")} took a personal 
       interest in her and made sure to invite her every now and then to make sure she got to interact with real people.
       During the Hour of Loss, she displayed unexpected skill (leading others to suspect she had specifically been 
       trained for such situations), resolve, and fanaticism in fighting a deep-ocean aberration but went missing in
        the fight.`],
     ["Ling",
      `One of the fragments of an outer primordial. Moved into the Gardens long ago along with 
-     ${Card.link("[character|Kjera]", "Kjera")} and worked as a lighthouse keeper there so as to be best placed to
+     ${Character.linkNpc(NpcIndex.ID_KJERA, "Kjera")} and worked as a lighthouse keeper there so as to be best placed to
       respond to the revival of her 'parent' or any other outsiders. Was chosen to be the Guardian of Diplomacy after
       the inquisitors' betrayal. Agreed but went missing during the expedition inside the Castle of the Night 
       following Preservation's death and the Survivor's Ascension.`],
     ["Dave",
-     `A warforged automaton that was purchased by ${Card.link("[character|Caelynn Nightbreeze]", "Caelynn")}'s 
+     `A warforged automaton that was purchased by ${Character.linkNpc(NpcIndex.ID_CAELYNN, "Caelynn")}'s 
       batch-mates at a heavy price upon her graduation, to serve and protect her. His modules were heavily operated 
       upon by Lesley who practiced her coding skills on him. Failed to defend Caelynn at one point long ago, and 
       gave his life holding out against a deep-sea aberration to atone for it.`],
@@ -263,17 +347,17 @@ const summaries: Map<string, string> = new Map([
       Since then he's been honing his skills and is now regarded as one of the finest smiths in the multiverse.`],
     ["Lia",
      `An elven archer who roamed freely the Feywild until by cruel circumstance she fell prey to the second 
-      nightmare. Survived the encounter thanks to ${Card.link("[character|Caelynn Nightbreeze]", "Caelynn")}'s 
+      nightmare. Survived the encounter thanks to ${Character.linkNpc(NpcIndex.ID_CAELYNN, "Caelynn")}'s 
       intervention, who remained on the lookout for primordial incursions. Caelynn then offered her asylum with 
       herself promising to keep her safe from the primordial as far as possible, an offer she readily took. 
-      Rescued ${Card.link("[character|Ulrich]","Ulrich")} when he showed up a few centuries later and subsequently 
+      Rescued ${Character.linkNpc(NpcIndex.ID_ULRICH, "Ulrich")} when he showed up a few centuries later and subsequently 
       married him on his insistence. While not the ideal marriage, the two manage fine nowadays.`],
     ["Conley",
      `A fire genasi rebel who was given refuge by Preservation after he sacrificed his life to save the lives of 
       quite a few of his friends. Served as cook/housekeeper at Bunker#371 where he was everyone's favourite 
-      junior. Used to respect ${Card.link("[character|Ebenezar]", "Ben")} before he ditched them all.`],
+      junior. Used to respect ${Character.linkNpc(NpcIndex.ID_EBENEZAR, "Ben")} before he ditched them all.`],
     ["Vahareth",
-     `${Card.link("[character|Caelynn Nightbreeze]", "Caelynn")}'s predecessor as the Guardian of Life as well as a 
+     `${Character.linkNpc(NpcIndex.ID_CAELYNN, "Caelynn")}'s predecessor as the Guardian of Life as well as a 
       father figure to her. Scouted her out in Materia, then got her to the gardens and personally trained her. 
       Known and feared throughout all the outer planes for his unbreakable will and eyes that could delve into the 
       deepest nature of a person's soul with just a glance. 'Retired' after Leras' death.`],
@@ -282,7 +366,7 @@ const summaries: Map<string, string> = new Map([
       forceful arm-twisting kind, who always got his way. Unlike most others who took it easy in the garden, he spent
       his whole life scheming and ruthlessly executing ever-more-complex Machiavellian schemes. So complex that even
       his own loyalties were at times doubted, particularly when some links were found between him and
-      ${Card.link("[character|Othello]", "The Traitor")}. He was also a very strong warrior, rumoured to be a 
+      ${Character.linkNpc(NpcIndex.ID_TRAITOR_OTHELLO, "The Traitor")}. He was also a very strong warrior, rumoured to be a 
       radiant as well as have hemalurgic powers equivalent of Mistborn of old derived from an inordinate 
       number of spikes. A number equivalent to some of his seniormost counterparts within the castle itself, so many that 
       even Aluminium couldn't negate them in time. Committed suicide when Ruin attempted to assert his will via the
@@ -302,30 +386,30 @@ const summaries: Map<string, string> = new Map([
       suffer from psychosis or neurosis. Carries two staves that appear powerful and seem to be the manifestation of
        an ancient, or rather timeless, soul.`],
     ["Shimaken",
-     `An orphan in the Castle of the Night who was adopted and raised by ${Card.link("character", "Lemuen")} along 
-      with ${Card.link("[character|Rin Shima]", "his sister")}. Wasn't the
+     `An orphan in the Castle of the Night who was adopted and raised by ${Character.linkNpc(NpcIndex.ID_LEMUEN, "Lemuen")} along 
+      with ${Character.linkNpc(NpcIndex.ID_SHIMA_RIN, "his sister")}. Wasn't the
       best at fighting but maintained an unshakable, and contagious, aura of hope and optimism despite having seen 
       his fair share of atrocities and horrors. Organized a 'resistance' aimed at making leaving the castle possible.`],
     ["Shimarin",
-     `An orphan adopted and raised by ${Card.link("character", "Lemuen")} who taught her sniping. Took it up as a job after 
-      Lemuen got crippled. Worked in a team until ${Card.link("[character|Verrader]", "Verrader")} sold them out, 
+     `An orphan adopted and raised by ${Character.linkNpc(NpcIndex.ID_LEMUEN, "Lemuen")} who taught her sniping. Took it up as a job after 
+      Lemuen got crippled. Worked in a team until ${Character.linkNpc(NpcIndex.ID_VERRADER, "Verrader")} sold them out, 
       then worked solo. Was there, past midnight, when Ruin almost got complete - she made it back with 
-      ${Card.link("[character|Logos]", "The Playwright")}'s aid.`],
+      ${Character.linkNpc(NpcIndex.ID_LOGOS, "The Playwright")}'s aid.`],
     ["Verrader",
      `An influential fixer in Night Castle. Made it big thanks to his incredible charisma and deception skills. 
-      Gained ${Card.link("condition", "Nightblood")} in an accident - a result of his first betrayal - during his
+      Gained Nightblood in an accident - a result of his first betrayal - during his
       early years spent on the field in a forge which submerged his whole team, except 
-      ${Card.link("[character|Rin Shima]", "Shimarin")}, in magma. Died at the hands of the Steel Inquisitors, 
+      ${Character.linkNpc(NpcIndex.ID_SHIMA_RIN, "Shimarin")}, in magma. Died at the hands of the Steel Inquisitors, 
       his soul burnt to power Rin's hemalurgy.`],
     ["Fiest",
-     `While he rarely stepped on to the field himself, ${Card.link("[character|Ken Shima]", "Shimaken")} and the 
+     `While he rarely stepped on to the field himself, ${Character.linkNpc(NpcIndex.ID_SHIMA_KEN, "Shimaken")} and the 
       others owed a lot to his technical genius. Since he rarely even left the confines of his lab, his life was
-      rather sheltered and happy. ${Card.link("character", "Lemuen")}'s boyfriend before she died.`],
+      rather sheltered and happy. ${Character.linkNpc(NpcIndex.ID_LEMUEN, "Lemuen")}'s boyfriend before she died.`],
     ["Mouthpiece",
      `Was somehow related to the Witch King of lore. The most loyal member of the troupe, he took it upon himself
       to be the host/announcer of the Troupe's 'shows'. Responsible for their most grotesque creations which often 
-      were looked down upon by ${Card.link("[character|Logos]", "The Playwright")} as being crude and tasteless. 
-      Was killed by a group of adventurers and ${Card.link("[Character|Lucian]", "Solitare")} but he had already 
+      were looked down upon by ${Character.linkNpc(NpcIndex.ID_LOGOS, "The Playwright")} as being crude and tasteless. 
+      Was killed by a group of adventurers and ${Character.linkNpc(NpcIndex.ID_LUCIAN, "Solitare")} but he had already 
       accomplished what his master needed...`],
     ["SanguineArch",
      `Little is known (so far) about the first, and primordial, vampire and the de facto Lord of the entire dimension
@@ -335,8 +419,8 @@ const summaries: Map<string, string> = new Map([
      `A higher vampire who had been captured by the Troupe Long ago and used both as a trap against unwanted 
       intruders and for their 'plays' and research. Prolonged torture and withdrawal symptoms had made her a little 
       unhinged, and <i>very</i> thristy. Was finally freed by a group of adventurers and thereafter protected by 
-      ${Card.link("[character|The SanguineArch]", "The SanguineArch")} until she could escape the 
-      castle. Revealed herself to be a childhood friend of ${Card.link("[character|Lesley]", "Lesley")}'s.`],
+      ${Character.linkNpc(NpcIndex.ID_SANGUINE_ARCH, "The SanguineArch")} until she could escape the 
+      castle. Revealed herself to be a childhood friend of ${Character.linkNpc(NpcIndex.ID_LESLEY, "Lesley")}'s.`],
     ["Baphomet",
      `The Demon Lord in command of the 'lowest level' of the Castle who often was summoned to other realms to fight
       on the front lines, and so had inherited the traits of lesser demons - namely ferocity in battle without regard
@@ -351,60 +435,59 @@ const summaries: Map<string, string> = new Map([
     ["Othello",
      `Once the apprentice guardian of defense, he betrayed the people in Preservation to kill everyone in the bunker
       with the help of the troupe and escaped into the castle. The only person, other than himself, who would've 
-      known all the details was ${Card.link("[character|GOrder]", "The Guardian of Order")} before he passed away.
+      known all the details was ${Character.linkNpc(NpcIndex.ID_G_ORDER, "The Guardian of Order")} before he passed away.
       <br/>
       By the time he was found again by a group of adventurers, he was imprisoned by the troupe next to a rather 
       large explosive, and had completely lost his mind - as he kept babbling some gibberish. As they were escaping
       with him, however, the mists touched him causing him to fully become himself again. Unfortunately, this was but
-      for a moment since soon after he was assassinated by ${Card.link("[Character|Lucian]", "Solitaire")}.`],
+      for a moment since soon after he was assassinated by ${Character.linkNpc(NpcIndex.ID_LUCIAN, "Solitaire")}.`],
     ["Mandy",
      `A criminal and gang/cult leader, she was well known and feared throughout the lower levels of the castle for 
       being a very advanced case of nightblood. It gave her powers to manipulate stone, something which also made 
       her near impossible to kill, while completely sapping her of human emotions like empathy, making her a 
       psychopathic killing machine. Seemed to be researching some clues regarding the plane of the earth a 
-      ${Card.link("[character|Ebenezar]", "particularly adept spellcaster")} had left behind but was thwarted by a 
-      group of adventurers who handed her research to ${Card.link("[character|Verrader]", "Verrader")}.`],
+      ${Character.linkNpc(NpcIndex.ID_EBENEZAR, "particularly adept spellcaster")} had left behind but was thwarted by a 
+      group of adventurers who handed her research to ${Character.linkNpc(NpcIndex.ID_VERRADER, "Verrader")}.`],
     ["Gen",
-     `Little is known (so far) of ${Card.link("[character|Mandragora]", "Mandragora")}'s brother except that he was
+     `Little is known (so far) of ${Character.linkNpc(NpcIndex.ID_MANDY, "Mandragora")}'s brother except that he was
       a regular studious boy in Terra Prima until he was kidnapped by a 
-      ${Card.link("[character|Mostima]", "bored wandering spacetime-traveller")} and brought into the Castle of 
+      ${Character.linkNpc(NpcIndex.ID_MOSTIMA, "bored wandering spacetime-traveller")} and brought into the Castle of 
       Death to be used as a bargaining chip by a group of adventurers, since he was supposedly the only family, and 
       only weakness of his sister.`],
     ["Muelsyse",
      `A well known research specialist from Innovation who specialized in nanomachines and fluid automation. Had 
       come to the castle of Ruin for reasons unknown and there happened to meet, and protect from imminent 
-      destruction, ${Card.link("[character|Fiest]","one of the fans of her research")} and also helped out his group of adventurer 
+      destruction, ${Character.linkNpc(NpcIndex.ID_FIEST, "one of the fans of her research")} and also helped out his group of adventurer 
       friends. However, being in a rush they couldn't really get to know her better then.`],
     ["Shamare",
      `A child who'd been forced into a harsher life someone of her age deserved, the death of her sister caused her
       to inherit her nightblood and learn of her 'arts'. These 'arts' involved weaving the souls of people, and 
       others, into inanimate objects - twisting their identity and spiritual energy to perform certain tasks. The
       first soul she weaved was that of her own sister's, who had been shot - as she was trying to go incognito - by 
-      ${Card.link("[character|Rin Shima]", "a sniper")} at the behest of her 
-      ${Card.link("[character|Mouthpiece]", "last employer")} after she had completed a certain contract supposedly
+      ${Character.linkNpc(NpcIndex.ID_SHIMA_RIN, "a sniper")} at the behest of her 
+      ${Character.linkNpc(NpcIndex.ID_MOUTHPIECE, "last employer")} after she had completed a certain contract supposedly
       involving a lock. Shamare finally gave up her quest for vengeance when she realized she was being manipulated 
       and at the behest of a very persuasive barbarian.`],
     ["Lemuen",
-     `${Card.link("[character|Mostima]", "Mostima")}'s half-sister and ${Card.link("[character|Rin Shima]", "Rin")}'s
+     `${Character.linkNpc(NpcIndex.ID_MOSTIMA, "Mostima")}'s half-sister and ${Character.linkNpc(NpcIndex.ID_SHIMA_RIN, "Rin")}'s
       teacher - she was reputed to be a sniper without compare. While her life had a great deal of ups and downs,
       very few individuals would know her full life story - probably only Mostima. And yet, one adventurer did begin
       to bond with a part of her left behind after she died, inheriting her skills and small pieces of her memories.`],
     ["Eugrud",
-     `An orc who served as bodyguard to ${Card.link("[character|Verrader]", "Verrader")} and probably shared one 
+     `An orc who served as bodyguard to ${Character.linkNpc(NpcIndex.ID_VERRADER, "Verrader")} and probably shared one 
       braincell with his co-bodyguard, the bugbear gunslinger Roth (and probably received the smaller half of that 
       braincell). While he liked to boast and think he'd seen everything the castle had to offer while working 
-      under Verrader, only after his death - after failed attempts to assassinate ${Card.link("[character|Rin Shima]", "Shimarin")}
-      and then ${Card.link("[character|Ken Shima]", "Shimaken")} did he realize just how insignificant his life so far had been...`],
+      under Verrader, only after his death - after failed attempts to assassinate ${Character.linkNpc(NpcIndex.ID_SHIMA_RIN, "Shimarin")}
+      and then ${Character.linkNpc(NpcIndex.ID_SHIMA_KEN, "Shimaken")} did he realize just how insignificant his life so far had been...`],
     ["Andoain",
      `An aasimar with a halo and glowing wings like reflected glass who mysteriously appeared in Veteres in around 
       1580 AR. Seemed to be supernaturally gifted in the use of firearms and preferred them to swords. Known by all 
       to be an extremely generous and kind soul, but seemed to be haunted by demons of his own, and was always 
       begging God for forgiveness. Was randomly assaulted by a 
-      ${Card.link("[character|Mostima]", "mysterious half-blood fallen aasimar")} while peacefully exploring the
+      ${Character.linkNpc(NpcIndex.ID_MOSTIMA, "mysterious half-blood fallen aasimar")} while peacefully exploring the
       coast of Aegir.<br/>[INCOMPLETE]`],
     ["", ``],
 ])
-
 
 const caelynnDesc = `
 <h5>Early life</h5>
@@ -425,14 +508,14 @@ different universe - a garden - and went by the title of 'Guardian of Life' ther
 When she entered the garden, she was a different person. Fate had broken her, but she had stood up again and filled 
 the cracks with something stronger. Gone was the childish optimism, the vanity. It was replaced by singular purpose -
 to ensure that none would suffer at the hands of those from without as she did. To ensure that she could, would 
-protect as she had been protected by ${Card.link("[character|Vahareth]", "Vahareth")}. Before long, she was 
+protect as she had been protected by ${Character.linkNpc(NpcIndex.ID_VAHARETH, "Vahareth")}. Before long, she was 
 regarded as a prodigy there too - with the different orders of Watchers, Inquisitors and Scholars training her and 
 vying for her to join them. Yet there was little surprise when she chose to join the Watchers - after all she was
 virtually Vahareth's daughter - lived in his bunker, trained under him personally, and had the same cold steel gaze
 that could unnerve the most confident of men.<br/>
 Being so close to power and being the center of attention of so many orders meant that she met a fair share of 
 important people from different orders. One among them was the apprentice of the Guardian of Defense, 
-${Card.link("[character|Othello]", "Othello Titanborn")}. The gardens, because of their extremely low but <i>very</i>
+${Character.linkNpc(NpcIndex.ID_TRAITOR_OTHELLO, "Othello Titanborn")}. The gardens, because of their extremely low but <i>very</i>
 highly skilled population, would typically send out squads of two people for most operations - and Caelynn and 
 Othello were often together because of their complementary skills but aligning personalities. The two began courting
 and were a happy couple for quite a few decades. However, that was not to last, and the forces that had broken 
@@ -456,23 +539,23 @@ when finally the vampire resisted against the spiral, resisted against instincts
 more primal than she had ever faced.<br/>
 That moment had moved her to a degree much more than she could anticipate. Buried regrets deep inside came out at 
 last, and so she, for the first time after Othello, reached out to someone. And so she returned to the Gardens with
-${Card.link("[character|Lesley]", "Lesley")} in tow. The two soon grew very close, also starting to work together on
+${Character.linkNpc(NpcIndex.ID_LESLEY, "Lesley")} in tow. The two soon grew very close, also starting to work together on
 operations. A few decades later, as her date of graduation from field service arrived, her collegues gifted her an
-${Card.link("[character|Dave]", "automaton")} to help defend her in close range. And so the three of them started 
+${Character.linkNpc(NpcIndex.ID_DAVE_RUHL, "automaton")} to help defend her in close range. And so the three of them started 
 Bunker#371, and remained its sole members for one and a half millenia. Until finally Caelynn was there for someone
-the way Vahareth had been for her - an elven girl, ${Card.link("[character|Lia Mistcloak]", "Lia Mistcloak")}, who
-was 'taken' by ${Card.link("[aberration|]", "The Second")}. A few centuries after, Lia was to get married and
-${Card.link("[character|Ulrich Mistcloak]", "her husband")} too moved in. Again after a few centruries Lesley decided
-to 'adopt' ${Card.link("[character|Ebenezar]", "a human boy")} whose soul seemed burdened in the same way that hers and 
+the way Vahareth had been for her - an elven girl, ${Character.linkNpc(NpcIndex.ID_LIA, "Lia Mistcloak")}, who
+was 'taken' by the second. A few centuries after, Lia was to get married and
+${Character.linkNpc(NpcIndex.ID_ULRICH, "her husband")} too moved in. Again after a few centruries Lesley decided
+to 'adopt' ${Character.linkNpc(NpcIndex.ID_EBENEZAR, "a human boy")} whose soul seemed burdened in the same way that hers and 
 Caelynn's once had. As Caelynn approved, it finally struck her that her lone wolf days were a thing of the long 
 past - and once again she felt warmth in the company of others. It was when this happened that Vahareth finally 
 decided to name her his apprentice formally, meant to succeed him as guardian. Since then there were a few ups and 
-downs - like ${Card.link("[character|Conley]", "Conley")} joining and Ebenezar abandoning Lesley - an act of remarkable
+downs - like ${Character.linkNpc(NpcIndex.ID_CONLEY, "Conley")} joining and Ebenezar abandoning Lesley - an act of remarkable
 parallel with the way Othello once had her, but with each other for support, they weathered all that came.
 <h5>The hour of Loss</h5>
 A few days before the hour of loss, Caelynn got notified of a threat that required at least the attention of a 
 Guardian apprentice. On arriving the scene, she found a group of adventurers, of whom 
-${Card.link("[Character|Lucian]", "all but one")} were peacefully slumbering around a mistflame. The one not 
+${Character.linkNpc(NpcIndex.ID_LUCIAN, "all but one")} were peacefully slumbering around a mistflame. The one not 
 slumbering seemed to be raving, and on his neck, she could see a Nightblood inhibitor. She knew what that meant -
 and the people who could venture outside the castle were typically very dangerous - the 
 only ones she'd heard of were members of the troupe, steel inquisitors or the demon lords. The mist clung to him, so 
@@ -499,15 +582,15 @@ feat that required a great deal of magical power and skill. While she did wonder
 them, this was not the time. The intel they provided strongly suggested that the cause of the rift was somewhere 
 within Ruin's domain. And so all the Guardians set out to deal with it.<br/>          
 Unfortunately, they were too late - by the time they had taken control, and crossed the midnight boundary to find 
-themselves face to face with ${Card.link("[character|Logos]", "The Playwright")} and 
-${Card.link("[character|The SanguineArch]", "The SanguineArch")}, the primoridal nightmares were already free. 
+themselves face to face with ${Character.linkNpc(NpcIndex.ID_LOGOS, "The Playwright")} and 
+${Character.linkNpc(NpcIndex.ID_SANGUINE_ARCH, "The SanguineArch")}, the primoridal nightmares were already free. 
 Thankfully, all of them being in one place meant that a greater disaster was prevented. Even with all his inquisitors,
 Ruin could not take on the five of them together. That meant he couldn't get the Atium, couldn't complete himself and
 was evenly matched against the new Preservation, 'The Survivor'. But leaving the Atium stash intact was too much of a
 risk, so they offered the adventurers to burn it all if they would like to, an honour for helping protect the entire 
 multiverse from utter and imminent destruction. However, the adventures refused as they felt the Guardians were 
 better suited for the power. They just wanted to have peace and quiet and leave the castle behind finally.<br/>
-However, that was not to be. For one of them had been marked by ${Card.link("[aberration|]", "The Second")}, and the
+However, that was not to be. For one of them had been marked by The second, and the
 Playwright's powers had bound their souls in their skirmish. And so, she once again lost a group of good people, 
 people important to her, people who'd given her hope. There were already plans of war in motion. Of vengence, of
 survival. Until now, they had tried to play nice, it had resulted in the death of friends, in the death of God. 
@@ -564,7 +647,7 @@ most. And so, instead of fleeing and disappearing like the noblewoman advised, s
 drawing an angry glare from her more than once. As time passed, she learnt to function, to curtail her bloodlust 
 and just... function. Gradually, her time spent with Nohadon turned 
 considerably more honest, pure and, strangely, fun. The noblewoman too, Lesley learnt her true name was 
-${Card.link("[character|Caelynn Nightbreeze]", "Caelynn")}, began to warm up to her. Her nightmare was again turning 
+${Character.linkNpc(NpcIndex.ID_CAELYNN, "Caelynn")}, began to warm up to her. Her nightmare was again turning 
 into a dream... until her brother came.<br/>
 Everything shattered, utterly broken and traumatized by what proceeded, that very night Lesley assaulted Nohadon and fed
 on his lifeblood. As her suppressed addiction returned with a vengeance, she sucked out more and more - further than 
@@ -578,14 +661,14 @@ Until a single word forced the life back into him, a single word from Caelynn, m
 whole life. A word that carried mana considerably stronger than she could ever summon. That was when Caelynn told her 
 everything - including about the place where even <i>her</i> family could never reach her again, a place where a group of 
 eight could well take on a higher vampire, a place where the leaders were evenly matched against 
-${Card.link("[character|The SanguineArch]", "The SanguineArch")} themself...
+${Character.linkNpc(NpcIndex.ID_SANGUINE_ARCH, "The SanguineArch")} themself...
 <h5>Ebenezar</h5>  
 Lesley's time in Bunker#371 was satisfying, not entirely perfect - but as happy as a penance could be. Happier than 
 she felt she deserved anyway. And while the blacksmith and his wife pissed her off, subtly reminding her of her 
-family, Caelynn was a pure pleasure. Plus even ${Card.link("[character|Irene]", "an inquisitor")}, who had been 
+family, Caelynn was a pure pleasure. Plus even ${Character.linkNpc(NpcIndex.ID_IRENE, "an inquisitor")}, who had been 
 so adamant that Lesley was a criminal, that there was something off about her - until Lesley had revealed
 her heritage, was becoming a great friend. And so she was sure she wasn't lacking in any way - until she met 
-${Card.link("[character|Ebenezar]", "Ben")}. A human 
+${Character.linkNpc(NpcIndex.ID_EBENEZAR, "Ben")}. A human 
 boy who'd stumbled into a perpendicularity by accident (well he'd drowned in there), the teenager was solemn far beyond 
 his age. And his eyes seemed so <i>tired</i>, eyes that had seen way too much. Seeing a boy that dead inside reminded 
 Lesley of times long past, times before she'd tasted human blood, times when she still looked up to her brother... 
@@ -627,7 +710,7 @@ others always kept encouraging her that he would return - he had learnt magic st
 drink, and drink (becoming the reason for Caelynn to appear even paler than her natural complexion).
 <h5>Forgiveness</h5>
 The first break from her relapse into darkness was when people said a 
-${Card.link("[character|Mostima]", "mysterious girl with temporal control")} had shown up and wanted to be her ward.
+${Character.linkNpc(NpcIndex.ID_MOSTIMA, "mysterious girl with temporal control")} had shown up and wanted to be her ward.
 Though she was in no mood to, Caelynn forced her to take her as a student, something Lesley thanked her for later.
 But the final reprieve came when, a few decades later, Caelynn brought home a group of guests - one of them an aasimar paladin,
 of an oath high enough to be a full knight radiant. From the first day, he could feel something was off in the 
@@ -656,7 +739,7 @@ const shimaRinDesc = `
 <h5>Early Life and Capture</h5>
 It is hardly unusual for a child to lose their parents at a very young age in the Castle of the Night, and so when her
 parents went missing, eight-year-old Rin found a plenitude of odd jobs, not all very ethical, to support herself and 
-her four-year-old brother ${Card.link("[character|Ken Shima]", "Ken")}. Not all her employers were the most scrupulous,
+her four-year-old brother ${Character.linkNpc(NpcIndex.ID_SHIMA_KEN, "Ken")}. Not all her employers were the most scrupulous,
 however - and on one occasion, now 14 yrs of age, she found herself in the service of a sadistic, hateful and dangerous
 (at least, so it seemed to her then) thug. For his amusement, he forced her to suffer from a round of 'Russian 
 Roulette', and experience that deeply terrified and traumatized her. He then told her that he'd found the trail of a 
@@ -667,11 +750,11 @@ perhaps fortunately, she was woefully under-prepared - while she was quite adept
 important fact, all 'Saints' were bonded to their firearms. The minute she touched the gun, her target knew. Alarms 
 went off everywhere, and she was surrounded in moments. As she was being apprehended, she couldn't help but notice 
 how all of them were aasimar who looked noble-to-a-fault and had halos and wings hovering around them that appeared
-like light reflected on a crystalline surface. ${Card.link("[character|Mostima]", "One of them")} however, also
+like light reflected on a crystalline surface. ${Character.linkNpc(NpcIndex.ID_MOSTIMA, "One of them")} however, also
 seemed to have the black horns and tails of a fiend. She seemed a lot less noble, and so to Rin a lot more unnerving,
 more like a street thug she was used to instead of a divine being like the others.<br/>
 When her blindfolds were removed, she found herself in a cell. Sitting next to her, with her gun on her lap, was the
-${Card.link("[character|Lemuen]", "famed sniper")} she'd heard so much off. Her kindly - almost jovial - demeanour
+${Character.linkNpc(NpcIndex.ID_LEMUEN, "famed sniper")} she'd heard so much off. Her kindly - almost jovial - demeanour
 completely shocked Rin. She seemed not a bit mad, merely amused and curious. The stark contrast between her target,
 supposedly her enemy, and her employer cracked something deep inside of her. She completely broke down, after half a 
 decade of keeping it together while living through hell, she - in the midst of hyperventilation and sobbing - unloaded
@@ -682,7 +765,7 @@ with them for now. Lemuen herself would train Rin to make her strong enough to g
 gratefully agreed, though she was sure she hadn't been offered a choice (which made her more happy than 
 it should have).<br/>
 Lemuen said the ones coming with her would be her half-sister and 
-${Card.link("[character|Fiest]", "her boyfriend")} - a human guy they'd met here who 
+${Character.linkNpc(NpcIndex.ID_FIEST, "her boyfriend")} - a human guy they'd met here who 
 used to work on making and maintaining their firearms and other equipment. Also, it turned out the 'half-sister' was
 none other than the half-fiend Rin had noticed earlier. Her earlier assessment was spot on, she was way rougher than
 Lemuen - at least superficially. Though with Lemuen, Mostima too completely let down her guard and was cheerful and
@@ -752,7 +835,7 @@ with threats and obstacles there while her brother sought the light.
 The years that followed did see life change for them all. Lemuen who'd been paralyzed below her waist was recovering 
 under the patient care of Fiest and continued to train Shimarin in the art of sniping. Shimarin chose to become part
 of a crew to persue bigger contracts, however that ended when 
-${Card.link("[character|Verrader]", "one member of the crew")} betrayed the others for personal gain,
+${Character.linkNpc(NpcIndex.ID_VERRADER, "one member of the crew")} betrayed the others for personal gain,
 only to find he himself had been deluded by their 'fixer' - what resulted, therefore, was all of them drowing in 
 magma, except Shimarin, who was covering them from a distance. Of the rest of the crew, only the traitor survived, 
 gaining nightblood at exactly that point. This was something Shimarin learnt much later though, however she never 
@@ -765,7 +848,7 @@ could feel something was off, the death 'felt' unlike the others she'd seen. A f
 death, they were joined by a tiefling, who remained in hiding from the demons in the castle. The kindest person 
 they'd ever met, he had taken a liking to her, despite herself. As life looked a bit better, in the years to come, 
 she took many high profile contracts - and didn't ask questions. Some even came from almost mythic figures - like
-once when the troupe ${Card.link("[character|Mouthpiece]", "Mouthpiece")} himself asked her to kill a certain Vulpine soul weaver. <br/>   
+once when the troupe ${Character.linkNpc(NpcIndex.ID_MOUTHPIECE, "Mouthpiece")} himself asked her to kill a certain Vulpine soul weaver. <br/>   
 In all her missions
 she always followed one unsaid rule - after killing the target, she could also kill any one person near them of her 
 choice. That prevented her from being a mere pawn, a mere tool - and drove away a lot of petty schemers from her who
@@ -789,16 +872,16 @@ had delivered it this time - that she was to assassinate the executioner. But th
 - the same group of adventurers (she'd helped them earlier that day), had taken it upon themselves to resuce the guy.
 She was excited, and for once in a very long time dared to hope as she covered them as they escaped. Sadly, the 
 castle was not a place where hope can live, and with a deep horror, she realized that the party was cornered - and 
-by none other than ${Card.link("[character|Baphomet]", "Baphomet")} himself. There was no way out of this, and so she did what she had planned before, and
+by none other than ${Character.linkNpc(NpcIndex.ID_BAPHOMET, "Baphomet")} himself. There was no way out of this, and so she did what she had planned before, and
 put a bullet into her friend. Something which, by the tears in his eyes, he knew was coming.<br/>
 After that, she decided to bite back at the troupe by taking out their most valuable piece, someone she knew they 
-had big plans for - ${Card.link("[character|Lucian]", "The Solitaire")}. Things didn't go as planned however,
+had big plans for - ${Character.linkNpc(NpcIndex.ID_LUCIAN, "The Solitaire")}. Things didn't go as planned however,
 and instead she ended up in the fortress of the inquisitors, gaining an Atium spike and a Steel spike powered by 
 Verrader's soul followed by heading right past midnight into a showdown that involved more myths and legends than 
 she could even dream of - all the Guardians with Preservation himself in the mists, eight senior inquisitors moved
 by Ruin himself (who was also moving her - despite her best efforts), 
-${Card.link("[character|Logos]", "The Playwright")} and the Mouthpiece and lastly 
-${Card.link("[character|The SanguineArch]", "The SanguineArch")} along with two other higher vampires. Finally, 
+${Character.linkNpc(NpcIndex.ID_LOGOS, "The Playwright")} and the Mouthpiece and lastly 
+${Character.linkNpc(NpcIndex.ID_SANGUINE_ARCH, "The SanguineArch")} along with two other higher vampires. Finally, 
 there was one other - a single Honorspren who stood next to her, waiting, and had gone unnoticed by all...  
 `;
 
@@ -809,6 +892,7 @@ export function setupCharacterCards() {
     /************************* Campaign 1, Arc 1 **************************/
 
     new Character({
+        id           : NpcIndex.ID_LUCIAN,
         name         : "Lucian",
         tokenName    : "lucian_norm",
         arc          : 1,
@@ -833,6 +917,7 @@ export function setupCharacterCards() {
         ]),
     });
     new Character({
+        id           : NpcIndex.ID_EBENEZAR,
         name         : "Ebenezar",
         tokenName    : "ebenezar",
         campaign     : 1,
@@ -850,6 +935,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_CAELYNN,
         name         : "Caelynn Nightbreeze",
         tokenName    : "caelynn",
         arc          : 1,
@@ -879,14 +965,14 @@ export function setupCharacterCards() {
         ]),
     });
     new Character({
-        name         : "Lesley Aeternus",
-        indexName    : "Lesley",
-        tokenName    : "lesley",
-        campaign     : 1,
-        arc          : 1,
-        age          : 2860,
-        gender       : "F",
-        tags         : ['From | Shadowfell / Materia / Preservation',
+        name     : "Lesley Aeternus",
+        id       : NpcIndex.ID_LESLEY,
+        tokenName: "lesley",
+        campaign : 1,
+        arc      : 1,
+        age      : 2860,
+        gender   : "F",
+        tags     : ['From | Shadowfell / Materia / Preservation',
                         'Allegiance | Preservation',
                         'Race | Higher Vampire',
                         `Time Command`,
@@ -907,6 +993,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_IRENE,
         name         : "Irene",
         tokenName    : "irene",
         campaign     : 1,
@@ -925,6 +1012,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_LING,
         name         : "Ling",
         tokenName    : "ling_garden",
         campaign     : 1,
@@ -946,14 +1034,14 @@ export function setupCharacterCards() {
         ]),
     });
     new Character({
-        name         : "Dave Ruhl",
-        indexName    : "Dave",
-        tokenName    : "dave",
-        campaign     : 1,
-        arc          : 1,
-        age          : 2500,
-        gender       : "M",
-        tags         : ['From | Innovation / Preservation',
+        name     : "Dave Ruhl",
+        id       : NpcIndex.ID_DAVE_RUHL,
+        tokenName: "dave",
+        campaign : 1,
+        arc      : 1,
+        age      : 2500,
+        gender   : "M",
+        tags     : ['From | Innovation / Preservation',
                         'Race | Warforged',
                         `Class | ${Card.verbose("Samurai")} Fighter`,
                         `Defender`,
@@ -963,14 +1051,14 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
-        name         : "Ulrich Mistcloak",
-        indexName    : "Ulrich",
-        tokenName    : "ulrich",
-        campaign     : 1,
-        arc          : 1,
-        age          : 1020,
-        gender       : "M",
-        tags         : ['From | Materia / Preservation',
+        name     : "Ulrich Mistcloak",
+        id       : NpcIndex.ID_ULRICH,
+        tokenName: "ulrich",
+        campaign : 1,
+        arc      : 1,
+        age      : 1020,
+        gender   : "M",
+        tags     : ['From | Materia / Preservation',
                         'Race | Human',
                         `Class | ${Card.verbose("Forge")} Cleric`,
                         `Scholar`,
@@ -979,14 +1067,14 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
-        name         : "Lia Mistcloak",
-        indexName    : "Lia",
-        tokenName    : "lia",
-        campaign     : 1,
-        arc          : 1,
-        age          : 1280,
-        gender       : "F",
-        tags         : ['From | Feywild / Preservation',
+        name     : "Lia Mistcloak",
+        id       : NpcIndex.ID_LIA,
+        tokenName: "lia",
+        campaign : 1,
+        arc      : 1,
+        age      : 1280,
+        gender   : "F",
+        tags     : ['From | Feywild / Preservation',
                         'Allegiance | Preservation',
                         'Race | Elf',
                         `Class | ${Card.verbose("Samurai")} Fighter`,
@@ -996,6 +1084,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_CONLEY,
         name         : "Conley",
         tokenName    : "conley",
         campaign     : 1,
@@ -1011,14 +1100,14 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
-        name         : "Vahareth Tsav Anat",
-        indexName    : "Vahareth",
-        tokenName    : "g_life",
-        campaign     : 1,
-        arc          : 1,
-        age          : "50K+",
-        gender       : "M",
-        tags         : ['From | Materia / Preservation',
+        name     : "Vahareth Tsav Anat",
+        id       : NpcIndex.ID_VAHARETH,
+        tokenName: "g_life",
+        campaign : 1,
+        arc      : 1,
+        age      : "50K+",
+        gender   : "M",
+        tags     : ['From | Materia / Preservation',
                         'Allegiance | Preservation',
                         'Race | Kalashtar',
                         `Class | Druid`,
@@ -1030,14 +1119,14 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
-        name         : "The Guardian of Order",
-        indexName    : "GOrder",
-        tokenName    : "g_order",
-        campaign     : 1,
-        arc          : 1,
-        age          : "50K+",
-        gender       : "M",
-        tags         : ['From | Shadowfell / Preservation',
+        name     : "The Guardian of Order",
+        id       : NpcIndex.ID_G_ORDER,
+        tokenName: "g_order",
+        campaign : 1,
+        arc      : 1,
+        age      : "50K+",
+        gender   : "M",
+        tags     : ['From | Shadowfell / Preservation',
                         'Allegiance | Preservation',
                         'Race | Shadar-Kai',
                         `Class | ${Card.verbose("Hexblade")} Warlock`,
@@ -1053,14 +1142,14 @@ export function setupCharacterCards() {
     /************************* Campaign 1, Arc 2 **************************/
 
     new Character({
-        name         : "The Playwright",
-        indexName    : "Logos",
-        tokenName    : "logos_normal",
-        campaign     : 1,
-        arc          : 2,
-        age          : "50K+",
-        gender       : "M",
-        tags         : ['From | Ruin',
+        name     : "The Playwright",
+        id       : NpcIndex.ID_LOGOS,
+        tokenName: "logos_normal",
+        campaign : 1,
+        arc      : 2,
+        age      : "50K+",
+        gender   : "M",
+        tags     : ['From | Ruin',
                         'Race | Banshee (Demon)',
                         'Greater Demon Lord',
                         'Domain | 01:40 to 01:56',
@@ -1074,6 +1163,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_MOSTIMA,
         name         : "Mostima",
         tokenName    : "mostima",
         campaign     : 1,
@@ -1096,6 +1186,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_SHIMA_KEN,
         name         : "Ken Shima",
         tokenName    : "shimaken",
         campaign     : 1,
@@ -1114,6 +1205,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_SHIMA_RIN,
         name         : "Rin Shima",
         tokenName    : "shimarin",
         campaign     : 1,
@@ -1140,6 +1232,7 @@ export function setupCharacterCards() {
         ]),
     });
     new Character({
+        id           : NpcIndex.ID_VERRADER,
         name         : "Verrader",
         tokenName    : "verrader",
         campaign     : 1,
@@ -1159,6 +1252,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_FIEST,
         name         : "Fiest",
         tokenName    : "fiest",
         campaign     : 1,
@@ -1174,6 +1268,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_MOUTHPIECE,
         name         : "Mouthpiece",
         tokenName    : "ahrendts",
         campaign     : 1,
@@ -1190,6 +1285,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_SANGUINE_ARCH,
         name         : "The SanguineArch",
         tokenName    : "sarch_m",
         campaign     : 1,
@@ -1210,6 +1306,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_DECROA_SAL,
         name         : "Decroa Sal",
         tokenName    : "decroa",
         campaign     : 1,
@@ -1224,6 +1321,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_BAPHOMET,
         name         : "Baphomet",
         tokenName    : "baphomet",
         campaign     : 1,
@@ -1239,14 +1337,14 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
-        name         : "Kjeragandr",
-        indexName    : "Kjera",
-        tokenName    : "g_mag_stone",
-        campaign     : 1,
-        arc          : 2,
-        age          : "",
-        gender       : "F",
-        tags         : ['From | Stone / Preservation',
+        name     : "Kjeragandr",
+        id       : NpcIndex.ID_KJERA,
+        tokenName: "g_mag_stone",
+        campaign : 1,
+        arc      : 2,
+        age      : "",
+        gender   : "F",
+        tags     : ['From | Stone / Preservation',
                         `Race | Titan ${Card.verbose("&times; Serpentine")}`,
                         `Class | Spellcaster ${Card.verbose("(All)")}`,
                         'Primordial | Shardic',
@@ -1261,6 +1359,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_G_DEFENSE,
         name         : "The Guardian of Defense",
         tokenName    : "g_def",
         campaign     : 1,
@@ -1279,14 +1378,14 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
-        name         : "Othello The Traitor",
-        indexName    : "Othello",
-        tokenName    : "othello",
-        campaign     : 1,
-        arc          : 2,
-        age          : "5020",
-        gender       : "M",
-        tags         : ['From | Materia / Preservation / Ruin',
+        name     : "Othello The Traitor",
+        id       : NpcIndex.ID_TRAITOR_OTHELLO,
+        tokenName: "othello",
+        campaign : 1,
+        arc      : 2,
+        age      : "5020",
+        gender   : "M",
+        tags     : ['From | Materia / Preservation / Ruin',
                         `Allegiance | Preservation (?)`,
                         `Race | Human`,
                         `Class | Fighter`,
@@ -1299,6 +1398,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_MANDY,
         name         : "Mandragora",
         tokenName    : "mandy",
         campaign     : 1,
@@ -1313,6 +1413,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_GEN,
         name         : "Gen",
         tokenName    : "gen",
         campaign     : 1,
@@ -1331,6 +1432,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_MUMU,
         name         : "Muelsyse",
         tokenName    : "muelsyse",
         campaign     : 1,
@@ -1346,6 +1448,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_SHAMARE,
         name         : "Shamare",
         tokenName    : "shamare",
         campaign     : 1,
@@ -1362,6 +1465,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_AMAIA,
         name         : "Amaia",
         tokenName    : "amaia",
         campaign     : 1,
@@ -1378,6 +1482,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_LEMUEN,
         name         : "Lemuen",
         tokenName    : "lemuen",
         campaign     : 1,
@@ -1396,14 +1501,14 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
-        name         : "Eugrud the Vanquisher",
-        indexName    : "Eugrud",
-        tokenName    : "eugrud",
-        campaign     : 1,
-        arc          : 2,
-        age          : "133",
-        gender       : "M",
-        tags         : ['From | Ruin',
+        name     : "Eugrud the Vanquisher",
+        id       : NpcIndex.ID_EUGRUD,
+        tokenName: "eugrud",
+        campaign : 1,
+        arc      : 2,
+        age      : "133",
+        gender   : "M",
+        tags     : ['From | Ruin',
                         `Race | Orc`,
                         `Class | ${Card.verbose("Champion")} Fighter`,
                         `Class | Barbarian`,
@@ -1416,14 +1521,14 @@ export function setupCharacterCards() {
     /************************* Campaign 2, Arc 1 **************************/
 
     new Character({
-        name         : "Andoain 'The Martyr'",
-        indexName    : "Andoain",
-        tokenName    : "Andoain",
-        campaign     : 2,
-        arc          : 1,
-        age          : "221",
-        gender       : "M",
-        tags         : [
+        name     : "Andoain 'The Martyr'",
+        id       : NpcIndex.ID_ANDOAIN,
+        tokenName: "Andoain",
+        campaign : 2,
+        arc      : 1,
+        age      : "221",
+        gender   : "M",
+        tags     : [
             "From | ? / Materia",
             "Race | Aasimar",
             `Class | ${Card.verbose("Gunslinger")} Fighter`,
@@ -1447,6 +1552,7 @@ export function setupCharacterCards() {
     //     description  : "",
     // });
     new Character({
+        id           : NpcIndex.ID_DAWN,
         name         : "Dawn",
         tokenName    : "Dawn",
         campaign     : 2,
@@ -1468,6 +1574,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_ANDRI,
         name         : "Andri",
         tokenName    : "Andri",
         campaign     : 2,
@@ -1479,6 +1586,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_ATHLON,
         name         : "Athlon",
         tokenName    : "Athlon",
         campaign     : 2,
@@ -1509,6 +1617,7 @@ export function setupCharacterCards() {
         // ]),
     });
     new Character({
+        id           : NpcIndex.ID_BJORN,
         name         : "Bjorn",
         tokenName    : "Bjorn",
         campaign     : 2,
@@ -1520,6 +1629,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_CECELIA,
         name         : "Cecilia",
         tokenName    : "Cecilia",
         campaign     : 2,
@@ -1539,6 +1649,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_COROTO,
         name         : "Coroto",
         tokenName    : "Coroto",
         campaign     : 2,
@@ -1559,6 +1670,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_ELYSIUM,
         name         : "Elysium",
         tokenName    : "Elysium",
         campaign     : 2,
@@ -1570,6 +1682,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_ERICA,
         name         : "Erica",
         tokenName    : "Erica",
         campaign     : 2,
@@ -1581,6 +1694,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_GENEFE,
         name         : "Genefe",
         tokenName    : "Genefe",
         campaign     : 2,
@@ -1601,6 +1715,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_HAV,
         name         : "Hav",
         tokenName    : "Hav",
         campaign     : 2,
@@ -1612,6 +1727,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_HINA,
         name         : "Hina",
         tokenName    : "Hina",
         campaign     : 2,
@@ -1634,6 +1750,7 @@ export function setupCharacterCards() {
         ]),
     });
     new Character({
+        id           : NpcIndex.ID_INGRID,
         name         : "Ingrid",
         tokenName    : "Ingrid",
         campaign     : 2,
@@ -1645,6 +1762,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_IONA,
         name         : "Iona",
         tokenName    : "Iona",
         campaign     : 2,
@@ -1664,6 +1782,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_JAYE,
         name         : "Jaye",
         tokenName    : "Jaye",
         campaign     : 2,
@@ -1675,6 +1794,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_JORDI,
         name         : "Jordi",
         tokenName    : "Jordi",
         campaign     : 2,
@@ -1694,6 +1814,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_KASTOR,
         name         : "Kastor",
         tokenName    : "Kastor",
         campaign     : 2,
@@ -1713,6 +1834,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_PETRA,
         name         : "Petra",
         tokenName    : "Petra",
         campaign     : 2,
@@ -1724,6 +1846,7 @@ export function setupCharacterCards() {
         description  : ""
     });
     new Character({
+        id           : NpcIndex.ID_ROBERTA,
         name         : "Roberta",
         tokenName    : "Roberta",
         campaign     : 2,
@@ -1735,6 +1858,7 @@ export function setupCharacterCards() {
         description  : ""
     });
     new Character({
+        id           : NpcIndex.ID_SASHA,
         name         : "Sasha",
         tokenName    : "Sasha",
         campaign     : 2,
@@ -1746,6 +1870,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_SYBILLA,
         name         : "Sybilla",
         tokenName    : "Sybilla",
         campaign     : 2,
@@ -1757,6 +1882,7 @@ export function setupCharacterCards() {
         description  : "",
     });
     new Character({
+        id           : NpcIndex.ID_TAIHE,
         name         : "Taihe",
         tokenName    : "Taihe",
         campaign     : 2,
@@ -1776,6 +1902,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_TOMASA,
         name         : "Tomasa",
         tokenName    : "Tomasa",
         campaign     : 2,
@@ -1794,6 +1921,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_VERNA,
         name         : "Verna",
         tokenName    : "Verna",
         campaign     : 2,
@@ -1812,6 +1940,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_VITACIA,
         name         : "Vitacia",
         tokenName    : "Vitacia",
         campaign     : 2,
@@ -1831,6 +1960,7 @@ export function setupCharacterCards() {
         ])
     });
     new Character({
+        id           : NpcIndex.ID_YUKI,
         name         : "Yuki",
         tokenName    : "Yuki",
         campaign     : 2,

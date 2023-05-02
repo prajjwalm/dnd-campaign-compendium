@@ -1,4 +1,5 @@
-import {waitForFinalEvent} from "../../common/common";
+import {waitForFinalEvent}   from "../../common/common";
+import {Character, NpcIndex} from "./character";
 
 
 /**

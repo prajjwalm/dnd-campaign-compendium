@@ -1,0 +1,132 @@
+@import "../definitions/colors"
+@import "../definitions/shadows"
+@import "../definitions/common_dimensions"
+@import "common_elements"
+
+
+$img_diameter: 48px
+$attitude_circle_border: 8px
+
+#attitude_summary_table
+  width: 7 * ($img_diameter + 2 * $padding_default)
+  border-radius: 8px
+  overflow: hidden
+  margin: 2 * $margin_default
+  border: solid 4px $color_grey_dark
+
+  img
+    width: $img_diameter
+    height: $img_diameter
+    margin: 0
+
+  .table_body
+    width: 100%
+    height: 10.5 * ($img_diameter + 2 * $padding_default)
+    overflow-y: scroll
+    overflow-x: hidden
+
+    &::-webkit-scrollbar
+      display: none
+
+  .row
+    width: 100%
+    display: flex
+    flex-flow: row nowrap
+    align-items: center
+    justify-content: space-between
+
+    &:nth-child(2n)
+      background-color: rgba($color_grey, 0.1)
+    &:nth-child(2n+1)
+      background-color: rgba($color_grey, 0.15)
+
+    &.header
+      background-color: $color_grey_dark
+
+    .cell
+      width: $img_diameter + 2 * $padding_default
+      height: $img_diameter + 2 * $padding_default
+      padding: $padding_default
+      display: inline-block
+      position: relative
+      z-index: 0
+
+      %centered_circle
+        border-radius: 50%
+        position: absolute
+        top: 50%
+        left: 50%
+
+      %default_size_centered_circle
+        @extend %centered_circle
+        width: $img_diameter - $padding_default
+        height: $img_diameter - $padding_default
+        margin-top: -($img_diameter - $padding_default)/2
+        margin-left: -($img_diameter - $padding_default)/2
+
+      .npc_opinion
+        @extend %centered_circle
+        width: $img_diameter - $padding_default - $attitude_circle_border
+        height: $img_diameter - $padding_default - $attitude_circle_border
+        margin-top: -($img_diameter - $padding_default - $attitude_circle_border)/2
+        margin-left: -($img_diameter - $padding_default - $attitude_circle_border)/2
+        z-index: 2
+
+        background-color: $color_white
+        color: $color_secondary_dark
+        font-family: "Roboto", sans-serif
+
+
+        display: inline-flex
+        align-items: center
+        justify-content: center
+        font-weight: bold
+
+        @include FontSize(4)
+
+      .trust_border
+        @extend %default_size_centered_circle
+        z-index: 1
+        background: conic-gradient(#0000 0deg, #0000 0deg, $color_trust 0deg, $color_trust 120deg, #0000 120deg, #0000 360deg)
+
+      .paranoia_border
+        @extend %default_size_centered_circle
+        z-index: 1
+        background: conic-gradient(#0000 0deg, #0000 0deg, $color_betrayal 0deg, $color_betrayal 120deg, #0000 120deg, #0000 360deg)
+
+      .gratitude_border
+        @extend %default_size_centered_circle
+        z-index: 1
+        background: conic-gradient( #0000 0deg, #0000 120deg, $color_gratitude 120deg, $color_gratitude 240deg, #0000 240deg, #0000 360deg)
+
+      .envy_border
+        @extend %default_size_centered_circle
+        z-index: 1
+        background: conic-gradient( #0000 0deg, #0000 120deg, $color_envy 120deg, $color_envy 240deg, #0000 240deg, #0000 360deg)
+
+      .respect_border
+        @extend %default_size_centered_circle
+        z-index: 1
+        background: conic-gradient( #0000 0deg, #0000 240deg, $color_respect 240deg, $color_respect 360deg, #0000 360deg, #0000 360deg)
+
+      .contempt_border
+        @extend %default_size_centered_circle
+        z-index: 1
+        background: conic-gradient( #0000 0deg, #0000 240deg, $color_contempt 240deg, $color_contempt 360deg, #0000 360deg, #0000 360deg)
+
+
+      .value_0
+        opacity: 0
+      .value_1
+        opacity: 0.4
+      .value_2
+        opacity: 0.75
+      .value_3
+        opacity: 1
+
+      .backdrop
+        @extend %default_size_centered_circle
+        z-index: -2
+        background-color: $color_true_grey
+
+        @include BoxShadowHelper(1)
