@@ -45,4 +45,4 @@ export class GameTimestamp
 
 
 export const T_START = new GameTimestamp(0, 5, 8, 0);
-export const T_NOW = new GameTimestamp(0, 5, 13, 0);
+export const T_NOW = new GameTimestamp(0, 5, 14, 0);

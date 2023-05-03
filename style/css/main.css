@@ -1650,44 +1650,80 @@ img {
     background-color: #240B36;
   }
 }
-#attitude_summary_table {
+#active_characters .page_content {
+  display: flex;
+  flex-flow: row wrap-reverse;
+  align-items: flex-end;
+}
+
+#as_info_zone {
+  flex-grow: 3;
+  width: 640px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: space-between;
+}
+#as_info_zone > * {
+  padding: 8px;
+  margin: 16px;
+  border-radius: 4px;
+}
+
+#ast_explanation {
+  min-height: 320px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+#ast_explanation ul {
+  margin-top: 0;
+  padding: 12px;
+}
+
+#individual_ast {
+  min-height: 320px;
+  display: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+#attitude_summary_table_area {
+  flex-grow: 1;
   width: 448px;
   border-radius: 8px;
   overflow: hidden;
   margin: 16px;
   border: solid 4px #21364d;
 }
-#attitude_summary_table img {
+#attitude_summary_table_area img {
   width: 48px;
   height: 48px;
   margin: 0;
 }
-#attitude_summary_table .table_body {
+#attitude_summary_table_area .table_body {
   width: 100%;
   height: 672px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
-#attitude_summary_table .table_body::-webkit-scrollbar {
+#attitude_summary_table_area .table_body::-webkit-scrollbar {
   display: none;
 }
-#attitude_summary_table .row {
+#attitude_summary_table_area .row {
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
 }
-#attitude_summary_table .row:nth-child(2n) {
+#attitude_summary_table_area .row:nth-child(2n) {
   background-color: rgba(114, 134, 160, 0.1);
 }
-#attitude_summary_table .row:nth-child(2n+1) {
+#attitude_summary_table_area .row:nth-child(2n+1) {
   background-color: rgba(114, 134, 160, 0.15);
 }
-#attitude_summary_table .row.header {
+#attitude_summary_table_area .row.header {
   background-color: #21364d;
 }
-#attitude_summary_table .row .cell {
+#attitude_summary_table_area .row .cell {
   width: 64px;
   height: 64px;
   padding: 8px;
@@ -1695,19 +1731,19 @@ img {
   position: relative;
   z-index: 0;
 }
-#attitude_summary_table .row .cell .npc_opinion, #attitude_summary_table .row .cell .backdrop, #attitude_summary_table .row .cell .contempt_border, #attitude_summary_table .row .cell .respect_border, #attitude_summary_table .row .cell .envy_border, #attitude_summary_table .row .cell .gratitude_border, #attitude_summary_table .row .cell .paranoia_border, #attitude_summary_table .row .cell .trust_border {
+#attitude_summary_table_area .row .cell .npc_opinion, #attitude_summary_table_area .row .cell .backdrop, #attitude_summary_table_area .row .cell .contempt_border, #attitude_summary_table_area .row .cell .respect_border, #attitude_summary_table_area .row .cell .envy_border, #attitude_summary_table_area .row .cell .gratitude_border, #attitude_summary_table_area .row .cell .paranoia_border, #attitude_summary_table_area .row .cell .trust_border {
   border-radius: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
 }
-#attitude_summary_table .row .cell .backdrop, #attitude_summary_table .row .cell .contempt_border, #attitude_summary_table .row .cell .respect_border, #attitude_summary_table .row .cell .envy_border, #attitude_summary_table .row .cell .gratitude_border, #attitude_summary_table .row .cell .paranoia_border, #attitude_summary_table .row .cell .trust_border {
+#attitude_summary_table_area .row .cell .backdrop, #attitude_summary_table_area .row .cell .contempt_border, #attitude_summary_table_area .row .cell .respect_border, #attitude_summary_table_area .row .cell .envy_border, #attitude_summary_table_area .row .cell .gratitude_border, #attitude_summary_table_area .row .cell .paranoia_border, #attitude_summary_table_area .row .cell .trust_border {
   width: 40px;
   height: 40px;
   margin-top: -20px;
   margin-left: -20px;
 }
-#attitude_summary_table .row .cell .npc_opinion {
+#attitude_summary_table_area .row .cell .npc_opinion {
   width: 32px;
   height: 32px;
   margin-top: -16px;
@@ -1722,43 +1758,43 @@ img {
   font-weight: bold;
   font-size: 16px;
 }
-#attitude_summary_table .row .cell .trust_border {
+#attitude_summary_table_area .row .cell .trust_border {
   z-index: 1;
   background: conic-gradient(#0000 0deg, #0000 0deg, #003b81 0deg, #003b81 120deg, #0000 120deg, #0000 360deg);
 }
-#attitude_summary_table .row .cell .paranoia_border {
+#attitude_summary_table_area .row .cell .paranoia_border {
   z-index: 1;
   background: conic-gradient(#0000 0deg, #0000 0deg, #f2a546 0deg, #f2a546 120deg, #0000 120deg, #0000 360deg);
 }
-#attitude_summary_table .row .cell .gratitude_border {
+#attitude_summary_table_area .row .cell .gratitude_border {
   z-index: 1;
   background: conic-gradient(#0000 0deg, #0000 120deg, #c70ccf 120deg, #c70ccf 240deg, #0000 240deg, #0000 360deg);
 }
-#attitude_summary_table .row .cell .envy_border {
+#attitude_summary_table_area .row .cell .envy_border {
   z-index: 1;
   background: conic-gradient(#0000 0deg, #0000 120deg, #0F720C 120deg, #0F720C 240deg, #0000 240deg, #0000 360deg);
 }
-#attitude_summary_table .row .cell .respect_border {
+#attitude_summary_table_area .row .cell .respect_border {
   z-index: 1;
   background: conic-gradient(#0000 0deg, #0000 240deg, #7400be 240deg, #7400be 360deg, #0000 360deg, #0000 360deg);
 }
-#attitude_summary_table .row .cell .contempt_border {
+#attitude_summary_table_area .row .cell .contempt_border {
   z-index: 1;
-  background: conic-gradient(#0000 0deg, #0000 240deg, #325955 240deg, #325955 360deg, #0000 360deg, #0000 360deg);
+  background: conic-gradient(#0000 0deg, #0000 240deg, red 240deg, red 360deg, #0000 360deg, #0000 360deg);
 }
-#attitude_summary_table .row .cell .value_0 {
+#attitude_summary_table_area .row .cell .value_0 {
   opacity: 0;
 }
-#attitude_summary_table .row .cell .value_1 {
+#attitude_summary_table_area .row .cell .value_1 {
   opacity: 0.4;
 }
-#attitude_summary_table .row .cell .value_2 {
+#attitude_summary_table_area .row .cell .value_2 {
   opacity: 0.75;
 }
-#attitude_summary_table .row .cell .value_3 {
+#attitude_summary_table_area .row .cell .value_3 {
   opacity: 1;
 }
-#attitude_summary_table .row .cell .backdrop {
+#attitude_summary_table_area .row .cell .backdrop {
   z-index: -2;
   background-color: #aaa;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);

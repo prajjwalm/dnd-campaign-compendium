@@ -6,7 +6,7 @@
  * 1. Positive and Negative emotions of the same numerical value are opposites
  *    that (usually) don't co-exist.
  *
- * 2. The zeroth emotion, love, can be considered a kind of summary. It
+ * 2. The zeroth emotion, affection, can be considered a kind of summary. It
  *    encompasses the feeling of happiness when in someone's presence. Of
  *    affection, warmth, fondness etc. In this model, we also subsume empathy
  *    within this - since all three envy, paranoia and contempt would kill it
@@ -91,40 +91,23 @@
  *     components as a gradient in the summary? A color triangle sorta thing?
  *      (nah that would require webGL)
  *   + as a boundary? with the number in the center?
+ *
+ * Well for now I'll worry about this as I develop, no harm in handing out the
+ * values directly this early in the campaign.
  */
 
-import {getEnumIterator}       from "../common/common";
+import {getEnumIterator}                       from "../common/common";
 import {Character, NpcIndex}                   from "../data/cards/character";
 import {PcCharismaMods, PcIndex, PcTokenNames} from "../data/pcIndex";
 import {GameTimestamp, T_NOW, T_START}         from "./common";
 
 
 enum PositiveEmotion {
-    Affection,
-    Gratitude,
-    Trust,
-    Respect
+    Affection,        // vs. Hatred
+    Gratitude,        // vs. Envy
+    Trust,            // vs. Paranoia
+    Respect           // vs. Contempt
 }
-
-// enum NegativeEmotion {
-//     Hatred,
-//     Envy,
-//     Paranoia,
-//     Contempt,
-// }
-//
-//
-// function getNegativeCounterpart(e: PositiveEmotion): NegativeEmotion
-// {
-//     return NegativeEmotion[NegativeEmotion[e]];
-// }
-//
-// function getPositiveCounterpart(e: NegativeEmotion): PositiveEmotion
-// {
-//     return PositiveEmotion[PositiveEmotion[e]];
-// }
-//
-
 
 
 class NpcInteractionEvent
@@ -132,7 +115,8 @@ class NpcInteractionEvent
     public constructor(
         public readonly timestamp: GameTimestamp,
         public readonly displayText: string,
-        public readonly effect: Map<PositiveEmotion, number>)
+        public readonly effect: Map<PositiveEmotion, number>,
+        public readonly insightGate: number = 10)
     {}
 }
 
@@ -190,7 +174,7 @@ class AttitudeHandler
      *
      * This is indexed by zone.
      */
-    private static readonly ZONE_VALUE_MODIFIERS = [0, 1, 2, 4];
+    private static readonly ZONE_VALUE_MODIFIERS = [0, 0, 1, 3];
 
     /**
      * While adjusting the buffer, an event of the same (opposite) direction is
@@ -214,7 +198,7 @@ class AttitudeHandler
     /**
      * The rate at which the value falls towards zero given the zone.
      */
-    private static readonly ZONE_DECAY_RATES = [0.1, 0.05, 0.025, 0.0125];
+    private static readonly ZONE_DECAY_RATES = [1, 0.5, 0.25, 0.125];
 
     /**
      * Which NPC's opinion of whom does this object consider.
@@ -633,6 +617,281 @@ export function test()
     // console.log("Npc Opinion tests performed.");
 }
 
+function session2NpcInteractions()
+{
+    // Conversation with Dawn.
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 9, 0),
+            "Polite, and says funny stuff like asking if we want to sacrifice them...",
+            new Map([[PositiveEmotion.Respect, 2]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 9, 0),
+            "Seems to have a rather exotic pet.",
+            new Map([[PositiveEmotion.Respect, 1]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 9, 0),
+            "Polite.",
+            new Map([[PositiveEmotion.Respect, 1]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 9, 0),
+            "Polite.",
+            new Map([[PositiveEmotion.Respect, 1]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_AURELIA).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 9, 0),
+            "Polite.",
+            new Map([[PositiveEmotion.Respect, 1]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_PANZER).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 9, 0),
+            "Polite.",
+            new Map([[PositiveEmotion.Respect, 1]])
+        )
+    );
+
+    // Interacting with Tomasa and Taihe.
+    for (const pc of getEnumIterator(PcIndex) as Generator<PcIndex>) {
+        npcInteractionEvents.get(NpcIndex.ID_TOMASA).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 9, 0),
+                "Liked the food.",
+                new Map([[PositiveEmotion.Gratitude, 1]])
+            )
+        );
+    }
+    npcInteractionEvents.get(NpcIndex.ID_TOMASA).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 9, 30),
+            "Fun to hang out with, also petted Julius.",
+            new Map([[PositiveEmotion.Respect, 2]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_TAIHE).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 9, 30),
+            "Fun to hang out with.",
+            new Map([[PositiveEmotion.Respect, 1]])
+        )
+    );
+
+    // Interaction with Hina as she took them to Cec.
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 10, 0),
+            "Not entirely without a sense of humor.",
+            new Map([[PositiveEmotion.Respect, 1],
+                     [PositiveEmotion.Trust,   1]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 10, 0),
+            "Cooler than I expected aasimar/paladins to be.",
+            new Map([[PositiveEmotion.Respect, 1]])
+        )
+    );
+
+    // Interaction with Cec./Sasha pt.1.
+    npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 10, 30),
+            "A friend of my brother. Seems to be as noble and kind as I'd expect.",
+            new Map([[PositiveEmotion.Respect, 4],
+                     [PositiveEmotion.Trust,   4]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_SASHA).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 10, 45),
+            "Why's this fucker taking an interest in me?",
+            new Map([[PositiveEmotion.Gratitude, 2]])
+        )
+    );
+}
+
+function session3NpcInteractions()
+{
+    // Cecelia-Helios/Aurelia
+    npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 11, 0),
+            "Bearer of an awful truth about Mostima/Andoain.",
+            new Map([[PositiveEmotion.Affection, -1],
+                     [PositiveEmotion.Trust,      1],
+                     [PositiveEmotion.Gratitude,  1]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 11, 15),
+            "Seemed concerned about my state.",
+            new Map([[PositiveEmotion.Gratitude,  1]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 11, 30),
+            "Seemed interested in helping out Andoain and myself.",
+            new Map([[PositiveEmotion.Gratitude, 2],
+                     [PositiveEmotion.Respect,   1],
+                     [PositiveEmotion.Trust,     1]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_AURELIA).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 12, 0),
+            "Took an interest in my health and offered words of comfort.",
+            new Map([[PositiveEmotion.Gratitude, 3]])
+        )
+    );
+
+    // Sasha-Quinn/Cyrion
+    npcInteractionEvents.get(NpcIndex.ID_SASHA).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 11, 15),
+            "Continues to take an interest. Yet how long before he decides I'm " +
+            "not worth it and leaves/hates me too...",
+            new Map([[PositiveEmotion.Gratitude,  1],
+                     [PositiveEmotion.Trust,     -2]]),
+            18
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_GENEFE).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 11, 45),
+            "Prying into how I look after these kids, like I were guilty of something.",
+            new Map([[PositiveEmotion.Respect, -1],
+                     [PositiveEmotion.Trust,   -1]]),
+            17
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_SASHA).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 11, 45),
+            "Thinks I'm mentally unstable.",
+            new Map([[PositiveEmotion.Respect, -1],
+                     [PositiveEmotion.Trust,   -1]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_SASHA).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 11, 45),
+            "Offered to break me out and pissed off that hag.",
+            new Map([[PositiveEmotion.Respect, 1]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_GENEFE).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 11, 45),
+            "I don't think he was joking about letting the brat out.",
+            new Map([[PositiveEmotion.Trust, -1]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_GENEFE).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 12, 0),
+            "Acknowledges how hard I work for these kids.",
+            new Map([[PositiveEmotion.Trust,     1],
+                     [PositiveEmotion.Respect,   2],
+                     [PositiveEmotion.Gratitude, 2],])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_SASHA).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 12, 0),
+            "Praising that hag.",
+            new Map([[PositiveEmotion.Respect, -1]])
+        )
+    );
+
+    // Quinn Cecelia flight.
+    npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 12, 30),
+            "Agreed to a sudden, whimsical and imposing request because he gave his word.",
+            new Map([[PositiveEmotion.Trust,   4],
+                     [PositiveEmotion.Respect, 4]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 12, 30),
+            "Let me experience flight.",
+            new Map([[PositiveEmotion.Gratitude, 3]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 12, 30),
+            "Flaunted his flight, compared his state to mine and made me puke.",
+            new Map([[PositiveEmotion.Gratitude, -1],
+                     [PositiveEmotion.Respect,   -1]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 12, 30),
+            "Didn't mind me puking over him, and consoled me with an anecdote.",
+            new Map([[PositiveEmotion.Gratitude, 2],
+                     [PositiveEmotion.Respect,   1],
+                     [PositiveEmotion.Trust,     1]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 12, 30),
+            "Hehe, puked in his first flight despite being healthy.",
+            new Map([[PositiveEmotion.Gratitude, 1],
+                     [PositiveEmotion.Respect,  -2]])
+        )
+    );
+
+    // Quinn Hina
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 13, 0),
+            "Seems interested in gaming/tech/innovation and kept his humour on " +
+            "seeing his own avatar. Probably can teach this neanderthal a " +
+            "few things...",
+            new Map([[PositiveEmotion.Respect, 2]])
+        )
+    );
+
+    // Interacting with Erica.
+    for (const pc of getEnumIterator(PcIndex) as Generator<PcIndex>) {
+        npcInteractionEvents.get(NpcIndex.ID_ERICA).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 13, 30),
+                "Seem like a well-mannered bunch. Asked for permission to " +
+                "enter our garden instead of jumping over the bush.",
+                new Map([[PositiveEmotion.Respect, 2]])
+            )
+        );
+    }
+}
+
 export function setupNpcOpinions()
 {
     for (const [npcIndex, npc] of Character.IndexById) {
@@ -662,5 +921,8 @@ export function setupNpcOpinions()
         }
     }
 
-    renderNpcOpinionTable($("#attitude_summary_table"));
+    session2NpcInteractions();
+    session3NpcInteractions();
+
+    renderNpcOpinionTable($("#attitude_summary_table_area"));
 }

@@ -553,9 +553,48 @@
     </div>
 </div>
 <div id="active_characters" class="page">
-    <h1 class="page_header">Active NPC interaction (Beta)</h1>
+    <h1 class="page_header">Active NPC interaction (Beta/WIP)</h1>
     <div class="page_content">
-        <div id="attitude_summary_table"></div>
+        <div id="attitude_summary_table_area"></div>
+        <div id="as_info_zone">
+            <div id="ast_explanation">
+                <h4>How does this work?</h4>
+                <ul>
+                    <li>The overall attitude score displayed is the sum of 4 components -  <b>Trust</b>, <b>Gratitude</b>,
+                        <b>Respect</b> and <b>Affection</b>. The first three are indicated in the cyclic border
+                        around the numbers in the mentioned order going clockwise.
+                    </li>
+                    <li><b>Ratings.</b> Each component can take a rating between [-10, 10]. Negative values are
+                        categorized by <b>Paranoia</b>, <b>Envy</b>, <b>Contempt</b> and <b>Hatred</b> respectively.</li>
+                    <li><b>Scores.</b> Every component has its score. The Rating is a function of that score. For
+                        example, a score between (-3, 3) grants a Rating of 0, one within [3, 7) grants a Rating
+                        of 1, [7, 12) grants a Rating of 2, etc.</li>
+                    <li>Interactions with an NPC can increase or decrease said scores on one or more axis.</li>
+                    <li><b>Attitude zones.</b> Attitude ratings between each component are divided into various
+                        zones - like {..., (-4, -1], (-1, 1), [1, 4), [4, 7) ...} etc. The cyclic border's color
+                        and opacity for the three components depends on the zone the rating is in. The zone also
+                        affects other features described below.</li>
+                    <li>Note: The divisions between ratings is <i>not</i> linear. It is far easier to go from 1 respect
+                        to 2 respect than it is to go from 9 to 10. Not only is the gap longer, but the effect of
+                        favourable actions reduces while unfavourable actions increases at higher zones.</li>
+                    <li> <b>Forgiveness.</b> When decent levels of say, <i>Trust</i> are gained, an NPC would simply
+                        ignore minor issues which would otherwise have sparked <i>Paranoia</i>. This is handled by
+                        having a 'forgiveness buffer' whose size depends on the current rating. The buffer is
+                        currently as much as the score needed to attain the next rating. The forgiveness buffer is
+                        depleted before actual trust value is lost, and it is replenished before too. The
+                        increased/reduced effects of actions at high ratings while affecting score do <u>not</u>
+                        apply to the buffer.</li>
+                    <li><b>Forgetfulness.</b> The scores of each component individually decay towards zero on a daily
+                        basis. This decay is unaffected by the forgiveness buffer and is lower at more extreme zones.
+                        The natural decay will never cross a zone boundary. (That was the inspiration for zones in
+                        the first place - once you say cross Trust Rating 7, the NPC will make a mental note
+                        regarding you as "trusted", after which just the passage of time will not cause them to
+                        forget the note.)
+                    </li>
+                </ul>
+            </div>
+            <div id="individual_ast"></div>
+        </div>
     </div>
 </div>
 <div class="page">

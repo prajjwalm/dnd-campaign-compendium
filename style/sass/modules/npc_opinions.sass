@@ -7,7 +7,40 @@
 $img_diameter: 48px
 $attitude_circle_border: 8px
 
-#attitude_summary_table
+
+#active_characters .page_content
+  display: flex
+  flex-flow: row wrap-reverse
+  align-items: flex-end
+
+#as_info_zone
+  flex-grow: 3
+  width: 640px
+  display: flex
+  flex-flow: column nowrap
+  align-items: stretch
+  justify-content: space-between
+
+  & > *
+    padding: $padding_default
+    margin: 2 * $margin_default
+    border-radius: 4px
+
+#ast_explanation
+  min-height: 5 * ($img_diameter + 2 * $padding_default)
+  @include BoxShadowHelper(1)
+
+  ul
+    margin-top: 0
+    padding: $padding_default * 1.5
+
+#individual_ast
+  min-height: 5 * ($img_diameter + 2 * $padding_default)
+  display: none
+  @include BoxShadowHelper(1)
+
+#attitude_summary_table_area
+  flex-grow: 1
   width: 7 * ($img_diameter + 2 * $padding_default)
   border-radius: 8px
   overflow: hidden
