@@ -97,17 +97,24 @@
  */
 
 import {getEnumIterator}                       from "../common/common";
-import {Character, NpcIndex}                   from "../data/cards/character";
-import {PcCharismaMods, PcIndex, PcTokenNames} from "../data/pcIndex";
-import {GameTimestamp, T_NOW, T_START}         from "./common";
+import {Character, NpcIndex}                                  from "../data/cards/character";
+import {PARTY_INSIGHT, PcCharismaMods, PcIndex, PcTokenNames} from "../data/pcIndex";
+import {GameTimestamp, T_NOW, T_START}                        from "./common";
 
 
 enum PositiveEmotion {
-    Affection,        // vs. Hatred
-    Gratitude,        // vs. Envy
-    Trust,            // vs. Paranoia
-    Respect           // vs. Contempt
+    Affection,
+    Gratitude,
+    Trust,
+    Respect
 }
+
+const NegativeEmotion = new Map([
+    [PositiveEmotion.Affection, "Hatred"],
+    [PositiveEmotion.Gratitude, "Envy"],
+    [PositiveEmotion.Trust, "Paranoia"],
+    [PositiveEmotion.Respect, "Contempt"],
+]);
 
 
 class NpcInteractionEvent
@@ -115,9 +122,43 @@ class NpcInteractionEvent
     public constructor(
         public readonly timestamp: GameTimestamp,
         public readonly displayText: string,
-        public readonly effect: Map<PositiveEmotion, number>,
-        public readonly insightGate: number = 10)
-    {}
+        public readonly effects: Map<PositiveEmotion, number>,
+        public readonly insightGate: number = 10,
+        public readonly renderReverse: Map<PositiveEmotion, boolean> = null
+    )
+    { }
+
+    public get eventDesc()
+    {
+        if (this.insightGate > PARTY_INSIGHT) {
+            return null;
+        }
+        const effectTags = [];
+        for (const [emotion, value] of this.effects.entries()) {
+            if (value == 0) {
+                continue;
+            }
+            const zone = AttitudeHandler.getZoneForRating(value);
+
+            let effect: string;
+            let emotionStr: string;
+            if (this.renderReverse == null || this.renderReverse.get(emotion) != true) {
+                effect = zone == -1 ? "-" : "+".repeat(Math.abs(zone));
+                emotionStr = zone < -1 ? NegativeEmotion.get(emotion) : PositiveEmotion[emotion];
+            } else {
+                effect = zone == -1 ? "+" : "-".repeat(Math.abs(zone));
+                emotionStr = zone >= -1 ? NegativeEmotion.get(emotion) : PositiveEmotion[emotion];
+            }
+
+            const emotionColor = zone < 0 ? NegativeEmotion.get(emotion) : PositiveEmotion[emotion];
+            effectTags.push(`<div class="effect_tag" data-emo="${emotionColor}">${emotionStr}${effect}</div>`);
+        }
+        return `<div class='event_li'>
+                    <div class="timestamp">${this.timestamp.toString()}</div>
+                    <div class="display_text">${this.displayText}</div>
+                    <div class="effect_tags">${effectTags.join("")}</div>
+                  </div>`;
+    }
 }
 
 
@@ -432,7 +473,7 @@ class NpcOpinion
 
     public addEvent(event: NpcInteractionEvent): void
     {
-        for (const [emotion, value] of event.effect.entries()) {
+        for (const [emotion, value] of event.effects.entries()) {
             this.attitudeHandlers.get(emotion).addEvent(value, event.timestamp);
         }
     }
@@ -482,7 +523,7 @@ class RenderedNpcOpinion
                    : `<div class="contempt_border value_${-r}"></div>`;
 
         this._$tableCell =
-            $(`<div class="cell"><div class="npc_opinion">${this.affectionRating}</div>
+            $(`<div class="cell"><div class="npc_opinion" data-npc-id="${this.npc}" data-pc-id="${this.pc}">${this.affectionRating}</div>
                                  ${$trustBorder}${$gratitudeBorder}${$respectBorder}
                                  <div class="backdrop"></div></div>`);
     }
@@ -769,7 +810,8 @@ function session3NpcInteractions()
             "not worth it and leaves/hates me too...",
             new Map([[PositiveEmotion.Gratitude,  1],
                      [PositiveEmotion.Trust,     -2]]),
-            18
+            18,
+            new Map([[PositiveEmotion.Trust, true]])
         )
     );
 
@@ -892,6 +934,324 @@ function session3NpcInteractions()
     }
 }
 
+function session4NpcInteractions()
+{
+    // Previous session.
+    npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_AURELIA).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 13, 30),
+            "Didn't seem to hold respect for my position.",
+            new Map([[PositiveEmotion.Respect, -2],])
+        )
+    );
+    // Talk with Coroto.
+    npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 14, 0),
+            "Acknowledged my honor for the fatherland.",
+            new Map([[PositiveEmotion.Respect, 1],
+                     [PositiveEmotion.Gratitude, 2]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 14, 0),
+            "Comes from a weak country and a feminine race.",
+            new Map([[PositiveEmotion.Respect, -2],
+                     [PositiveEmotion.Trust,   -1]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 14, 0),
+            "Appears to have respect for our fatherland.",
+            new Map([[PositiveEmotion.Gratitude, 1]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 14, 0),
+            "Comes from a powerful country and a noble race.",
+            new Map([[PositiveEmotion.Respect, 2],
+                     [PositiveEmotion.Trust,   1]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 14, 0),
+            "Was worried about our safety.",
+            new Map([[PositiveEmotion.Gratitude, 1],
+                     [PositiveEmotion.Trust,     2]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 14, 0),
+            "Promised with honor to defend us should the need arise.",
+            new Map([[PositiveEmotion.Gratitude, 2],
+                     [PositiveEmotion.Respect,   2]])
+        )
+    );
+    for (const pc of [PcIndex.ID_HELIOS, PcIndex.ID_CYRION]) {
+        npcInteractionEvents.get(NpcIndex.ID_COROTO).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 14, 30),
+                "Was gallivanting with my wife.",
+                new Map([[PositiveEmotion.Respect,   -1],
+                         [PositiveEmotion.Trust,     -1],
+                         [PositiveEmotion.Gratitude, -1],]),
+                22
+            )
+        );
+    }
+
+    // Talk with Erica.
+    npcInteractionEvents.get(NpcIndex.ID_ERICA).get(PcIndex.ID_PANZER).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 14, 25),
+            "Was interested in my youth with Coroto and our past together.",
+            new Map([[PositiveEmotion.Gratitude, 1]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_ERICA).get(PcIndex.ID_PANZER).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 14, 25),
+            "Reminded me of happier times in my father's estate and Ivangrad.",
+            new Map([[PositiveEmotion.Gratitude, 2]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_ERICA).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 14, 25),
+            "Reminded me of happier times in my father's estate and Ivangrad.",
+            new Map([[PositiveEmotion.Gratitude, 2]])
+        )
+    );
+
+    for (const pc of [PcIndex.ID_PANZER, PcIndex.ID_HELIOS, PcIndex.ID_CYRION]) {
+        npcInteractionEvents.get(NpcIndex.ID_ERICA).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 14, 25),
+                "Were polite to me when when, in my failing memory, I couldn't " +
+                "help them much",
+                new Map([[PositiveEmotion.Gratitude, 1],
+                         [PositiveEmotion.Respect, 1]])
+            )
+        );
+    }
+
+    for (const pc of getEnumIterator(PcIndex) as Generator<PcIndex>) {
+        npcInteractionEvents.get(NpcIndex.ID_ERICA).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 14, 30),
+                "Their coming here will cause me much trouble.",
+                new Map([[PositiveEmotion.Trust, -3]]),
+                20
+            )
+        );
+        npcInteractionEvents.get(NpcIndex.ID_COROTO).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 14, 30),
+                "Their coming here will cause me much trouble.",
+                new Map([[PositiveEmotion.Trust, -3]]),
+                22
+            )
+        );
+    }
+
+    // In Jordi's house.
+    for (const pc of [PcIndex.ID_PANZER, PcIndex.ID_HELIOS, PcIndex.ID_CYRION]) {
+        npcInteractionEvents.get(NpcIndex.ID_JORDI).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 15, 30),
+                "As a first impression, they seem to be kind and humble people.",
+                new Map([[PositiveEmotion.Respect, 1],
+                         [PositiveEmotion.Trust,   1]])
+            )
+        );
+    }
+
+    npcInteractionEvents.get(NpcIndex.ID_JORDI).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 15, 30),
+            "Gazed at the sea wistfully.",
+            new Map([[PositiveEmotion.Respect, 2],
+                     [PositiveEmotion.Trust,   1]])
+        )
+    );
+
+    for (const pc of [PcIndex.ID_HELIOS, PcIndex.ID_CYRION]) {
+        npcInteractionEvents.get(NpcIndex.ID_JORDI).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 15, 45),
+                "Was concerned about the disaster that struck our land and my " +
+                "harsh experience in it.",
+                new Map([[PositiveEmotion.Gratitude, 2],
+                         [PositiveEmotion.Trust,     1]])
+            )
+        );
+
+        npcInteractionEvents.get(NpcIndex.ID_JORDI).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 15, 45),
+                "Was curious about the spearhead stone and of my uncle's " +
+                "travels.",
+                new Map([[PositiveEmotion.Gratitude, 2],
+                         [PositiveEmotion.Trust,     1]])
+            )
+        );
+    }
+
+    npcInteractionEvents.get(NpcIndex.ID_JORDI).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 16, 0),
+            "Noted the value of fishing in enriching the local diet.",
+            new Map([[PositiveEmotion.Respect, 1]])
+        )
+    );
+
+    // At Petra's meal.
+    for (const pc of getEnumIterator(PcIndex) as Generator<PcIndex>) {
+        npcInteractionEvents.get(NpcIndex.ID_PETRA).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 16, 30),
+                "I'm sure they're all good youths and am happy to have them with us.",
+                new Map([[PositiveEmotion.Respect, 3],
+                         [PositiveEmotion.Trust, 3,],
+                         [PositiveEmotion.Gratitude, 3]])
+            )
+        );
+    }
+
+    for (const pc of [PcIndex.ID_PANZER, PcIndex.ID_HELIOS, PcIndex.ID_CYRION]) {
+        npcInteractionEvents.get(NpcIndex.ID_PETRA).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 16, 30),
+                "I'm glad they partook in the meal we made and gave us company.",
+                new Map([[PositiveEmotion.Gratitude, 3]])
+            )
+        );
+    }
+
+    npcInteractionEvents.get(NpcIndex.ID_PETRA).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 16, 45),
+            "I'm surprised and happy that they are willing to hear out the " +
+            "story of an old nobody like myself.",
+            new Map([[PositiveEmotion.Gratitude, 4],
+                     [PositiveEmotion.Respect, 3],
+                     [PositiveEmotion.Trust, 2]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 16, 30),
+            "Starry-dude's not too fond of gaming, it seems.",
+            new Map()
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_PANZER).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 16, 30),
+            "Huh, that stupid bot actually challenged my skills.",
+            new Map([[PositiveEmotion.Respect, 1]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_PANZER).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 16, 30),
+            "Huh, that stupid bot admittedly got a decent run, for a first timer.",
+            new Map([[PositiveEmotion.Respect, 1]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 16, 45),
+            "Heh, his holiness would also go down the path of the gaming addict...",
+            new Map([[PositiveEmotion.Respect, 1],
+                     [PositiveEmotion.Trust,   1]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 16, 45),
+            "Wait, the investiture changed... that intent... hmm...",
+            new Map([[PositiveEmotion.Trust, -3],
+                     [PositiveEmotion.Respect, 2]]),
+            17
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 16, 45),
+            "He actually beat the boss, guy's got a bright future. (even if...)",
+            new Map([[PositiveEmotion.Respect, 1]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_PANZER).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 16, 45),
+            "The bot acknowledged my skills, maybe I could try my hand at his " +
+            "modules...",
+            new Map([[PositiveEmotion.Gratitude, 1],
+                     [PositiveEmotion.Trust, 1]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 16, 45),
+            "Starry-dude speaks fondly to gran.",
+            new Map([[PositiveEmotion.Respect,   2],
+                     [PositiveEmotion.Trust,     1],
+                     [PositiveEmotion.Gratitude, 3]])
+        )
+    );
+
+    for (const pc of [PcIndex.ID_HELIOS, PcIndex.ID_PANZER]) {
+        npcInteractionEvents.get(NpcIndex.ID_PETRA).get(PcIndex.ID_CYRION).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 16, 45),
+                "They're having fun with Hina.",
+                new Map([[PositiveEmotion.Gratitude, 1]])
+            )
+        );
+    }
+}
+
+
+let $individualAst;
+
+function renderDetails()
+{
+    const npcId: NpcIndex = $(this).data("npcId");
+    const pcId: PcIndex = $(this).data("pcId");
+
+    $individualAst.empty();
+
+    const eventsDesc = [];
+    for (const npcInteractionEvent of npcInteractionEvents.get(npcId).get(pcId)) {
+        eventsDesc.push(npcInteractionEvent.eventDesc);
+    }
+
+    const eventsList = `<div class='events_list'>${eventsDesc.join("")}</div>`;
+
+    const content = `<div>${eventsList}</div>`
+    console.log(content);
+
+    $individualAst.html(content);
+    $individualAst.show();
+}
+
 export function setupNpcOpinions()
 {
     for (const [npcIndex, npc] of Character.IndexById) {
@@ -923,6 +1283,11 @@ export function setupNpcOpinions()
 
     session2NpcInteractions();
     session3NpcInteractions();
+    session4NpcInteractions();
 
-    renderNpcOpinionTable($("#attitude_summary_table_area"));
+    $individualAst = $("#individual_ast");
+    const $table_area = $("#attitude_summary_table_area");
+    renderNpcOpinionTable($table_area);
+
+    $table_area.on("click", ".npc_opinion", renderDetails);
 }

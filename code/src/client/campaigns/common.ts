@@ -1,3 +1,6 @@
+import {getNumberSuffix} from "../common/common";
+
+
 /**
  * The timestamp in in-game terms.
  *
@@ -41,8 +44,21 @@ export class GameTimestamp
     {
         return this.day + 100 * this.year;
     }
+
+    public toString(): string {
+        // This code is wrong since 2400 hours will cause the day to go bad,
+        // but that can be fixed later.
+        const year = this.year + Math.floor(this.day / 100);
+        const day =  this.day % 100 + Math.floor(this.hour / 24);
+        const hour =  this.hour % 24 + Math.floor(this.minute / 60);
+        const minute =  this.minute % 60 + Math.floor(this.second / 60);
+
+        const hourStr = String(hour).padStart(2, '0');
+        const minStr = String(minute).padStart(2, '0');
+        return `<p>${day}<sup>${getNumberSuffix(day)}</sup> of Year ${year}, ${hourStr}:${minStr}</p>`;
+    }
 }
 
 
 export const T_START = new GameTimestamp(0, 5, 8, 0);
-export const T_NOW = new GameTimestamp(0, 5, 14, 0);
+export const T_NOW = new GameTimestamp(0, 5, 17, 30);

@@ -81,3 +81,20 @@ function* _getEnumIterator(args) {
  * over say [0, 1, 2, 3, ...] which is identical to [en.ElemA, en.elemB, ...].
  */
 export const getEnumIterator = memoize(_getEnumIterator);
+
+
+export function getNumberSuffix(n: number) {
+    if (n < 0) {
+        throw new Error("Suffixes not supported for negative numbers");
+    }
+    if (n % 10 == 1) {
+        return n == 11 ? "th" : "st";
+    }
+    else if (n % 10 == 2) {
+        return n == 12 ? "th" : "nd";
+    }
+    else if (n % 10 == 3) {
+        return n == 13 ? "th" : "rd";
+    }
+    return "th";
+}

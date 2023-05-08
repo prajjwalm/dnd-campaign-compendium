@@ -25,3 +25,5 @@ export const PcCharismaMods: Map<PcIndex, number> = new Map([
     [PcIndex.ID_PANZER, 3],
     [PcIndex.ID_QUINN, 5],
 ]);
+
+export const PARTY_INSIGHT = 19;
