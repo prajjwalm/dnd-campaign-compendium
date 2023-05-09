@@ -1,4 +1,4 @@
-import {Dice, RollVariant} from "./diceConstants";
+import {D1, D100, D12, D20, D4, D6, D8, Dice, RollVariant} from "./diceConstants";
 
 
 export class RollArgumentError
@@ -10,7 +10,7 @@ export class RollArgumentError
 }
 
 
-class PrimitiveRollable
+export class PrimitiveRollable
 {
     protected readonly dice: Map<Dice, number>;
     protected readonly rolls: Map<Dice, number[]> = new Map();
@@ -20,7 +20,7 @@ class PrimitiveRollable
                        private readonly rng: () => number = Math.random)
     {
         this.dice = new Map(
-            [...dice.entries()].sort((a, b) => { return b[0] - a[0];})
+            [...dice.entries()].sort((a, b) => { return b[0].sides - a[0].sides;})
         );
         this._debug = false;
     }
@@ -33,7 +33,7 @@ class PrimitiveRollable
                 continue;
             }
             const sign = count > 0 ? (rollString.length == 0 ? "" : "+") : "-";
-            const diceStr = die > 1 ? `d${die}` : "";
+            const diceStr = die.sides > 1 ? `d${die.sides}` : "";
             rollString += `${sign}${Math.abs(count)}${diceStr}`
         }
         return rollString;
@@ -51,8 +51,8 @@ class PrimitiveRollable
             if (count == 0) {
                 continue;
             }
-            if (die == 1) {
-                this.rolls.set(1, [count]);
+            if (die == D1) {
+                this.rolls.set(D1, [count]);
                 continue;
             }
             this.rolls.set(die, []);
@@ -67,9 +67,9 @@ class PrimitiveRollable
         return this.result;
     }
 
-    private rollDie(d)
+    private rollDie(d: Dice)
     {
-        return Math.floor(this.rng() * d) + 1;
+        return Math.floor(this.rng() * d.sides) + 1;
     }
 
     public get result() {
@@ -96,7 +96,7 @@ export class NatRollable
     public constructor(private readonly modifier: number,
                        rng: () => number = Math.random)
     {
-        super(new Map([[20, 3], [1, modifier]]), rng);
+        super(new Map([[D20, 3], [D1, modifier]]), rng);
         this._mode = RollVariant.Normal;
     }
 
@@ -130,8 +130,8 @@ export class NatRollable
 
     public get result()
     {
-        const d20s = this.rolls.get(20);
-        const mod = this.rolls.get(1)[0];
+        const d20s = this.rolls.get(D20);
+        const mod = this.rolls.get(D1)[0];
         if (this._mode == RollVariant.Normal) {
             return d20s[0] + mod;
         } else if (this._mode == RollVariant.Advantage) {
@@ -164,7 +164,7 @@ export class Rollable
         const baseDice = new Map();
         let mod = 0;
         for (const [die, count] of dice.entries()) {
-            if (die == 1) {
+            if (die == D1) {
                 mod = count;
                 continue;
             }
@@ -199,7 +199,7 @@ export class Rollable
         if (this._mode == RollVariant.Normal) {
             let result = 0;
             for (const [dice, rolls] of this.rolls) {
-                if (dice == 1) {
+                if (dice == D1) {
                     result += rolls[0];
                 } else {
                     for (let i = 0; i < rolls.length / 2; i++) {
@@ -232,7 +232,7 @@ export function test()
         return x - Math.floor(x);
     }
 
-    const pr1 = new PrimitiveRollable(new Map([[20, 1], [1, 5]]), easyRandom);
+    const pr1 = new PrimitiveRollable(new Map([[D20, 1], [D1, 5]]), easyRandom);
     console.assert(pr1.getRollString() == "1d20+5");
     pr1.roll();
     console.assert(pr1.result == 20, `Expected: 20, Rolled: ${pr1.result}`);
@@ -240,7 +240,7 @@ export function test()
     console.assert(pr1.result == 25, `Expected: 25, Rolled: ${pr1.result}`);
 
     const pr2 = new PrimitiveRollable(
-        new Map([[100, -1], [12, 4], [8, 3], [1, -10]]), easyRandom
+        new Map([[D100, -1], [D12, 4], [D8, 3], [D1, -10]]), easyRandom
     );
     console.assert(pr2.getRollString() == "-1d100+4d12+3d8-10");
     pr2.roll();
@@ -248,7 +248,7 @@ export function test()
     pr2.roll();
     console.assert(pr2.result == 16);
 
-    const pr3 = new PrimitiveRollable(new Map([[8, 4]]));
+    const pr3 = new PrimitiveRollable(new Map([[D8, 4]]));
     console.assert(pr3.getRollString() == "4d8");
     for (let i = 0; i < 100; i++) {
         pr3.roll();
@@ -269,7 +269,7 @@ export function test()
     }
     nr1.debug = false;
 
-    const r1 = new Rollable(new Map([[6, 2]]), easyRandom);
+    const r1 = new Rollable(new Map([[D6, 2]]), easyRandom);
     // r1.debug = true;
     console.assert(r1.getRollString() == "2d6");
     console.assert(r1.roll(RollVariant.Critical) == 13);
@@ -277,7 +277,7 @@ export function test()
     console.assert(r1.getRollString() == "(2d6)&times;2");
     r1.debug = false;
 
-    const r2 = new Rollable(new Map([[4, 4], [1, -10]]), easyRandom);
+    const r2 = new Rollable(new Map([[D4, 4], [D1, -10]]), easyRandom);
     // r2.debug = true;
     console.assert(r2.getRollString() == "4d4-10");
     console.assert(r2.roll() == 1);

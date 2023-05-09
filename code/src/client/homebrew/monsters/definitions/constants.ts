@@ -1,4 +1,4 @@
-import {Dice} from "../../common/diceConstants";
+import {D10, D12, D6, D8, Dice} from "../../common/diceConstants";
 
 
 export enum CoreStats {
@@ -78,18 +78,59 @@ export enum AdventurerClasses {
     Wizard,
 }
 
+export enum DamageType {
+    Acid,
+    Bludgeoning,
+    Cold,
+    Fire,
+    Force,
+    Lightning,
+    Necrotic,
+    Piercing,
+    Poison,
+    Psychic,
+    Radiant,
+    Slashing,
+    Thunder
+}
+
 export const AdventurerHitDice: Map<AdventurerClasses, Dice> = new Map([
-    [AdventurerClasses.Artificer, 8],
-    [AdventurerClasses.Barbarian, 12],
-    [AdventurerClasses.Bard, 8],
-    [AdventurerClasses.Cleric, 8],
-    [AdventurerClasses.Druid, 8],
-    [AdventurerClasses.Fighter, 10],
-    [AdventurerClasses.Monk, 8],
-    [AdventurerClasses.Paladin, 10],
-    [AdventurerClasses.Ranger, 10],
-    [AdventurerClasses.Rogue, 8],
-    [AdventurerClasses.Sorcerer, 6],
-    [AdventurerClasses.Warlock, 8],
-    [AdventurerClasses.Wizard, 6],
+    [AdventurerClasses.Artificer, D8],
+    [AdventurerClasses.Barbarian, D12],
+    [AdventurerClasses.Bard, D8],
+    [AdventurerClasses.Cleric, D8],
+    [AdventurerClasses.Druid, D8],
+    [AdventurerClasses.Fighter, D10],
+    [AdventurerClasses.Monk, D8],
+    [AdventurerClasses.Paladin, D10],
+    [AdventurerClasses.Ranger, D10],
+    [AdventurerClasses.Rogue, D8],
+    [AdventurerClasses.Sorcerer, D6],
+    [AdventurerClasses.Warlock, D8],
+    [AdventurerClasses.Wizard, D6],
 ]);
+
+
+export enum Activation {
+    Action,
+    BonusAction,
+    Reaction,
+    Special,
+}
+
+
+export function getModifier(number) {
+    return Math.floor((number - 10) / 2);
+}
+
+export function E(dice: Dice | Map<Dice, number>) {
+    if (dice instanceof Dice) {
+        return (dice.sides + 1) / 2;
+    } else if (dice instanceof Map) {
+        let e = 0;
+        for (const [die, count] of dice.entries()) {
+            e += count * E(die);
+        }
+        return e;
+    }
+}

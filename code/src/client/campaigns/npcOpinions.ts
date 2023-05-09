@@ -889,7 +889,9 @@ function session3NpcInteractions()
             new GameTimestamp(0, 5, 12, 30),
             "Flaunted his flight, compared his state to mine and made me puke.",
             new Map([[PositiveEmotion.Gratitude, -1],
-                     [PositiveEmotion.Respect,   -1]])
+                     [PositiveEmotion.Respect,   -1]]),
+            10,
+            new Map([[PositiveEmotion.Gratitude, true]])
         )
     );
     npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_QUINN).push(
@@ -1185,7 +1187,8 @@ function session4NpcInteractions()
             "Wait, the investiture changed... that intent... hmm...",
             new Map([[PositiveEmotion.Trust, -3],
                      [PositiveEmotion.Respect, 2]]),
-            17
+            17,
+            new Map([[PositiveEmotion.Trust, true]])
         )
     );
 
