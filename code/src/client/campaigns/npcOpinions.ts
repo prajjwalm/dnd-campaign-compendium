@@ -1417,6 +1417,48 @@ function session5NpcInteractions()
         )
     );
 
+
+    // Quinn interactions
+    npcInteractionEvents.get(NpcIndex.ID_INGRID).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 16, 30),
+            "Talking to him was really a comfort. Been so long since I could " +
+            "speak my heart out to someone.",
+            new Map([
+                [PositiveEmotion.Gratitude, 4],
+                [PositiveEmotion.Trust, 1],
+                [PositiveEmotion.Respect, 1]
+            ])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_JAYE).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 17, 50),
+            "Boss was a cool customer. But sly as an eel. Even now can't " +
+            "understand how I let my guard down to reveal so much...",
+            new Map([
+                [PositiveEmotion.Respect, 4],
+                [PositiveEmotion.Trust, -1]
+            ]),
+            13,
+            new Map([[PositiveEmotion.Trust, true]])
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_VERNA).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 18, 30),
+            "A person hanging between life and death, who immediately saw " +
+            "through me. But somehow I feel this is different, and <em>feel</em> " +
+            "that he means no harm. I revealed more than I should have, but I " +
+            "think I am glad I did.",
+            new Map([
+                [PositiveEmotion.Trust, 3],
+                [PositiveEmotion.Gratitude, 2],
+                [PositiveEmotion.Respect, 2],
+            ])
+        )
+    );
+
     ((memoriesErased) => {
 
         // In the midst of a blizzard, strange creatures showing up and general
