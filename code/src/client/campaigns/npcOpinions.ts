@@ -96,7 +96,7 @@
  * values directly this early in the campaign.
  */
 
-import {getEnumIterator}                       from "../common/common";
+import {getEnumIterator}                                      from "../common/common";
 import {Character, NpcIndex}                                  from "../data/cards/character";
 import {PARTY_INSIGHT, PcCharismaMods, PcIndex, PcTokenNames} from "../data/pcIndex";
 import {GameTimestamp, T_NOW, T_START}                        from "./common";
@@ -547,6 +547,8 @@ class RenderedNpcOpinion
 const npcInteractionEvents: Map<NpcIndex, Map<PcIndex, NpcInteractionEvent[]>> =
     new Map();
 
+const npcOpinions: Map<NpcIndex, Map<PcIndex, NpcOpinion>> = new Map();
+
 export function renderNpcOpinionTable($container: JQuery): void
 {
     const $table = $("<div class='opinion_summary_table'></div>");
@@ -582,6 +584,7 @@ export function renderNpcOpinionTable($container: JQuery): void
 
             npcOpinion.setSnapshotTime(T_NOW);
             npcOpinion.$tableCell.appendTo($tableRow);
+            npcOpinions.get(npcIndex).set(pc, npcOpinion);
         }
 
         $tableRow.appendTo($tableBody);
@@ -1221,7 +1224,7 @@ function session4NpcInteractions()
     );
 
     for (const pc of [PcIndex.ID_HELIOS, PcIndex.ID_PANZER]) {
-        npcInteractionEvents.get(NpcIndex.ID_PETRA).get(PcIndex.ID_CYRION).push(
+        npcInteractionEvents.get(NpcIndex.ID_PETRA).get(pc).push(
             new NpcInteractionEvent(
                 new GameTimestamp(0, 5, 16, 45),
                 "They're having fun with Hina.",
@@ -1232,26 +1235,625 @@ function session4NpcInteractions()
 }
 
 
-let $individualAst;
+function session5NpcInteractions()
+{
+    for (const pc of [PcIndex.ID_HELIOS, PcIndex.ID_AURELIA]) {
+        npcInteractionEvents.get(NpcIndex.ID_DAWN).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 17, 30),
+                "It seems they're wreaking havoc on the paintbrushes.",
+                new Map([[PositiveEmotion.Affection, 1]])
+            )
+        );
+    }
+
+    for (const npc of [NpcIndex.ID_DAWN, NpcIndex.ID_TAIHE, NpcIndex.ID_TOMASA]) {
+        npcInteractionEvents.get(npc).get(PcIndex.ID_CYRION).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 17, 30),
+                "Oh, poor guy, apologizing for his friends. They must've got " +
+                "him into trouble so many times...",
+                new Map([[PositiveEmotion.Respect, 1]])
+            )
+        );
+    }
+
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_AURELIA).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 17, 35),
+            "Got assaulted by my innocent canvas. So cute.",
+            new Map([[PositiveEmotion.Affection, 2]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_AURELIA).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 17, 35),
+            "Has a good imagination and a poetic painting in mind.",
+            new Map([[PositiveEmotion.Respect, 2]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 17, 35),
+            "Ms. Dusk Herself chose to give him a chance. And requested that " +
+            "he paint for Her.",
+            new Map([[PositiveEmotion.Respect, 5],
+                     [PositiveEmotion.Trust, 2]]),
+            22
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 17, 40),
+            "It seems clear his hands are not of a painter's and lack the " +
+            "smooth motions. Yet his spirit longs to express itself. Was that " +
+            "why he was chosen?",
+            new Map([[PositiveEmotion.Trust, 1]]),
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 17, 40),
+            "Helped stabilize his friend's hand by guiding it with the powers " +
+            "of nature.",
+            new Map([[PositiveEmotion.Respect, 2],
+                     [PositiveEmotion.Gratitude, 1]]),
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 17, 45),
+            "The painting turned out so... inspired. <em>Honor holding back the " +
+            "Wrath of Devotion.</em> Beautiful. And... it seems She agrees.",
+            new Map([[PositiveEmotion.Respect, 7],
+                     [PositiveEmotion.Trust, 4]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 17, 50),
+            "<span style='font-size: 10px;'>I'm not the person they seem to think me to be.</span> <span style='font-size: 9px;'>I cannot give " +
+            "an answer to their problems, or even some of their questions." +
+            "I'm feeling a bit...  </span> <span style='font-size: 8px;'>overwhelmed... particularly when they " +
+            "ask me what I was before. </span> <span style='font-size: 7px;'> It isn't...</span> Thanks for letting me get back.",
+            new Map([[PositiveEmotion.Respect, 1],
+                     [PositiveEmotion.Gratitude, 4]]),
+            18
+        )
+    );
+
+    for (const npc of [NpcIndex.ID_DAWN, NpcIndex.ID_TAIHE, NpcIndex.ID_TOMASA]) {
+        for (const pc of getEnumIterator(PcIndex) as Generator<PcIndex>) {
+            npcInteractionEvents.get(npc).get(pc).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 0),
+                    "They helped us out with cooking for the community dinner. They " +
+                    "weren't quite particularly skilled, but that makes it good " +
+                    "to see that they didn't consider good, honest labour like " +
+                    "cooking beneath them.",
+                    new Map([[PositiveEmotion.Respect, 1],
+                             [PositiveEmotion.Gratitude, 1],
+                             [PositiveEmotion.Trust, 1]])
+                )
+            );
+        }
+    }
+
+    npcInteractionEvents.get(NpcIndex.ID_ERICA).get(PcIndex.ID_AURELIA).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 19, 25),
+            "Seemed to be interested in books and literature in all forms.",
+            new Map([[PositiveEmotion.Respect, 1]]),
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_ERICA).get(PcIndex.ID_AURELIA).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 19, 30),
+            "Nudged me to write. Was being genuine when she mentioned she would " +
+            "love to read something I came up with.",
+            new Map([[PositiveEmotion.Gratitude, 7],
+                     [PositiveEmotion.Respect, 3],
+                     [PositiveEmotion.Trust, 4]]),
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_AURELIA).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 19, 30),
+            "What's her game here? Why's this strange elf woman encouraging " +
+            "my wife so? Just another fan of literature? Or is there some " +
+            "ulterior motive I'm missing...",
+            new Map([[PositiveEmotion.Trust, -2],
+                     [PositiveEmotion.Respect, 1]]),
+            18,
+            new Map([[PositiveEmotion.Trust, true]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_JORDI).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 19, 30),
+            "Seemed to be even more interested in my tales from the seas.",
+            new Map([[PositiveEmotion.Gratitude, 1]]),
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_YUKI).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 19, 30),
+            "Why's he suddenly so interested in Hav? This druid's clearly not " +
+            "a seafarer. In fact, I won't be surprised to know he's never sailed before. " +
+            "Jordi's too naive for his own good, but this seems a touch too " +
+            "blatant. I'll have to keep an eye out...",
+            new Map([[PositiveEmotion.Trust, -3]]),
+            15,
+            new Map([[PositiveEmotion.Trust, true]])
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_KASTOR).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 19, 30),
+            "Ugh.. the way he socializes with those two losers. It's " +
+            "nauseating... Just look at Jordi blabbering and that emo acting " +
+            "all cool like he doesn't care...",
+            new Map([[PositiveEmotion.Respect, -2]]),
+        )
+    );
+
+    npcInteractionEvents.get(NpcIndex.ID_PETRA).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 19, 30),
+            "It's good to see how the kid can bring Jordi out of his shell " +
+            "again. He's been brooding a lot lately...",
+            new Map([[PositiveEmotion.Respect, 2]]),
+        )
+    );
+
+    ((memoriesErased) => {
+
+        // In the midst of a blizzard, strange creatures showing up and general
+        // confusion, Helios standing up calmly and rallying the villagers was a
+        // huge source of comfort. But how do each of them react?
+        // Well, I'm not going to copy and paste similar stuff and write
+        // sentences for each of the twenty-something people, but some do merit
+        // a unique interaction.
+        const exclusionListH: NpcIndex[] = [
+            NpcIndex.ID_ELYSIUM,
+            NpcIndex.ID_BJORN,
+            NpcIndex.ID_HAV,
+            NpcIndex.ID_SASHA,
+            NpcIndex.ID_CECELIA
+        ];
+
+        const exclusionListC: NpcIndex[] = [
+            NpcIndex.ID_ELYSIUM,
+            NpcIndex.ID_BJORN,
+            NpcIndex.ID_HAV,
+            NpcIndex.ID_SASHA,
+            NpcIndex.ID_CECELIA
+        ];
+
+        const exclusionListA: NpcIndex[] = [
+            NpcIndex.ID_ELYSIUM,
+            NpcIndex.ID_BJORN,
+            NpcIndex.ID_HAV,
+            NpcIndex.ID_SASHA,
+            NpcIndex.ID_CECELIA
+        ];
+
+        const exclusionListP: NpcIndex[] = [
+            NpcIndex.ID_ELYSIUM,
+            NpcIndex.ID_BJORN,
+            NpcIndex.ID_HAV,
+            NpcIndex.ID_SASHA,
+            NpcIndex.ID_CECELIA
+        ];
+
+        const exclusionListQ: NpcIndex[] = [
+            NpcIndex.ID_ELYSIUM,
+            NpcIndex.ID_BJORN,
+            NpcIndex.ID_HAV,
+            NpcIndex.ID_SASHA,
+            NpcIndex.ID_CECELIA
+        ];
+
+        // Some will retain their memories after what happens...
+        npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_HELIOS).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 19, 45),
+                "Kept his cutlery back slowly and primly before standing and drawing his " +
+                "weapon. Touché. Yep, dude's definitely a seasoned warrior...<br/>" +
+                "and a killer through-and-through.",
+                new Map([[PositiveEmotion.Trust, -2],
+                         [PositiveEmotion.Respect, 5]]),
+                10,
+                new Map([[PositiveEmotion.Trust, true]])
+            )
+        );
+        exclusionListH.push(NpcIndex.ID_HINA);
+
+        npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_CYRION).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 19, 45),
+                "The others didn't seem to notice, but was a large part " +
+                "responsible for us not getting ambushed right outside the " +
+                "door. Doesn't seem addicted to violence.",
+                new Map([[PositiveEmotion.Gratitude, 2],
+                         [PositiveEmotion.Trust, 1],
+                         [PositiveEmotion.Respect, 3]]),
+            )
+        );
+        exclusionListC.push(NpcIndex.ID_HINA);
+
+        npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_PANZER).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 19, 45),
+                "Charged right out huh? Not very smart, but gets the job done... " +
+                "Pity I didn't take the lectures on AI back in-",
+                new Map([[PositiveEmotion.Respect, 2]]),
+            )
+        );
+        exclusionListP.push(NpcIndex.ID_HINA);
+
+        npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_AURELIA).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 19, 45),
+                "Hmm... a spellcaster... they always find their throats to be " +
+                "the first to be slit. But fireballs are cool anyway.",
+                new Map([[PositiveEmotion.Respect, 4]]),
+            )
+        );
+        exclusionListA.push(NpcIndex.ID_HINA);
+
+        npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_QUINN).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 19, 45),
+                "Stood by the villagers to protect them. I can respect that. " +
+                "Seen far too many blood-thirsty folk place greater value in " +
+                "death than in life.",
+                new Map([[PositiveEmotion.Respect, 1],
+                         [PositiveEmotion.Trust, 1]]),
+            )
+        );
+        exclusionListQ.push(NpcIndex.ID_HINA);
+
+        npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_HELIOS).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 19, 45),
+                "Acted as a beacon of hope and helped keep the villagers calm" +
+                " when <em>they</em> came...",
+                new Map([[PositiveEmotion.Gratitude, 3],
+                         [PositiveEmotion.Trust, 1]]),
+            )
+        );
+        exclusionListH.push(NpcIndex.ID_DAWN);
+
+        npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_CYRION).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 19, 45),
+                "Helped in organizing the villagers and keeping the inklings " +
+                "at bay as he led us to Mr. Elysium's.",
+                new Map([[PositiveEmotion.Gratitude, 3],
+                         [PositiveEmotion.Respect, 1]]),
+            )
+        );
+        exclusionListC.push(NpcIndex.ID_DAWN);
+
+        npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_AURELIA).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 19, 45),
+                "Fireball after fireball. Teleporting roof-to-roof in the " +
+                "shadows. All for these poor inklings. Hehe, aren't we dramatic?",
+                new Map([[PositiveEmotion.Respect, 2]]),
+            )
+        );
+        exclusionListA.push(NpcIndex.ID_DAWN);
+
+        npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_PANZER).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 19, 45),
+                "Charging right in, huh?",
+                new Map([[PositiveEmotion.Respect, 2]]),
+            )
+        );
+        exclusionListP.push(NpcIndex.ID_DAWN);
+
+        npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_QUINN).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 5, 19, 45),
+                "Walked among our group to keep us safe.",
+                new Map([[PositiveEmotion.Gratitude, 2]]),
+            )
+        );
+        exclusionListQ.push(NpcIndex.ID_DAWN);
+
+        if (!memoriesErased) {
+
+            npcInteractionEvents.get(NpcIndex.ID_YUKI).get(PcIndex.ID_HELIOS).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "He shines so bright... ugh, it burns. Also the way <em>that man</em> " +
+                    "looks at me - cringe.",
+                    new Map([[PositiveEmotion.Trust, 1],
+                             [PositiveEmotion.Gratitude, -4],
+                             [PositiveEmotion.Respect, 4]]),
+                    19,
+                )
+            );
+            exclusionListH.push(NpcIndex.ID_YUKI);
+
+            npcInteractionEvents.get(NpcIndex.ID_IONA).get(PcIndex.ID_HELIOS).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "Saved me!! Gods below, I didn't see that coming... Rusts, " +
+                    "that thing would've... would've...",
+                    new Map([[PositiveEmotion.Trust, 4],
+                             [PositiveEmotion.Gratitude, 4],
+                             [PositiveEmotion.Respect, 2]]),
+                    19,
+                )
+            );
+            exclusionListH.push(NpcIndex.ID_IONA);
+
+            npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_HELIOS).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "Chosen by a Ryshadium! A ryshadium who came to our aid " +
+                    "during this fearsome storm with all the demons that " +
+                    "emerged from it.",
+                    new Map([[PositiveEmotion.Trust, 2],
+                             [PositiveEmotion.Gratitude, 4],
+                             [PositiveEmotion.Respect, 5]])
+                )
+            );
+
+            npcInteractionEvents.get(NpcIndex.ID_SASHA).get(PcIndex.ID_HELIOS).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "Sent his mount to protect Cecilia and me.",
+                    new Map([[PositiveEmotion.Trust, 1],
+                             [PositiveEmotion.Gratitude, 5],
+                             [PositiveEmotion.Respect, 3]])
+                )
+            );
+
+            npcInteractionEvents.get(NpcIndex.ID_KASTOR).get(PcIndex.ID_HELIOS).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "The way he was so completely in command... I wish " +
+                    "that was me instead.",
+                    new Map([[PositiveEmotion.Trust, 1],
+                             [PositiveEmotion.Gratitude, -2],
+                             [PositiveEmotion.Respect, 4]]),
+                    10,
+                    new Map([[PositiveEmotion.Gratitude, true]])
+                )
+            );
+            npcInteractionEvents.get(NpcIndex.ID_KASTOR).get(PcIndex.ID_HELIOS).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "Did he not consider me worthy of assisting him in combat? " +
+                    "And he considered <em>Yuki</em> worthy enough instead? Heh, " +
+                    "and the coward didn't even pick up the weapon.",
+                    new Map([[PositiveEmotion.Trust, -1],
+                             [PositiveEmotion.Gratitude, -2],
+                             [PositiveEmotion.Respect, -1]]),
+                    10,
+                    new Map([[PositiveEmotion.Gratitude, true]])
+                )
+            );
+            exclusionListH.push(NpcIndex.ID_KASTOR);
+
+            npcInteractionEvents.get(NpcIndex.ID_JAYE).get(PcIndex.ID_HELIOS).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "Now, why did he throw the spear towards me?",
+                    new Map([])
+                )
+            );
+            npcInteractionEvents.get(NpcIndex.ID_VERNA).get(PcIndex.ID_HELIOS).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "Was more comfortable when the attack started compared " +
+                    "to the dinner. It's been " +
+                    "so long since I met someone like that. And in handing me " +
+                    "the javelin, he also immediately noted me as a warrior. " +
+                    "That... regrettably... makes me proud.",
+                    new Map([[PositiveEmotion.Trust, 3],
+                             [PositiveEmotion.Gratitude, 1],
+                             [PositiveEmotion.Respect, 7]])
+                )
+            );
+
+            npcInteractionEvents.get(NpcIndex.ID_VERNA).get(PcIndex.ID_HELIOS).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "Saved Iona in the nick of time from that monster.",
+                    new Map([[PositiveEmotion.Gratitude, 7]])
+                )
+            );
+            exclusionListH.push(NpcIndex.ID_VERNA);
+
+            npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_HELIOS).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "Just as he warned, <em>the monsters from the north</em> came. How did he know? " +
+                    "But he stood up for us, nobly and bravely like I'd expect. " +
+                    "Did the Tsar send him? If so, for what purpose?",
+                    new Map([[PositiveEmotion.Trust, -2],
+                             [PositiveEmotion.Gratitude, 2],
+                             [PositiveEmotion.Respect, 4]]),
+                    10,
+                    new Map([[PositiveEmotion.Trust, true]])
+                )
+            );
+            exclusionListH.push(NpcIndex.ID_COROTO);
+
+            npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_CYRION).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "Was in good command of the powers of nature as he covered " +
+                    "our escape. Well, would suck if a druid from that weak nation " +
+                    "couldn't even do that. But... I suppose there is a reason why " +
+                    "the other strong folk keep him around...",
+                    new Map([[PositiveEmotion.Trust, 4],
+                             [PositiveEmotion.Gratitude, -1],
+                             [PositiveEmotion.Respect, 4]]),
+                    10,
+                    new Map([[PositiveEmotion.Gratitude, true]])
+                )
+            );
+            exclusionListC.push(NpcIndex.ID_COROTO);
+
+            npcInteractionEvents.get(NpcIndex.ID_JORDI).get(PcIndex.ID_CYRION).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "Amazing! I was considering him to be like myself, but there's " +
+                    "no way I could stand against such odds and protect such a large " +
+                    "group at the same time.",
+                    new Map([[PositiveEmotion.Trust, 4],
+                             [PositiveEmotion.Gratitude, 2],
+                             [PositiveEmotion.Respect, 5]]),
+                )
+            );
+            exclusionListC.push(NpcIndex.ID_JORDI);
+
+            npcInteractionEvents.get(NpcIndex.ID_YUKI).get(PcIndex.ID_CYRION).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "Well, ig he doesn't want us dead at least. Too easy to feign " +
+                    "weakness in this crisis and let the monsters do the rest.",
+                    new Map([[PositiveEmotion.Trust, 3]]),
+                )
+            );
+            exclusionListC.push(NpcIndex.ID_JORDI);
+
+            npcInteractionEvents.get(NpcIndex.ID_ERICA).get(PcIndex.ID_AURELIA).push(
+                new NpcInteractionEvent(
+                    new GameTimestamp(0, 5, 19, 45),
+                    "I suspected she was a powerful spellcaster, but damn, I don't " +
+                    "think I, as an Ursine noble, met more than a handful of mages who could conjure " +
+                    "fireballs! And with such frequency! Father would " +
+                    "be so proud to meet her... but why would she care about " +
+                    "someone like me?",
+                    new Map([[PositiveEmotion.Respect, 5],
+                             [PositiveEmotion.Gratitude, 3],]),
+                )
+            );
+            exclusionListA.push(NpcIndex.ID_ERICA);
+
+            for (const [npcIndex, npc] of Character.IndexById) {
+                if (!npc.isVillageNpc) {
+                    continue;
+                }
+
+                if (!exclusionListH.includes(npcIndex)) {
+                    npcInteractionEvents.get(npcIndex).get(PcIndex.ID_HELIOS).push(
+                        new NpcInteractionEvent(
+                            new GameTimestamp(0, 5, 19, 45),
+                            "Was completely in control during the fearsome blizzard " +
+                            "and took charge when the monsters arrived.",
+                            new Map([[PositiveEmotion.Trust, 1],
+                                     [PositiveEmotion.Gratitude, 1],
+                                     [PositiveEmotion.Respect, 4]]),
+                        )
+                    );
+                }
+                if (!exclusionListC.includes(npcIndex)) {
+                    npcInteractionEvents.get(npcIndex).get(PcIndex.ID_CYRION).push(
+                        new NpcInteractionEvent(
+                            new GameTimestamp(0, 5, 19, 45),
+                            "Organized our retreat while stalling the monsters " +
+                            "nearby.",
+                            new Map([[PositiveEmotion.Trust, 1],
+                                     [PositiveEmotion.Gratitude, 4],
+                                     [PositiveEmotion.Respect, 1]]),
+                        )
+                    );
+                }
+                if (!exclusionListA.includes(npcIndex)) {
+                    npcInteractionEvents.get(npcIndex).get(PcIndex.ID_AURELIA).push(
+                        new NpcInteractionEvent(
+                            new GameTimestamp(0, 5, 19, 45),
+                            "Stood tall in the fearsome blizzard and granted us " +
+                            "cover from the aerial roof.",
+                            new Map([[PositiveEmotion.Trust, 1],
+                                     [PositiveEmotion.Gratitude, 4],
+                                     [PositiveEmotion.Respect, 1]]),
+                        )
+                    );
+                }
+                if (!exclusionListQ.includes(npcIndex)) {
+                    npcInteractionEvents.get(npcIndex).get(PcIndex.ID_QUINN).push(
+                        new NpcInteractionEvent(
+                            new GameTimestamp(0, 5, 19, 45),
+                            "Walked among our group to keep us safe.",
+                            new Map([[PositiveEmotion.Trust, 2],
+                                     [PositiveEmotion.Gratitude, 2],
+                                     [PositiveEmotion.Respect, 1]]),
+                        )
+                    );
+                }
+                if (!exclusionListP.includes(npcIndex)) {
+                    npcInteractionEvents.get(npcIndex).get(PcIndex.ID_PANZER).push(
+                        new NpcInteractionEvent(
+                            new GameTimestamp(0, 5, 19, 45),
+                            "Charged right into the heart of the enemy.",
+                            new Map([[PositiveEmotion.Respect, 5],
+                                     [PositiveEmotion.Trust, 2]]),
+                        )
+                    );
+                }
+            }
+
+            return;
+        }
+
+
+    })(false);
+}
+
+
+let $individualAst : JQuery;
+let $eventsList : JQuery;
+let $opinionTags : JQuery;
+
+function generateOpinionTag(e: PositiveEmotion, r: number)
+{
+    if (r == 0) return '';
+    const tText = r > 0 ? PositiveEmotion[e] : NegativeEmotion.get(e);
+    const tVal = Math.abs(r);
+    return `<div class="effect_tag" data-emo="${tText}">${tText}: ${tVal}</div>`;
+}
 
 function renderDetails()
 {
     const npcId: NpcIndex = $(this).data("npcId");
     const pcId: PcIndex = $(this).data("pcId");
 
-    $individualAst.empty();
+    $eventsList.empty();
+    $opinionTags.empty();
 
     const eventsDesc = [];
     for (const npcInteractionEvent of npcInteractionEvents.get(npcId).get(pcId)) {
         eventsDesc.push(npcInteractionEvent.eventDesc);
     }
 
-    const eventsList = `<div class='events_list'>${eventsDesc.join("")}</div>`;
+    for (const e of getEnumIterator(PositiveEmotion) as Generator<PositiveEmotion>) {
+        $opinionTags.append(
+            generateOpinionTag(e, npcOpinions.get(npcId).get(pcId).getEmotion(e))
+        );
+    }
 
-    const content = `<div>${eventsList}</div>`
-    console.log(content);
-
-    $individualAst.html(content);
+    $eventsList.html(eventsDesc.join(""));
     $individualAst.show();
 }
 
@@ -1266,6 +1868,7 @@ export function setupNpcOpinions()
             npcMap.set(pc, []);
         }
         npcInteractionEvents.set(npcIndex, npcMap);
+        npcOpinions.set(npcIndex, new Map());
     }
 
     // Adjust for charisma respect.
@@ -1287,8 +1890,11 @@ export function setupNpcOpinions()
     session2NpcInteractions();
     session3NpcInteractions();
     session4NpcInteractions();
+    session5NpcInteractions();
 
     $individualAst = $("#individual_ast");
+    $eventsList = $("#individual_ast .events_list");
+    $opinionTags = $("#individual_ast .opinion_tags");
     const $table_area = $("#attitude_summary_table_area");
     renderNpcOpinionTable($table_area);
 

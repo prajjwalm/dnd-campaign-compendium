@@ -1,6 +1,16 @@
-import {D1, D6, D8, Dice}                     from "../common/diceConstants";
-import {PrimitiveRollable}                    from "../common/rollable";
-import {Activation, CoreStats, DamageType, E} from "./definitions/constants";
+import {D1, D12, D4, D6, D8, Dice} from "../common/diceConstants";
+import {
+    PrimitiveRollable
+}                                  from "../common/rollable";
+import {
+    Activation,
+    AdventurerClasses,
+    AdventurerHitDice,
+    CoreStats,
+    DamageType,
+    E,
+    getModifier
+}                             from "./definitions/constants";
 
 
 // interface IStatBlock {
@@ -174,15 +184,24 @@ class Attack
         }[/rollable] to hit`;
     }
 
-    public getDc(stat: CoreStats): number {
+    public getDc(stat?: CoreStats): number {
+        if (stat == undefined) {
+            stat = this.mainStat;
+        }
         return 8 + this.getMod(stat) + this.prof + this.dcBonus;
     }
 
-    public getMod(stat: CoreStats): number {
+    public getMod(stat?: CoreStats): number {
+        if (stat == undefined) {
+            stat = this.mainStat;
+        }
         return Math.floor((this.stats.get(stat) - 10) / 2);
     }
 
-    public getToHit(stat: CoreStats): number {
+    public getToHit(stat?: CoreStats): number {
+        if (stat == undefined) {
+            stat = this.mainStat;
+        }
         return this.getMod(stat) + this.prof + this.hitBonus;
     }
 
@@ -192,6 +211,38 @@ class Attack
     }
 }
 
+
+class HpBlock {
+    public constructor(public readonly size: Dice,
+                       public readonly biologicalHp: number,
+                       public readonly conMod: number,
+                       public readonly adventurerLevels: Map<AdventurerClasses, number> = new Map(),
+                       public readonly isTough: boolean = false)
+    { }
+
+    public get conHpPerDice()
+    {
+        return this.conMod + (this.isTough ? 2 : 0);
+    }
+
+    private getAdventurerHp(): number {
+        let hp = 0;
+        for (const [klass, level] of this.adventurerLevels.entries()) {
+            hp += (E(AdventurerHitDice.get(klass)) + this.conHpPerDice) * level;
+        }
+        return hp;
+    }
+
+    public get hpDiceCount(): number {
+        const totalHp = this.biologicalHp + this.getAdventurerHp();
+        const hpPerDice = E(this.size) + this.conHpPerDice;
+        return Math.round(totalHp / hpPerDice);
+    }
+
+    public get hpExpected(): number {
+        return (E(this.size) + this.conHpPerDice) * this.hpDiceCount;
+    }
+}
 
 // abstract class StatBlock
 //     implements IStatBlock
@@ -275,6 +326,243 @@ class Attack
 //
 // }
 
+function createInkling()
+{
+    const inklingStats = new Map([
+        [CoreStats.Str, 13],
+        [CoreStats.Dex, 13],
+        [CoreStats.Con, 14],
+        [CoreStats.Int, 16],
+        [CoreStats.Wis, 15],
+        [CoreStats.Cha, 13],
+    ]);
+    const inklingProf = 2;
+
+    const inklingHp = new HpBlock(D6, 40, getModifier(inklingStats.get(CoreStats.Con)));
+
+    const inkSprayText = new Attack({
+        contentGenerator(args: Attack): string {
+            return `<p>Upon death, the inkling sprays viscous ink at all creatures within 15 feet of itself. The targets 
+            must succeed on a DC ${args.getDc()} Constitution saving throw or be [condition]blinded[/condition]
+            until the end of their next turn.</p>`;
+        },
+        activation    : Activation.Special,
+        expectedDamage: 0,
+        mainStat      : CoreStats.Con,
+        prof          : inklingProf,
+        stats         : inklingStats,
+        title         : "Ink Spray"
+    });
+
+    inkSprayText.generateContent();
+
+    const biteText = new Attack({
+        contentGenerator(args: Attack): string {
+            return `<p>Melee Weapon Attack: ${args.getToHitRollableStr("Bite", args.getMod())}, reach 5 ft., one target. 
+            Hit: ${args.getDamageRollableStr("Bite")} plus ${args.getDamageRollableStr("Blot")} and ${args.getDamageRollableStr("BlotNeural")}.</p>`;
+        },
+        assignedDamages: args => new Map([
+            ["Bite", new Map([[D4, 1], [D1, args.getMod()]])]
+        ]),
+        unassignedDamageRatios: new Map([
+            ["Blot", new Map([[D8, 1]])],
+            ["BlotNeural", new Map([[D8, 1]])]
+        ]),
+        damageTypes: new Map([
+            ["Bite", DamageType.Piercing],
+            ["Blot", DamageType.Poison],
+            ["BlotNeural", DamageType.Psychic],
+        ]),
+        activation    : Activation.Action,
+        expectedDamage: 32,
+        mainStat      : CoreStats.Str,
+        prof          : inklingProf,
+        stats         : inklingStats,
+        title         : "Bite"
+    });
+
+    biteText.generateContent();
+
+    console.log(inklingHp.hpDiceCount);
+    console.log(inklingHp.hpExpected);
+    console.log(inkSprayText.content);
+    console.log(biteText.content);
+}
+
+function createInklingDog()
+{
+    const inklingStats = new Map([
+        [CoreStats.Str, 11],
+        [CoreStats.Dex, 17],
+        [CoreStats.Con, 11],
+        [CoreStats.Int, 6],
+        [CoreStats.Wis, 13],
+        [CoreStats.Cha, 7],
+    ]);
+    const inklingProf = 2;
+
+    const inklingHp = new HpBlock(D6, 32, getModifier(inklingStats.get(CoreStats.Con)));
+
+    const biteText = new Attack({
+        contentGenerator(args: Attack): string {
+            return `<p>Melee Weapon Attack: ${args.getToHitRollableStr("Bite", args.getToHit())}, reach 5 ft., one target. 
+            Hit: ${args.getDamageRollableStr("Bite")} plus ${args.getDamageRollableStr("BiteVenom")}</p>`;
+        },
+        assignedDamages: args => new Map([
+            ["Bite", new Map([[D6, 1], [D1, args.getMod()]])]
+        ]),
+        unassignedDamageRatios: new Map([
+            ["BiteVenom", new Map([[D4, 1]])]
+        ]),
+        damageTypes: new Map([
+            ["Bite", DamageType.Piercing],
+            ["BiteVenom", DamageType.Poison],
+        ]),
+        activation    : Activation.Action,
+        expectedDamage: 10,
+        mainStat      : CoreStats.Dex,
+        prof          : inklingProf,
+        stats         : inklingStats,
+        title         : "Bite"
+    });
+
+    biteText.generateContent();
+
+    console.log(inklingHp.hpDiceCount);
+    console.log(inklingHp.hpExpected);
+    console.log(biteText.content);
+}
+
+
+function createInklingAberrant()
+{
+    const inklingStats = new Map([
+        [CoreStats.Str, 13],
+        [CoreStats.Dex, 11],
+        [CoreStats.Con, 16],
+        [CoreStats.Int, 19],
+        [CoreStats.Wis, 11],
+        [CoreStats.Cha, 15],
+    ]);
+    const inklingProf = 3;
+
+    const inklingHp = new HpBlock(D8, 100, getModifier(inklingStats.get(CoreStats.Con)));
+
+    const inkSpitText = new Attack({
+        contentGenerator(args: Attack): string {
+            return `<p>The inkling spits viscous ink at one creature within 60 feet of itself. The target must succeed 
+                    on a DC ${args.getDc()} Constitution saving throw. On failure, they take ${args.getDamageRollableStr("Blot")}
+                    and are [condition]blinded[/condition] until the end of their next turn. On success, they take half
+                    the poison damage and are not blinded. Regardless of the roll, they take ${args.getDamageRollableStr("BlotNeural")}.</p>`;
+        },
+        assignedDamages: args => new Map([
+            ["Blot", new Map([[D1, args.getMod(CoreStats.Con)]])],
+            ["BlotNeural", new Map([[D1, args.getMod(CoreStats.Int)]])]
+        ]),
+        unassignedDamageRatios: new Map([
+            ["Blot", new Map([[D8, 3]])],
+            ["BlotNeural", new Map([[D8, 1]])]
+        ]),
+        damageTypes: new Map([
+            ["Blot", DamageType.Poison],
+            ["BlotNeural", DamageType.Psychic],
+        ]),
+        activation    : Activation.Action,
+        expectedDamage: 50,
+        mainStat      : CoreStats.Con,
+        prof          : inklingProf,
+        stats         : inklingStats,
+        title         : "Ink Spit"
+    });
+
+    inkSpitText.generateContent();
+
+    const chargedText = new Attack({
+        contentGenerator(args: Attack): string {
+            return `<p>The inkling spits viscous ink at one creature within 90 feet of itself. The target must succeed 
+                    on a DC ${args.getDc() + args.prof} Constitution saving throw. On failure, they take ${args.getDamageRollableStr("Blot")}
+                    and are [condition]blinded[/condition] until the end of their next turn. On success, they take half
+                    the poison damage and are not blinded. Regardless of the roll, they take ${args.getDamageRollableStr("BlotNeural")}. 
+                    This damage is neural damage and can cause the target to be [condition]Stunned[/condition].</p>`;
+        },
+        assignedDamages: args => new Map([
+            ["Blot", new Map([[D1, args.getMod(CoreStats.Con)]])],
+            ["BlotNeural", new Map([[D1, args.getMod(CoreStats.Int)]])]
+        ]),
+        unassignedDamageRatios: new Map([
+            ["Blot", new Map([[D8, 1]])],
+            ["BlotNeural", new Map([[D8, 3]])]
+        ]),
+        damageTypes: new Map([
+            ["Blot", DamageType.Poison],
+            ["BlotNeural", DamageType.Psychic],
+        ]),
+        activation    : Activation.Action,
+        expectedDamage: 100,
+        mainStat      : CoreStats.Int,
+        prof          : inklingProf,
+        stats         : inklingStats,
+        title         : "Charged Spit"
+    });
+
+    chargedText.generateContent();
+
+    console.log(inklingHp.hpDiceCount);
+    console.log(inklingHp.hpExpected);
+    console.log(inkSpitText.content);
+    console.log(chargedText.content);
+}
+
+function createInklingWannabeBoss()
+{
+    const inklingStats = new Map([
+        [CoreStats.Str, 24],
+        [CoreStats.Dex, 13],
+        [CoreStats.Con, 24],
+        [CoreStats.Int, 7],
+        [CoreStats.Wis, 8],
+        [CoreStats.Cha, 13],
+    ]);
+    const inklingProf = 4;
+
+    const inklingHp = new HpBlock(D12, 160, getModifier(inklingStats.get(CoreStats.Con)));
+
+    const slamText = new Attack({
+        contentGenerator(args: Attack): string {
+            return `<p>Melee Weapon Attack: ${args.getToHitRollableStr("Slam", args.getMod())}, reach 15 ft., one target. 
+                    Hit: ${args.getDamageRollableStr("Slam")} plus ${args.getDamageRollableStr("SlamVibe")}. The primary
+                    target must succeed a DC ${args.getDc()} Str save or fall [condition]prone[/condition]. Those within 5ft of the 
+                    primary target must make a DC ${args.getDc()} Con save or take the thunder damage too. On a fail 
+                    of 10 or more, they are [condition]deafened[/condition] until a long rest.<br/>
+                    <em>The behemoth inkling slams a mighty fist into the ground, crushing the poor victim who wasn't able to 
+                    run away in time and sending thunderous shockwaves shaking those around.</em></p>`;
+        },
+        assignedDamages: args => new Map([
+            ["Slam", new Map([[D1, args.getMod()]])],
+        ]),
+        unassignedDamageRatios: new Map([
+            ["Slam", new Map([[D8, 3]])],
+            ["SlamVibe", new Map([[D8, 1]])]
+        ]),
+        damageTypes: new Map([
+            ["Slam", DamageType.Bludgeoning],
+            ["SlamVibe", DamageType.Thunder],
+        ]),
+        activation    : Activation.Action,
+        expectedDamage: 110,
+        mainStat      : CoreStats.Str,
+        prof          : inklingProf,
+        stats         : inklingStats,
+        title         : "Slam",
+    });
+
+    slamText.generateContent();
+
+    console.log(inklingHp.hpDiceCount);
+    console.log(inklingHp.hpExpected);
+    console.log(slamText.content);
+}
+
 
 export function test()
 {
@@ -340,4 +628,9 @@ export function test()
         }[/rollable] Necrotic damage
                     is taken if the necrotic shroud is active. Also, the target must succeed a DC 20
                     save or fall prone.</p>`);
+
+    createInkling();
+    createInklingDog();
+    createInklingAberrant();
+    createInklingWannabeBoss();
 }

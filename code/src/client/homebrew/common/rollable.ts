@@ -25,9 +25,14 @@ export class PrimitiveRollable
         this._debug = false;
     }
 
-    public static generateRollString(dice: Map<Dice, number>)
+    public static generateRollString(dice: Map<Dice, number>, sort: boolean = true)
     {
         let rollString = "";
+        if (sort) {
+            dice = new Map(
+                [...dice.entries()].sort((a, b) => { return b[0].sides - a[0].sides;})
+            );
+        }
         for (const [die, count] of dice.entries()) {
             if (count == 0) {
                 continue;

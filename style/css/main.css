@@ -1679,9 +1679,52 @@ img {
   padding: 12px;
 }
 
+#individual_ast .events_list .event_li .effect_tags .effect_tag, #individual_ast .opinion_tags .effect_tag {
+  padding: 4px;
+  margin: 2px;
+  border-radius: 4px;
+  font-family: "Montserrat", sans-serif;
+  border: solid 2px;
+  display: inline-block;
+  font-weight: 500;
+  text-align: center;
+  font-size: 12px;
+}
+#individual_ast .events_list .event_li .effect_tags [data-emo=Gratitude].effect_tag, #individual_ast .opinion_tags [data-emo=Gratitude].effect_tag {
+  background-color: rgba(199, 12, 207, 0.1);
+  border-color: #c70ccf;
+  color: #c70ccf;
+}
+#individual_ast .events_list .event_li .effect_tags [data-emo=Trust].effect_tag, #individual_ast .opinion_tags [data-emo=Trust].effect_tag {
+  background-color: rgba(0, 59, 129, 0.1);
+  border-color: #003b81;
+  color: #003b81;
+}
+#individual_ast .events_list .event_li .effect_tags [data-emo=Respect].effect_tag, #individual_ast .opinion_tags [data-emo=Respect].effect_tag {
+  background-color: rgba(116, 0, 190, 0.1);
+  border-color: #7400be;
+  color: #7400be;
+}
+#individual_ast .events_list .event_li .effect_tags [data-emo=Envy].effect_tag, #individual_ast .opinion_tags [data-emo=Envy].effect_tag {
+  background-color: rgba(15, 114, 12, 0.1);
+  border-color: #0F720C;
+  color: #0F720C;
+}
+#individual_ast .events_list .event_li .effect_tags [data-emo=Paranoia].effect_tag, #individual_ast .opinion_tags [data-emo=Paranoia].effect_tag {
+  background-color: rgba(242, 165, 70, 0.1);
+  border-color: #f2a546;
+  color: #f2a546;
+}
+#individual_ast .events_list .event_li .effect_tags [data-emo=Contempt].effect_tag, #individual_ast .opinion_tags [data-emo=Contempt].effect_tag {
+  background-color: rgba(255, 0, 0, 0.1);
+  border-color: red;
+  color: red;
+}
+
 #individual_ast {
   height: 320px;
   overflow: auto;
+  padding: 16px;
   display: none;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
@@ -1694,10 +1737,11 @@ img {
   display: flex;
   flex-flow: row nowrap;
   overflow: hidden;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  padding: 4px 8px;
-  margin: 8px;
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   border-radius: 4px;
   font-size: 12px;
 }
@@ -1714,60 +1758,22 @@ img {
   margin-left: 8px;
   margin-right: 16px;
   border-right: solid 1px rgba(114, 134, 160, 0.2);
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 #individual_ast .events_list .event_li .display_text {
   width: 400px;
+  flex-grow: 1;
 }
 #individual_ast .events_list .event_li .effect_tags {
   display: flex;
-  flex-flow: row-reverse wrap;
+  flex-flow: row-reverse nowrap;
   padding-left: 8px;
   margin-top: 8px;
   margin-bottom: 8px;
-  width: 240px;
+  margin-left: 16px;
+  flex-grow: 0;
 }
-#individual_ast .events_list .event_li .effect_tags .effect_tag {
-  padding: 4px;
-  margin: 2px;
-  border-radius: 4px;
-  font-family: "Montserrat", sans-serif;
-  border: solid 2px;
-  display: inline-block;
-  font-weight: 500;
-  text-align: center;
-  font-size: 12px;
-}
-#individual_ast .events_list .event_li .effect_tags .effect_tag[data-emo=Gratitude] {
-  background-color: rgba(199, 12, 207, 0.1);
-  border-color: #c70ccf;
-  color: #c70ccf;
-}
-#individual_ast .events_list .event_li .effect_tags .effect_tag[data-emo=Trust] {
-  background-color: rgba(0, 59, 129, 0.1);
-  border-color: #003b81;
-  color: #003b81;
-}
-#individual_ast .events_list .event_li .effect_tags .effect_tag[data-emo=Respect] {
-  background-color: rgba(116, 0, 190, 0.1);
-  border-color: #7400be;
-  color: #7400be;
-}
-#individual_ast .events_list .event_li .effect_tags .effect_tag[data-emo=Envy] {
-  background-color: rgba(15, 114, 12, 0.1);
-  border-color: #0F720C;
-  color: #0F720C;
-}
-#individual_ast .events_list .event_li .effect_tags .effect_tag[data-emo=Paranoia] {
-  background-color: rgba(242, 165, 70, 0.1);
-  border-color: #f2a546;
-  color: #f2a546;
-}
-#individual_ast .events_list .event_li .effect_tags .effect_tag[data-emo=Contempt] {
-  background-color: rgba(255, 0, 0, 0.1);
-  border-color: red;
-  color: red;
-}
-
 #attitude_summary_table_area {
   flex-grow: 1;
   width: 448px;
