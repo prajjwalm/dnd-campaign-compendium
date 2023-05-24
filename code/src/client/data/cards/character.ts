@@ -56,7 +56,7 @@ export enum NpcIndex {
     ID_ROBERTA,
     ID_SASHA,
     ID_SYBILLA,
-    ID_TAIHE,
+    // ID_TAIHE,
     ID_TOMASA,
     ID_VERNA,
     ID_VITACIA,
@@ -1880,26 +1880,6 @@ export function setupCharacterCards() {
         tags         : [],
         summary      : summaries.get("Sybilla") ?? "???",
         description  : "",
-    });
-    new Character({
-        id           : NpcIndex.ID_TAIHE,
-        name         : "Taihe",
-        tokenName    : "Taihe",
-        campaign     : 2,
-        arc          : 1,
-        age          : 22,
-        gender       : "M",
-        tags         : [],
-        summary      : summaries.get("Taihe") ?? "???",
-        description  : "",
-        personalityTags: new Map([
-            // [NpcPersonalityTag.Kind, 3],
-            // [NpcPersonalityTag["Nature Lover"], 2],
-            // [NpcPersonalityTag.Accepting, 2],
-            // [NpcPersonalityTag.Jealous, 1],
-            // [NpcPersonalityTag.Modest, 1],
-            // [NpcPersonalityTag.Industrious, 1],
-        ])
     });
     new Character({
         id           : NpcIndex.ID_TOMASA,

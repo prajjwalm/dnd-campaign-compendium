@@ -1763,6 +1763,8 @@ img {
 }
 #individual_ast .events_list .event_li .display_text {
   width: 400px;
+  font-size: 12px;
+  line-height: 1.4;
   flex-grow: 1;
 }
 #individual_ast .events_list .event_li .effect_tags {

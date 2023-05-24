@@ -75,7 +75,7 @@
  * me know exactly when a person is likely to accept my proposal so that I never,
  * ever get rejected or taken by surprise).
  *
- * So I'm gonna tweak things here a bit - the players won't get the full
+ * So I'm going to tweak things here a bit - the players won't get the full
  * information in the system (unless they look for it in the code lol, but I'm
  * not investing in security/backend for a dnd website) - but instead only as
  * much as the charisma of the highest character allows. That means they'll be
@@ -131,7 +131,10 @@ class NpcInteractionEvent
     public get eventDesc()
     {
         if (this.insightGate > PARTY_INSIGHT) {
-            return null;
+            return `<div class='event_li'>
+                    <div class="timestamp">${this.timestamp.toString()}</div>
+                    <div class="display_text">???</div>
+                  </div>`;
         }
         const effectTags = [];
         for (const [emotion, value] of this.effects.entries()) {
@@ -724,13 +727,13 @@ function session2NpcInteractions()
             new Map([[PositiveEmotion.Respect, 2]])
         )
     );
-    npcInteractionEvents.get(NpcIndex.ID_TAIHE).get(PcIndex.ID_QUINN).push(
-        new NpcInteractionEvent(
-            new GameTimestamp(0, 5, 9, 30),
-            "Fun to hang out with.",
-            new Map([[PositiveEmotion.Respect, 1]])
-        )
-    );
+    // npcInteractionEvents.get(NpcIndex.ID_TAIHE).get(PcIndex.ID_QUINN).push(
+    //     new NpcInteractionEvent(
+    //         new GameTimestamp(0, 5, 9, 30),
+    //         "Fun to hang out with.",
+    //         new Map([[PositiveEmotion.Respect, 1]])
+    //     )
+    // );
 
     // Interaction with Hina as she took them to Cec.
     npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_QUINN).push(
@@ -1247,7 +1250,8 @@ function session5NpcInteractions()
         );
     }
 
-    for (const npc of [NpcIndex.ID_DAWN, NpcIndex.ID_TAIHE, NpcIndex.ID_TOMASA]) {
+    // for (const npc of [NpcIndex.ID_DAWN, NpcIndex.ID_TAIHE, NpcIndex.ID_TOMASA]) {
+    for (const npc of [NpcIndex.ID_DAWN, NpcIndex.ID_TOMASA]) {
         npcInteractionEvents.get(npc).get(PcIndex.ID_CYRION).push(
             new NpcInteractionEvent(
                 new GameTimestamp(0, 5, 17, 30),
@@ -1328,7 +1332,8 @@ function session5NpcInteractions()
         )
     );
 
-    for (const npc of [NpcIndex.ID_DAWN, NpcIndex.ID_TAIHE, NpcIndex.ID_TOMASA]) {
+    for (const npc of [NpcIndex.ID_DAWN, NpcIndex.ID_TOMASA]) {
+    // for (const npc of [NpcIndex.ID_DAWN, NpcIndex.ID_TAIHE, NpcIndex.ID_TOMASA]) {
         for (const pc of getEnumIterator(PcIndex) as Generator<PcIndex>) {
             npcInteractionEvents.get(npc).get(pc).push(
                 new NpcInteractionEvent(
@@ -1419,6 +1424,20 @@ function session5NpcInteractions()
 
 
     // Quinn interactions
+    npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 5, 14, 30),
+            "From Sadhvastan huh. I'm not quite sure I like this. Things must " +
+            "be pretty bad if the Tsar had to pull out the associations with " +
+            "them. What really is happening? And that appearance... oh shit, " +
+            "Oh Shit. Oh SHIT!",
+            new Map([
+                [PositiveEmotion.Trust, -8],
+                [PositiveEmotion.Respect, 8]
+            ]),
+            22
+        )
+    );
     npcInteractionEvents.get(NpcIndex.ID_INGRID).get(PcIndex.ID_QUINN).push(
         new NpcInteractionEvent(
             new GameTimestamp(0, 5, 16, 30),
@@ -1855,12 +1874,67 @@ function session5NpcInteractions()
                     );
                 }
             }
-
-            return;
         }
+    })(true);
+}
 
 
-    })(false);
+function session6NpcInteractions()
+{
+    npcInteractionEvents.get(NpcIndex.ID_ERICA).get(PcIndex.ID_AURELIA).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 6, 6, 0),
+            "Huh that was quite a shove. But given how polite they were in " +
+            "asking if they could visit our garden yesterday, I can only " +
+            "assume something has happened...",
+            new Map([]),
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_ERICA).get(PcIndex.ID_AURELIA).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 6, 6, 30),
+            "The way Ms. Aurelia's owl was staring after me, hiding in the " +
+            "bush until I saw it, then flying off - I'm sure of it. Probably one of her " +
+            "spellcasting powers. I hope I'm mistaken, but... sigh, I doubt " +
+            "it. That's how those with power act, and I was a fool to expect " +
+            "otherwise. <span style='font-size: 9px'>Even after telling her " +
+            "to leave me alone as clearly as I could, won't take no for an " +
+            "answer. Let alone respect any measure of my privacy, I'm seen as " +
+            "an object and downright forbidden to keep my secrets to myself. " +
+            "Can't live with their own paranoia and would downright descend " +
+            "to <em>spying</em> to find out whatever tf they suspect me of " +
+            "hiding from their highnesses.</span><br/>" +
+            "Wait, the owl being there was probably a coincidence. I hope " +
+            "I'm overthinking stuff.",
+            new Map([
+                [PositiveEmotion.Trust, -7],
+                [PositiveEmotion.Gratitude, -2],
+                [PositiveEmotion.Respect, -4],
+            ]),
+            20,
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_DAWN).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 6, 7, 30),
+            "Channeled his investiture to heal me. God knows I needed that, " +
+            "phew... <em>What the hell just happened?</em>&nbsp; What was this sudden " +
+            "touch of death that almost snuffed all our souls out?",
+            new Map([
+                [PositiveEmotion.Gratitude, 3]
+            ]),
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_TOMASA).get(PcIndex.ID_CYRION).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 6, 7, 30),
+            "Healed me, probably saving me from the verge of death... but... " +
+            "what does it matter, now that... why... Taihe...",
+            new Map([
+                [PositiveEmotion.Gratitude, 2]
+            ]),
+        )
+    );
 }
 
 
@@ -1933,6 +2007,7 @@ export function setupNpcOpinions()
     session3NpcInteractions();
     session4NpcInteractions();
     session5NpcInteractions();
+    session6NpcInteractions();
 
     $individualAst = $("#individual_ast");
     $eventsList = $("#individual_ast .events_list");
