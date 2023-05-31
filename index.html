@@ -474,6 +474,68 @@
         <p>I feel this is balanced since a professional liar could probably not be detected that easily, else
            they'd have fallen long ago. But it's not all hopeless, as even the most cunning person would perhaps
            leave behind some clues revealing their nefarious intentions...</p>
+
+        <h4>Escalated Damage Types</h4>
+        <p>
+            This is one of my attempts to make each damage type more distinct. In my experience, D&D damage types
+            lack identity. Just resistances and vulnerabilities are not enough. After they are considered, there's
+            virtually no incentive to explore or specialize in different damage types. Specially given the ease of
+            availability of one of force, radiant and magical weapon damage for almost each class, characters have
+            little reason to pick any other type.
+        </p>
+        <p>
+            So I came up with the concept of escalated damage types. These are very rare, and only found against deadly
+            enemies or enemies from very dangerous environments. At their core they deal double damage and apply
+            a negative effect, but the way they do that makes them particularly unique and deadly.
+        </p>
+        <ol>
+            <li>If a target is immune to the base damage type, they may or may not be immune to the escalated damage
+                type. For instance a construct without a brain that is immune to psychic damage is also immune to neural
+                damage. But a demon form the abyss may take hellfire damage even if they are immune to fire damage.
+                Resistance means nothing against escalated damage types while vulnerabilities extend.
+            </li>
+            <li>Base damage is always applied as normal first. So if an attack deals 27 neural damage, the affected
+                target would immediately take 27 psychic damage. This is affected by vulnerability / resistance. Let's
+                say the target was resistant, so they would 13 psychic damage now.</li>
+            <li>Concentration-like checks are then made against total escalated damage since the last failed check.
+                Such checks must only be made when the total damage exceeds 20, but the target can willingly choose
+                to fail a save whenever they wish to. In the above example, the total damage is 27, so a DC 14 Int
+                saving throw is attempted.</li>
+            <li>If a concentration-like check is successful, nothing happens, but the damage is tracked. So in the
+                above example let's say the target succeeds the save, then takes another 25 neural damage. On the
+                second instance, they must make a DC 26 Int save (since the total damage is now 52).</li>
+            <li>Should they fail, the total damage stacked up is immediately applied and so is an adverse effect.
+                In this case since let's assume the failed the save. So as a result of that attack the damage taken
+                is 52 + 25/2 = 64. This abrupt application of damage is what makes escalated damage so deadly,
+                since it may easily one-shot rather tanky characters too. Since the damage proc'd was neural,
+                the target suffering the damage would also be stunned for 1 round.</li>
+            <li>Let's say the victim didn't want this landfall damage, so they could've chosen to fail the save
+                immediately when they took the first 27 psychic damage. They'd then have taken 40 psychic damage
+                and been stunned. So the tradeoff is that while the damage taken is more gradual (giving allies a chance
+                to heal), the negative effect becomes more frequently applied.</li>
+        </ol>
+        <p>Some escalated damage types encountered so far are -</p>
+        <table>
+            <tr><th>Damage Type</th><th>Escalated Damage Type</th><th>Save Stat</th><th>Fail Effect</th></tr>
+            <tr>
+                <td>Psychic</td><td>Neural</td><td>INT</td>
+                <td>Stunned until the end of the same initiative count in the next round. Paralyzed on the second
+                    failed save in that duration. Death on the third failed save.</td>
+            </tr>
+            <tr>
+                <td>Acid</td><td>Corrosive</td><td>DEX</td>
+                <td>AC reduced by 1. Non-magical armor based AC is preferentially reduced, and is reduced forever.
+                    Any other AC reduction reverts on a long rest. Magical AC is not reduced, but the base 10 AC can
+                    be. Death if the base AC falls to zero.</td>
+            </tr>
+            <tr>
+                <td>Poison</td><td>Biochemical (Hazard)</td><td>CON</td>
+                <td>Gain a "negative HP" equal to the damage taken, and gain the same negative HP after 1 + Con Mod
+                rounds, unless no negative HP remains. Healing reduces the negative HP instead, and doesn't heal
+                until that falls to zero. Poisoned (disregards immunity) / Paralyzed / Unconscious (DC 30 graded) when
+                negative HP exceeds half health and death when it exceeds health.</td>
+            </tr>
+        </table>
         <h3>Meta-game rules</h3>
         <p>
             Note: This section of the rules aren't really to do with either the narrative or the system, but are more

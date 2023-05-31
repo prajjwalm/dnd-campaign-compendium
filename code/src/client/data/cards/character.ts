@@ -485,7 +485,15 @@ const summaries: Map<string, string> = new Map([
       to be an extremely generous and kind soul, but seemed to be haunted by demons of his own, and was always 
       begging God for forgiveness. Was randomly assaulted by a 
       ${Character.linkNpc(NpcIndex.ID_MOSTIMA, "mysterious half-blood fallen aasimar")} while peacefully exploring the
-      coast of Aegir.<br/>[INCOMPLETE]`],
+      coast of Aegir.<br/>
+      <div class="effect_tag">Incomplete</div>`],
+    ["Dawn",
+     `The gentle and reserved pawn shop owner and the de facto caretaker of the small mountainous village of Po'shan. 
+      Appears to hide quite a bit of pain underneath a sad smile. Was born in the hinterlands of Naiyumi around 
+      1200 AR. Kept witnessing the residents of her village constantly get slaughtered again and again, and lose 
+      quite a bit of the memeories of their times spent together again and again.<br/>
+      <div class="effect_tag">Incomplete</div>
+      `],
     ["", ``],
 ])
 
@@ -1557,9 +1565,11 @@ export function setupCharacterCards() {
         tokenName    : "Dawn",
         campaign     : 2,
         arc          : 1,
-        age          : 32,
+        age          : "32 (405)",
         gender       : "F",
         tags         : [
+            "From | Materia / Devotion",
+            "Race | Human"
         ],
         summary      : summaries.get("Dawn") ?? "???",
         description  : "",

@@ -66,6 +66,9 @@ $attitude_circle_border: 8px
   &[data-emo="Contempt"]
     @include effect-tag($color_contempt)
 
+.effect_tag
+  @extend %effect_tag
+
 #individual_ast
   height: 5 * ($img_diameter + 2 * $padding_default)
   overflow: auto

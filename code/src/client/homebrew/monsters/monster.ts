@@ -1,7 +1,7 @@
-import {D1, D12, D4, D6, D8, Dice} from "../common/diceConstants";
+import {D1, D12, D20, D4, D6, D8, Dice} from "../common/diceConstants";
 import {
     PrimitiveRollable
-}                                  from "../common/rollable";
+}                                       from "../common/rollable";
 import {
     Activation,
     AdventurerClasses,
@@ -564,6 +564,100 @@ function createInklingWannabeBoss()
 }
 
 
+function createInklingDynamite()
+{
+    const inklingStats = new Map([
+        [CoreStats.Str, 1],
+        [CoreStats.Dex, 28],
+        [CoreStats.Con, 10],
+        [CoreStats.Int, 13],
+        [CoreStats.Wis, 14],
+        [CoreStats.Cha, 11],
+    ]);
+    const inklingProf = 3;
+
+    const inklingHp = new HpBlock(D4, 25, getModifier(inklingStats.get(CoreStats.Con)));
+
+    const boomText = new Attack({
+        contentGenerator(args: Attack): string {
+            return `<p>Upon death explodes to deal ${args.getDamageRollableStr("Boom")} to targets within 10 ft. 
+                    On coming into contact with its opposite explodes to deal ${args.getDamageRollableStr("BigBoom")} 
+                    instead to targets within 20ft and half damage to targets within 40ft. Doesn't die till both 
+                    opposites explode, instead just enters a diffused state. If the opposites come into contact and
+                    at least one is diffused, damage dealt is half the rolled damage.</p>`;
+        },
+        assignedDamages: _ => new Map([
+        ]),
+        unassignedDamageRatios: new Map([
+            ["Boom", new Map([[D20, 1]])],
+            ["BigBoom", new Map([[D20, 4]])]
+        ]),
+        damageTypes: new Map([
+            ["Boom", DamageType.Force],
+            ["BigBoom", DamageType.Force],
+        ]),
+        activation    : Activation.Special,
+        expectedDamage: 260,
+        mainStat      : CoreStats.Dex,
+        prof          : inklingProf,
+        stats         : inklingStats,
+        title         : "Slam",
+    });
+
+    boomText.generateContent();
+
+    console.log(inklingHp.hpDiceCount);
+    console.log(inklingHp.hpExpected);
+    console.log(boomText.content);
+}
+
+function createInklingTank()
+{
+    const inklingStats = new Map([
+        [CoreStats.Str, 28],
+        [CoreStats.Dex, 1],
+        [CoreStats.Con, 28],
+        [CoreStats.Int, 2],
+        [CoreStats.Wis, 13],
+        [CoreStats.Cha, 16],
+    ]);
+    // const inklingProf = 4;
+
+    const inklingHp = new HpBlock(D12, 120, getModifier(inklingStats.get(CoreStats.Con)));
+
+    // const boomText = new Attack({
+    //     contentGenerator(args: Attack): string {
+    //         return `<p>Upon death explodes to deal ${args.getDamageRollableStr("Boom")} to targets within 10 ft.
+    //                 On coming into contact with its opposite explodes to deal ${args.getDamageRollableStr("BigBoom")}
+    //                 instead to targets within 20ft and half damage to targets within 40ft. Doesn't die till both
+    //                 opposites explode, instead just enters a diffused state. If the opposites come into contact and
+    //                 at least one is diffused, damage dealt is half the rolled damage.</p>`;
+    //     },
+    //     assignedDamages: _ => new Map([
+    //     ]),
+    //     unassignedDamageRatios: new Map([
+    //         ["Boom", new Map([[D20, 1]])],
+    //         ["BigBoom", new Map([[D20, 4]])]
+    //     ]),
+    //     damageTypes: new Map([
+    //         ["Boom", DamageType.Force],
+    //         ["BigBoom", DamageType.Force],
+    //     ]),
+    //     activation    : Activation.Special,
+    //     expectedDamage: 260,
+    //     mainStat      : CoreStats.Dex,
+    //     prof          : inklingProf,
+    //     stats         : inklingStats,
+    //     title         : "Slam",
+    // });
+
+    // boomText.generateContent();
+
+    console.log(inklingHp.hpDiceCount);
+    console.log(inklingHp.hpExpected);
+    // console.log(boomText.content);
+}
+
 export function test()
 {
     const attack = new Attack({
@@ -633,4 +727,6 @@ export function test()
     createInklingDog();
     createInklingAberrant();
     createInklingWannabeBoss();
+    createInklingDynamite();
+    createInklingTank();
 }

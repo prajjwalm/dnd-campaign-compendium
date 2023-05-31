@@ -203,6 +203,29 @@ img {
   background-color: rgba(87, 108, 168, 0.1);
 }
 
+table {
+  font-size: 12px;
+}
+table td {
+  padding: 8px;
+}
+table th {
+  padding: 8px;
+  white-space: nowrap;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 200;
+}
+table tr:nth-child(2n) {
+  background-color: rgba(114, 134, 160, 0.1);
+}
+table tr:nth-child(2n+1) {
+  background-color: rgba(114, 134, 160, 0.15);
+}
+table tr:nth-child(1) {
+  background-color: #21364d !important;
+  color: #FAFCFF;
+}
+
 @media screen and (min-width: 960px) {
   .page {
     width: calc(80vw - 100px);
@@ -428,6 +451,29 @@ img {
 }
 #page_nav .page_nav_link:hover {
   background-color: rgba(87, 108, 168, 0.1);
+}
+
+table {
+  font-size: 12px;
+}
+table td {
+  padding: 8px;
+}
+table th {
+  padding: 8px;
+  white-space: nowrap;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 200;
+}
+table tr:nth-child(2n) {
+  background-color: rgba(114, 134, 160, 0.1);
+}
+table tr:nth-child(2n+1) {
+  background-color: rgba(114, 134, 160, 0.15);
+}
+table tr:nth-child(1) {
+  background-color: #21364d !important;
+  color: #FAFCFF;
 }
 
 @media screen and (min-width: 960px) {
@@ -754,6 +800,29 @@ img {
   background-color: rgba(87, 108, 168, 0.1);
 }
 
+table {
+  font-size: 12px;
+}
+table td {
+  padding: 8px;
+}
+table th {
+  padding: 8px;
+  white-space: nowrap;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 200;
+}
+table tr:nth-child(2n) {
+  background-color: rgba(114, 134, 160, 0.1);
+}
+table tr:nth-child(2n+1) {
+  background-color: rgba(114, 134, 160, 0.15);
+}
+table tr:nth-child(1) {
+  background-color: #21364d !important;
+  color: #FAFCFF;
+}
+
 @media screen and (min-width: 960px) {
   .page {
     width: calc(80vw - 100px);
@@ -1065,6 +1134,29 @@ img {
 }
 #page_nav .page_nav_link:hover {
   background-color: rgba(87, 108, 168, 0.1);
+}
+
+table {
+  font-size: 12px;
+}
+table td {
+  padding: 8px;
+}
+table th {
+  padding: 8px;
+  white-space: nowrap;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 200;
+}
+table tr:nth-child(2n) {
+  background-color: rgba(114, 134, 160, 0.1);
+}
+table tr:nth-child(2n+1) {
+  background-color: rgba(114, 134, 160, 0.15);
+}
+table tr:nth-child(1) {
+  background-color: #21364d !important;
+  color: #FAFCFF;
 }
 
 @media screen and (min-width: 960px) {
@@ -1398,6 +1490,29 @@ img {
   background-color: rgba(87, 108, 168, 0.1);
 }
 
+table {
+  font-size: 12px;
+}
+table td {
+  padding: 8px;
+}
+table th {
+  padding: 8px;
+  white-space: nowrap;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 200;
+}
+table tr:nth-child(2n) {
+  background-color: rgba(114, 134, 160, 0.1);
+}
+table tr:nth-child(2n+1) {
+  background-color: rgba(114, 134, 160, 0.15);
+}
+table tr:nth-child(1) {
+  background-color: #21364d !important;
+  color: #FAFCFF;
+}
+
 @media screen and (min-width: 960px) {
   .page {
     width: calc(80vw - 100px);
@@ -1634,6 +1749,29 @@ img {
   background-color: rgba(87, 108, 168, 0.1);
 }
 
+table {
+  font-size: 12px;
+}
+table td {
+  padding: 8px;
+}
+table th {
+  padding: 8px;
+  white-space: nowrap;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 200;
+}
+table tr:nth-child(2n) {
+  background-color: rgba(114, 134, 160, 0.1);
+}
+table tr:nth-child(2n+1) {
+  background-color: rgba(114, 134, 160, 0.15);
+}
+table tr:nth-child(1) {
+  background-color: #21364d !important;
+  color: #FAFCFF;
+}
+
 @media screen and (min-width: 960px) {
   .page {
     width: calc(80vw - 100px);
@@ -1679,7 +1817,7 @@ img {
   padding: 12px;
 }
 
-#individual_ast .events_list .event_li .effect_tags .effect_tag, #individual_ast .opinion_tags .effect_tag {
+#individual_ast .events_list .event_li .effect_tags .effect_tag, #individual_ast .opinion_tags .effect_tag, .effect_tag {
   padding: 4px;
   margin: 2px;
   border-radius: 4px;
@@ -1690,32 +1828,32 @@ img {
   text-align: center;
   font-size: 12px;
 }
-#individual_ast .events_list .event_li .effect_tags [data-emo=Gratitude].effect_tag, #individual_ast .opinion_tags [data-emo=Gratitude].effect_tag {
+#individual_ast .events_list .event_li .effect_tags [data-emo=Gratitude].effect_tag, #individual_ast .opinion_tags [data-emo=Gratitude].effect_tag, [data-emo=Gratitude].effect_tag {
   background-color: rgba(199, 12, 207, 0.1);
   border-color: #c70ccf;
   color: #c70ccf;
 }
-#individual_ast .events_list .event_li .effect_tags [data-emo=Trust].effect_tag, #individual_ast .opinion_tags [data-emo=Trust].effect_tag {
+#individual_ast .events_list .event_li .effect_tags [data-emo=Trust].effect_tag, #individual_ast .opinion_tags [data-emo=Trust].effect_tag, [data-emo=Trust].effect_tag {
   background-color: rgba(0, 59, 129, 0.1);
   border-color: #003b81;
   color: #003b81;
 }
-#individual_ast .events_list .event_li .effect_tags [data-emo=Respect].effect_tag, #individual_ast .opinion_tags [data-emo=Respect].effect_tag {
+#individual_ast .events_list .event_li .effect_tags [data-emo=Respect].effect_tag, #individual_ast .opinion_tags [data-emo=Respect].effect_tag, [data-emo=Respect].effect_tag {
   background-color: rgba(116, 0, 190, 0.1);
   border-color: #7400be;
   color: #7400be;
 }
-#individual_ast .events_list .event_li .effect_tags [data-emo=Envy].effect_tag, #individual_ast .opinion_tags [data-emo=Envy].effect_tag {
+#individual_ast .events_list .event_li .effect_tags [data-emo=Envy].effect_tag, #individual_ast .opinion_tags [data-emo=Envy].effect_tag, [data-emo=Envy].effect_tag {
   background-color: rgba(15, 114, 12, 0.1);
   border-color: #0F720C;
   color: #0F720C;
 }
-#individual_ast .events_list .event_li .effect_tags [data-emo=Paranoia].effect_tag, #individual_ast .opinion_tags [data-emo=Paranoia].effect_tag {
+#individual_ast .events_list .event_li .effect_tags [data-emo=Paranoia].effect_tag, #individual_ast .opinion_tags [data-emo=Paranoia].effect_tag, [data-emo=Paranoia].effect_tag {
   background-color: rgba(242, 165, 70, 0.1);
   border-color: #f2a546;
   color: #f2a546;
 }
-#individual_ast .events_list .event_li .effect_tags [data-emo=Contempt].effect_tag, #individual_ast .opinion_tags [data-emo=Contempt].effect_tag {
+#individual_ast .events_list .event_li .effect_tags [data-emo=Contempt].effect_tag, #individual_ast .opinion_tags [data-emo=Contempt].effect_tag, [data-emo=Contempt].effect_tag {
   background-color: rgba(255, 0, 0, 0.1);
   border-color: red;
   color: red;
