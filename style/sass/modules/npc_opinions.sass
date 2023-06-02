@@ -28,7 +28,7 @@ $attitude_circle_border: 8px
 
 #ast_explanation
   min-height: 5 * ($img_diameter + 2 * $padding_default)
-  @include BoxShadowHelper(1)
+  @include BoxShadowElevationHelper(1)
 
   ul
     margin-top: 0
@@ -51,14 +51,14 @@ $attitude_circle_border: 8px
     border-color: $color
     color: $color
 
-  &[data-emo="Affection"]
+  //&[data-emo="Affection"]
   &[data-emo="Gratitude"]
     @include effect-tag($color_gratitude)
   &[data-emo="Trust"]
     @include effect-tag($color_trust)
   &[data-emo="Respect"]
     @include effect-tag($color_respect)
-  &[data-emo="Hatred"]
+  //&[data-emo="Hatred"]
   &[data-emo="Envy"]
     @include effect-tag($color_envy)
   &[data-emo="Paranoia"]
@@ -75,7 +75,7 @@ $attitude_circle_border: 8px
   padding: 2 * $padding-default
 
   display: none
-  @include BoxShadowHelper(1)
+  @include BoxShadowElevationHelper(1)
 
   .opinion_tags
     .effect_tag
@@ -256,4 +256,4 @@ $attitude_circle_border: 8px
         z-index: -2
         background-color: $color_true_grey
 
-        @include BoxShadowHelper(1)
+        @include BoxShadowElevationHelper(1)

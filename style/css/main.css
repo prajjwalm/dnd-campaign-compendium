@@ -21,6 +21,10 @@
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+}
+
 /**
  * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
  * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
@@ -2027,6 +2031,58 @@ table tr:nth-child(1) {
   z-index: -2;
   background-color: #aaa;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+#workshop .backdrop {
+  background: black;
+  padding: 72px;
+  width: 100vw;
+  height: 100vh;
+}
+#workshop .backdrop .selectable {
+  width: 160px;
+  height: 240px;
+  margin: 8px;
+}
+
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+#workshop .selectable_radio_container .translational.selectable {
+  display: inline-block;
+  background: linear-gradient(to bottom, #080810 20%, #1f2635 60%);
+  border: solid 1px #1e365c;
+  box-shadow: 0 0 10px 3px rgba(250, 252, 255, 0.19);
+}
+#workshop .selectable_radio_container .translational.selectable.selected {
+  background: linear-gradient(to bottom, #080810 20%, #2d477e 60%);
+  transform: translateY(-10px);
 }
 
 /*# sourceMappingURL=main.css.map */

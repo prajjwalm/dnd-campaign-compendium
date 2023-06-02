@@ -1,0 +1,37 @@
+@import "../definitions/colors"
+@import "../definitions/shadows"
+
+// Values I'm reasonably certain of.
+$color_a_dark:   #080810
+$color_a_light:  #1f2635
+$color_a_active: #2d477e
+
+// Values I've made a best-attempt-guess for.
+$color_a_shadow: #1e365c
+
+//
+// This is meant to be extended by whichever divs who would like to support the
+// next generation (gamified) UI. Eventually I would make the entire site shift
+// to this, but for now I want the change to be non-disruptive.
+//
+%advanced_style_div
+  .selectable_radio_container
+
+    //
+    // Notes:
+    // > I do not think activation changed the shadow's color/opacity/height.
+    // > The gradient stops are all best-attempt-guesses.
+    // > If an inset shadow was used, it was too imperceptible here.
+    //
+    .translational.selectable
+      display: inline-block
+      background: linear-gradient(to bottom, $color_a_dark, 20%, $color_a_light 60%)
+      border: solid 1px $color_a_shadow
+      @include BoxShadowUniformHelper(3, $color_white)
+
+      &.selected
+        background: linear-gradient(to bottom, $color_a_dark 20%, $color_a_active 60%)
+        transform: translateY(-10px)
+
+#workshop
+  @extend %advanced_style_div
