@@ -1,37 +1,107 @@
 @import "../definitions/colors"
 @import "../definitions/shadows"
 
-// Values I'm reasonably certain of.
-$color_a_dark:   #080810
-$color_a_light:  #1f2635
-$color_a_active: #2d477e
-
-// Values I've made a best-attempt-guess for.
-$color_a_shadow: #1e365c
-
 //
-// This is meant to be extended by whichever divs who would like to support the
-// next generation (gamified) UI. Eventually I would make the entire site shift
-// to this, but for now I want the change to be non-disruptive.
+// # Translational Selectable
+// This denotes a type of selectable (radio/checkbox) card etc. which moves
+// in a certain direction when selected, along with changing its color to a
+// more active one. This gives the impression that a card is being drawn
+// from under a cover.
 //
+
+$theme_ocean_blue: "ocean_blue"
+$default_theme: $theme_ocean_blue
+
+@mixin translational_selectable_colors($direction: "up", $color_theme: $default_theme)
+  //
+  // Since the card lights up from the direction from with it is drawn, when the
+  // direction input is upward, a selected selectable will have its down side
+  // lighted up in a more active color.
+  //
+  // Notes:
+  // > I do not think activation changed the shadow's color/opacity/height.
+  // > The gradient stops are all best-attempt-guesses.
+  // > If an inset shadow was used, it was too imperceptible here.
+  //
+  $angle: 0deg
+  @if ($direction == "up")
+    $angle: 0deg
+  @else if ($direction == "right")
+    $angle: 90deg
+  @else if ($direction == "down")
+    $angle: 180deg
+  @else if ($direction == "left")
+    $angle: 270deg
+  @else
+    @error "The value of $direction (#{$direction}) must be a cardinal direction (up/down/left/right)."
+
+  @if ($color_theme != $theme_ocean_blue)
+    @error "Unsupported color scheme #{$color_theme} for translational selectable."
+
+  .selectable
+    background: #252d3d
+    background: linear-gradient($angle, #252d3d 0%, #191f2c 30%, #131b27 45%, #090911 100%)
+    border: solid 1px #242d40
+    @include BoxShadowUniformHelper(4, #2e4983)
+
+    &.selected
+      background: #2e4983
+      background: linear-gradient(0deg, #2e4983 0%, #293d68 12%, #141c25 45%, #090911 100%)
+
+
+
+@mixin translational_selectable_dimensions($direction: "up", $card_length: 300px, $active_card_length: 360px, $card_cross: 180px, $base_width: 24px)
+
 %advanced_style_div
-  .selectable_radio_container
+  //
+  // This is meant to be extended by whichever divs who would like to support the
+  // next generation (gamified) UI. Eventually I would make the entire site shift
+  // to this, but for now I want the change to be non-disruptive.
+  //
 
-    //
-    // Notes:
-    // > I do not think activation changed the shadow's color/opacity/height.
-    // > The gradient stops are all best-attempt-guesses.
-    // > If an inset shadow was used, it was too imperceptible here.
-    //
-    .translational.selectable
-      display: inline-block
-      background: linear-gradient(to bottom, $color_a_dark, 20%, $color_a_light 60%)
-      border: solid 1px $color_a_shadow
+  .selectable_radio_container.translational_flags
+
+    ///////////////////////// Color Setup /////////////////////////////////////
+
+    .translation_base
+      background-color: #151515
       @include BoxShadowUniformHelper(3, $color_white)
 
-      &.selected
-        background: linear-gradient(to bottom, $color_a_dark 20%, $color_a_active 60%)
-        transform: translateY(-10px)
+    &.upward
+      @include translational_selectable_colors("up")
+
+    ///////////////////////// Positioning Setup ///////////////////////////////
+
+    overflow: hidden
+    display: flex
+
+    .translation_base
+      position: absolute
+
+    &.upward
+      flex-flow: row nowrap
+      align-items: center
+      justify-content: center
+      gap: 16px
+
+      .translation_base
+        width: 100%
+        left: 0
+        right: 0
+        bottom: 0
+        height: 24px
+
+      .selectable
+        aspect-ratio: 0.6 / 1
+
+        &.selected
+          aspect-ratio: 0.6 / 1.12
+
+    ///////////////////////// Misc ////////////////////////////////////////////
+
+    .selectable
+      transition: all 200ms
+
 
 #workshop
   @extend %advanced_style_div

@@ -2040,8 +2040,7 @@ table tr:nth-child(1) {
   height: 100vh;
 }
 #workshop .backdrop .selectable {
-  width: 160px;
-  height: 240px;
+  width: 180px;
   margin: 8px;
 }
 
@@ -2074,15 +2073,48 @@ table tr:nth-child(1) {
  * *
  * * Also note: https://m3.material.io/styles/elevation/tokens
  * */
-#workshop .selectable_radio_container .translational.selectable {
-  display: inline-block;
-  background: linear-gradient(to bottom, #080810 20%, #1f2635 60%);
-  border: solid 1px #1e365c;
+#workshop .selectable_radio_container.translational_flags {
+  overflow: hidden;
+  display: flex;
+}
+#workshop .selectable_radio_container.translational_flags .translation_base {
+  background-color: #151515;
   box-shadow: 0 0 10px 3px rgba(250, 252, 255, 0.19);
 }
-#workshop .selectable_radio_container .translational.selectable.selected {
-  background: linear-gradient(to bottom, #080810 20%, #2d477e 60%);
-  transform: translateY(-10px);
+#workshop .selectable_radio_container.translational_flags.upward .selectable {
+  background: #252d3d;
+  background: linear-gradient(0deg, #252d3d 0%, #191f2c 30%, #131b27 45%, #090911 100%);
+  border: solid 1px #242d40;
+  box-shadow: 0 0 14px 5px rgba(46, 73, 131, 0.25);
+}
+#workshop .selectable_radio_container.translational_flags.upward .selectable.selected {
+  background: #2e4983;
+  background: linear-gradient(0deg, #2e4983 0%, #293d68 12%, #141c25 45%, #090911 100%);
+}
+#workshop .selectable_radio_container.translational_flags .translation_base {
+  position: absolute;
+}
+#workshop .selectable_radio_container.translational_flags.upward {
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+#workshop .selectable_radio_container.translational_flags.upward .translation_base {
+  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 24px;
+}
+#workshop .selectable_radio_container.translational_flags.upward .selectable {
+  aspect-ratio: 0.6/1;
+}
+#workshop .selectable_radio_container.translational_flags.upward .selectable.selected {
+  aspect-ratio: 0.6/1.12;
+}
+#workshop .selectable_radio_container.translational_flags .selectable {
+  transition: all 200ms;
 }
 
 /*# sourceMappingURL=main.css.map */

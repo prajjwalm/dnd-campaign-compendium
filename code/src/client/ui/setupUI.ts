@@ -21,16 +21,12 @@ function setupRadios($enclosingDiv: JQuery)
     });
 
     $enclosingDiv.on("click", ".selectable.radio", function (e) {
+        e.stopPropagation();
         if ($(this).hasClass("selected")) {
             return;
         }
         $(this).siblings(".selectable.radio").removeClass(SELECTED_CLASS_NAME);
         $(this).addClass(SELECTED_CLASS_NAME);
-
-        // This prevents the parent click watcher above from immediately
-        // removing the class. Also doing this here has the (unplanned but cool)
-        // effect of working as a toggle.
-        e.stopPropagation();
     });
 }
 
