@@ -1,4 +1,4 @@
-import {D10, D12, D6, D8, Dice} from "../../common/diceConstants";
+import {D10, D100, D12, D20, D4, D6, D8, Dice} from "../../common/diceConstants";
 
 
 export enum CoreStats {
@@ -10,11 +10,11 @@ export enum CoreStats {
     Cha
 }
 
-export enum ProficiencyLevels {
+export enum ProficiencyLevel {
     None,
     Half,
     Prof,
-    Expert
+    Expert,
 }
 
 export enum Senses {
@@ -24,16 +24,27 @@ export enum Senses {
     TrueSight,
 }
 
-export enum CreatureSizes {
+export enum CreatureSize {
     Tiny,
     Small,
     Medium,
     Large,
     Huge,
     Gargantuan,
+    Cosmic,
 }
 
-export enum Skills {
+export const SizeToDice = new Map<CreatureSize, Dice>([
+    [CreatureSize.Tiny,       D4],
+    [CreatureSize.Small,      D6],
+    [CreatureSize.Medium,     D8],
+    [CreatureSize.Large,      D10],
+    [CreatureSize.Huge,       D12],
+    [CreatureSize.Gargantuan, D20],
+    [CreatureSize.Cosmic,     D100],
+])
+
+export enum Skill {
     Acrobatics,
     AnimalHandling,
     Arcana,
@@ -54,7 +65,29 @@ export enum Skills {
     Survival,
 }
 
-export enum Speeds {
+export const SkillForStat : Map<Skill, CoreStats> = new Map([
+    [Skill.Acrobatics,     CoreStats.Dex],
+    [Skill.AnimalHandling, CoreStats.Wis],
+    [Skill.Arcana,         CoreStats.Int],
+    [Skill.Athletics,      CoreStats.Str],
+    [Skill.Deception,      CoreStats.Cha],
+    [Skill.History,        CoreStats.Int],
+    [Skill.Insight,        CoreStats.Wis],
+    [Skill.Intimidation,   CoreStats.Cha],
+    [Skill.Investigation,  CoreStats.Int],
+    [Skill.Medicine,       CoreStats.Wis],
+    [Skill.Nature,         CoreStats.Int],
+    [Skill.Perception,     CoreStats.Wis],
+    [Skill.Performance,    CoreStats.Cha],
+    [Skill.Persuasion,     CoreStats.Cha],
+    [Skill.Religion,       CoreStats.Int],
+    [Skill.SlightOfHand,   CoreStats.Dex],
+    [Skill.Stealth,        CoreStats.Dex],
+    [Skill.Survival,       CoreStats.Wis],
+])
+
+
+export enum Speed {
     Walking,
     Swimming,
     Flying,
@@ -116,6 +149,8 @@ export enum Activation {
     BonusAction,
     Reaction,
     Special,
+    LegendaryAction,
+    MythicAction,
 }
 
 

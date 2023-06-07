@@ -25,6 +25,11 @@ export class PrimitiveRollable
         this._debug = false;
     }
 
+    public static generateToHitString(mod: number): string
+    {
+        return (mod >= 0 ? "+" : "") + mod;
+    }
+
     public static generateRollString(dice: Map<Dice, number>, sort: boolean = true)
     {
         let rollString = "";

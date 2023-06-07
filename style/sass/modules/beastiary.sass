@@ -1,0 +1,68 @@
+@import "../definitions/colors"
+//@import "../definitions/shadows"
+@import "../definitions/common_dimensions"
+
+#beastiary
+  width: 100%
+  display: flex
+  flex-flow: row wrap
+  gap: $margin_default
+  align-items: flex-start
+  justify-content: space-between
+
+  .rollable
+    background-color: $color_white
+    border: solid 2px $color_primary
+    font-family: Montserrat, sans-serif
+    border-radius: 4px
+    padding: 0 0.5 * $padding_default
+    cursor: pointer
+    @include FontSize(6)
+
+  .selectable_radio_container.translational_flags
+    width: 40%
+    min-width: 320px
+    flex-grow: 0
+    overflow: unset
+
+    .translation_base
+      border-radius: 4px
+      padding-top: 2*$padding_default
+      padding-bottom: 2*$padding_default
+
+      .mob_group_icon
+        width: 60px
+        height: 70px
+
+        img
+          width: 100%
+          height: 100%
+          object-fit: contain
+
+    .selectable
+      display: flex
+      flex-flow: row-reverse nowrap
+      align-items: center
+      justify-content: space-between
+      padding-left: $padding_default
+      padding-right: $padding_default
+      margin-bottom: $margin_default
+      border-top-right-radius: 4px
+      border-bottom-right-radius: 4px
+
+      .title
+        font-family: Montserrat, sans-serif
+        color: $color-white
+        @include FontSize(4)
+
+      .icon_img
+        width: 64px
+        height: 64px
+        object-fit: contain
+        margin: 0
+
+
+
+  #sheet_zone
+    width: 50%
+    min-width: 320px

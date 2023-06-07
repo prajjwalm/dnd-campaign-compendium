@@ -16,17 +16,24 @@ const SELECTED_CLASS_NAME = "selected";
  */
 function setupRadios($enclosingDiv: JQuery)
 {
+    $enclosingDiv.find(".selectable_radio_container .selectable.radio .selected_only").hide();
+
     $enclosingDiv.on("click", ".selectable_radio_container", function () {
         $(this).children(".selectable.radio").removeClass(SELECTED_CLASS_NAME);
+        $(this).children(".selectable.radio").find(".selected_only").hide();
     });
 
-    $enclosingDiv.on("click", ".selectable.radio", function (e) {
+    $enclosingDiv.on("click", ".selectable.radio:not(.disabled)", function (e) {
         e.stopPropagation();
-        if ($(this).hasClass("selected")) {
+        const $this = $(this);
+        if ($this.hasClass("selected")) {
             return;
         }
-        $(this).siblings(".selectable.radio").removeClass(SELECTED_CLASS_NAME);
-        $(this).addClass(SELECTED_CLASS_NAME);
+        $this.siblings(".selectable.radio").removeClass(SELECTED_CLASS_NAME);
+        $this.siblings(".selectable.radio").find(".selected_only").hide();
+        $this.addClass(SELECTED_CLASS_NAME);
+        setTimeout(() => $this.find(".selected_only").fadeIn(100), 200);
+
     });
 }
 
@@ -35,10 +42,5 @@ function setupRadios($enclosingDiv: JQuery)
  */
 export function setupUI()
 {
-    const $workshop = $("#workshop");
-    if ($workshop.length == 0) {
-        return;
-    }
-
-    setupRadios($workshop);
+    setupRadios($("#beastiary"));
 }

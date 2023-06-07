@@ -133,7 +133,7 @@ img
       background-color: rgba($color_secondary, 0.1)
 
 
-table
+table:not(.ignore_common_style)
   @include FontSize()
 
   td
@@ -144,15 +144,14 @@ table
     white-space: nowrap
     font-family: "Montserrat", sans-serif
     font-weight: 200
+    background-color: $color_grey_dark
+    color: $color_white
 
   tr
     &:nth-child(2n)
       background-color: rgba($color_grey, 0.1)
     &:nth-child(2n+1)
       background-color: rgba($color_grey, 0.15)
-    &:nth-child(1)
-      background-color: $color_grey_dark !important
-      color: $color_white
 
 
 @media screen and (min-width: 960px)

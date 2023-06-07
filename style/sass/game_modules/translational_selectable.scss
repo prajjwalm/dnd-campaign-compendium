@@ -1,0 +1,315 @@
+@import "../definitions/common_dimensions";
+@import "../definitions/colors";
+@import "../definitions/shadows";
+
+//
+// Translational Selectable
+// This denotes a type of selectable (radio/checkbox) card etc. which moves
+// in a certain direction when selected, along with changing its color to a
+// more active one. This gives the impression that a card is being drawn
+// from under a cover.
+//
+
+$theme_ocean_blue: "ocean_blue";
+$default_theme: $theme_ocean_blue;
+
+@mixin translational_selectable_colors($direction: "up",
+                                       $color_theme: $default_theme,
+                                       $base_color: #151515,
+                                       $base_shadow: $color_white)
+{
+  //
+  // Since the card lights up from the direction from with it is drawn, when the
+  // direction input is upward, a selected selectable will have its down side
+  // lighted up in a more active color.
+  //
+  // Notes:
+  // > I do not think activation changed the shadow's color/opacity/height.
+  // > The gradient stops are all best-attempt-guesses.
+  // > If an inset shadow was used, it was too imperceptible here.
+  //
+  $angle: 0deg;
+  @if ($direction == "up") {
+    $angle: 0deg;
+  }
+  @else if ($direction == "right") {
+    $angle: 90deg;
+  }
+  @else if ($direction == "down") {
+    $angle: 180deg;
+  }
+  @else if ($direction == "left") {
+    $angle: 270deg;
+  }
+  @else {
+    @error "The value of $direction (#{$direction}) must be a cardinal " +
+           "direction (up/down/left/right).";
+  }
+
+  @if ($color_theme != $theme_ocean_blue) {
+    @error "Unsupported color scheme #{$color_theme} for translational " +
+           "selectable.";
+  }
+
+  .translation_base {
+    background-color: $base_color;
+    @include BoxShadowUniformHelper(3, $base_shadow);
+  }
+
+    .selectable {
+    background: #252d3d;
+    background: linear-gradient($angle,
+                                #252d3d 0%,
+                                #191f2c 30%,
+                                #131b27 45%,
+                                #090911 100%);
+    border: solid 1px #242d40;
+    @include BoxShadowUniformHelper(4, #2e4983);
+
+    &.disabled  {
+      background: linear-gradient($angle,
+              rgba(#252d3d, 0.3) 0%,
+              rgba(#191f2c, 0.3) 30%,
+              rgba(#131b27, 0.3) 45%,
+              rgba(#090911, 0.3) 100%);
+      border: solid 1px rgba(#242d40, 0.3);
+    }
+
+    &.selected {
+      background: #2e4983;
+      background: linear-gradient($angle,
+                                  #2e4983 0%,
+                                  #293d68 12%,
+                                  #141c25 45%,
+                                  #090911 100%);
+    }
+  }
+}
+
+@mixin translational_selectable_dimensions($direction: "up",
+                                           $card_length: 300px,
+                                           $active_card_length: $card_length * 1.2,
+                                           $card_cross: $card_length * 0.6,
+                                           $base_width: 64px,
+                                           $card_gap: null)
+{
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+
+  @if ($card_gap != null) {
+    justify-content: center;
+    gap: $card_gap;
+  }
+  @else {
+    justify-content: space-evenly;
+  }
+
+  .translation_base {
+    position: absolute;
+  }
+
+  padding: 2 * $padding_default;
+
+  @if ($direction == "up") {
+    flex-direction: row;
+    align-items: flex-end;
+    padding-bottom: $base_width;
+
+    .translation_base {
+      width: 100%;
+      height: $base_width;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .selectable {
+      width: $card_cross;
+      height: $card_length;
+
+      &.selected {
+        height: $active_card_length;
+      }
+    }
+  }
+  @else if ($direction == "right") {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: $base_width;
+
+    .translation_base {
+      width: $base_width;
+      height: 100%;
+      top: 0;
+      left: 0;
+      bottom: 0;
+    }
+
+    .selectable {
+      height: $card_cross;
+      width: $card_length;
+
+      &.selected {
+        width: $active_card_length;
+      }
+    }
+  }
+  @else if ($direction == "down") {
+    flex-direction: row;
+    align-items: flex-start;
+    padding-top: $base_width;
+
+    .translation_base {
+      width: 100%;
+      height: $base_width;
+      left: 0;
+      right: 0;
+      top: 0;
+    }
+
+    .selectable {
+      width: $card_cross;
+      height: $card_length;
+
+      &.selected {
+        height: $active_card_length;
+      }
+    }
+  }
+  @else if ($direction == "left") {
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: $base_width;
+
+    .translation_base {
+      width: $base_width;
+      height: 100%;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .selectable {
+      height: $card_cross;
+      width: $card_length;
+
+      &.selected {
+        width: $active_card_length;
+      }
+    }
+  }
+  @else {
+    @error "The value of $direction (#{$direction}) must be a cardinal " +
+           "direction (up/down/left/right).";
+  }
+}
+
+@mixin translational_selectable_misc()
+{
+  .selectable {
+    transition: all 200ms;
+
+    &:not(.disabled) {
+      cursor: pointer;
+    }
+  }
+}
+
+#workshop {
+
+  /**
+   * Selectable container styles. This sets the size/color of the cards
+   * themselves.
+   */
+  .selectable_radio_container.translational_flags {
+    @include translational_selectable_misc();
+    @include translational_selectable_colors("up");
+    @include translational_selectable_dimensions("up",
+                                                 $card_length: 350px,
+                                                 $card_gap: 4 * $margin_default);
+
+    /**
+     * Selectable content styling. This formats the interiors of the cards.
+     */
+    .selectable {
+      padding: 1.5 * $padding_default;
+      padding-top: 2 * $padding_default;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: flex-start;
+      overflow: hidden;
+
+      * {
+        flex-grow: 0;
+      }
+
+      // With an aspect ratio of 1:1 this ensures all cards would have the
+      // same height for the image.
+      img.icon_img {
+        width: 100%;
+        object-fit: contain;
+      }
+
+      .title {
+        color: $color-white;
+        font-family: "Montserrat", sans-serif;
+        border-bottom: solid 1px $color-grey;
+        height: 50px !important;
+        text-align: center;
+        margin-bottom: $margin_default;
+
+        @include FontSize(4);
+      }
+
+      .subtext {
+        color: $color_true_grey;
+        @include FontSize(6);
+      }
+
+      .confirm {
+        display: none;
+        padding-bottom: 2 * $padding_default;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        flex-grow: 1;
+        gap: 0.5 * $padding_default;
+
+        .confirm_msg {
+          color: $color_true_grey;
+          @include FontSize(8);
+        }
+        i {
+          display: block;
+          color: $color_white;
+          text-shadow: 0 0 5px rgba($color-white, 0.5);
+        }
+      }
+
+      &.selected {
+        .confirm {
+          display: flex;
+        }
+      }
+    }
+  }
+}
+
+#beastiary {
+  .selectable_radio_container.translational_flags {
+    @include translational_selectable_misc();
+    @include translational_selectable_colors("right",
+                                             $base_color: #77777f,
+                                             $base_shadow: $color_black);
+    @include translational_selectable_dimensions("right",
+                                                 $card_length: 96px,
+                                                 $active_card_length: 256px,
+                                                 $card_cross: 84px,
+                                                 $base_width: 76px);
+
+
+  }
+}

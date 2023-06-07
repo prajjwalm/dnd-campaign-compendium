@@ -1,0 +1,129 @@
+@import "../definitions/common_dimensions";
+@import "../definitions/colors";
+@import "../definitions/shadows";
+@import "../definitions/fonts";
+
+@mixin characterSheetCustomizer($primary_color: $color_primary,
+                                $hue_rotate: null,
+                                $height: null)
+{
+  .sheet_header {
+    .header_zone {
+      border-bottom-color: $primary_color;
+
+      .sheet_title {
+        color: $primary_color;
+      }
+
+      table {
+        th {
+          color: $primary_color;
+        }
+        &:not(.stats_table) {
+          td:first-child {
+            color: $primary_color;
+          }
+        }
+      }
+    }
+  }
+
+  .sheet_section_header {
+    color: $primary_color;
+    border-bottom-color: $primary_color;
+  }
+
+  @if ($hue_rotate != null) {
+    filter: hue-rotate($hue_rotate);
+  }
+}
+
+$img_content_root: "../../assets/";
+
+%advanced_style_div {
+  .stat_sheet {
+    background-size: 100% auto;
+    //noinspection CssReplaceWithShorthandSafely
+    background: url($img_content_root + "images/misc/stat-block-top-texture.png"),
+                url($img_content_root + "images/misc/paper-texture.png");
+    //noinspection CssReplaceWithShorthandSafely
+    background-position: top center;
+    //noinspection CssReplaceWithShorthandSafely
+    background-repeat: no-repeat,repeat;
+    position: relative;
+    box-shadow: 0 0 5px #979AA4;
+    border: 1px solid #d4d0ce;
+    padding: 2 * $padding_default;
+    margin: $margin_default 0;
+    font-family: "Scala Sans Offc", Roboto, Helvetica, sans-serif;
+    font-size: 14px;
+
+    p {
+      font-size: 14px;
+    }
+
+    display: flex;
+    min-width: 320px;
+    flex-flow: column wrap;
+    align-items: stretch;
+    justify-content: flex-start;
+
+    .sheet_header {
+      .header_zone {
+        padding-bottom: $padding_default;
+        border-bottom: solid 3px;
+        margin-bottom: $padding_default;
+
+        .sheet_title {
+          font-family: "Roboto", sans-serif;
+          font-variant-caps: small-caps;
+          font-size: 34px;
+          margin-bottom: $margin_default / 2;
+        }
+
+        .sheet_subtitle {
+          font-style: italic;
+          padding-bottom: $padding_default;
+        }
+
+        table {
+          td, th {
+            padding: $padding_default / 2;
+          }
+          th {
+            text-transform: uppercase;
+          }
+          &:not(.stats_table) {
+            td {
+              text-align: left;
+
+              &:first-child {
+                font-weight: bold;
+              }
+            }
+          }
+          &.stats_table {
+            width: 100%;
+            td, th {
+              text-align: center;
+              vertical-align: center;
+            }
+          }
+        }
+      }
+    }
+
+    .sheet_section_header {
+      font-size: 24px;
+      font-variant-caps: small-caps;
+      font-weight: 200;
+      border-bottom: solid 1px;
+    }
+
+    @include characterSheetCustomizer();
+  }
+}
+
+.advanced_style, .gen2_ui {
+  @extend %advanced_style_div;
+}

@@ -207,27 +207,25 @@ img {
   background-color: rgba(87, 108, 168, 0.1);
 }
 
-table {
+table:not(.ignore_common_style) {
   font-size: 12px;
 }
-table td {
+table:not(.ignore_common_style) td {
   padding: 8px;
 }
-table th {
+table:not(.ignore_common_style) th {
   padding: 8px;
   white-space: nowrap;
   font-family: "Montserrat", sans-serif;
   font-weight: 200;
+  background-color: #21364d;
+  color: #FAFCFF;
 }
-table tr:nth-child(2n) {
+table:not(.ignore_common_style) tr:nth-child(2n) {
   background-color: rgba(114, 134, 160, 0.1);
 }
-table tr:nth-child(2n+1) {
+table:not(.ignore_common_style) tr:nth-child(2n+1) {
   background-color: rgba(114, 134, 160, 0.15);
-}
-table tr:nth-child(1) {
-  background-color: #21364d !important;
-  color: #FAFCFF;
 }
 
 @media screen and (min-width: 960px) {
@@ -457,27 +455,25 @@ img {
   background-color: rgba(87, 108, 168, 0.1);
 }
 
-table {
+table:not(.ignore_common_style) {
   font-size: 12px;
 }
-table td {
+table:not(.ignore_common_style) td {
   padding: 8px;
 }
-table th {
+table:not(.ignore_common_style) th {
   padding: 8px;
   white-space: nowrap;
   font-family: "Montserrat", sans-serif;
   font-weight: 200;
+  background-color: #21364d;
+  color: #FAFCFF;
 }
-table tr:nth-child(2n) {
+table:not(.ignore_common_style) tr:nth-child(2n) {
   background-color: rgba(114, 134, 160, 0.1);
 }
-table tr:nth-child(2n+1) {
+table:not(.ignore_common_style) tr:nth-child(2n+1) {
   background-color: rgba(114, 134, 160, 0.15);
-}
-table tr:nth-child(1) {
-  background-color: #21364d !important;
-  color: #FAFCFF;
 }
 
 @media screen and (min-width: 960px) {
@@ -804,27 +800,25 @@ img {
   background-color: rgba(87, 108, 168, 0.1);
 }
 
-table {
+table:not(.ignore_common_style) {
   font-size: 12px;
 }
-table td {
+table:not(.ignore_common_style) td {
   padding: 8px;
 }
-table th {
+table:not(.ignore_common_style) th {
   padding: 8px;
   white-space: nowrap;
   font-family: "Montserrat", sans-serif;
   font-weight: 200;
+  background-color: #21364d;
+  color: #FAFCFF;
 }
-table tr:nth-child(2n) {
+table:not(.ignore_common_style) tr:nth-child(2n) {
   background-color: rgba(114, 134, 160, 0.1);
 }
-table tr:nth-child(2n+1) {
+table:not(.ignore_common_style) tr:nth-child(2n+1) {
   background-color: rgba(114, 134, 160, 0.15);
-}
-table tr:nth-child(1) {
-  background-color: #21364d !important;
-  color: #FAFCFF;
 }
 
 @media screen and (min-width: 960px) {
@@ -1140,27 +1134,25 @@ img {
   background-color: rgba(87, 108, 168, 0.1);
 }
 
-table {
+table:not(.ignore_common_style) {
   font-size: 12px;
 }
-table td {
+table:not(.ignore_common_style) td {
   padding: 8px;
 }
-table th {
+table:not(.ignore_common_style) th {
   padding: 8px;
   white-space: nowrap;
   font-family: "Montserrat", sans-serif;
   font-weight: 200;
+  background-color: #21364d;
+  color: #FAFCFF;
 }
-table tr:nth-child(2n) {
+table:not(.ignore_common_style) tr:nth-child(2n) {
   background-color: rgba(114, 134, 160, 0.1);
 }
-table tr:nth-child(2n+1) {
+table:not(.ignore_common_style) tr:nth-child(2n+1) {
   background-color: rgba(114, 134, 160, 0.15);
-}
-table tr:nth-child(1) {
-  background-color: #21364d !important;
-  color: #FAFCFF;
 }
 
 @media screen and (min-width: 960px) {
@@ -1494,27 +1486,25 @@ img {
   background-color: rgba(87, 108, 168, 0.1);
 }
 
-table {
+table:not(.ignore_common_style) {
   font-size: 12px;
 }
-table td {
+table:not(.ignore_common_style) td {
   padding: 8px;
 }
-table th {
+table:not(.ignore_common_style) th {
   padding: 8px;
   white-space: nowrap;
   font-family: "Montserrat", sans-serif;
   font-weight: 200;
+  background-color: #21364d;
+  color: #FAFCFF;
 }
-table tr:nth-child(2n) {
+table:not(.ignore_common_style) tr:nth-child(2n) {
   background-color: rgba(114, 134, 160, 0.1);
 }
-table tr:nth-child(2n+1) {
+table:not(.ignore_common_style) tr:nth-child(2n+1) {
   background-color: rgba(114, 134, 160, 0.15);
-}
-table tr:nth-child(1) {
-  background-color: #21364d !important;
-  color: #FAFCFF;
 }
 
 @media screen and (min-width: 960px) {
@@ -1753,27 +1743,25 @@ img {
   background-color: rgba(87, 108, 168, 0.1);
 }
 
-table {
+table:not(.ignore_common_style) {
   font-size: 12px;
 }
-table td {
+table:not(.ignore_common_style) td {
   padding: 8px;
 }
-table th {
+table:not(.ignore_common_style) th {
   padding: 8px;
   white-space: nowrap;
   font-family: "Montserrat", sans-serif;
   font-weight: 200;
+  background-color: #21364d;
+  color: #FAFCFF;
 }
-table tr:nth-child(2n) {
+table:not(.ignore_common_style) tr:nth-child(2n) {
   background-color: rgba(114, 134, 160, 0.1);
 }
-table tr:nth-child(2n+1) {
+table:not(.ignore_common_style) tr:nth-child(2n+1) {
   background-color: rgba(114, 134, 160, 0.15);
-}
-table tr:nth-child(1) {
-  background-color: #21364d !important;
-  color: #FAFCFF;
 }
 
 @media screen and (min-width: 960px) {
@@ -2035,13 +2023,12 @@ table tr:nth-child(1) {
 
 #workshop .backdrop {
   background: black;
-  padding: 72px;
-  width: 100vw;
-  height: 100vh;
+  width: 70vw;
+  height: 70vh;
 }
-#workshop .backdrop .selectable {
-  width: 180px;
-  margin: 8px;
+#workshop .backdrop .selectable_radio_container {
+  width: 100%;
+  height: 100%;
 }
 
 /**
@@ -2073,48 +2060,359 @@ table tr:nth-child(1) {
  * *
  * * Also note: https://m3.material.io/styles/elevation/tokens
  * */
+@font-face {
+  font-family: "Roboto";
+  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto/Roboto-bold.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 500;
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+.advanced_style .stat_sheet, .gen2_ui .stat_sheet {
+  background-size: 100% auto;
+  background: url("../../assets/images/misc/stat-block-top-texture.png"), url("../../assets/images/misc/paper-texture.png");
+  background-position: top center;
+  background-repeat: no-repeat, repeat;
+  position: relative;
+  box-shadow: 0 0 5px #979AA4;
+  border: 1px solid #d4d0ce;
+  padding: 16px;
+  margin: 8px 0;
+  font-family: "Scala Sans Offc", Roboto, Helvetica, sans-serif;
+  font-size: 14px;
+  display: flex;
+  min-width: 320px;
+  flex-flow: column wrap;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+.advanced_style .stat_sheet p, .gen2_ui .stat_sheet p {
+  font-size: 14px;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone, .gen2_ui .stat_sheet .sheet_header .header_zone {
+  padding-bottom: 8px;
+  border-bottom: solid 3px;
+  margin-bottom: 8px;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone .sheet_title, .gen2_ui .stat_sheet .sheet_header .header_zone .sheet_title {
+  font-family: "Roboto", sans-serif;
+  font-variant-caps: small-caps;
+  font-size: 34px;
+  margin-bottom: 4px;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone .sheet_subtitle, .gen2_ui .stat_sheet .sheet_header .header_zone .sheet_subtitle {
+  font-style: italic;
+  padding-bottom: 8px;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone table td, .gen2_ui .stat_sheet .sheet_header .header_zone table td, .advanced_style .stat_sheet .sheet_header .header_zone table th, .gen2_ui .stat_sheet .sheet_header .header_zone table th {
+  padding: 4px;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone table th, .gen2_ui .stat_sheet .sheet_header .header_zone table th {
+  text-transform: uppercase;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone table:not(.stats_table) td, .gen2_ui .stat_sheet .sheet_header .header_zone table:not(.stats_table) td {
+  text-align: left;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone table:not(.stats_table) td:first-child, .gen2_ui .stat_sheet .sheet_header .header_zone table:not(.stats_table) td:first-child {
+  font-weight: bold;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone table.stats_table, .gen2_ui .stat_sheet .sheet_header .header_zone table.stats_table {
+  width: 100%;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone table.stats_table td, .gen2_ui .stat_sheet .sheet_header .header_zone table.stats_table td, .advanced_style .stat_sheet .sheet_header .header_zone table.stats_table th, .gen2_ui .stat_sheet .sheet_header .header_zone table.stats_table th {
+  text-align: center;
+  vertical-align: center;
+}
+.advanced_style .stat_sheet .sheet_section_header, .gen2_ui .stat_sheet .sheet_section_header {
+  font-size: 24px;
+  font-variant-caps: small-caps;
+  font-weight: 200;
+  border-bottom: solid 1px;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone, .gen2_ui .stat_sheet .sheet_header .header_zone {
+  border-bottom-color: #822000;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone .sheet_title, .gen2_ui .stat_sheet .sheet_header .header_zone .sheet_title {
+  color: #822000;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone table th, .gen2_ui .stat_sheet .sheet_header .header_zone table th {
+  color: #822000;
+}
+.advanced_style .stat_sheet .sheet_header .header_zone table:not(.stats_table) td:first-child, .gen2_ui .stat_sheet .sheet_header .header_zone table:not(.stats_table) td:first-child {
+  color: #822000;
+}
+.advanced_style .stat_sheet .sheet_section_header, .gen2_ui .stat_sheet .sheet_section_header {
+  color: #822000;
+  border-bottom-color: #822000;
+}
+
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+#workshop {
+  /**
+   * Selectable container styles. This sets the size/color of the cards
+   * themselves.
+   */
+}
 #workshop .selectable_radio_container.translational_flags {
   overflow: hidden;
   display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+  justify-content: center;
+  gap: 32px;
+  padding: 16px;
+  flex-direction: row;
+  align-items: flex-end;
+  padding-bottom: 64px;
+  /**
+   * Selectable content styling. This formats the interiors of the cards.
+   */
+}
+#workshop .selectable_radio_container.translational_flags .selectable {
+  transition: all 200ms;
+}
+#workshop .selectable_radio_container.translational_flags .selectable:not(.disabled) {
+  cursor: pointer;
 }
 #workshop .selectable_radio_container.translational_flags .translation_base {
   background-color: #151515;
   box-shadow: 0 0 10px 3px rgba(250, 252, 255, 0.19);
 }
-#workshop .selectable_radio_container.translational_flags.upward .selectable {
+#workshop .selectable_radio_container.translational_flags .selectable {
   background: #252d3d;
   background: linear-gradient(0deg, #252d3d 0%, #191f2c 30%, #131b27 45%, #090911 100%);
   border: solid 1px #242d40;
   box-shadow: 0 0 14px 5px rgba(46, 73, 131, 0.25);
 }
-#workshop .selectable_radio_container.translational_flags.upward .selectable.selected {
+#workshop .selectable_radio_container.translational_flags .selectable.disabled {
+  background: linear-gradient(0deg, rgba(37, 45, 61, 0.3) 0%, rgba(25, 31, 44, 0.3) 30%, rgba(19, 27, 39, 0.3) 45%, rgba(9, 9, 17, 0.3) 100%);
+  border: solid 1px rgba(36, 45, 64, 0.3);
+}
+#workshop .selectable_radio_container.translational_flags .selectable.selected {
   background: #2e4983;
   background: linear-gradient(0deg, #2e4983 0%, #293d68 12%, #141c25 45%, #090911 100%);
 }
 #workshop .selectable_radio_container.translational_flags .translation_base {
   position: absolute;
 }
-#workshop .selectable_radio_container.translational_flags.upward {
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-}
-#workshop .selectable_radio_container.translational_flags.upward .translation_base {
+#workshop .selectable_radio_container.translational_flags .translation_base {
   width: 100%;
+  height: 64px;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 24px;
-}
-#workshop .selectable_radio_container.translational_flags.upward .selectable {
-  aspect-ratio: 0.6/1;
-}
-#workshop .selectable_radio_container.translational_flags.upward .selectable.selected {
-  aspect-ratio: 0.6/1.12;
 }
 #workshop .selectable_radio_container.translational_flags .selectable {
+  width: 210px;
+  height: 350px;
+}
+#workshop .selectable_radio_container.translational_flags .selectable.selected {
+  height: 420px;
+}
+#workshop .selectable_radio_container.translational_flags .selectable {
+  padding: 12px;
+  padding-top: 16px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+#workshop .selectable_radio_container.translational_flags .selectable * {
+  flex-grow: 0;
+}
+#workshop .selectable_radio_container.translational_flags .selectable img.icon_img {
+  width: 100%;
+  object-fit: contain;
+}
+#workshop .selectable_radio_container.translational_flags .selectable .title {
+  color: #FAFCFF;
+  font-family: "Montserrat", sans-serif;
+  border-bottom: solid 1px #7286A0;
+  height: 50px !important;
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+#workshop .selectable_radio_container.translational_flags .selectable .subtext {
+  color: #aaa;
+  font-size: 14px;
+}
+#workshop .selectable_radio_container.translational_flags .selectable .confirm {
+  display: none;
+  padding-bottom: 16px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  flex-grow: 1;
+  gap: 4px;
+}
+#workshop .selectable_radio_container.translational_flags .selectable .confirm .confirm_msg {
+  color: #aaa;
+  font-size: 11px;
+}
+#workshop .selectable_radio_container.translational_flags .selectable .confirm i {
+  display: block;
+  color: #FAFCFF;
+  text-shadow: 0 0 5px rgba(250, 252, 255, 0.5);
+}
+#workshop .selectable_radio_container.translational_flags .selectable.selected .confirm {
+  display: flex;
+}
+
+#beastiary .selectable_radio_container.translational_flags {
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+  justify-content: space-evenly;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 76px;
+}
+#beastiary .selectable_radio_container.translational_flags .selectable {
   transition: all 200ms;
+}
+#beastiary .selectable_radio_container.translational_flags .selectable:not(.disabled) {
+  cursor: pointer;
+}
+#beastiary .selectable_radio_container.translational_flags .translation_base {
+  background-color: #77777f;
+  box-shadow: 0 0 10px 3px rgba(0, 3, 29, 0.19);
+}
+#beastiary .selectable_radio_container.translational_flags .selectable {
+  background: #252d3d;
+  background: linear-gradient(90deg, #252d3d 0%, #191f2c 30%, #131b27 45%, #090911 100%);
+  border: solid 1px #242d40;
+  box-shadow: 0 0 14px 5px rgba(46, 73, 131, 0.25);
+}
+#beastiary .selectable_radio_container.translational_flags .selectable.disabled {
+  background: linear-gradient(90deg, rgba(37, 45, 61, 0.3) 0%, rgba(25, 31, 44, 0.3) 30%, rgba(19, 27, 39, 0.3) 45%, rgba(9, 9, 17, 0.3) 100%);
+  border: solid 1px rgba(36, 45, 64, 0.3);
+}
+#beastiary .selectable_radio_container.translational_flags .selectable.selected {
+  background: #2e4983;
+  background: linear-gradient(90deg, #2e4983 0%, #293d68 12%, #141c25 45%, #090911 100%);
+}
+#beastiary .selectable_radio_container.translational_flags .translation_base {
+  position: absolute;
+}
+#beastiary .selectable_radio_container.translational_flags .translation_base {
+  width: 76px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+#beastiary .selectable_radio_container.translational_flags .selectable {
+  height: 84px;
+  width: 96px;
+}
+#beastiary .selectable_radio_container.translational_flags .selectable.selected {
+  width: 256px;
+}
+
+#beastiary {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+#beastiary .rollable {
+  background-color: #FAFCFF;
+  border: solid 2px #822000;
+  font-family: Montserrat, sans-serif;
+  border-radius: 4px;
+  padding: 0 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+#beastiary .selectable_radio_container.translational_flags {
+  width: 40%;
+  min-width: 320px;
+  flex-grow: 0;
+  overflow: unset;
+}
+#beastiary .selectable_radio_container.translational_flags .translation_base {
+  border-radius: 4px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+#beastiary .selectable_radio_container.translational_flags .translation_base .mob_group_icon {
+  width: 60px;
+  height: 70px;
+}
+#beastiary .selectable_radio_container.translational_flags .translation_base .mob_group_icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+#beastiary .selectable_radio_container.translational_flags .selectable {
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-bottom: 8px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+#beastiary .selectable_radio_container.translational_flags .selectable .title {
+  font-family: Montserrat, sans-serif;
+  color: #FAFCFF;
+  font-size: 16px;
+}
+#beastiary .selectable_radio_container.translational_flags .selectable .icon_img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin: 0;
+}
+#beastiary #sheet_zone {
+  width: 50%;
+  min-width: 320px;
 }
 
 /*# sourceMappingURL=main.css.map */
