@@ -61,6 +61,7 @@ export enum NpcIndex {
     ID_VERNA,
     ID_VITACIA,
     ID_YUKI,
+    ID_EZELL,
 }
 
 enum NpcPersonalityTag {
@@ -1963,6 +1964,32 @@ export function setupCharacterCards() {
             // `CR | 10`
         ],
         summary      : summaries.get("Yuki") ?? "???",
+        description  : "",
+        personalityTags: new Map([
+            // [NpcPersonalityTag.Recluse, 2],
+            // [NpcPersonalityTag.Judging, 2],
+            // [NpcPersonalityTag.Distant, 2],
+            // [NpcPersonalityTag["Guilt-ridden"], 1],
+            // [NpcPersonalityTag.Kind, 1],
+            // [NpcPersonalityTag.Quiet, 1],
+            // [NpcPersonalityTag.Pessimist, 1],
+            // [NpcPersonalityTag["Night owl"], 1],
+        ]),
+    });
+    new Character({
+        id           : NpcIndex.ID_EZELL,
+        name         : "Ezell Pastore",
+        tokenName    : "Ezell",
+        campaign     : 2,
+        arc          : 1,
+        age          : 22,
+        gender       : "M",
+        tags         : [
+            // "From | Ruin / Devotion",
+            // `Class | ${Card.verbose("Oathbreaker")} Paladin`,
+            // `CR | 10`
+        ],
+        summary      : summaries.get("Ezell") ?? "???",
         description  : "",
         personalityTags: new Map([
             // [NpcPersonalityTag.Recluse, 2],

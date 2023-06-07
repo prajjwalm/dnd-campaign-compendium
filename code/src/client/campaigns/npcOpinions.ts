@@ -2409,6 +2409,58 @@ function session7NpcInteractions()
     );
 }
 
+function session8NpcInteractions()
+{
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 6, 12, 15),
+            "Oh, an Honorspren-bound. Well he at least won't massacre us, " +
+            " but... I'll probably need to keep a vigil for incoming bits of " +
+            "wisdom... sigh.",
+            new Map([
+                [PositiveEmotion.Trust, 12],
+                [PositiveEmotion.Respect, -1],
+            ]),
+            10
+        )
+    );
+    for (const pc of [PcIndex.ID_HELIOS, PcIndex.ID_QUINN]) {
+        npcInteractionEvents.get(NpcIndex.ID_HINA).get(pc).push(
+            new NpcInteractionEvent(
+                new GameTimestamp(0, 6, 12, 15),
+                "Wait, is that honorspren bound to the both of them? And are two" +
+                " spren bound to Helios? What... sort of an orgy is happening here?",
+                new Map([
+                    [PositiveEmotion.Respect, 1],
+                ]),
+                10
+            )
+        );
+    }
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_HELIOS).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 6, 12, 15),
+            "???",
+            new Map([
+                [PositiveEmotion.Trust, 2],
+                [PositiveEmotion.Respect, 4],
+            ]),
+            30
+        )
+    );
+    npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_QUINN).push(
+        new NpcInteractionEvent(
+            new GameTimestamp(0, 6, 12, 15),
+            "???",
+            new Map([
+                [PositiveEmotion.Trust, 7],
+                [PositiveEmotion.Respect, 2],
+            ]),
+            30
+        )
+    );
+}
+
 let $individualAst : JQuery;
 let $eventsList : JQuery;
 let $opinionTags : JQuery;
@@ -2480,6 +2532,7 @@ export function setupNpcOpinions()
     session5NpcInteractions();
     session6NpcInteractions();
     session7NpcInteractions();
+    session8NpcInteractions();
 
     $individualAst = $("#individual_ast");
     $eventsList = $("#individual_ast .events_list");
