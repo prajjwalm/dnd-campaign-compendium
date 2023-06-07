@@ -127,6 +127,24 @@ export enum DamageType {
     Thunder
 }
 
+export enum Conditions {
+    Blinded,
+    Charmed,
+    Deafened,
+    Frightened,
+    Grappled,
+    Incapacitated,
+    Invisible,
+    Paralyzed,
+    Petrified,
+    Poisoned,
+    Prone,
+    Restrained,
+    Stunned,
+    Unconscious,
+    Exhaustion,
+}
+
 export const AdventurerHitDice: Map<AdventurerClasses, Dice> = new Map([
     [AdventurerClasses.Artificer, D8],
     [AdventurerClasses.Barbarian, D12],

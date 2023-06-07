@@ -9,9 +9,31 @@ export class RollArgumentError
     }
 }
 
+interface IRollable
+{
+    getRollString(bindRollable): string;
+    roll(mode?: RollVariant): void;
+    get parts(): Map<Dice, number[]>;
+    get result(): number;
+}
 
 export class PrimitiveRollable
+    implements IRollable
 {
+    private static lastUsedUid: number = 0;
+    private static readonly ALL_ROLLABLES: Map<number, IRollable> = new Map();
+
+    public static getRollableForUid(uid: number): IRollable {
+        return this.ALL_ROLLABLES.get(uid);
+    }
+
+    protected static registerRollable(rollable: IRollable): number {
+        const uid = this.lastUsedUid++;
+        this.ALL_ROLLABLES.set(uid, rollable);
+        return uid;
+    }
+
+    protected readonly uid: number;
     protected readonly dice: Map<Dice, number>;
     protected readonly rolls: Map<Dice, number[]> = new Map();
     private _debug: boolean;
@@ -23,14 +45,10 @@ export class PrimitiveRollable
             [...dice.entries()].sort((a, b) => { return b[0].sides - a[0].sides;})
         );
         this._debug = false;
+        this.uid = PrimitiveRollable.registerRollable(this);
     }
 
-    public static generateToHitString(mod: number): string
-    {
-        return (mod >= 0 ? "+" : "") + mod;
-    }
-
-    public static generateRollString(dice: Map<Dice, number>, sort: boolean = true)
+    protected static generateRollString(dice: Map<Dice, number>, sort: boolean = true)
     {
         let rollString = "";
         if (sort) {
@@ -49,12 +67,12 @@ export class PrimitiveRollable
         return rollString;
     }
 
-    public getRollString()
+    public getRollString(bindRollable)
     {
         return PrimitiveRollable.generateRollString(this.dice);
     }
 
-    public roll(): number
+    public roll(): void
     {
         this.rolls.clear();
         for (const [die, count] of this.dice.entries()) {
@@ -74,7 +92,6 @@ export class PrimitiveRollable
                 this.rolls.get(die).push(roll);
             }
         }
-        return this.result;
     }
 
     private rollDie(d: Dice)
@@ -95,62 +112,103 @@ export class PrimitiveRollable
     public set debug(value: boolean) {
         this._debug = value;
     }
+
+    public get parts(): Map<Dice, number[]> {
+        return this.rolls;
+    }
 }
 
 
 export class NatRollable
-    extends PrimitiveRollable
+    extends    PrimitiveRollable
+    implements IRollable
 {
     private _mode: RollVariant;
+    private readonly _parts: Map<Dice, number[]> = new Map();
 
-    public constructor(private readonly modifier: number,
-                       rng: () => number = Math.random)
+
+    // A small attempt to prevent memory leaks.
+    private static NAT_ROLLABLE_CACHE: Map<number, NatRollable> = new Map();
+    public static generate(modifier: number,
+                           rng: () => number = Math.random): NatRollable
+    {
+        if (rng != Math.random) {
+            return new NatRollable(modifier, rng);
+        }
+
+        if (this.NAT_ROLLABLE_CACHE.has(modifier)) {
+            console.log("cache hit");
+            return this.NAT_ROLLABLE_CACHE.get(modifier);
+        }
+        const rollable = new NatRollable(modifier, rng)
+        this.NAT_ROLLABLE_CACHE.set(modifier, rollable);
+        return rollable;
+    }
+
+    protected constructor(private readonly modifier: number,
+                          rng: () => number = Math.random)
     {
         super(new Map([[D20, 3], [D1, modifier]]), rng);
         this._mode = RollVariant.Normal;
     }
 
-    public getRollString(): string {
-        let d20str;
-        if (this._mode == RollVariant.Normal) {
-            d20str = "d20";
-        } else if (this._mode == RollVariant.Advantage) {
-            d20str = "2d20kh1";
-        } else if (this._mode == RollVariant.Disadvantage) {
-            d20str = "2d20kl1";
-        } else if (this._mode == RollVariant.SuperAdvantage) {
-            d20str = "3d20kh1";
-        } else if (this._mode == RollVariant.SuperDisadvantage) {
-            d20str = "3d20kl1";
-        } else {
-            throw new RollArgumentError(
-                `Roll variant ${RollVariant[this._mode]} not supported`
-            );
+    public getRollString(bindRollable): string {
+        // let d20str;
+        // if (this._mode == RollVariant.Normal) {
+        //     d20str = "d20";
+        // } else if (this._mode == RollVariant.Advantage) {
+        //     d20str = "2d20kh1";
+        // } else if (this._mode == RollVariant.Disadvantage) {
+        //     d20str = "2d20kl1";
+        // } else if (this._mode == RollVariant.SuperAdvantage) {
+        //     d20str = "3d20kh1";
+        // } else if (this._mode == RollVariant.SuperDisadvantage) {
+        //     d20str = "3d20kl1";
+        // } else {
+        //     throw new RollArgumentError(
+        //         `Roll variant ${RollVariant[this._mode]} not supported`
+        //     );
+        // }
+        // const mod_str =
+        //     this.modifier > 0 ? `+${this.modifier}` :
+        //     this.modifier < 0 ? this.modifier.toString() : "";
+        //
+        // return `${d20str}${mod_str}`;
+
+        let baseRollable: string = (this.modifier >= 0 ? "+" : "") + this.modifier;
+        if (!bindRollable) {
+            return baseRollable;
         }
-        const mod_str =
-            this.modifier > 0 ? `+${this.modifier}` :
-            this.modifier < 0 ? this.modifier.toString() : "";
-        return `${d20str}${mod_str}`;
+        return `<span class="rollable to_hit" data-rollable-uid="${this.uid}">${baseRollable}</span>`;
     }
 
-    public roll(mode: RollVariant = RollVariant.Normal): number {
+    public roll(mode: RollVariant = RollVariant.Normal): void {
+        if (mode == RollVariant.Critical) {
+            throw new RollArgumentError("");
+        }
         this._mode = mode;
-        return super.roll();
+        super.roll();
     }
 
-    public get result()
+    public get result(): number
     {
         const d20s = this.rolls.get(D20);
-        const mod = this.rolls.get(D1)[0];
+        const mod = this.modifier;
+        this._parts.clear();
         if (this._mode == RollVariant.Normal) {
+            this._parts.set(D20, [d20s[0]]);
             return d20s[0] + mod;
         } else if (this._mode == RollVariant.Advantage) {
+            this._parts.set(D20, [d20s[0], d20s[1]]);
             return Math.max(d20s[0], d20s[1]) + mod;
         } else if (this._mode == RollVariant.Disadvantage) {
+            this._parts.set(D20, [d20s[0], d20s[1]]);
             return Math.min(d20s[0], d20s[1]) + mod;
         } else if (this._mode == RollVariant.SuperAdvantage) {
+            this._parts.set(D20, d20s);
             return Math.max(...d20s) + mod;
         } else if (this._mode == RollVariant.SuperDisadvantage) {
+            this._parts.set(D20, d20s);
             return Math.min(...d20s) + mod;
         } else {
             throw new RollArgumentError(
@@ -158,14 +216,21 @@ export class NatRollable
             );
         }
     }
+
+    public get parts(): Map<Dice, number[]> {
+        return this._parts.size == 0 ? super.parts : this._parts;
+    }
 }
 
 
 export class Rollable
-    extends PrimitiveRollable
+    extends    PrimitiveRollable
+    implements IRollable
 {
     private readonly baseDice: Map<Dice, number>;
     private readonly modifier: number;
+
+    private readonly _parts: Map<Dice, number[]> = new Map();
 
     private _mode: RollVariant;
 
@@ -186,35 +251,40 @@ export class Rollable
         this.modifier = mod;
     }
 
-    public getRollString(): string
+    public getRollString(bindRollable): string
     {
         const baseRollString = PrimitiveRollable.generateRollString(this.baseDice);
         const mod_str =
             this.modifier > 0 ? `+${this.modifier}` :
             this.modifier < 0 ? this.modifier.toString() : "";
-        if (this._mode == RollVariant.Critical) {
-            return `(${baseRollString})&times;2${mod_str}`;
-        } else {
-            return `${baseRollString}${mod_str}`
+
+        let s: string = `${baseRollString}${mod_str}`;
+        if (!bindRollable) {
+            return s
         }
+        return `<span class="rollable" data-rollable-uid="${this.uid}">${s}</span>`;
     }
 
-    public roll(mode: RollVariant = RollVariant.Normal): number {
+    public roll(mode: RollVariant = RollVariant.Normal): void {
         this._mode = mode;
-        return super.roll();
+        super.roll();
     }
 
     public get result()
     {
+        this._parts.clear();
         if (this._mode == RollVariant.Normal) {
             let result = 0;
             for (const [dice, rolls] of this.rolls) {
                 if (dice == D1) {
                     result += rolls[0];
                 } else {
+                    const shownRolls = [];
                     for (let i = 0; i < rolls.length / 2; i++) {
                         result += rolls[i];
+                        shownRolls.push(rolls[i])
                     }
+                    this._parts.set(dice, shownRolls);
                 }
             }
             return result;
@@ -226,6 +296,66 @@ export class Rollable
             );
         }
     }
+
+    public get parts(): Map<Dice, number[]> {
+        return this._parts.size == 0 ? super.parts : this._parts;
+    }
+}
+
+
+export function enableRolling()
+{
+    const $toastZone = $("#toast-container");
+
+    $("#beastiary").on("click", ".rollable", function (e) {
+        const uid = $(this).data("rollableUid");
+        const rollable = PrimitiveRollable.getRollableForUid(uid);
+
+        let rollVariant = RollVariant.Normal;
+        if (rollable instanceof NatRollable) {
+            if (e.shiftKey) {
+                rollVariant = e.altKey ? RollVariant.SuperAdvantage : RollVariant.Advantage;
+            }
+            else if (e.ctrlKey) {
+                rollVariant = e.altKey ? RollVariant.SuperDisadvantage : RollVariant.Disadvantage;
+            }
+        } else if (rollable instanceof Rollable) {
+            if (e.altKey) {
+                rollVariant = RollVariant.Critical;
+            }
+        }
+
+        rollable.roll(rollVariant);
+
+        console.log(rollable.result);
+
+        const buildupParts = [];
+        for (const [dice, rolls] of rollable.parts.entries())
+        {
+            if (dice == D1) {
+                continue;
+            }
+            for (const roll of rolls) {
+                buildupParts.push(roll);
+            }
+        }
+
+        console.log(buildupParts);
+        const $toast = $(`
+            <div class="toast">
+                <div class="roll_result">${rollable.result}</div>
+                <div class="roll_buildup">${buildupParts.join(", ")}</div>
+            </div>`);
+
+        $toast.hide();
+        $toast.appendTo($toastZone);
+        $toast.fadeIn(400);
+        setTimeout(() => {
+            $toast.fadeOut(400, () => {
+                $toast.remove();
+            });
+        }, 3000);
+    });
 }
 
 
@@ -243,7 +373,7 @@ export function test()
     }
 
     const pr1 = new PrimitiveRollable(new Map([[D20, 1], [D1, 5]]), easyRandom);
-    console.assert(pr1.getRollString() == "1d20+5");
+    console.assert(pr1.getRollString(false) == "1d20+5");
     pr1.roll();
     console.assert(pr1.result == 20, `Expected: 20, Rolled: ${pr1.result}`);
     pr1.roll();
@@ -252,24 +382,25 @@ export function test()
     const pr2 = new PrimitiveRollable(
         new Map([[D100, -1], [D12, 4], [D8, 3], [D1, -10]]), easyRandom
     );
-    console.assert(pr2.getRollString() == "-1d100+4d12+3d8-10");
+    console.assert(pr2.getRollString(false) == "-1d100+4d12+3d8-10");
     pr2.roll();
     console.assert(pr2.result == 27);
     pr2.roll();
     console.assert(pr2.result == 16);
 
     const pr3 = new PrimitiveRollable(new Map([[D8, 4]]));
-    console.assert(pr3.getRollString() == "4d8");
+    console.assert(pr3.getRollString(false) == "4d8");
     for (let i = 0; i < 100; i++) {
         pr3.roll();
         console.assert(pr3.result >= 4 && pr3.result <= 32);
     }
 
-    const nr1 = new NatRollable(4, easyRandom);
+    const nr1 = NatRollable.generate(4, easyRandom);
     // nr1.debug = true;
-    console.assert(nr1.getRollString() == "d20+4");
-    console.assert(nr1.roll(RollVariant.SuperAdvantage) == 20);
-    console.assert(nr1.getRollString() == "3d20kh1+4");
+    console.assert(nr1.getRollString(false) == "+4");
+    nr1.roll(RollVariant.SuperAdvantage);
+    console.assert(nr1.result == 20);
+    console.assert(nr1.getRollString(false) == "+4");
     try {
         nr1.roll(RollVariant.Critical);
         console.error("Roll argument error not thrown.");
@@ -281,16 +412,17 @@ export function test()
 
     const r1 = new Rollable(new Map([[D6, 2]]), easyRandom);
     // r1.debug = true;
-    console.assert(r1.getRollString() == "2d6");
-    console.assert(r1.roll(RollVariant.Critical) == 13);
+    console.assert(r1.getRollString(false) == "2d6");
+    r1.roll(RollVariant.Critical);
     console.assert(r1.result == 13);
-    console.assert(r1.getRollString() == "(2d6)&times;2");
+    console.assert(r1.getRollString(false) == "2d6");
     r1.debug = false;
 
     const r2 = new Rollable(new Map([[D4, 4], [D1, -10]]), easyRandom);
     // r2.debug = true;
-    console.assert(r2.getRollString() == "4d4-10");
-    console.assert(r2.roll() == 1);
+    console.assert(r2.getRollString(false) == "4d4-10");
+    r2.roll();
+    console.assert(r2.result == 1);
     r2.debug = false;
 
     console.log("Rollable tests performed.");

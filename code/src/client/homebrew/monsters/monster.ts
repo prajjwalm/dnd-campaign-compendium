@@ -1,9 +1,10 @@
 import {D1, D12, D20, D4, D6, D8, Dice} from "../common/diceConstants";
-import {PrimitiveRollable}              from "../common/rollable";
+import {NatRollable, Rollable}          from "../common/rollable";
 import {
     Activation,
     AdventurerClasses,
     AdventurerHitDice,
+    Conditions,
     CoreStats,
     CreatureSize,
     DamageType,
@@ -82,6 +83,11 @@ interface IStatSheet
 
     get saves(): ReadonlyMap<CoreStats, number>;
     get skills(): ReadonlyMap<Skill, number>;
+
+    get vulnerabilities(): ReadonlySet<DamageType>;
+    get resistances(): ReadonlySet<DamageType>;
+    get immunities(): ReadonlySet<DamageType>;
+    get conditionImmunities(): ReadonlySet<Conditions>;
 
     getAttacksWithActivation(activation: Activation): string[];
 }
@@ -254,7 +260,7 @@ class DDBAttack
         if (this.resolvedDamages == null) {
             this.computeUnassignedAttackDice();
         }
-        const rollStr = PrimitiveRollable.generateRollString(this.resolvedDamages.get(key));
+        const rollStr = new Rollable(this.resolvedDamages.get(key)).getRollString(false);
         return `[rollable]${rollStr};{
             "diceNotation":   "${rollStr}", 
             "rollType":       "damage", 
@@ -264,7 +270,7 @@ class DDBAttack
     }
 
     public getToHitRollableStr(name: string, toHitMod: number): string {
-        const toHitStr = (toHitMod >= 0 ? "+" : "") + toHitMod;
+        const toHitStr = NatRollable.generate(toHitMod).getRollString(false);
         return `[rollable]${toHitStr};{
             "diceNotation": "1d20${toHitStr}", 
             "rollType":     "to hit", 
@@ -281,15 +287,13 @@ class InternalAttack
         if (this.resolvedDamages == null) {
             this.computeUnassignedAttackDice();
         }
-        const rollStr =
-            PrimitiveRollable.generateRollString(this.resolvedDamages.get(key));
-        return `<span class="rollable">${rollStr}</span> ${DamageType[this.damageTypes.get(key)]} damage`;
+        return `${new Rollable(this.resolvedDamages.get(key)).getRollString(true)} 
+                ${DamageType[this.damageTypes.get(key)]} damage`;
     }
 
     public getToHitRollableStr(name: string, toHitMod: number): string
     {
-        const toHitStr = PrimitiveRollable.generateToHitString(toHitMod);
-        return `<span class="rollable to_hit">${toHitStr}</span>`;
+        return NatRollable.generate(toHitMod).getRollString(true);
     }
 }
 
@@ -344,6 +348,10 @@ interface StatBlockParams {
     saveBonuses?: ReadonlyMap<CoreStats, number>;
     skillProficiencies: ReadonlyMap<Skill, ProficiencyLevel>;
     skillBonuses?: ReadonlyMap<Skill, number>;
+    vulnerabilities?: ReadonlySet<DamageType>;
+    resistances?: ReadonlySet<DamageType>;
+    immunities?: ReadonlySet<DamageType>;
+    conditionImmunities?: ReadonlySet<Conditions>;
 }
 
 class StatSheet
@@ -377,6 +385,14 @@ class StatSheet
 
     private readonly _skillBonuses: ReadonlyMap<Skill, ProficiencyLevel>;
 
+    private readonly _vulnerabilities: ReadonlySet<DamageType>;
+
+    private readonly _resistances: ReadonlySet<DamageType>;
+
+    private readonly _immunities: ReadonlySet<DamageType>;
+
+    private readonly _conditionImmunities: ReadonlySet<Conditions>;
+
     public constructor({
         title,
         subtitle,
@@ -393,6 +409,10 @@ class StatSheet
         skillBonuses = new Map(),
         acDesc = null,
         adventurerLevels = new Map(),
+        vulnerabilities = new Set(),
+        resistances = new Set(),
+        immunities = new Set(),
+        conditionImmunities = new Set(),
         isTough = false
     }: StatBlockParams)
     {
@@ -408,6 +428,12 @@ class StatSheet
         this._skillBonuses = skillBonuses;
         this._acDesc = acDesc;
         this._size = size;
+
+        this._vulnerabilities = vulnerabilities;
+        this._resistances = resistances;
+        this._immunities = immunities;
+        this._conditionImmunities = conditionImmunities;
+
         this.attacks = attacks;
 
         for (const attack of this.attacks) {
@@ -430,10 +456,10 @@ class StatSheet
     }
 
     public get hpDiceStr(): string {
-        return PrimitiveRollable.generateRollString(new Map([
+        return new Rollable(new Map([
             [SizeToDice.get(this._size), this.hpDiceCount],
             [D1, this.hpDiceCount * this.hpBlock.conHpPerDice],
-        ]));
+        ])).getRollString(true);
     }
 
     public get stats(): ReadonlyMap<CoreStats, StatValue> {
@@ -515,8 +541,26 @@ class StatSheet
         }
         return m;
     }
+
+    public get conditionImmunities(): ReadonlySet<Conditions> {
+        return this._conditionImmunities;
+    }
+
+    public get immunities(): ReadonlySet<DamageType> {
+        return this._immunities;
+    }
+
+    public get resistances(): ReadonlySet<DamageType> {
+        return this._resistances;
+    }
+
+    public get vulnerabilities(): ReadonlySet<DamageType> {
+        return this._vulnerabilities;
+    }
 }
 
+
+// TODO: LANGUAGES, SENSES
 export function renderStatSheet(monster_id: string,
                                 statSheet: IStatSheet)
 {
@@ -534,23 +578,17 @@ export function renderStatSheet(monster_id: string,
                         CoreStats.Cha])
     {
         const statVal = statSheet.stats.get(stat);
-        statList.push(`<td>${statVal.stat} <span class="rollable">${
-            PrimitiveRollable.generateToHitString(statVal.mod)
-        }</span></td>`);
+        statList.push(`<td>${statVal.stat} ${NatRollable.generate(statVal.mod).getRollString(true)}</td>`);
     }
 
     const saveList = [];
     for (const [stat, save] of statSheet.saves.entries()) {
-        saveList.push(`${CoreStats[stat]} <span class="rollable">${
-            PrimitiveRollable.generateToHitString(save)
-        }</span>`);
+        saveList.push(`${CoreStats[stat]} ${NatRollable.generate(save).getRollString(true)}`);
     }
 
     const skillList = [];
     for (const [skill, mod] of statSheet.skills.entries()) {
-        skillList.push(`${Skill[skill]} <span class="rollable">${
-            PrimitiveRollable.generateToHitString(mod)
-        }</span>`);
+        skillList.push(`${Skill[skill]} ${NatRollable.generate(mod).getRollString(true)}`);
     }
 
     const contentList = [];
@@ -573,6 +611,38 @@ export function renderStatSheet(monster_id: string,
         }
     }
 
+    const vulnerabilities = [];
+    for (const v of statSheet.vulnerabilities.values()) {
+        vulnerabilities.push(DamageType[v]);
+    }
+    const vulStr = vulnerabilities.length == 0 ?
+                   "" :
+                   `<tr><td>Damage Vulnerabilities</td><td>${vulnerabilities.join(", ")}</td></tr>`;
+
+    const res = [];
+    for (const v of statSheet.resistances.values()) {
+        res.push(DamageType[v]);
+    }
+    const resStr = res.length == 0 ?
+                   "" :
+                   `<tr><td>Damage Resistances</td><td>${res.join(", ")}</td></tr>`;
+
+    const imm = [];
+    for (const v of statSheet.immunities.values()) {
+        imm.push(DamageType[v]);
+    }
+    const immStr = imm.length == 0 ?
+                   "" :
+                   `<tr><td>Damage Immunities</td><td>${imm.join(", ")}</td></tr>`;
+
+    const cimm = [];
+    for (const v of statSheet.conditionImmunities.values()) {
+        cimm.push(Conditions[v]);
+    }
+    const cimmStr = cimm.length == 0 ?
+                   "" :
+                   `<tr><td>Condition Immunities</td><td>${cimm.join(", ")}</td></tr>`;
+
     return `
     <div class="stat_sheet" id="stat_sheet_${monster_id}">
         <div class="sheet_header">
@@ -583,7 +653,7 @@ export function renderStatSheet(monster_id: string,
             <div class="header_zone">
                 <table class="ignore_common_style">
                     <tr><td>Armor Class</td><td>${statSheet.ac} ${statSheet.acDesc}</td></tr>
-                    <tr><td>Hit Points</td><td>${Math.round(statSheet.hpExpected)} (${statSheet.hpDiceStr})</td></tr>
+                    <tr><td>Hit Points</td><td>${Math.round(statSheet.hpExpected)} ${statSheet.hpDiceStr}</td></tr>
                     <tr><td>Speed</td><td>${speedList.join(", ")}</td></tr>
                 </table>
             </div>
@@ -595,11 +665,11 @@ export function renderStatSheet(monster_id: string,
             </div>
             <div class="header_zone">
                 <table class="ignore_common_style">
-                    <tr><td>Saving Throws</td><td>${saveList.join(", ")}</td></tr>
-                    <tr><td>Proficiency Bonus</td><td>${skillList.join(", ")}</td></tr>
-                    <tr><td>Languages</td><td>-</td></tr>
+                    <tr><td>Saving Throws</td><td>${saveList.join(" ")}</td></tr>
+                    <tr><td>Proficiency Bonus</td><td>${skillList.join(" ")}</td></tr>
                     <tr><td>Challenge Rating</td><td>${statSheet.cr}</td></tr>
-                    <tr><td>Proficiency Bonus</td><td>${PrimitiveRollable.generateToHitString(statSheet.pbMod)}</td></tr>
+                    <tr><td>Proficiency Bonus</td><td>${statSheet.pbMod}</td></tr>
+                    ${vulStr}${resStr}${immStr}${cimmStr}
                 </table>
             </div>
         </div>
@@ -614,7 +684,7 @@ function createInkling() {
         activation    : Activation.Special,
         mainStat      : CoreStats.Con,
         contentGenerator(args: AttackContentAPI): string {
-            return `<p>Upon death, the inkling sprays viscous ink at all creatures within 15 feet of itself. The targets 
+            return `<p>Upon death, the inkling sprays viscous ink at all creatures within 15 feet of itself. The targets
             must succeed on a DC ${args.getDc()} Constitution saving throw or be blinded until the end of their next turn.</p>`;
         },
         expectedDamage: 0
@@ -667,6 +737,26 @@ function createInkling() {
         ]),
         speeds            : new Map([
             [Speed.Walking, 30]
+        ]),
+        vulnerabilities: new Set([
+            DamageType.Cold,
+            DamageType.Lightning,
+            DamageType.Bludgeoning,
+        ]),
+        resistances: new Set([
+            DamageType.Acid,
+            DamageType.Fire,
+            DamageType.Piercing,
+            DamageType.Thunder,
+        ]),
+        immunities: new Set([
+            DamageType.Poison,
+            DamageType.Psychic,
+        ]),
+        conditionImmunities: new Set([
+            Conditions.Blinded,
+            Conditions.Deafened,
+            Conditions.Exhaustion,
         ]),
     });
 }
@@ -721,29 +811,26 @@ function createInklingDog()
         speeds            : new Map([
             [Speed.Walking, 50]
         ]),
+        vulnerabilities: new Set([
+            DamageType.Fire,
+            DamageType.Lightning,
+        ]),
+        resistances: new Set([
+            DamageType.Cold,
+            DamageType.Poison,
+            DamageType.Psychic,
+        ]),
     });
 }
 
 
 function createInklingAberrant()
 {
-    const inklingStats = new Map([
-        [CoreStats.Str, new StatValue(13)],
-        [CoreStats.Dex, new StatValue(11)],
-        [CoreStats.Con, new StatValue(16)],
-        [CoreStats.Int, new StatValue(19)],
-        [CoreStats.Wis, new StatValue(11)],
-        [CoreStats.Cha, new StatValue(15)],
-    ]);
-    const inklingProf = 3;
-
-    const inklingHp = new HpBlock(inklingStats, D8, 100);
-
-    const inkSpitText = new DDBAttack({
+    const inkSpitText = new InternalAttack({
         contentGenerator(args: AttackContentAPI): string {
             return `<p>The inkling spits viscous ink at one creature within 60 feet of itself. The target must succeed 
                     on a DC ${args.getDc()} Constitution saving throw. On failure, they take ${args.getDamageRollableStr("Blot")}
-                    and are [condition]blinded[/condition] until the end of their next turn. On success, they take half
+                    and are Blinded until the end of their next turn. On success, they take half
                     the poison damage and are not blinded. Regardless of the roll, they take ${args.getDamageRollableStr("BlotNeural")}.</p>`;
         },
         assignedDamages: args => new Map([
@@ -761,20 +848,16 @@ function createInklingAberrant()
         activation    : Activation.Action,
         expectedDamage: 50,
         mainStat      : CoreStats.Con,
-        prof          : inklingProf,
-        stats         : inklingStats,
         title         : "Ink Spit"
     });
 
-    inkSpitText.generateContent();
-
-    const chargedText = new DDBAttack({
+    const chargedText = new InternalAttack({
         contentGenerator(args: AttackContentAPI): string {
             return `<p>The inkling spits viscous ink at one creature within 90 feet of itself. The target must succeed 
                     on a DC ${args.getDc() + args.prof} Constitution saving throw. On failure, they take ${args.getDamageRollableStr("Blot")}
-                    and are [condition]blinded[/condition] until the end of their next turn. On success, they take half
+                    and are Blinded until the end of their next turn. On success, they take half
                     the poison damage and are not blinded. Regardless of the roll, they take ${args.getDamageRollableStr("BlotNeural")}. 
-                    This damage is neural damage and can cause the target to be [condition]Stunned[/condition].</p>`;
+                    This damage is neural damage and can cause the target to be Stunned.</p>`;
         },
         assignedDamages: args => new Map([
             ["Blot", new Map([[D1, args.getMod(CoreStats.Con)]])],
@@ -791,42 +874,64 @@ function createInklingAberrant()
         activation    : Activation.Action,
         expectedDamage: 100,
         mainStat      : CoreStats.Int,
-        prof          : inklingProf,
-        stats         : inklingStats,
         title         : "Charged Spit"
     });
 
-    chargedText.generateContent();
 
-    console.log(inklingHp.hpDiceCount);
-    console.log(inklingHp.hpExpected);
-    console.log(inkSpitText.content);
-    console.log(chargedText.content);
+    return new StatSheet({
+        title             : "Inkling (Envy)",
+        size              : CreatureSize.Medium,
+        subtitle          : " Inkling(Aberration), Typically Chaotic Evil",
+        stats             : new Map([
+            [CoreStats.Str, new StatValue(13)],
+            [CoreStats.Dex, new StatValue(11)],
+            [CoreStats.Con, new StatValue(16)],
+            [CoreStats.Int, new StatValue(19)],
+            [CoreStats.Wis, new StatValue(13)],
+            [CoreStats.Cha, new StatValue(15)],
+        ]),
+        ac                : 11,
+        acDesc            : "(Natural Armor)",
+        biologicalHp      : 100,
+        attacks           : [inkSpitText, chargedText],
+        crValue           : new CRValue(5),
+        saveProficiencies : new Map([
+            [CoreStats.Int, ProficiencyLevel.Prof],
+            [CoreStats.Wis, ProficiencyLevel.Prof],
+        ]),
+        skillProficiencies: new Map([
+            [Skill.Perception, ProficiencyLevel.Expert],
+        ]),
+        speeds            : new Map([
+            [Speed.Flying, 20]
+        ]),
+        vulnerabilities: new Set([
+            DamageType.Lightning,
+            DamageType.Thunder,
+        ]),
+        immunities: new Set([
+            DamageType.Poison,
+            DamageType.Psychic,
+        ]),
+        conditionImmunities: new Set([
+            Conditions.Prone,
+            Conditions.Blinded,
+        ]),
+    });
 }
 
 function createInklingWannabeBoss()
 {
-    const inklingStats = new Map([
-        [CoreStats.Str, new StatValue(24)],
-        [CoreStats.Dex, new StatValue(13)],
-        [CoreStats.Con, new StatValue(24)],
-        [CoreStats.Int, new StatValue(7)],
-        [CoreStats.Wis, new StatValue(8)],
-        [CoreStats.Cha, new StatValue(13)],
-    ]);
-    const inklingProf = 4;
 
-    const inklingHp = new HpBlock(inklingStats, D12, 160);
-
-    const slamText = new DDBAttack({
+    const slamText = new InternalAttack({
         contentGenerator(args: AttackContentAPI): string {
             return `<p>Melee Weapon Attack: ${args.getToHitRollableStr("Slam", args.getMod())}, reach 15 ft., one target. 
                     Hit: ${args.getDamageRollableStr("Slam")} plus ${args.getDamageRollableStr("SlamVibe")}. The primary
-                    target must succeed a DC ${args.getDc()} Str save or fall [condition]prone[/condition]. Those within 5ft of the 
-                    primary target must make a DC ${args.getDc()} Con save or take the thunder damage too. On a fail 
-                    of 10 or more, they are [condition]deafened[/condition] until a long rest.<br/>
-                    <em>The behemoth inkling slams a mighty fist into the ground, crushing the poor victim who wasn't able to 
-                    run away in time and sending thunderous shockwaves shaking those around.</em></p>`;
+                    target must succeed a DC ${args.getDc()} Str save or fall prone. Those within 5ft of the primary 
+                    target take half the bludgeoning damage and must make a DC ${args.getDc()} Con save or take the 
+                    thunder damage too. On a fail of 10 or more, they are deafened until a long rest.<br/>
+                    <em>The behemoth inkling slams a mighty fist into the ground, crushing the poor victim who wasn't 
+                    able to run away in time and sending thunderous shockwaves shaking those around.</em></p>`;
         },
         assignedDamages: args => new Map([
             ["Slam", new Map([[D1, args.getMod()]])],
@@ -842,111 +947,231 @@ function createInklingWannabeBoss()
         activation    : Activation.Action,
         expectedDamage: 110,
         mainStat      : CoreStats.Str,
-        prof          : inklingProf,
-        stats         : inklingStats,
         title         : "Slam",
     });
+    const jumpText = new InternalAttack({
+        contentGenerator(args: AttackContentAPI): string {
+            return `<p>Can jump up to 60 ft as a bonus action - can grapple a target within 5 ft of landing or takeoff
+                       as part of the same action.</p>`;
+        },
+        activation    : Activation.BonusAction,
+        expectedDamage: 0,
+        mainStat      : CoreStats.Str,
+        title         : "Jump",
+    });
+    const reactText = new InternalAttack({
+        contentGenerator(args: AttackContentAPI): string {
+            return `<p>Can slam once as an opportunity attack whenever an enemy comes within range.</p>`;
+        },
+        activation    : Activation.Reaction,
+        expectedDamage: 0,
+        mainStat      : CoreStats.Str,
+        title         : "Jump",
+    });
 
-    slamText.generateContent();
-
-    console.log(inklingHp.hpDiceCount);
-    console.log(inklingHp.hpExpected);
-    console.log(slamText.content);
+    return new StatSheet({
+        title             : "Inkling (Fury)",
+        size              : CreatureSize.Huge,
+        subtitle          : " Inkling(Beast), Typically Chaotic Neutral",
+        stats             : new Map([
+            [CoreStats.Str, new StatValue(24)],
+            [CoreStats.Dex, new StatValue(13)],
+            [CoreStats.Con, new StatValue(24)],
+            [CoreStats.Int, new StatValue(7)],
+            [CoreStats.Wis, new StatValue(8)],
+            [CoreStats.Cha, new StatValue(13)],
+        ]),
+        ac                : 18,
+        acDesc            : "(Natural Armor)",
+        biologicalHp      : 160,
+        attacks           : [slamText, jumpText, reactText],
+        crValue           : new CRValue(9),
+        saveProficiencies : new Map([
+            [CoreStats.Dex, ProficiencyLevel.Prof],
+        ]),
+        skillProficiencies: new Map([
+            [Skill.Athletics, ProficiencyLevel.Expert],
+            [Skill.Acrobatics, ProficiencyLevel.Prof],
+        ]),
+        speeds            : new Map([
+            [Speed.Walking, 50]
+        ]),
+        vulnerabilities: new Set([
+            DamageType.Lightning,
+        ]),
+        resistances: new Set([
+            DamageType.Cold,
+            DamageType.Poison,
+            DamageType.Psychic,
+        ]),
+    });
 }
 
 
 function createInklingDynamite()
 {
-    const inklingStats = new Map([
-        [CoreStats.Str, new StatValue(1)],
-        [CoreStats.Dex, new StatValue(28)],
-        [CoreStats.Con, new StatValue(10)],
-        [CoreStats.Int, new StatValue(13)],
-        [CoreStats.Wis, new StatValue(14)],
-        [CoreStats.Cha, new StatValue(11)],
-    ]);
-    const inklingProf = 3;
 
-    const inklingHp = new HpBlock(inklingStats, D4, 25);
-
-    const boomText = new DDBAttack({
+    const boomText = new InternalAttack({
         contentGenerator(args: AttackContentAPI): string {
-            return `<p>Upon death explodes to deal ${args.getDamageRollableStr("Boom")} to targets within 10 ft. 
+            return `<p>Upon death explodes to deal ${args.getDamageRollableStr("Boom")} to targets within 5 ft. 
                     On coming into contact with its opposite explodes to deal ${args.getDamageRollableStr("BigBoom")} 
-                    instead to targets within 20ft and half damage to targets within 40ft. Doesn't die till both 
-                    opposites explode, instead just enters a diffused state. If the opposites come into contact and
-                    at least one is diffused, damage dealt is half the rolled damage.</p>`;
+                    instead to targets within 20ft and half damage to targets within 40ft.</p>`;
         },
         assignedDamages: _ => new Map([
         ]),
         unassignedDamageRatios: new Map([
             ["Boom", new Map([[D20, 1]])],
-            ["BigBoom", new Map([[D20, 4]])]
+            ["BigBoom", new Map([[D20, 12]])]
         ]),
         damageTypes: new Map([
             ["Boom", DamageType.Force],
             ["BigBoom", DamageType.Force],
         ]),
         activation    : Activation.Special,
-        expectedDamage: 260,
+        expectedDamage: 270,
         mainStat      : CoreStats.Dex,
-        prof          : inklingProf,
-        stats         : inklingStats,
-        title         : "Slam",
+        title         : "Boom",
     });
 
-    boomText.generateContent();
+    const halfLifeText = new InternalAttack({
+        contentGenerator(args: AttackContentAPI): string {
+            return `<p> Doesn't die till both opposites explode, instead just enters a diffused state with halved
+                    movement speed. If the opposites come into contact and at least one is diffused, damage dealt
+                    is half the rolled damage.</p>`;
+        },
+        activation    : Activation.Special,
+        expectedDamage: 0,
+        mainStat      : CoreStats.Dex,
+        title         : "Half Lives",
+    });
 
-    console.log(inklingHp.hpDiceCount);
-    console.log(inklingHp.hpExpected);
-    console.log(boomText.content);
+
+    return new StatSheet({
+        title             : "Inkling (Arrogance)",
+        size              : CreatureSize.Tiny,
+        subtitle          : " Inkling(Aberration), Typically Neutral Evil",
+        stats             : new Map([
+            [CoreStats.Str, new StatValue(1)],
+            [CoreStats.Dex, new StatValue(28)],
+            [CoreStats.Con, new StatValue(10)],
+            [CoreStats.Int, new StatValue(13)],
+            [CoreStats.Wis, new StatValue(14)],
+            [CoreStats.Cha, new StatValue(11)],
+        ]),
+        ac                : 19,
+        acDesc            : "(Natural Armor)",
+        biologicalHp      : 19,
+        attacks           : [boomText, halfLifeText],
+        crValue           : new CRValue(5),
+        saveProficiencies : new Map([
+            [CoreStats.Int, ProficiencyLevel.Prof],
+            [CoreStats.Wis, ProficiencyLevel.Prof],
+            [CoreStats.Cha, ProficiencyLevel.Expert],
+        ]),
+        skillProficiencies: new Map([
+            [Skill.Perception, ProficiencyLevel.Expert],
+        ]),
+        speeds            : new Map([
+            [Speed.Flying, 20]
+        ]),
+        vulnerabilities: new Set([
+            DamageType.Cold
+        ]),
+        immunities: new Set([
+            DamageType.Fire,
+            DamageType.Poison,
+            DamageType.Psychic,
+            DamageType.Lightning,
+            DamageType.Thunder,
+        ]),
+        conditionImmunities: new Set([
+            Conditions.Prone,
+            Conditions.Blinded,
+            Conditions.Frightened,
+            Conditions.Charmed,
+            Conditions.Grappled,
+            Conditions.Exhaustion,
+        ]),
+    });
 }
 
 function createInklingTank()
 {
-    const inklingStats = new Map([
-        [CoreStats.Str, new StatValue(28)],
-        [CoreStats.Dex, new StatValue(1)],
-        [CoreStats.Con, new StatValue(28)],
-        [CoreStats.Int, new StatValue(2)],
-        [CoreStats.Wis, new StatValue(13)],
-        [CoreStats.Cha, new StatValue(16)],
-    ]);
-    // const inklingProf = 4;
+    const tauntText = new InternalAttack({
+        contentGenerator(args: AttackContentAPI): string {
+            return `<p>Once a creature enters within 60 ft of them or starts their turn in that area and can see them
+                    they must make a DC 24 Cha saving throw. On failure, they can only attack this creature until it 
+                    dies. If it goes out of range, they must dash or do whatever they can to approach it as long as they
+                    are within 120ft of it. Any AoE spell must be so placed such that this creature takes the maximum 
+                    amount of damage possible. They can repeat this save at the start of their turns to break out of 
+                    the taunt effect, but the DC increases by 1 with each failure.</p>`;
+        },
+        activation    : Activation.Special,
+        expectedDamage: 0,
+        mainStat      : CoreStats.Con,
+        title         : "Taunt",
+    });
 
-    const inklingHp = new HpBlock(inklingStats, D12, 120);
 
-    // const boomText = new Attack({
-    //     contentGenerator(args: Attack): string {
-    //         return `<p>Upon death explodes to deal ${args.getDamageRollableStr("Boom")} to targets within 10 ft.
-    //                 On coming into contact with its opposite explodes to deal ${args.getDamageRollableStr("BigBoom")}
-    //                 instead to targets within 20ft and half damage to targets within 40ft. Doesn't die till both
-    //                 opposites explode, instead just enters a diffused state. If the opposites come into contact and
-    //                 at least one is diffused, damage dealt is half the rolled damage.</p>`;
-    //     },
-    //     assignedDamages: _ => new Map([
-    //     ]),
-    //     unassignedDamageRatios: new Map([
-    //         ["Boom", new Map([[D20, 1]])],
-    //         ["BigBoom", new Map([[D20, 4]])]
-    //     ]),
-    //     damageTypes: new Map([
-    //         ["Boom", DamageType.Force],
-    //         ["BigBoom", DamageType.Force],
-    //     ]),
-    //     activation    : Activation.Special,
-    //     expectedDamage: 260,
-    //     mainStat      : CoreStats.Dex,
-    //     prof          : inklingProf,
-    //     stats         : inklingStats,
-    //     title         : "Slam",
-    // });
-
-    // boomText.generateContent();
-
-    console.log(inklingHp.hpDiceCount);
-    console.log(inklingHp.hpExpected);
-    // console.log(boomText.content);
+    return new StatSheet({
+        title             : "Inkling (Sloth)",
+        size              : CreatureSize.Small,
+        subtitle          : " Inkling(Construct), Typically Neutral",
+        stats             : new Map([
+            [CoreStats.Str, new StatValue(28)],
+            [CoreStats.Dex, new StatValue(1)],
+            [CoreStats.Con, new StatValue(28)],
+            [CoreStats.Int, new StatValue(2)],
+            [CoreStats.Wis, new StatValue(13)],
+            [CoreStats.Cha, new StatValue(16)],
+        ]),
+        ac                : 22,
+        acDesc            : "(Natural Armor)",
+        biologicalHp      : 120,
+        attacks           : [tauntText],
+        crValue           : new CRValue(7, 1),
+        saveProficiencies : new Map([
+            [CoreStats.Str, ProficiencyLevel.Expert],
+            [CoreStats.Con, ProficiencyLevel.Expert],
+            [CoreStats.Int, ProficiencyLevel.Expert],
+            [CoreStats.Wis, ProficiencyLevel.Expert],
+            [CoreStats.Cha, ProficiencyLevel.Expert],
+        ]),
+        skillProficiencies: new Map([
+            [Skill.Athletics, ProficiencyLevel.Expert],
+            [Skill.Perception, ProficiencyLevel.Expert],
+        ]),
+        speeds            : new Map([
+            [Speed.Walking, 50]
+        ]),
+        vulnerabilities: new Set([
+            DamageType.Force,
+            DamageType.Thunder,
+        ]),
+        resistances: new Set([
+            DamageType.Cold,
+            DamageType.Necrotic,
+            DamageType.Radiant,
+            DamageType.Bludgeoning,
+            DamageType.Piercing,
+            DamageType.Slashing,
+        ]),
+        immunities: new Set([
+            DamageType.Acid,
+            DamageType.Fire,
+            DamageType.Lightning,
+            DamageType.Poison,
+            DamageType.Psychic,
+            DamageType.Bludgeoning,
+            DamageType.Piercing,
+            DamageType.Slashing,
+        ]),
+        conditionImmunities: new Set([
+            Conditions.Exhaustion,
+            Conditions.Poisoned,
+            Conditions.Prone,
+        ]),
+    });
 }
 
 export function setupMonsters()
@@ -954,6 +1179,10 @@ export function setupMonsters()
     const idToGenerator: Map<string, () => StatSheet> = new Map([
         ["inkling_insecurity", createInkling],
         ["inkling_impatience", createInklingDog],
+        ["inkling_envy",       createInklingAberrant],
+        ["inkling_fury",       createInklingWannabeBoss],
+        ["inkling_sloth",      createInklingTank],
+        ["inkling_arrogance",  createInklingDynamite],
     ]);
 
     const generatedIds: Set<string> = new Set();

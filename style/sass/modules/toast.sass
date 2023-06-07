@@ -1,0 +1,37 @@
+@import "../definitions/colors"
+@import "../definitions/shadows"
+@import "../definitions/common_dimensions"
+
+#toast-container
+  bottom: 10%
+  right: 10%
+  position: fixed
+
+  .toast
+    width: 360px
+    min-height: 80px
+    display: flex
+    flex-flow: column nowrap
+    font-family: "Roboto", sans-serif
+    text-transform: uppercase
+    background-color: $color_grey_dark
+    z-index: 5
+    padding: 2 * $padding_default
+    gap: $padding_default
+    margin: $margin_default
+    justify-content: flex-start
+    align-items: stretch
+    border-radius: 6px
+
+    @include BoxShadowElevationHelper(2)
+
+    .roll_result
+      font-size: 24px
+      color: $color_white
+
+    .roll_buildup
+      display: block
+      width: 100%
+      font-size: 16px
+      color: $color-grey
+      text-align: right

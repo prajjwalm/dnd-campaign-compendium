@@ -6,8 +6,8 @@ import {setupHistory}        from "./history";
 import {setupUI}             from "./ui/setupUI";
 
 // Test Suites.
-import {setupNpcOpinions, test as testNpcOpinion} from "./campaigns/npcOpinions";
-import {test as testRollable}                         from "./homebrew/common/rollable";
+import {setupNpcOpinions, test as testNpcOpinion}     from "./campaigns/npcOpinions";
+import {enableRolling, test as testRollable}          from "./homebrew/common/rollable";
 import {setupMonsters, test as testStatSheetCreation} from "./homebrew/monsters/monster";
 
 $(() => {
@@ -24,4 +24,6 @@ $(() => {
     setupMonsters();
 
     setupUI();
+
+    enableRolling();
 });
