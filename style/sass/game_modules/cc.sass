@@ -1,0 +1,198 @@
+@import "../definitions/common_dimensions"
+@import "../definitions/colors"
+@import "../definitions/shadows"
+@import "../definitions/fonts"
+
+$badge_size: 16px
+
+#cc
+  width: 100%
+
+  h2
+    width: 100%
+
+  p.cool_intro
+    width: 100%
+
+  #cc_data
+    background-color: #f3f3f3
+    border-radius: 8px
+    margin: 16px
+    overflow: hidden
+    display: flex
+    flex-flow: row wrap
+
+    @include BoxShadowElevationHelper(3)
+
+    .difficulty
+      flex-grow: 0
+      height: 256px
+      width: 256px
+      background-color: $color_true_grey
+      color: #f3f3f3
+      padding: 2 * $padding_default
+      display: flex
+      flex-flow: column nowrap
+      align-items: stretch
+      justify-content: space-between
+
+      h4
+        font-variant-caps: small-caps
+        text-shadow: 0 0 3px 1px rgba(#000, 0.36)
+        width: 100%
+        text-align: center
+        margin-bottom: 2*$margin_default
+
+        @include FontSize(2)
+
+      #grade
+        font-size: 96px !important
+        font-family: "RobotoCondensed", sans-serif
+        font-weight: bolder
+        font-style: oblique
+        width: 100%
+        text-align: center
+        text-shadow: 1px 1px 5px rgba(black,0.2)
+        padding: 2 * $padding_default
+
+      #risk
+        width: 100%
+        font-style: italic
+        font-weight: normal
+        text-align: right
+        @include FontSize(4)
+
+        #risk_value
+          color: #c00
+          font-weight: bold
+          font-family: "Montserrat", sans-serif
+          @include FontSize(3)
+
+    .risk_effects
+      flex-grow: 1
+      width: 50%
+      height: 256px
+      background-color: $color_grey_dark
+      color: #f3f3f3
+      box-shadow: $box_shadow_inset_soft
+      padding: 2 * $padding_default
+      transition: all 0.3s
+      overflow-y: scroll
+
+      .risk_effect
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        width: 100%
+
+        span
+          font-family: RobotoCondensed, sans-serif
+
+        .risk_icon
+          margin: $margin_default / 2
+          object-fit: contain
+          border-radius: 3px
+
+
+    #contracts
+      width: 100%
+      padding: 2 * $padding_default
+      display: flex
+      flex-flow: column wrap
+      align-items: flex-start
+      justify-content: flex-start
+      height: 840px
+
+      .contract_group
+        padding: $padding_default * 0.5
+        margin: $margin_default * 0.5
+        background-color: #ccc
+        border-radius: 8px
+        box-shadow: $box_shadow_inset_soft
+        overflow: visible
+
+      .contract
+        width: 272px
+        height: 84px
+        overflow: visible
+        position: relative
+        transition: all 0.3s
+        margin: $margin_default * 0.5
+        display: flex
+        align-items: center
+        justify-content: flex-end
+
+        &.risk1
+          .contract_title:after
+            border-right: $badge_size solid $color_dnd_uncommon_dark
+            border-top: $badge_size solid $color_dnd_uncommon_dark
+
+        &.risk2
+          .contract_title:after
+            border-right: $badge_size solid $color_dnd_rare_dark
+            border-top: $badge_size solid $color_dnd_rare_dark
+
+        &.risk3
+          .contract_title:after
+            border-right: $badge_size solid $color_dnd_epic_dark
+            border-top: $badge_size solid $color_dnd_epic_dark
+
+        .contract_box
+          mask-image: linear-gradient(270deg, rgba(0, 0, 0, 1) 76%, transparent 83%)
+          flex-grow: 1
+          padding: $padding_default
+          width: 100%
+          height: 64px
+
+          .contract_title
+            display: flex
+            align-items: center
+            justify-content: flex-start
+            position: relative
+            width: 100%
+            height: 100%
+            padding: $padding-default $padding-default $padding-default 80px
+            border-radius: 4px
+            background-color: #eee
+            color: $color_grey_dark
+            font-family: "RobotoCondensed", sans-serif
+            overflow: hidden
+            z-index: 0
+
+            &:after
+              content: ""
+              position: absolute
+              z-index: -1
+              top: 0
+              right: 0
+              width: 0
+              height: 0
+              border-left: $badge_size solid transparent
+              border-bottom: $badge_size solid transparent
+              float: left
+
+            @include FontSize(4)
+            @include BoxShadowElevationHelper(2)
+
+        &.selected
+          .contract_box
+            mask-image: unset
+            height: 100%
+            transition: all 0.15s
+
+            .contract_title
+              background-color: #10a2e3
+              color: #000
+              box-shadow: 0 0 7px 2px rgba(#10a2e3,0.43)
+
+
+        img.contract_icon
+          position: absolute
+          display: inline-block
+          width: 60px
+          height: 68px
+          left: 16px
+          top: 7px
+          margin: 0
+          z-index: 1
+

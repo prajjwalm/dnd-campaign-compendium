@@ -1,5 +1,5 @@
-import {D1, Dice} from "../common/diceConstants";
-import {NatRollable, Rollable}     from "../common/rollable";
+import {D1, Dice}              from "../common/diceConstants";
+import {NatRollable, Rollable} from "../common/rollable";
 import {
     Activation,
     AdventurerClasses,
@@ -17,8 +17,8 @@ import {
     SkillForStat,
     Speed,
     StatValue,
-}                                from "../definitions/constants";
-import {IAttack} from "./attack";
+}                                                from "../definitions/constants";
+import {AttackContracts, IAttack, IBuffedAttack} from "./attack";
 
 
 class HpBlock
@@ -52,523 +52,405 @@ class HpBlock
 
 
 interface StatBlockParams {
+    monster_id: string;
     title: string;
     subtitle: string;
     crValue: CRValue;
     stats: Map<CoreStat, StatValue>;
-    speeds: ReadonlyMap<Speed, number>;
+    speeds: Map<Speed, number>;
     size: CreatureSize;
     biologicalHp: number;
     ac: number;
     acDesc?: string;
     adventurerLevels?: Map<AdventurerClasses, number>;
     isTough?: boolean;
-    attacks: IAttack[];
-    saveProficiencies: ReadonlyMap<CoreStat, ProficiencyLevel>;
+    attacks: Map<string, IBuffedAttack>; // todo: introduce covariance when you're feeling brave
+    saveProficiencies: Map<CoreStat, ProficiencyLevel>;
     saveBonuses?: ReadonlyMap<CoreStat, number>;
     skillProficiencies: ReadonlyMap<Skill, ProficiencyLevel>;
     skillBonuses?: ReadonlyMap<Skill, number>;
     vulnerabilities?: ReadonlySet<DamageType>;
-    resistances?: ReadonlySet<DamageType>;
+    resistances?: Set<DamageType>;
     immunities?: ReadonlySet<DamageType>;
     conditionImmunities?: ReadonlySet<Conditions>;
 }
 
-
 export interface IStatSheet
 {
-    get title(): string;
-    get subtitle(): string;
-
-    get cr(): number | string;
-    get pb(): Prof;
-
-    get stats(): ReadonlyMap<CoreStat, StatValue>;
-
-    get ac(): number;
-    get acDesc(): string;
-    get speeds(): ReadonlyMap<Speed, number>;
-
-    get size(): string;
-    get hpDice(): Map<Dice, number>;
-
-    get saves(): ReadonlyMap<CoreStat, number>;
-    get skills(): ReadonlyMap<Skill, number>;
-
-    get vulnerabilities(): ReadonlySet<DamageType>;
-    get resistances(): ReadonlySet<DamageType>;
-    get immunities(): ReadonlySet<DamageType>;
-    get conditionImmunities(): ReadonlySet<Conditions>;
-
-    getAttacksWithActivation(activation: Activation): string[];
+    render(): string;
 }
 
+export interface IBuffedStatSheet
+    extends IStatSheet
+{
+    get monster_id(): string;
+    get hpDice(): Map<Dice, number>;
+    get attacks(): Map<string, IBuffedAttack>;
+    get ac(): number;
+    set ac(val: number);
+    get res(): Set<DamageType>;
+    get saves(): Map<CoreStat, ProficiencyLevel>;
+    get speeds(): Map<Speed, number>;
+}
+
+export const idToSheetGenerator: Map<string, () => IStatSheet> = new Map();
+
+export const contractIndex: Map<string, ISheetContract> = new Map<string, ISheetContract>();
+
+
+export function isContractSelected(contractId)
+{
+    return $(`#contracts .contract[data-contract-uid=${contractId}]`).hasClass("selected");
+}
 
 export class StatSheet
-    implements IStatSheet
 {
-    public readonly title: string;
+    public readonly monster_id: string;
 
-    public readonly subtitle: string;
+    private readonly title: string;
 
-    public readonly speeds: ReadonlyMap<Speed, number>;
+    private readonly subtitle: string;
 
-    private readonly _stats: Map<CoreStat, StatValue>;
+    public readonly speeds: Map<Speed, number>;
 
-    private readonly hpBlock: HpBlock;
+    public readonly stats: Map<CoreStat, StatValue>;
+
+    private readonly _hpDice: Map<Dice, number>;
 
     private readonly crValue: CRValue;
 
-    private readonly _ac: number;
+    protected _ac: number;
 
-    private readonly _acDesc: string;
+    private readonly acDesc: string;
 
-    private readonly _size: CreatureSize;
+    private readonly size: CreatureSize;
 
-    private readonly attacks: IAttack[];
+    private readonly _attacks: Map<string, IBuffedAttack>;
 
-    private readonly _saveProficiencies: ReadonlyMap<CoreStat, ProficiencyLevel>;
+    protected readonly saveProficiencies: Map<CoreStat, ProficiencyLevel>;
 
-    private readonly _skillProficiencies: ReadonlyMap<Skill, ProficiencyLevel>;
+    private readonly skillProficiencies: ReadonlyMap<Skill, ProficiencyLevel>;
 
-    private readonly _saveBonuses: ReadonlyMap<CoreStat, ProficiencyLevel>;
+    private readonly saveBonuses: ReadonlyMap<CoreStat, ProficiencyLevel>;
 
-    private readonly _skillBonuses: ReadonlyMap<Skill, ProficiencyLevel>;
+    private readonly skillBonuses: ReadonlyMap<Skill, ProficiencyLevel>;
 
-    private readonly _vulnerabilities: ReadonlySet<DamageType>;
+    private readonly vulnerabilities: ReadonlySet<DamageType>;
 
-    private readonly _resistances: ReadonlySet<DamageType>;
+    protected readonly resistances: Set<DamageType>;
 
-    private readonly _immunities: ReadonlySet<DamageType>;
+    private readonly immunities: ReadonlySet<DamageType>;
 
-    private readonly _conditionImmunities: ReadonlySet<Conditions>;
+    private readonly conditionImmunities: ReadonlySet<Conditions>;
 
     public constructor({
-        title,
-        subtitle,
-        crValue,
-        stats,
-        size,
-        biologicalHp,
-        ac,
-        speeds,
-        attacks,
-        saveProficiencies = new Map(),
-        skillProficiencies = new Map(),
-        saveBonuses = new Map(),
-        skillBonuses = new Map(),
-        acDesc = null,
-        adventurerLevels = new Map(),
-        vulnerabilities = new Set(),
-        resistances = new Set(),
-        immunities = new Set(),
-        conditionImmunities = new Set(),
-        isTough = false
-    }: StatBlockParams)
+                           monster_id,
+                           title,
+                           subtitle,
+                           crValue,
+                           stats,
+                           size,
+                           biologicalHp,
+                           ac,
+                           speeds,
+                           attacks,
+                           saveProficiencies = new Map(),
+                           skillProficiencies = new Map(),
+                           saveBonuses = new Map(),
+                           skillBonuses = new Map(),
+                           acDesc = null,
+                           adventurerLevels = new Map(),
+                           vulnerabilities = new Set(),
+                           resistances = new Set(),
+                           immunities = new Set(),
+                           conditionImmunities = new Set(),
+                           isTough = false
+                       }: StatBlockParams)
     {
+        this.monster_id = monster_id;
         this.title = title;
         this.subtitle = subtitle;
         this.crValue = crValue;
         this.speeds = speeds;
-        this._stats = stats;
+        this.stats = stats;
         this._ac = ac;
-        this._saveProficiencies = saveProficiencies;
-        this._saveBonuses = saveBonuses;
-        this._skillProficiencies = skillProficiencies;
-        this._skillBonuses = skillBonuses;
-        this._acDesc = acDesc;
-        this._size = size;
+        this.saveProficiencies = saveProficiencies;
+        this.saveBonuses = saveBonuses;
+        this.skillProficiencies = skillProficiencies;
+        this.skillBonuses = skillBonuses;
+        this.acDesc = acDesc;
+        this.size = size;
+        this.vulnerabilities = vulnerabilities;
+        this.resistances = resistances;
+        this.immunities = immunities;
+        this.conditionImmunities = conditionImmunities;
 
-        this._vulnerabilities = vulnerabilities;
-        this._resistances = resistances;
-        this._immunities = immunities;
-        this._conditionImmunities = conditionImmunities;
+        this._attacks = attacks;
 
-        this.attacks = attacks;
-
-        for (const attack of this.attacks) {
-            attack.bindSheet(this);
-        }
-
-        this.hpBlock = new HpBlock(stats,
+        const hpBlock = new HpBlock(stats,
             SizeToDice.get(size),
             biologicalHp,
             adventurerLevels,
             isTough);
+
+        this._hpDice = new Map([
+            [SizeToDice.get(this.size), hpBlock.hpDiceCount],
+            [D1, hpBlock.hpDiceCount * hpBlock.conHpPerDice],
+        ]);
     }
 
-    public getAttacksWithActivation(activation: Activation): string[]
-    {
-        const r = [];
-        for (const attack of this.attacks) {
-            if (attack.activation != activation) {
+    // TODO: LANGUAGES, SENSES
+    public render(): string {
+        const speedList = [];
+        for (const [speed, value] of this.speeds.entries()) {
+            speedList.push(`${Speed[speed]} ${value} ft.`);
+        }
+
+        const statList = [];
+        for (const stat of [CoreStat.Str,
+                            CoreStat.Dex,
+                            CoreStat.Con,
+                            CoreStat.Int,
+                            CoreStat.Wis,
+                            CoreStat.Cha])
+        {
+            const statVal = this.stats.get(stat);
+            statList.push(`<td>${statVal.stat} ${NatRollable.generate(statVal.mod).getRollString(true)}</td>`);
+        }
+
+        const saveList = [];
+        for (const [stat, save] of this.computeSaves().entries()) {
+            saveList.push(`${CoreStat[stat]} ${NatRollable.generate(save).getRollString(true)}`);
+        }
+
+        const skillList = [];
+        for (const [skill, mod] of this.computeSkills().entries()) {
+            skillList.push(`${Skill[skill]} ${NatRollable.generate(mod).getRollString(true)}`);
+        }
+
+        const contentList = [];
+        for (const activation of [Activation.Special,
+                                  Activation.Action,
+                                  Activation.BonusAction,
+                                  Activation.Reaction,
+                                  Activation.LegendaryAction,
+                                  Activation.MythicAction])
+        {
+            const attacks = this.getAttacksWithActivation(activation);
+            if (attacks.length == 0) {
                 continue;
             }
-            r.push(attack.createContent());
+            if (activation != Activation.Special) {
+                contentList.push(`<h4 class="sheet_section_header">${Activation[activation]}s</h4>`);
+            }
+            for (const attack of attacks) {
+                contentList.push(`<div class="sheet_content">${attack}</div>`);
+            }
         }
-        return r;
+
+        const vulnerabilities = [];
+        for (const v of this.vulnerabilities.values()) {
+            vulnerabilities.push(DamageType[v]);
+        }
+        const vulStr = vulnerabilities.length == 0 ?
+                       "" :
+                       `<tr><td>Damage Vulnerabilities</td><td>${vulnerabilities.join(", ")}</td></tr>`;
+
+        const res = [];
+        for (const v of this.resistances.values()) {
+            res.push(DamageType[v]);
+        }
+        const resStr = res.length == 0 ?
+                       "" :
+                       `<tr><td>Damage Resistances</td><td>${res.join(", ")}</td></tr>`;
+
+        const imm = [];
+        for (const v of this.immunities.values()) {
+            imm.push(DamageType[v]);
+        }
+        const immStr = imm.length == 0 ?
+                       "" :
+                       `<tr><td>Damage Immunities</td><td>${imm.join(", ")}</td></tr>`;
+
+        const cimm = [];
+        for (const v of this.conditionImmunities.values()) {
+            cimm.push(Conditions[v]);
+        }
+        const cimmStr = cimm.length == 0 ?
+                        "" :
+                        `<tr><td>Condition Immunities</td><td>${cimm.join(", ")}</td></tr>`;
+
+        return `
+        <div class="stat_sheet" id="stat_sheet_${this.monster_id}">
+            <div class="sheet_header">
+                <div class="header_zone">
+                    <h3 class="sheet_title">${this.title}</h3>
+                    <div class="sheet_subtitle">${CreatureSize[this.size]} ${this.subtitle}</div>
+                </div>
+                <div class="header_zone">
+                    <table class="ignore_common_style">
+                        <tr><td>Armor Class</td><td>${this._ac} ${this.acDesc}</td></tr>
+                        <tr><td>Hit Points</td><td>${Math.round(E(this.hpDice))} 
+                            ${new Rollable(this.hpDice).getRollString(true)}</td></tr>
+                        <tr><td>Speed</td><td>${speedList.join(", ")}</td></tr>
+                    </table>
+                </div>
+                <div class="header_zone">
+                    <table class="stats_table ignore_common_style">
+                        <tr><th>STR</th><th>DEX</th><th>CON</th><th>INT</th><th>WIS</th><th>CHA</th></tr>
+                        <tr>${statList.join("")}</tr>
+                    </table>
+                </div>
+                <div class="header_zone">
+                    <table class="ignore_common_style">
+                        <tr><td>Saving Throws</td><td>${saveList.join(" ")}</td></tr>
+                        <tr><td>Skills</td><td>${skillList.join(" ")}</td></tr>
+                        <tr><td>Challenge Rating</td><td>${this.crValue.cr}</td></tr>
+                        <tr><td>Proficiency Bonus</td><td>${this.pb.mod()}</td></tr>
+                        ${vulStr}${resStr}${immStr}${cimmStr}
+                    </table>
+                </div>
+            </div>
+            ${contentList.join("")}
+        </div>`;
     }
 
     public get pb(): Prof {
         return this.crValue.prof;
     }
 
-    public get cr(): number {
-        return this.crValue.cr;
+    protected get attacks(): Map<string, IBuffedAttack> {
+        return this._attacks;
     }
 
-    public get stats(): ReadonlyMap<CoreStat, StatValue> {
-        return this._stats;
+    private getAttacksWithActivation(activation: Activation): string[]
+    {
+        const r = [];
+        for (const attack of this._attacks.values()) {
+            if (attack.activation != activation) {
+                continue;
+            }
+            attack.bindSheet(this);
+            r.push(attack.createContent());
+        }
+        return r;
+    }
+
+    private computeSaves(): ReadonlyMap<CoreStat, number> {
+        const m = new Map();
+        for (const [stat, saveBonus] of this.saveBonuses.entries()) {
+            m.set(stat, (m.has(stat) ? m.get(stat) : this.stats.get(stat).mod)
+                        + saveBonus);
+        }
+        for (const [stat, saveProf] of this.saveProficiencies.entries()) {
+            m.set(stat, (m.has(stat) ? m.get(stat) : this.stats.get(stat).mod)
+                        + this.pb.mod(saveProf));
+        }
+        return m;
+    }
+
+    private computeSkills(): ReadonlyMap<Skill, ProficiencyLevel> {
+        const m = new Map();
+        for (const [skill, saveBonus] of this.skillBonuses.entries()) {
+            const stat = SkillForStat.get(skill);
+            m.set(skill, (m.has(skill) ? m.get(skill) : this.stats.get(stat).mod)
+                         + saveBonus);
+        }
+        for (const [skill, saveProf] of this.skillProficiencies.entries()) {
+            const stat = SkillForStat.get(skill);
+            m.set(skill, (m.has(skill) ? m.get(skill) : this.stats.get(stat).mod)
+                         + this.pb.mod(saveProf));
+        }
+        return m;
+    }
+
+    protected get hpDice(): Map<Dice, number> {
+        return this._hpDice;
+    }
+}
+
+
+export interface ISheetContract
+{
+    get risk(): number;
+    get id(): string;
+    get displayName(): string;
+    get imgPath(): string;
+    get desc(): string;
+
+    shouldApply(sheet: IBuffedStatSheet): boolean;
+    modify(sheet: IBuffedStatSheet): void;
+
+    render(): string;
+}
+
+
+export class SheetContract
+    implements ISheetContract
+{
+    constructor(
+        public readonly risk: number,
+        public readonly id: string,
+        public readonly displayName: string,
+        public readonly imgPath: string,
+        public readonly desc: string,
+        public readonly shouldApply: (attack: IBuffedStatSheet) => boolean,
+        public readonly modify: (attack: IBuffedStatSheet) => void,
+    )
+    {}
+
+    public render(): string {
+        return `<div class="contract selectable radio risk${this.risk}" data-contract-uid="${this.id}">
+                    <img class="contract_icon" src="assets/images/risk/${this.imgPath}" alt="[null]">
+                    <div class="contract_box"><div class="contract_title">${this.displayName}</div></div>
+                </div>`;
+    }
+}
+
+
+export class BuffedStatSheet
+    extends    StatSheet
+    implements IBuffedStatSheet
+{
+    constructor(props: StatBlockParams) {
+        super(props);
+    }
+
+    public get hpDice(): Map<Dice, number> {
+        return super.hpDice;
+    }
+
+    public get attacks(): Map<string, IBuffedAttack> {
+        return super.attacks;
+    }
+
+    public render(): string {
+        for (const [contractId, contract] of contractIndex.entries()) {
+            if (!isContractSelected(contractId)) {
+                continue;
+            }
+            if (contract.shouldApply(this)) {
+                contract.modify(this);
+            }
+        }
+        return super.render();
     }
 
     public get ac(): number {
         return this._ac;
     }
 
-    public get acDesc(): string {
-        return this._acDesc;
+    public set ac(val: number) {
+        this._ac = val;
     }
 
-    public get size(): string {
-        return CreatureSize[this._size];
+    public get res() {
+        return this.resistances;
     }
 
-    public get hpDice(): Map<Dice, number> {
-        return new Map([
-            [SizeToDice.get(this._size), this.hpBlock.hpDiceCount],
-            [D1, this.hpBlock.hpDiceCount * this.hpBlock.conHpPerDice],
-        ]);
-        // return new Rollable(new Map([
-        //     [SizeToDice.get(this._size), this.hpDiceCount],
-        //     [D1, this.hpDiceCount * this.hpBlock.conHpPerDice],
-        // ])).getRollString(true);
+    public get saves(): Map<CoreStat, ProficiencyLevel> {
+        return this.saveProficiencies;
     }
-
-    public get saves(): ReadonlyMap<CoreStat, number> {
-        const m = new Map();
-        for (const [stat, saveBonus] of this._saveBonuses.entries()) {
-            m.set(stat, (m.has(stat) ? m.get(stat) : this._stats.get(stat).mod)
-                        + saveBonus);
-        }
-        for (const [stat, saveProf] of this._saveProficiencies.entries()) {
-            m.set(stat, (m.has(stat) ? m.get(stat) : this._stats.get(stat).mod)
-                        + this.pb.mod(saveProf));
-        }
-        return m;
-    }
-
-    public get skills(): ReadonlyMap<Skill, ProficiencyLevel> {
-        const m = new Map();
-        for (const [skill, saveBonus] of this._skillBonuses.entries()) {
-            const stat = SkillForStat.get(skill);
-            m.set(skill, (m.has(skill) ? m.get(skill) : this._stats.get(stat).mod)
-                         + saveBonus);
-        }
-        for (const [skill, saveProf] of this._skillProficiencies.entries()) {
-            const stat = SkillForStat.get(skill);
-            m.set(skill, (m.has(skill) ? m.get(skill) : this._stats.get(stat).mod)
-                         + this.pb.mod(saveProf));
-        }
-        return m;
-    }
-
-    public get conditionImmunities(): ReadonlySet<Conditions> {
-        return this._conditionImmunities;
-    }
-
-    public get immunities(): ReadonlySet<DamageType> {
-        return this._immunities;
-    }
-
-    public get resistances(): ReadonlySet<DamageType> {
-        return this._resistances;
-    }
-
-    public get vulnerabilities(): ReadonlySet<DamageType> {
-        return this._vulnerabilities;
-    }
-}
-
-
-// interface ISheetContract
-// {
-// }
-//
-//
-// class SheetContract
-//     implements ISheetContract
-// {
-//     constructor() {}
-// }
-//
-//
-// class BuffedStatSheet
-//     implements IStatSheet
-// {
-//     private readonly contracts: Set<ISheetContract> = new Set();
-//
-//     private _ac: number;
-//
-//     private _prof: Prof;
-//
-//     private _conditionImmunities: Set<Conditions>;
-//
-//     private _damageVulnerabilities: Set<DamageType>;
-//
-//     private _damageResistances: Set<DamageType>;
-//
-//     private _damageImmunities: Set<DamageType>;
-//
-//     private _stats: Map<CoreStat, StatValue>;
-//
-//     private _saves: Map<CoreStat, number>;
-//
-//     private _speeds: Map<Speed, number>;
-//
-//     private _skills: Map<Skill, number>;
-//
-//     constructor(private readonly baseStatSheet: IStatSheet)
-//     {
-//         this.toZero();
-//     }
-//
-//     public addContract(contract: ISheetContract): void {
-//         this.contracts.add(contract);
-//     }
-//
-//     public dropContract(contract: ISheetContract): void {
-//         this.contracts.delete(contract);
-//     }
-//
-//     public toZero(): void {
-//         this._ac = this.baseStatSheet.ac;
-//         this._prof = this.baseStatSheet.pb;
-//
-//         this._conditionImmunities = new Set();
-//         for (const x of this.baseStatSheet.conditionImmunities) {
-//             this._conditionImmunities.add(x);
-//         }
-//         this._damageImmunities = new Set();
-//         for (const x of this.baseStatSheet.immunities) {
-//             this._damageImmunities.add(x);
-//         }
-//         this._damageResistances = new Set();
-//         for (const x of this.baseStatSheet.resistances) {
-//             this._damageResistances.add(x);
-//         }
-//         this._damageVulnerabilities = new Set();
-//         for (const x of this.baseStatSheet.vulnerabilities) {
-//             this._damageVulnerabilities.add(x);
-//         }
-//
-//         this._stats = new Map();
-//         for (const [k, v] of this.baseStatSheet.stats.entries()) {
-//             this._stats.set(k, v);
-//         }
-//         this._skills = new Map();
-//         for (const [k, v] of this.baseStatSheet.skills.entries()) {
-//             this._skills.set(k, v);
-//         }
-//         this._saves = new Map();
-//         for (const [k, v] of this.baseStatSheet.saves.entries()) {
-//             this._saves.set(k, v);
-//         }
-//         this._speeds = new Map();
-//         for (const [k, v] of this.baseStatSheet.speeds.entries()) {
-//             this._speeds.set(k, v);
-//         }
-//     }
-//
-//     public refreshContractEffects(): void {
-//         this.toZero();
-//     }
-//
-//     public getAttacksWithActivation(activation: Activation): string[] {
-//         return [];
-//     }
-//
-//     public get title(): string {
-//         return this.baseStatSheet.title;
-//     }
-//
-//     public get subtitle(): string {
-//         return this.baseStatSheet.subtitle;
-//     }
-//
-//     public get cr(): number | string {
-//         return this.contracts.size == 0 ? this.baseStatSheet.cr : "???";
-//     }
-//
-//     public get pb(): Prof {
-//         return this._prof;
-//     }
-//
-//     public get stats(): ReadonlyMap<CoreStat, StatValue> {
-//         return this._stats;
-//     }
-//
-//     public get ac(): number {
-//         return this._ac;
-//     }
-//
-//     public get acDesc(): string {
-//         return this.baseStatSheet.acDesc;
-//     }
-//
-//     public get speeds(): ReadonlyMap<Speed, number> {
-//         return this._speeds;
-//     }
-//
-//     public get size(): string {
-//         return this.baseStatSheet.size;
-//     }
-//
-//     public get hpDice(): Map<Dice, number> {
-//         return undefined;
-//     }
-//
-//     public get saves(): ReadonlyMap<CoreStat, number> {
-//         return this._saves;
-//     }
-//
-//     public get skills(): ReadonlyMap<Skill, number> {
-//         return this._skills;
-//     }
-//
-//     public get vulnerabilities(): ReadonlySet<DamageType> {
-//         return this._damageVulnerabilities;
-//     }
-//
-//     public get resistances(): ReadonlySet<DamageType> {
-//         return this._damageResistances;
-//     }
-//
-//     public get immunities(): ReadonlySet<DamageType> {
-//         return this._damageImmunities;
-//     }
-//
-//     public get conditionImmunities(): ReadonlySet<Conditions> {
-//         return this._conditionImmunities;
-//     }
-// }
-
-
-// TODO: LANGUAGES, SENSES
-export function renderStatSheet(monster_id: string,
-                                statSheet: IStatSheet)
-{
-    const speedList = [];
-    for (const [speed, value] of statSheet.speeds.entries()) {
-        speedList.push(`${Speed[speed]} ${value} ft.`);
-    }
-
-    const statList = [];
-    for (const stat of [CoreStat.Str,
-                        CoreStat.Dex,
-                        CoreStat.Con,
-                        CoreStat.Int,
-                        CoreStat.Wis,
-                        CoreStat.Cha])
-    {
-        const statVal = statSheet.stats.get(stat);
-        statList.push(`<td>${statVal.stat} ${NatRollable.generate(statVal.mod).getRollString(true)}</td>`);
-    }
-
-    const saveList = [];
-    for (const [stat, save] of statSheet.saves.entries()) {
-        saveList.push(`${CoreStat[stat]} ${NatRollable.generate(save).getRollString(true)}`);
-    }
-
-    const skillList = [];
-    for (const [skill, mod] of statSheet.skills.entries()) {
-        skillList.push(`${Skill[skill]} ${NatRollable.generate(mod).getRollString(true)}`);
-    }
-
-    const contentList = [];
-    for (const activation of [Activation.Special,
-                              Activation.Action,
-                              Activation.BonusAction,
-                              Activation.Reaction,
-                              Activation.LegendaryAction,
-                              Activation.MythicAction])
-    {
-        const attacks = statSheet.getAttacksWithActivation(activation);
-        if (attacks.length == 0) {
-            continue;
-        }
-        if (activation != Activation.Special) {
-            contentList.push(`<h4 class="sheet_section_header">${Activation[activation]}s</h4>`);
-        }
-        for (const attack of attacks) {
-            contentList.push(`<div class="sheet_content">${attack}</div>`);
-        }
-    }
-
-    const vulnerabilities = [];
-    for (const v of statSheet.vulnerabilities.values()) {
-        vulnerabilities.push(DamageType[v]);
-    }
-    const vulStr = vulnerabilities.length == 0 ?
-                   "" :
-                   `<tr><td>Damage Vulnerabilities</td><td>${vulnerabilities.join(", ")}</td></tr>`;
-
-    const res = [];
-    for (const v of statSheet.resistances.values()) {
-        res.push(DamageType[v]);
-    }
-    const resStr = res.length == 0 ?
-                   "" :
-                   `<tr><td>Damage Resistances</td><td>${res.join(", ")}</td></tr>`;
-
-    const imm = [];
-    for (const v of statSheet.immunities.values()) {
-        imm.push(DamageType[v]);
-    }
-    const immStr = imm.length == 0 ?
-                   "" :
-                   `<tr><td>Damage Immunities</td><td>${imm.join(", ")}</td></tr>`;
-
-    const cimm = [];
-    for (const v of statSheet.conditionImmunities.values()) {
-        cimm.push(Conditions[v]);
-    }
-    const cimmStr = cimm.length == 0 ?
-                   "" :
-                   `<tr><td>Condition Immunities</td><td>${cimm.join(", ")}</td></tr>`;
-
-    return `
-    <div class="stat_sheet" id="stat_sheet_${monster_id}">
-        <div class="sheet_header">
-            <div class="header_zone">
-                <h3 class="sheet_title">${statSheet.title}</h3>
-                <div class="sheet_subtitle">${statSheet.size} ${statSheet.subtitle}</div>
-            </div>
-            <div class="header_zone">
-                <table class="ignore_common_style">
-                    <tr><td>Armor Class</td><td>${statSheet.ac} ${statSheet.acDesc}</td></tr>
-                    <tr><td>Hit Points</td><td>${Math.round(E(statSheet.hpDice))} 
-                        ${new Rollable(statSheet.hpDice).getRollString(true)}</td></tr>
-                    <tr><td>Speed</td><td>${speedList.join(", ")}</td></tr>
-                </table>
-            </div>
-            <div class="header_zone">
-                <table class="stats_table ignore_common_style">
-                    <tr><th>STR</th><th>DEX</th><th>CON</th><th>INT</th><th>WIS</th><th>CHA</th></tr>
-                    <tr>${statList.join("")}</tr>
-                </table>
-            </div>
-            <div class="header_zone">
-                <table class="ignore_common_style">
-                    <tr><td>Saving Throws</td><td>${saveList.join(" ")}</td></tr>
-                    <tr><td>Proficiency Bonus</td><td>${skillList.join(" ")}</td></tr>
-                    <tr><td>Challenge Rating</td><td>${statSheet.cr}</td></tr>
-                    <tr><td>Proficiency Bonus</td><td>${statSheet.pb.mod()}</td></tr>
-                    ${vulStr}${resStr}${immStr}${cimmStr}
-                </table>
-            </div>
-        </div>
-        ${contentList.join("")}
-    </div>`;
 }
 
 

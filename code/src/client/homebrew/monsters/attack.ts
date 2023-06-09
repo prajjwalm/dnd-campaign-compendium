@@ -1,7 +1,7 @@
 import {D1, Dice}              from "../common/diceConstants";
-import {NatRollable, Rollable} from "../common/rollable";
-import {Activation, CoreStat, DamageType, E, ProficiencyLevel} from "../definitions/constants";
-import type {IStatSheet}                                       from "./sheet";
+import {NatRollable, Rollable}                                       from "../common/rollable";
+import {Activation, CoreStat, DamageType, E, Prof, ProficiencyLevel} from "../definitions/constants";
+import type {StatSheet}                                              from "./sheet";
 
 
 interface DamageParams
@@ -35,7 +35,7 @@ export interface IAttack
     getToHitRollableStr(args: { name: string, stat?: CoreStat, prof?: ProficiencyLevel }): string;
 
     bindDamages(damageParams: DamageParams): this;
-    bindSheet(sheet: IStatSheet): this;
+    bindSheet(sheet: StatSheet): this;
 
     createContent(): string;
 }
@@ -78,6 +78,19 @@ export interface IBuffedAttack
      * variant of the text.
      */
     setContentGenerator(val: (args: IAttack) => string);
+
+    /**
+     * Activate the given contract for this attack. The shouldApply check would
+     * still run after this.
+     */
+    activateContract(contract: IAttackContract);
+
+    /**
+     * Returns if this attack is actually an attack.
+     */
+    get isDamaging():boolean;
+
+    getContracts(): ReadonlySet<IAttackContract>;
 }
 
 
@@ -98,7 +111,7 @@ abstract class Attack
 
     protected contentGenerator: (args: IAttack) => string;
 
-    protected sheet: IStatSheet;
+    protected sheet: StatSheet;
 
     private readonly hitBonus: number;
 
@@ -122,6 +135,8 @@ abstract class Attack
         this.contentGenerator = params.contentGenerator;
 
         this.resolvedDamages = null;
+        this.expectedDamage = null;
+        this.assignedDamages = null;
     }
 
     protected abstract doGetToHitRollableStr(toHitMod: number): string;
@@ -155,13 +170,15 @@ abstract class Attack
         return this.sheet.stats.get(stat).mod;
     }
 
-    public getDc({ stat, P = ProficiencyLevel.Prof }:
-                     { stat?: CoreStat, P?: ProficiencyLevel } = {}): number
+    public getDc({ stat, prof = ProficiencyLevel.Prof }:
+                     { stat?: CoreStat, prof?: ProficiencyLevel } = {}): number
     {
         if (stat == undefined) {
             stat = this.mainStat;
         }
-        return 8 + this.getMod(stat) + this.sheet.pb.mod(P) + this.dcBonus;
+        console.log(ProficiencyLevel[prof]);
+        console.log(8, this.getMod(stat), this.sheet.pb.mod(prof), this.dcBonus)
+        return 8 + this.getMod(stat) + this.sheet.pb.mod(prof) + this.dcBonus;
     }
 
     public bindDamages(damageParams: DamageParams): this
@@ -173,7 +190,7 @@ abstract class Attack
         return this;
     }
 
-    public bindSheet(sheet: IStatSheet): this
+    public bindSheet(sheet: StatSheet): this
     {
         this.sheet = sheet;
         return this;
@@ -182,42 +199,51 @@ abstract class Attack
     public createContent(): string
     {
         this.resolveDamages();
-        const content = this.contentGenerator(this);
+        let content = this.contentGenerator(this);
         if (content.substring(0, 3) != '<p>') {
-            throw new Error("Content should start with <p> tag.");
+            content = `<p>${content}</p>`;
         }
-        return `<p><strong><em>${this.title}</em>. ${this.subTitle}</strong>` +
+        return `<p><strong><em>${this.title}</em>. ${this.subTitle} </strong>` +
                content.substring(3);
+    }
+
+    public get isDamaging() {
+        return this.expectedDamage != null || this.assignedDamages != null;
     }
 
     protected resolveDamages()
     {
+        if (!this.isDamaging) {
+            return;
+        }
         let totalAssignedDamage = 0;
         const assignedDamages = this.assignedDamages(this);
-        for (const damageDice of assignedDamages.values()) {
-            totalAssignedDamage += E(damageDice);
-        }
-        const damageLeftToAssign = this.expectedDamage - totalAssignedDamage;
-        if (damageLeftToAssign <= 0) {
-            throw new Error("Assigned damage exceeds expected.");
-        }
-        let totalRatio = 0;
-        for (const [, perDiceRatios] of this.unassignedDamageRatios.entries()) {
-            for (const [, ratio] of perDiceRatios.entries()) {
-                totalRatio += ratio;
+        if (this.expectedDamage != null) {
+            for (const damageDice of assignedDamages.values()) {
+                totalAssignedDamage += E(damageDice);
             }
-        }
-        for (const [key, perDiceRatios] of this.unassignedDamageRatios.entries()) {
-            for (const [die, ratio] of perDiceRatios.entries()) {
-                let damageMap: Map<Dice, number>;
-                if (assignedDamages.has(key)) {
-                    damageMap = assignedDamages.get(key);
-                } else {
-                    damageMap = new Map();
-                    assignedDamages.set(key, damageMap);
+            const damageLeftToAssign = this.expectedDamage - totalAssignedDamage;
+            if (damageLeftToAssign <= 0) {
+                throw new Error("Assigned damage exceeds expected.");
+            }
+            let totalRatio = 0;
+            for (const [, perDiceRatios] of this.unassignedDamageRatios.entries()) {
+                for (const [, ratio] of perDiceRatios.entries()) {
+                    totalRatio += ratio;
                 }
-                const nDice = Math.round((damageLeftToAssign * ratio / totalRatio) / E(die));
-                damageMap.set(die, (damageMap.get(die) ?? 0) + nDice);
+            }
+            for (const [key, perDiceRatios] of this.unassignedDamageRatios.entries()) {
+                for (const [die, ratio] of perDiceRatios.entries()) {
+                    let damageMap: Map<Dice, number>;
+                    if (assignedDamages.has(key)) {
+                        damageMap = assignedDamages.get(key);
+                    } else {
+                        damageMap = new Map();
+                        assignedDamages.set(key, damageMap);
+                    }
+                    const nDice = Math.round((damageLeftToAssign * ratio / totalRatio) / E(die));
+                    damageMap.set(die, (damageMap.get(die) ?? 0) + nDice);
+                }
             }
         }
         this.resolvedDamages = assignedDamages;
@@ -266,7 +292,7 @@ export class InternalAttack
 }
 
 
-interface IAttackContract
+export interface IAttackContract
 {
     shouldApply(attack: IBuffedAttack): boolean;
     modify(attack: IBuffedAttack): void;
@@ -282,8 +308,78 @@ class AttackContract
 }
 
 
-export const Contracts: Map<string, AttackContract> = new Map([
-    ["Stimulus I", new AttackContract(
+export const AttackContracts: Map<string, AttackContract> = new Map([
+    ["StimulusEnvy1", new AttackContract(
+        (_: IBuffedAttack) => true,
+        (attack: IBuffedAttack) => {
+            const damages = attack.currentlyResolvedDamages;
+            for (const damageDice of damages.values()) {
+                for (const [die, count] of damageDice.entries()) {
+                    if (die == D1) {
+                        continue;
+                    }
+                    damageDice.set(die, count * 1.3);
+                }
+            }
+        },
+    )],
+    ["StimulusEnvy2", new AttackContract(
+        (_: IBuffedAttack) => true,
+        (attack: IBuffedAttack) => {
+            const damages = attack.currentlyResolvedDamages;
+            for (const damageDice of damages.values()) {
+                for (const [die, count] of damageDice.entries()) {
+                    if (die == D1) {
+                        continue;
+                    }
+                    damageDice.set(die, count * 1.6);
+                }
+            }
+        },
+    )],
+    ["StimulusFree1", new AttackContract(
+        (_: IBuffedAttack) => true,
+        (attack: IBuffedAttack) => {
+            const damages = attack.currentlyResolvedDamages;
+            for (const damageDice of damages.values()) {
+                for (const [die, count] of damageDice.entries()) {
+                    if (die == D1) {
+                        continue;
+                    }
+                    damageDice.set(die, count * 1.2);
+                }
+            }
+        },
+    )],
+    ["StimulusFree2", new AttackContract(
+        (_: IBuffedAttack) => true,
+        (attack: IBuffedAttack) => {
+            const damages = attack.currentlyResolvedDamages;
+            for (const damageDice of damages.values()) {
+                for (const [die, count] of damageDice.entries()) {
+                    if (die == D1) {
+                        continue;
+                    }
+                    damageDice.set(die, count * 1.7);
+                }
+            }
+        },
+    )],
+    ["StimulusFree3", new AttackContract(
+        (_: IBuffedAttack) => true,
+        (attack: IBuffedAttack) => {
+            const damages = attack.currentlyResolvedDamages;
+            for (const damageDice of damages.values()) {
+                for (const [die, count] of damageDice.entries()) {
+                    if (die == D1) {
+                        continue;
+                    }
+                    damageDice.set(die, count * 2.5);
+                }
+            }
+        },
+    )],
+    ["Stimulus1", new AttackContract(
         (_: IBuffedAttack) => true,
         (attack: IBuffedAttack) => {
             const damages = attack.currentlyResolvedDamages;
@@ -297,7 +393,7 @@ export const Contracts: Map<string, AttackContract> = new Map([
             }
         },
     )],
-    ["Stimulus II",  new AttackContract(
+    ["Stimulus2",  new AttackContract(
         (_: IBuffedAttack) => true,
         (attack: IBuffedAttack) => {
             const damages = attack.currentlyResolvedDamages;
@@ -311,11 +407,8 @@ export const Contracts: Map<string, AttackContract> = new Map([
             }
         },
     )],
-    ["Overflowing Emotions", new AttackContract(
-        (attack: IBuffedAttack) => {
-            return attack.identificationInfo.get("Creature") == "Inkling (Envy)" &&
-                   attack.identificationInfo.get("Attack") == "Charged Spit";
-        },
+    ["StimulusArrogance3",  new AttackContract(
+        (_: IBuffedAttack) => true,
         (attack: IBuffedAttack) => {
             const damages = attack.currentlyResolvedDamages;
             for (const damageDice of damages.values()) {
@@ -327,12 +420,12 @@ export const Contracts: Map<string, AttackContract> = new Map([
                 }
             }
         },
-    )]
+    )],
 ]);
 
 
 export class BuffedInternalAttack
-    extends InternalAttack
+    extends    InternalAttack
     implements IBuffedAttack
 {
     private readonly contracts: Set<IAttackContract>;
@@ -346,6 +439,11 @@ export class BuffedInternalAttack
     public activateContract(contract: IAttackContract)
     {
         this.contracts.add(contract);
+    }
+
+    public getContracts(): ReadonlySet<IAttackContract>
+    {
+        return this.contracts;
     }
 
     public deactivateContract(contract: IAttackContract)
@@ -377,11 +475,11 @@ export class BuffedInternalAttack
             }
         }
 
-        const content = this.contentGenerator(this);
+        let content = this.contentGenerator(this);
         if (content.substring(0, 3) != '<p>') {
-            throw new Error("Content should start with <p> tag.");
+            content = `<p>${content}</p>`;
         }
-        return `<p><strong><em>${this.title}</em>. ${this.subTitle}</strong>` +
+        return `<p><strong><em>${this.title}</em>. ${this.subTitle} </strong>` +
                content.substring(3);
     }
 
@@ -397,7 +495,7 @@ export class BuffedInternalAttack
 
     public get identificationInfo(): Map<string, string | number> {
         return new Map<string, string | number>([
-            ["Creature", this.sheet.title],
+            ["Creature", this.sheet.monster_id],
             ["Attack", this.title],
         ]);
     }

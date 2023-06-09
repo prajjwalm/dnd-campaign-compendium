@@ -5,7 +5,15 @@
 @font-face {
   font-family: "Roboto";
   font-weight: bold;
-  src: url("../../assets/fonts/Roboto/Roboto-bold.ttf");
+  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
+}
+@font-face {
+  font-family: "Roboto-thin";
+  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
 }
 @font-face {
   font-family: "Montserrat";
@@ -2054,6 +2062,7 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   bottom: 10%;
   right: 10%;
   position: fixed;
+  z-index: 5;
 }
 #toast-container .toast {
   width: 360px;
@@ -2130,7 +2139,15 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
 @font-face {
   font-family: "Roboto";
   font-weight: bold;
-  src: url("../../assets/fonts/Roboto/Roboto-bold.ttf");
+  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
+}
+@font-face {
+  font-family: "Roboto-thin";
+  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
 }
 @font-face {
   font-family: "Montserrat";
@@ -2413,6 +2430,244 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
 }
 #beastiary .selectable_radio_container.translational_flags .selectable.selected {
   width: 256px;
+}
+
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+@font-face {
+  font-family: "Roboto";
+  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
+}
+@font-face {
+  font-family: "Roboto-thin";
+  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 500;
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+#cc {
+  width: 100%;
+}
+#cc h2 {
+  width: 100%;
+}
+#cc p.cool_intro {
+  width: 100%;
+}
+#cc #cc_data {
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  margin: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-flow: row wrap;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+#cc #cc_data .difficulty {
+  flex-grow: 0;
+  height: 256px;
+  width: 256px;
+  background-color: #aaa;
+  color: #f3f3f3;
+  padding: 16px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: space-between;
+}
+#cc #cc_data .difficulty h4 {
+  font-variant-caps: small-caps;
+  text-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.36);
+  width: 100%;
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+#cc #cc_data .difficulty #grade {
+  font-size: 96px !important;
+  font-family: "RobotoCondensed", sans-serif;
+  font-weight: bolder;
+  font-style: oblique;
+  width: 100%;
+  text-align: center;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  padding: 16px;
+}
+#cc #cc_data .difficulty #risk {
+  width: 100%;
+  font-style: italic;
+  font-weight: normal;
+  text-align: right;
+  font-size: 16px;
+}
+#cc #cc_data .difficulty #risk #risk_value {
+  color: #c00;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+  font-size: 18px;
+}
+#cc #cc_data .risk_effects {
+  flex-grow: 1;
+  width: 50%;
+  height: 256px;
+  background-color: #21364d;
+  color: #f3f3f3;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) inset;
+  padding: 16px;
+  transition: all 0.3s;
+  overflow-y: scroll;
+}
+#cc #cc_data .risk_effects .risk_effect {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+#cc #cc_data .risk_effects .risk_effect span {
+  font-family: RobotoCondensed, sans-serif;
+}
+#cc #cc_data .risk_effects .risk_effect .risk_icon {
+  margin: 4px;
+  object-fit: contain;
+  border-radius: 3px;
+}
+#cc #cc_data #contracts {
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 840px;
+}
+#cc #cc_data #contracts .contract_group {
+  padding: 4px;
+  margin: 4px;
+  background-color: #ccc;
+  border-radius: 8px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) inset;
+  overflow: visible;
+}
+#cc #cc_data #contracts .contract {
+  width: 272px;
+  height: 84px;
+  overflow: visible;
+  position: relative;
+  transition: all 0.3s;
+  margin: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+#cc #cc_data #contracts .contract.risk1 .contract_title:after {
+  border-right: 16px solid #0F720C;
+  border-top: 16px solid #0F720C;
+}
+#cc #cc_data #contracts .contract.risk2 .contract_title:after {
+  border-right: 16px solid #003b81;
+  border-top: 16px solid #003b81;
+}
+#cc #cc_data #contracts .contract.risk3 .contract_title:after {
+  border-right: 16px solid #7400be;
+  border-top: 16px solid #7400be;
+}
+#cc #cc_data #contracts .contract .contract_box {
+  mask-image: linear-gradient(270deg, black 76%, transparent 83%);
+  flex-grow: 1;
+  padding: 8px;
+  width: 100%;
+  height: 64px;
+}
+#cc #cc_data #contracts .contract .contract_box .contract_title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 8px 8px 8px 80px;
+  border-radius: 4px;
+  background-color: #eee;
+  color: #21364d;
+  font-family: "RobotoCondensed", sans-serif;
+  overflow: hidden;
+  z-index: 0;
+  font-size: 16px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+#cc #cc_data #contracts .contract .contract_box .contract_title:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  float: left;
+}
+#cc #cc_data #contracts .contract.selected .contract_box {
+  mask-image: unset;
+  height: 100%;
+  transition: all 0.15s;
+}
+#cc #cc_data #contracts .contract.selected .contract_box .contract_title {
+  background-color: #10a2e3;
+  color: #000;
+  box-shadow: 0 0 7px 2px rgba(16, 162, 227, 0.43);
+}
+#cc #cc_data #contracts .contract img.contract_icon {
+  position: absolute;
+  display: inline-block;
+  width: 60px;
+  height: 68px;
+  left: 16px;
+  top: 7px;
+  margin: 0;
+  z-index: 1;
 }
 
 #beastiary {

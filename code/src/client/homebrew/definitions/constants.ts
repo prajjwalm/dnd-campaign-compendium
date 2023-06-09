@@ -124,7 +124,11 @@ export enum DamageType {
     Psychic,
     Radiant,
     Slashing,
-    Thunder
+    Thunder,
+    _NonStandard,
+    Biochemical,
+    Corrosion,
+    Neural,
 }
 
 export enum Conditions {

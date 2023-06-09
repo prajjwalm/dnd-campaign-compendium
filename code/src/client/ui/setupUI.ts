@@ -42,5 +42,5 @@ function setupRadios($enclosingDiv: JQuery)
  */
 export function setupUI()
 {
-    setupRadios($("#beastiary"));
+    setupRadios($(".gen2_ui"));
 }

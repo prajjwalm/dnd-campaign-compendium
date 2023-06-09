@@ -82,7 +82,7 @@ export class PrimitiveRollable
                 continue;
             }
             if (die == D1) {
-                this.rolls.set(D1, [count]);
+                this.rolls.set(D1, [Math.round(count)]);
                 continue;
             }
             this.rolls.set(die, []);
@@ -150,7 +150,7 @@ export class NatRollable
     protected constructor(private readonly modifier: number,
                           rng: () => number = Math.random)
     {
-        super(new Map([[D20, 3], [D1, modifier]]), rng);
+        super(new Map([[D20, 3], [D1, Math.round(modifier)]]), rng);
         this._mode = RollVariant.Normal;
     }
 
@@ -242,11 +242,11 @@ export class Rollable
         let mod = 0;
         for (const [die, count] of dice.entries()) {
             if (die == D1) {
-                mod = count;
+                mod = Math.round(count);
                 continue;
             }
-            dice.set(die, count * 2);
-            baseDice.set(die, count);
+            dice.set(die, Math.round(count) * 2);
+            baseDice.set(die, Math.round(count));
         }
         super(dice, rng);
         this.baseDice = baseDice;
@@ -257,8 +257,8 @@ export class Rollable
     {
         const baseRollString = PrimitiveRollable.generateRollString(this.baseDice);
         const mod_str =
-            this.modifier > 0 ? `+${this.modifier}` :
-            this.modifier < 0 ? this.modifier.toString() : "";
+            this.modifier > 0 ? `+${Math.round(this.modifier)}` :
+            this.modifier < 0 ? Math.round(this.modifier).toString() : "";
 
         let s: string = `${baseRollString}${mod_str}`;
         if (!bindRollable) {
@@ -279,7 +279,7 @@ export class Rollable
             let result = 0;
             for (const [dice, rolls] of this.rolls) {
                 if (dice == D1) {
-                    result += rolls[0];
+                    result += Math.round(rolls[0]);
                 } else {
                     const shownRolls = [];
                     for (let i = 0; i < rolls.length / 2; i++) {
