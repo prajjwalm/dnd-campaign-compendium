@@ -27,6 +27,8 @@ function setupRadios($enclosingDiv: JQuery)
         e.stopPropagation();
         const $this = $(this);
         if ($this.hasClass("selected")) {
+            $this.removeClass(SELECTED_CLASS_NAME);
+            $this.find(".selected_only").hide();
             return;
         }
         $this.siblings(".selectable.radio").removeClass(SELECTED_CLASS_NAME);

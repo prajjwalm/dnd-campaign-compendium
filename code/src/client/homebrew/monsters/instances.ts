@@ -786,19 +786,21 @@ export function setupMonsters()
     idToSheetGenerator.set("inkling_free", createFreedom);
 
     $("#beastiary").on("click", ".creature:not(.disabled)", function () {
-        const creatureId = $(this).data("creatureId");
-        $(".stat_sheet").hide();
+        setTimeout(() => {
+            const creatureId = $("#beastiary .creature.selected").data("creatureId");
+            $(".stat_sheet").hide();
 
-        if (!idToSheetGenerator.has(creatureId)) {
-            return;
-        }
+            if (!idToSheetGenerator.has(creatureId)) {
+                return;
+            }
 
-        if (generatedIds.has(creatureId)) {
-            $(`#stat_sheet_${creatureId}`).show();
-            return;
-        }
+            if (generatedIds.has(creatureId)) {
+                $(`#stat_sheet_${creatureId}`).show();
+                return;
+            }
 
-        $("#sheet_zone").append(idToSheetGenerator.get(creatureId)().render());
-        generatedIds.add(creatureId);
+            $("#sheet_zone").append(idToSheetGenerator.get(creatureId)().render());
+            generatedIds.add(creatureId);
+        }, 10);
     });
 }
