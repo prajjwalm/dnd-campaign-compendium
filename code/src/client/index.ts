@@ -1,14 +1,15 @@
-import {setupNav}            from "./common/common";
-import {setupCards}          from "./data/cards/card";
-import {setupCharacterCards} from "./data/cards/character";
-import {setupCountries}      from "./data/country";
-import {setupHistory}        from "./history";
-import {setupUI}             from "./ui/setupUI";
+import {setupNav}                                 from "./common/common";
+import {setupCards}                               from "./data/cards/card";
+import {setupCharacterCards}                      from "./data/cards/character";
+import {setupCountries}                           from "./data/country";
+import {setupHistory}                             from "./history";
+import {setupMonsters}                            from "./homebrew/monsters/instances";
+import {setupUI}                                  from "./ui/setupUI";
 
 // Test Suites.
-import {setupNpcOpinions, test as testNpcOpinion}     from "./campaigns/npcOpinions";
-import {enableRolling, test as testRollable}          from "./homebrew/common/rollable";
-import {setupMonsters, test as testStatSheetCreation} from "./homebrew/monsters/monster";
+import {enableRolling, test as testRollable}      from "./homebrew/common/rollable";
+import {setupNpcOpinions, test as testNpcOpinion} from "./campaigns/npcOpinions";
+import {test as testStatSheetCreation}            from "./homebrew/monsters/sheet";
 
 $(() => {
     testRollable();

@@ -62,7 +62,9 @@ export class PrimitiveRollable
             }
             const sign = count > 0 ? (rollString.length == 0 ? "" : "+") : "-";
             const diceStr = die.sides > 1 ? `d${die.sides}` : "";
-            rollString += `${sign}${Math.abs(count)}${diceStr}`
+            // Important note: count needn't be an integer. CC buffs rely on
+            // that to stack together properly.
+            rollString += `${sign}${Math.abs(Math.round(count))}${diceStr}`
         }
         return rollString;
     }
@@ -84,7 +86,7 @@ export class PrimitiveRollable
                 continue;
             }
             this.rolls.set(die, []);
-            for (let i = 0; i < Math.abs(count); i++) {
+            for (let i = 0; i < Math.abs(Math.round(count)); i++) {
                 const roll = this.rollDie(die) * Math.sign(count);
                 if (this._debug) {
                     console.log(die, roll);
