@@ -281,8 +281,10 @@ export class InternalAttack
 {
     protected doGetDamageRollableStr(key: string): string
     {
+        const damagetype = DamageType[this.damageTypes.get(key)];
+        const damagetypeString = damagetype ? `${damagetype} damage` : "";
         return `${new Rollable(this.resolvedDamages.get(key)).getRollString(true)} 
-                ${DamageType[this.damageTypes.get(key)]} damage`;
+                ${damagetypeString}`;
     }
 
     protected doGetToHitRollableStr(toHitMod: number): string
@@ -481,12 +483,6 @@ export class BuffedInternalAttack
         }
         return `<p><strong><em>${this.title}</em>. ${this.subTitle} </strong>` +
                content.substring(3);
-    }
-
-    protected doGetDamageRollableStr(key: string): string
-    {
-        return `${new Rollable(this.resolvedDamages.get(key)).getRollString(true)} 
-                ${DamageType[this.damageTypes.get(key)]} damage`;
     }
 
     public get currentlyResolvedDamages(): Map<string, Map<Dice, number>> {

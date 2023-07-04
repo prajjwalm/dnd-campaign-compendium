@@ -96,10 +96,12 @@ $img_content_root: "../../assets/";
           }
           &:not(.stats_table) {
             td {
+              line-height: 1.5;
               text-align: left;
 
               &:first-child {
                 font-weight: bold;
+                min-width: 144px;
               }
             }
           }

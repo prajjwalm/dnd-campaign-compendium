@@ -74,9 +74,9 @@ export class Character
 {
     constructor(private readonly id: NpcId,
                 private readonly statArray: number[],
-                private readonly pb: Prof,
-                private readonly skills: Map<Skill, [ProficiencyLevel, number]>,
-                private readonly saves: Map<CoreStat, [ProficiencyLevel, number]>)
+                public readonly pb: Prof,
+                public readonly skills: Map<Skill, [ProficiencyLevel, number]>,
+                public readonly saves: Map<CoreStat, [ProficiencyLevel, number]>)
     {
         if (_NpcIndex.has(id)) {
             throw new Error(`Duplicate NPC creation for id ${id}`);

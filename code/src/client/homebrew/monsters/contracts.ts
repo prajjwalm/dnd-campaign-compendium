@@ -36,7 +36,6 @@ export const generatedIds: Set<string> = new Set();
 
 export function renderContracts()
 {
-
     function resetSheets(e) {
         // Timeout to ensure the selected class is added before this code runs.
         setTimeout(() => {
@@ -75,7 +74,10 @@ export function renderContracts()
                 generatedIds.clear();
                 return;
             }
+            // stat_sheet_{category}_{name}
             const creatureId = $currentSheet.attr("id").substring(11);
+            console.log(creatureId);
+            console.log(idToSheetGenerator);
             $(".stat_sheet").remove();
             generatedIds.clear();
             $("#sheet_zone").append(idToSheetGenerator.get(creatureId)().render());
@@ -397,7 +399,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
                     }
                     hpDice.set(dice, number * 1.2);
                 }
-                sheet.saves.set(CoreStat.Con, ProficiencyLevel.Half);
+                sheet.saves.set(CoreStat.Con, [ProficiencyLevel.Half, 0]);
             },
         )],
         [2, new SheetContract(
@@ -415,7 +417,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
                     }
                     hpDice.set(dice, number * 1.7);
                 }
-                sheet.saves.set(CoreStat.Con, ProficiencyLevel.Prof);
+                sheet.saves.set(CoreStat.Con, [ProficiencyLevel.Prof, 0]);
                 for (const [_, attack] of sheet.attacks.entries()) {
                     if (attack.isDamaging) {
                         attack.activateContract(AttackContracts.get("StimulusEnvy1"));
@@ -438,7 +440,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
                     }
                     hpDice.set(dice, number * 2.2);
                 }
-                sheet.saves.set(CoreStat.Con, ProficiencyLevel.Expert);
+                sheet.saves.set(CoreStat.Con, [ProficiencyLevel.Expert, 0]);
                 for (const [_, attack] of sheet.attacks.entries()) {
                     if (attack.isDamaging) {
                         attack.activateContract(AttackContracts.get("StimulusEnvy2"));

@@ -2240,10 +2240,12 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   text-transform: uppercase;
 }
 .advanced_style .stat_sheet .sheet_header .header_zone table:not(.stats_table) td, .gen2_ui .stat_sheet .sheet_header .header_zone table:not(.stats_table) td {
+  line-height: 1.5;
   text-align: left;
 }
 .advanced_style .stat_sheet .sheet_header .header_zone table:not(.stats_table) td:first-child, .gen2_ui .stat_sheet .sheet_header .header_zone table:not(.stats_table) td:first-child {
   font-weight: bold;
+  min-width: 144px;
 }
 .advanced_style .stat_sheet .sheet_header .header_zone table.stats_table, .gen2_ui .stat_sheet .sheet_header .header_zone table.stats_table {
   width: 100%;
@@ -2422,7 +2424,8 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   display: flex;
   flex-wrap: nowrap;
   position: relative;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  gap: 8px;
   padding: 16px;
   flex-direction: column;
   align-items: flex-start;
@@ -2730,6 +2733,7 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   min-width: 320px;
   flex-grow: 0;
   overflow: unset;
+  min-height: 480px;
 }
 #beastiary .selectable_radio_container.translational_flags .translation_base {
   border-radius: 4px;

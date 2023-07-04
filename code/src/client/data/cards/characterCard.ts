@@ -1535,10 +1535,10 @@ export function setupCharacterCards() {
         ],
         summary    : summaries.get("Dusk") ?? "???",
         description: "",
-        altImagePaths: new Map([
-            ["Wandering Painter", "Dusk"],
-            ["Shrine Maiden", "Dusk_sui"],
-        ]),
+        // altImagePaths: new Map([
+        //     ["Wandering Painter", "Dusk"],
+        //     ["Shrine Maiden", "Dusk_sui"],
+        // ]),
     });
     new CharacterCard({
         id           : NpcId.Dawn,

@@ -256,7 +256,7 @@ export class CRValue
     private readonly val: number;
 
     constructor(val,
-                private readonly profAdjustment: number = 0)
+                private readonly profOverride: Prof = null)
     {
         this.val = Math.round(Math.min(30, Math.max(0, val)));
     }
@@ -266,7 +266,10 @@ export class CRValue
     }
 
     public get prof(): Prof {
-        return Prof.get(Math.ceil(Math.max(1, this.val) / 4) + 1 + this.profAdjustment);
+        if (this.profOverride != null) {
+            return this.profOverride;
+        }
+        return Prof.get(Math.ceil(Math.max(1, this.val) / 4) + 1);
     }
 
     public compareToStats(): number {

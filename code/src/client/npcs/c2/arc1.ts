@@ -116,12 +116,20 @@ export function setupCharacters()
                   ]));
 
 
-    new Character(NpcId.Jaye, [16, 18, 14,  8, 12, 18], Prof.get(3),
+    new Character(NpcId.Jaye, [16, 18, 16,  8, 12,  8], Prof.get(4),
                   new Map([
-                      // Todo
+                      [Skill.Acrobatics,   [ProficiencyLevel.Prof,   0]],
+                      [Skill.Athletics,    [ProficiencyLevel.Prof,   0]],
+                      [Skill.Nature,       [ProficiencyLevel.Prof,   0]],
+                      [Skill.Intimidation, [ProficiencyLevel.Prof,   5]],
+                      [Skill.Stealth,      [ProficiencyLevel.Expert, 0]],
+                      [Skill.SlightOfHand, [ProficiencyLevel.Expert, 0]],
+                      [Skill.Survival,     [ProficiencyLevel.Expert, 0]],
                   ]),
                   new Map([
-                      // Todo
+                      [CoreStat.Dex, [ProficiencyLevel.Prof, 0]],
+                      [CoreStat.Con, [ProficiencyLevel.Half, 0]],
+                      [CoreStat.Int, [ProficiencyLevel.Prof, 0]],
                   ]));
 
     new Character(NpcId.Dawn, [ 8,  8, 16, 11, 17, 18], Prof.get(4),

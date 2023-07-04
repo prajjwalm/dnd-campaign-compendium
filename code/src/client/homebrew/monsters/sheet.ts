@@ -64,11 +64,9 @@ interface StatBlockParams {
     acDesc?: string;
     adventurerLevels?: Map<AdventurerClasses, number>;
     isTough?: boolean;
-    attacks: Map<string, IBuffedAttack>; // todo: introduce covariance when you're feeling brave
-    saveProficiencies: Map<CoreStat, ProficiencyLevel>;
-    saveBonuses?: ReadonlyMap<CoreStat, number>;
-    skillProficiencies: ReadonlyMap<Skill, ProficiencyLevel>;
-    skillBonuses?: ReadonlyMap<Skill, number>;
+    attacks: Map<string, IAttack>;
+    saveProficiencies: Map<CoreStat, [ProficiencyLevel, number]>;
+    skillProficiencies: ReadonlyMap<Skill, [ProficiencyLevel, number]>;
     vulnerabilities?: ReadonlySet<DamageType>;
     resistances?: Set<DamageType>;
     immunities?: ReadonlySet<DamageType>;
@@ -89,7 +87,7 @@ export interface IBuffedStatSheet
     get ac(): number;
     set ac(val: number);
     get res(): Set<DamageType>;
-    get saves(): Map<CoreStat, ProficiencyLevel>;
+    get saves(): Map<CoreStat, [ProficiencyLevel, number]>;
     get speeds(): Map<Speed, number>;
 }
 
@@ -125,15 +123,11 @@ export class StatSheet
 
     private readonly size: CreatureSize;
 
-    private readonly _attacks: Map<string, IBuffedAttack>;
+    private readonly _attacks: Map<string, IAttack>;
 
-    protected readonly saveProficiencies: Map<CoreStat, ProficiencyLevel>;
+    protected readonly saveProficiencies: Map<CoreStat, [ProficiencyLevel, number]>;
 
-    private readonly skillProficiencies: ReadonlyMap<Skill, ProficiencyLevel>;
-
-    private readonly saveBonuses: ReadonlyMap<CoreStat, ProficiencyLevel>;
-
-    private readonly skillBonuses: ReadonlyMap<Skill, ProficiencyLevel>;
+    private readonly skillProficiencies: ReadonlyMap<Skill, [ProficiencyLevel, number]>;
 
     private readonly vulnerabilities: ReadonlySet<DamageType>;
 
@@ -156,8 +150,6 @@ export class StatSheet
                            attacks,
                            saveProficiencies = new Map(),
                            skillProficiencies = new Map(),
-                           saveBonuses = new Map(),
-                           skillBonuses = new Map(),
                            acDesc = null,
                            adventurerLevels = new Map(),
                            vulnerabilities = new Set(),
@@ -175,9 +167,7 @@ export class StatSheet
         this.stats = stats;
         this._ac = ac;
         this.saveProficiencies = saveProficiencies;
-        this.saveBonuses = saveBonuses;
         this.skillProficiencies = skillProficiencies;
-        this.skillBonuses = skillBonuses;
         this.acDesc = acDesc;
         this.size = size;
         this.vulnerabilities = vulnerabilities;
@@ -319,7 +309,7 @@ export class StatSheet
         return this.crValue.prof;
     }
 
-    protected get attacks(): Map<string, IBuffedAttack> {
+    protected get attacks(): Map<string, IAttack> {
         return this._attacks;
     }
 
@@ -338,28 +328,19 @@ export class StatSheet
 
     private computeSaves(): ReadonlyMap<CoreStat, number> {
         const m = new Map();
-        for (const [stat, saveBonus] of this.saveBonuses.entries()) {
-            m.set(stat, (m.has(stat) ? m.get(stat) : this.stats.get(stat).mod)
-                        + saveBonus);
-        }
-        for (const [stat, saveProf] of this.saveProficiencies.entries()) {
-            m.set(stat, (m.has(stat) ? m.get(stat) : this.stats.get(stat).mod)
-                        + this.pb.mod(saveProf));
+        for (const [stat, [saveProf, saveBonus]] of this.saveProficiencies.entries()) {
+            m.set(stat,
+                  (m.has(stat) ? m.get(stat) : this.stats.get(stat).mod) + this.pb.mod(saveProf) + saveBonus);
         }
         return m;
     }
 
     private computeSkills(): ReadonlyMap<Skill, ProficiencyLevel> {
         const m = new Map();
-        for (const [skill, saveBonus] of this.skillBonuses.entries()) {
+        for (const [skill, [saveProf, saveBonus]] of this.skillProficiencies.entries()) {
             const stat = SkillForStat.get(skill);
-            m.set(skill, (m.has(skill) ? m.get(skill) : this.stats.get(stat).mod)
-                         + saveBonus);
-        }
-        for (const [skill, saveProf] of this.skillProficiencies.entries()) {
-            const stat = SkillForStat.get(skill);
-            m.set(skill, (m.has(skill) ? m.get(skill) : this.stats.get(stat).mod)
-                         + this.pb.mod(saveProf));
+            m.set(skill,
+                  (m.has(skill) ? m.get(skill) : this.stats.get(stat).mod) + this.pb.mod(saveProf) + saveBonus);
         }
         return m;
     }
@@ -421,7 +402,7 @@ export class BuffedStatSheet
     }
 
     public get attacks(): Map<string, IBuffedAttack> {
-        return super.attacks;
+        return super.attacks as Map<string, IBuffedAttack>;
     }
 
     public render(): string {
@@ -448,7 +429,7 @@ export class BuffedStatSheet
         return this.resistances;
     }
 
-    public get saves(): Map<CoreStat, ProficiencyLevel> {
+    public get saves(): Map<CoreStat, [ProficiencyLevel, number]> {
         return this.saveProficiencies;
     }
 }

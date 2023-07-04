@@ -91,19 +91,31 @@ $default_theme: $theme_ocean_blue;
                                            $active_card_length: $card_length * 1.2,
                                            $card_cross: $card_length * 0.6,
                                            $base_width: 64px,
-                                           $card_gap: null)
+                                           $card_gap: null,
+                                           $align_start: false)
 {
   overflow: hidden;
   display: flex;
   flex-wrap: nowrap;
   position: relative;
 
-  @if ($card_gap != null) {
-    justify-content: center;
-    gap: $card_gap;
+  @if ($align_start) {
+    justify-content: flex-start;
+    @if ($card_gap != null) {
+      gap: $card_gap;
+    }
+    @else {
+      gap: 16px;
+    }
   }
   @else {
-    justify-content: space-evenly;
+    @if ($card_gap != null) {
+      justify-content: center;
+      gap: $card_gap;
+    }
+    @else {
+      justify-content: space-evenly;
+    }
   }
 
   .translation_base {
@@ -308,8 +320,8 @@ $default_theme: $theme_ocean_blue;
                                                  $card_length: 96px,
                                                  $active_card_length: 256px,
                                                  $card_cross: 84px,
-                                                 $base_width: 76px);
-
-
+                                                 $base_width: 76px,
+                                                 $card_gap: 8px,
+                                                 $align_start: true);
   }
 }
