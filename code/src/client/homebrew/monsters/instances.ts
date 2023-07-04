@@ -523,7 +523,7 @@ function createInklingTank()
             [Skill.Perception, ProficiencyLevel.Expert],
         ]),
         speeds             : new Map([
-            [Speed.Walking, 50]
+            [Speed.Walking, 10]
         ]),
         vulnerabilities    : new Set([
             DamageType.Force,

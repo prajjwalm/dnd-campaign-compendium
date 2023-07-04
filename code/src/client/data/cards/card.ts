@@ -1,6 +1,4 @@
 import {waitForFinalEvent}   from "../../common/common";
-import {Character, NpcIndex} from "./character";
-
 
 /**
  * Defines an object that can be indexed. Hovering on it will display a snippet

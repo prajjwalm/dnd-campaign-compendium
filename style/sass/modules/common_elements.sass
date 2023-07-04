@@ -92,7 +92,11 @@ img
   border-radius: 3px
   padding: $padding_default / 2
   margin: 0 $margin_default / 2 $margin_default / 2 0
-  display: inline-block
+  display: inline-flex
+  justify-content: space-between
+  gap: 2px
+  align-items: center
+  min-height: 24px
   @include FontSize(8)
 
   &.leveled

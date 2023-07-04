@@ -155,7 +155,11 @@ img {
   border-radius: 3px;
   padding: 4px;
   margin: 0 4px 4px 0;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: space-between;
+  gap: 2px;
+  align-items: center;
+  min-height: 24px;
   font-size: 11px;
 }
 .tag.leveled {
@@ -403,7 +407,11 @@ img {
   border-radius: 3px;
   padding: 4px;
   margin: 0 4px 4px 0;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: space-between;
+  gap: 2px;
+  align-items: center;
+  min-height: 24px;
   font-size: 11px;
 }
 .tag.leveled {
@@ -517,6 +525,10 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
 }
 .character_card .tags {
   margin-bottom: 4px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: flex-start;
 }
 .character_card .personality_tags {
   margin-top: 4px;
@@ -748,7 +760,11 @@ img {
   border-radius: 3px;
   padding: 4px;
   margin: 0 4px 4px 0;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: space-between;
+  gap: 2px;
+  align-items: center;
+  min-height: 24px;
   font-size: 11px;
 }
 .tag.leveled {
@@ -1082,7 +1098,11 @@ img {
   border-radius: 3px;
   padding: 4px;
   margin: 0 4px 4px 0;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: space-between;
+  gap: 2px;
+  align-items: center;
+  min-height: 24px;
   font-size: 11px;
 }
 .tag.leveled {
@@ -1434,7 +1454,11 @@ img {
   border-radius: 3px;
   padding: 4px;
   margin: 0 4px 4px 0;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: space-between;
+  gap: 2px;
+  align-items: center;
+  min-height: 24px;
   font-size: 11px;
 }
 .tag.leveled {
@@ -1691,7 +1715,11 @@ img {
   border-radius: 3px;
   padding: 4px;
   margin: 0 4px 4px 0;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: space-between;
+  gap: 2px;
+  align-items: center;
+  min-height: 24px;
   font-size: 11px;
 }
 .tag.leveled {
@@ -1817,7 +1845,7 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   padding: 12px;
 }
 
-#individual_ast .events_list .event_li .effect_tags .effect_tag, #individual_ast .opinion_tags .effect_tag, .effect_tag {
+.event_li .insight_lock, .event_li .insight_lock--unlocked, .event_li .insight_lock--locked, .event_li .effect_tags .effect_tag, #individual_ast .opinion_tags .effect_tag, .effect_tag {
   padding: 4px;
   margin: 2px;
   border-radius: 4px;
@@ -1828,32 +1856,32 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   text-align: center;
   font-size: 12px;
 }
-#individual_ast .events_list .event_li .effect_tags [data-emo=Gratitude].effect_tag, #individual_ast .opinion_tags [data-emo=Gratitude].effect_tag, [data-emo=Gratitude].effect_tag {
+.event_li [data-emo=Gratitude].insight_lock, .event_li [data-emo=Gratitude].insight_lock--unlocked, .event_li [data-emo=Gratitude].insight_lock--locked, .event_li .effect_tags [data-emo=Gratitude].effect_tag, #individual_ast .opinion_tags [data-emo=Gratitude].effect_tag, [data-emo=Gratitude].effect_tag {
   background-color: rgba(199, 12, 207, 0.1);
   border-color: #c70ccf;
   color: #c70ccf;
 }
-#individual_ast .events_list .event_li .effect_tags [data-emo=Trust].effect_tag, #individual_ast .opinion_tags [data-emo=Trust].effect_tag, [data-emo=Trust].effect_tag {
+.event_li [data-emo=Trust].insight_lock, .event_li [data-emo=Trust].insight_lock--unlocked, .event_li [data-emo=Trust].insight_lock--locked, .event_li .effect_tags [data-emo=Trust].effect_tag, #individual_ast .opinion_tags [data-emo=Trust].effect_tag, [data-emo=Trust].effect_tag {
   background-color: rgba(0, 59, 129, 0.1);
   border-color: #003b81;
   color: #003b81;
 }
-#individual_ast .events_list .event_li .effect_tags [data-emo=Respect].effect_tag, #individual_ast .opinion_tags [data-emo=Respect].effect_tag, [data-emo=Respect].effect_tag {
+.event_li [data-emo=Respect].insight_lock, .event_li [data-emo=Respect].insight_lock--unlocked, .event_li [data-emo=Respect].insight_lock--locked, .event_li .effect_tags [data-emo=Respect].effect_tag, #individual_ast .opinion_tags [data-emo=Respect].effect_tag, [data-emo=Respect].effect_tag {
   background-color: rgba(116, 0, 190, 0.1);
   border-color: #7400be;
   color: #7400be;
 }
-#individual_ast .events_list .event_li .effect_tags [data-emo=Envy].effect_tag, #individual_ast .opinion_tags [data-emo=Envy].effect_tag, [data-emo=Envy].effect_tag {
+.event_li [data-emo=Envy].insight_lock, .event_li [data-emo=Envy].insight_lock--unlocked, .event_li [data-emo=Envy].insight_lock--locked, .event_li .effect_tags [data-emo=Envy].effect_tag, #individual_ast .opinion_tags [data-emo=Envy].effect_tag, [data-emo=Envy].effect_tag {
   background-color: rgba(15, 114, 12, 0.1);
   border-color: #0F720C;
   color: #0F720C;
 }
-#individual_ast .events_list .event_li .effect_tags [data-emo=Paranoia].effect_tag, #individual_ast .opinion_tags [data-emo=Paranoia].effect_tag, [data-emo=Paranoia].effect_tag {
+.event_li [data-emo=Paranoia].insight_lock, .event_li [data-emo=Paranoia].insight_lock--unlocked, .event_li [data-emo=Paranoia].insight_lock--locked, .event_li .effect_tags [data-emo=Paranoia].effect_tag, #individual_ast .opinion_tags [data-emo=Paranoia].effect_tag, [data-emo=Paranoia].effect_tag {
   background-color: rgba(242, 165, 70, 0.1);
   border-color: #f2a546;
   color: #f2a546;
 }
-#individual_ast .events_list .event_li .effect_tags [data-emo=Contempt].effect_tag, #individual_ast .opinion_tags [data-emo=Contempt].effect_tag, [data-emo=Contempt].effect_tag {
+.event_li [data-emo=Contempt].insight_lock, .event_li [data-emo=Contempt].insight_lock--unlocked, .event_li [data-emo=Contempt].insight_lock--locked, .event_li .effect_tags [data-emo=Contempt].effect_tag, #individual_ast .opinion_tags [data-emo=Contempt].effect_tag, [data-emo=Contempt].effect_tag {
   background-color: rgba(255, 0, 0, 0.1);
   border-color: red;
   color: red;
@@ -1870,12 +1898,13 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   display: flex;
   flex-flow: column-reverse nowrap;
 }
-#individual_ast .events_list .event_li {
+
+.event_li {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) inset;
   display: flex;
   flex-flow: row nowrap;
   overflow: hidden;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   padding: 8px;
   margin-top: 8px;
@@ -1883,10 +1912,10 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   border-radius: 4px;
   font-size: 12px;
 }
-#individual_ast .events_list .event_li::-webkit-scrollbar {
+.event_li::-webkit-scrollbar {
   display: none;
 }
-#individual_ast .events_list .event_li .timestamp {
+.event_li .timestamp {
   font-size: 11px;
   width: 120px;
   align-self: stretch;
@@ -1899,20 +1928,29 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   flex-grow: 0;
   flex-shrink: 0;
 }
-#individual_ast .events_list .event_li .display_text {
+.event_li .display_text {
   width: 400px;
   font-size: 12px;
   line-height: 1.4;
   flex-grow: 1;
 }
-#individual_ast .events_list .event_li .effect_tags {
+.event_li .effect_tags {
   display: flex;
+  align-self: stretch;
+  align-items: center;
   flex-flow: row-reverse nowrap;
   padding-left: 8px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  margin-left: 16px;
+  margin-left: 8px;
   flex-grow: 0;
+}
+.event_li .insight_lock, .event_li .insight_lock--unlocked, .event_li .insight_lock--locked {
+  background-color: rgba(170, 170, 170, 0.1);
+  border-color: #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 48px;
 }
 #attitude_summary_table_area {
   flex-grow: 1;
@@ -2018,7 +2056,7 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   opacity: 0.4;
 }
 #attitude_summary_table_area .row .cell .value_2 {
-  opacity: 0.75;
+  opacity: 0.7;
 }
 #attitude_summary_table_area .row .cell .value_3 {
   opacity: 1;

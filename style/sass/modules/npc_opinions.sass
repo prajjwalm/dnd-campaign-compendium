@@ -85,52 +85,70 @@ $attitude_circle_border: 8px
     display: flex
     flex-flow: column-reverse nowrap
 
-    .event_li
-      box-shadow: $box_shadow_inset_soft
-      display: flex
-      flex-flow: row nowrap
-      overflow: hidden
-      justify-content: flex-start
-      align-items: center
-      padding: $padding_default
-      margin-top: $margin_default
-      margin-bottom: $margin_default
-      border-radius: $padding_default / 2
-      @include FontSize(7)
+.event_li
+  box-shadow: $box_shadow_inset_soft
+  display: flex
+  flex-flow: row nowrap
+  overflow: hidden
+  justify-content: space-between
+  align-items: center
+  padding: $padding_default
+  margin-top: $margin_default
+  margin-bottom: $margin_default
+  border-radius: $padding_default / 2
+  @include FontSize(7)
 
-      &::-webkit-scrollbar
-        display: none
+  &::-webkit-scrollbar
+    display: none
 
-      .timestamp
-        @include FontSize(8)
-        width: 120px
-        align-self: stretch
-        display: flex
-        align-items: center
-        justify-content: flex-start
-        margin-left: $margin_default
-        margin-right: 2 * $margin_default
-        border-right: solid 1px rgba($color_grey, 0.2)
-        flex-grow: 0
-        flex-shrink: 0
+  .timestamp
+    @include FontSize(8)
+    width: 120px
+    align-self: stretch
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    margin-left: $margin_default
+    margin-right: 2 * $margin_default
+    border-right: solid 1px rgba($color_grey, 0.2)
+    flex-grow: 0
+    flex-shrink: 0
 
-      .display_text
-        width: 400px
-        @include FontSize(7)
-        line-height: 1.4
-        flex-grow: 1
+  .display_text
+    width: 400px
+    @include FontSize(7)
+    line-height: 1.4
+    flex-grow: 1
 
-      .effect_tags
-        display: flex
-        flex-flow: row-reverse nowrap
-        padding-left: $padding-default
-        margin-top: $margin_default
-        margin-bottom: $margin_default
-        margin-left: 2 * $margin_default
-        flex-grow: 0
+  .effect_tags
+    display: flex
+    align-self: stretch
+    align-items: center
+    flex-flow: row-reverse nowrap
+    padding-left: $padding-default
+    margin-left: $margin_default
+    flex-grow: 0
 
-        .effect_tag
-          @extend %effect_tag
+    .effect_tag
+      @extend %effect_tag
+
+  .insight_lock
+    background-color: rgba(#aaa, 0.1)
+    border-color: #aaa
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: $padding_default
+    min-width: 48px
+    @extend %effect_tag
+
+    &--locked
+      @extend .insight_lock
+
+    &--unlocked
+      @extend .insight_lock
+
+
 
 
 #attitude_summary_table_area
@@ -247,7 +265,7 @@ $attitude_circle_border: 8px
       .value_1
         opacity: 0.4
       .value_2
-        opacity: 0.75
+        opacity: 0.7
       .value_3
         opacity: 1
 

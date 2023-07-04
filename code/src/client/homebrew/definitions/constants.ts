@@ -2,14 +2,15 @@ import {D10, D100, D12, D20, D4, D6, D8, Dice} from "../common/diceConstants";
 
 
 export enum CoreStat {
-    Str,
-    Dex,
-    Con,
-    Int,
-    Wis,
-    Cha
+    Str = 0,
+    Dex = 1,
+    Con = 2,
+    Int = 3,
+    Wis = 4,
+    Cha = 5,
 }
 
+// The order matters here.
 export enum ProficiencyLevel {
     None,
     Half,
@@ -63,6 +64,7 @@ export enum Skill {
     SlightOfHand,
     Stealth,
     Survival,
+    _ALL,
 }
 
 export const SkillForStat : Map<Skill, CoreStat> = new Map([
@@ -176,10 +178,6 @@ export enum Activation {
 }
 
 
-export function getModifier(number) {
-    return Math.floor((number - 10) / 2);
-}
-
 export function E(dice: Dice | Map<Dice, number>) {
     if (dice instanceof Dice) {
         return (dice.sides + 1) / 2;
@@ -192,6 +190,7 @@ export function E(dice: Dice | Map<Dice, number>) {
     }
 }
 
+// [FutureScope] Introduce a readonly cached statValue.
 export class StatValue
 {
     private val: number;
