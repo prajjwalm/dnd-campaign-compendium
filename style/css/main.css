@@ -116,6 +116,10 @@ p {
   margin-bottom: 8px;
 }
 
+sub, sup {
+  margin-left: 1px;
+}
+
 li {
   font-size: 12px;
   text-align: justify;
@@ -221,6 +225,9 @@ img {
 
 table:not(.ignore_common_style) {
   font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
 }
 table:not(.ignore_common_style) td {
   padding: 8px;
@@ -368,6 +375,10 @@ p {
   margin-bottom: 8px;
 }
 
+sub, sup {
+  margin-left: 1px;
+}
+
 li {
   font-size: 12px;
   text-align: justify;
@@ -473,6 +484,9 @@ img {
 
 table:not(.ignore_common_style) {
   font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
 }
 table:not(.ignore_common_style) td {
   padding: 8px;
@@ -721,6 +735,10 @@ p {
   margin-bottom: 8px;
 }
 
+sub, sup {
+  margin-left: 1px;
+}
+
 li {
   font-size: 12px;
   text-align: justify;
@@ -826,6 +844,9 @@ img {
 
 table:not(.ignore_common_style) {
   font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
 }
 table:not(.ignore_common_style) td {
   padding: 8px;
@@ -1059,6 +1080,10 @@ p {
   margin-bottom: 8px;
 }
 
+sub, sup {
+  margin-left: 1px;
+}
+
 li {
   font-size: 12px;
   text-align: justify;
@@ -1164,6 +1189,9 @@ img {
 
 table:not(.ignore_common_style) {
   font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
 }
 table:not(.ignore_common_style) td {
   padding: 8px;
@@ -1415,6 +1443,10 @@ p {
   margin-bottom: 8px;
 }
 
+sub, sup {
+  margin-left: 1px;
+}
+
 li {
   font-size: 12px;
   text-align: justify;
@@ -1520,6 +1552,9 @@ img {
 
 table:not(.ignore_common_style) {
   font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
 }
 table:not(.ignore_common_style) td {
   padding: 8px;
@@ -1676,6 +1711,10 @@ p {
   margin-bottom: 8px;
 }
 
+sub, sup {
+  margin-left: 1px;
+}
+
 li {
   font-size: 12px;
   text-align: justify;
@@ -1781,6 +1820,9 @@ img {
 
 table:not(.ignore_common_style) {
   font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 8px;
 }
 table:not(.ignore_common_style) td {
   padding: 8px;
@@ -2067,6 +2109,60 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
+.timeskip_li {
+  padding: 16px;
+  font-size: 12px;
+}
+.timeskip_li__time {
+  font-size: 11px;
+}
+.timeskip_li__description {
+  font-style: italic;
+  text-align: justify;
+}
+
+.emotion_string, .emotion_string--hatred--neg, .emotion_string--affection--neg, .emotion_string--hatred, .emotion_string--affection, .emotion_string--contempt--neg, .emotion_string--contempt, .emotion_string--paranoia--neg, .emotion_string--paranoia, .emotion_string--envy--neg, .emotion_string--envy, .emotion_string--gratitude--neg, .emotion_string--gratitude, .emotion_string--trust--neg, .emotion_string--trust, .emotion_string--respect--neg, .emotion_string--respect {
+  font-family: "Montserrat", sans-serif;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 12px;
+}
+.emotion_string--respect {
+  color: #7400be;
+}
+.emotion_string--respect--neg {
+  color: red;
+}
+.emotion_string--trust {
+  color: #003b81;
+}
+.emotion_string--trust--neg {
+  color: #f2a546;
+}
+.emotion_string--gratitude {
+  color: #c70ccf;
+}
+.emotion_string--gratitude--neg {
+  color: #0F720C;
+}
+.emotion_string--envy {
+  color: #0F720C;
+}
+.emotion_string--envy--neg {
+  color: #c70ccf;
+}
+.emotion_string--paranoia {
+  color: #f2a546;
+}
+.emotion_string--paranoia--neg {
+  color: #003b81;
+}
+.emotion_string--contempt {
+  color: red;
+}
+.emotion_string--contempt--neg {
+  color: #7400be;
+}
 /**
  * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
  * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality

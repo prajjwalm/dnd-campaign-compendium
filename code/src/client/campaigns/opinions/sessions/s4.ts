@@ -79,21 +79,21 @@ export function session4NpcInteractions(
     }
 
     // Talk with Erica.
-    npcInteractionEvents.get(NpcId.Erica).get(PcIndex.ID_PANZER).addEvent(
-        new NpcInteractionEvent(
-            new GameTimestamp(0, 5, 14, 25),
-            "Was interested in my youth with Coroto and our past together.",
-            new Map([[PositiveEmotion.Gratitude, 1]])
-        )
-    );
-
-    npcInteractionEvents.get(NpcId.Erica).get(PcIndex.ID_PANZER).addEvent(
-        new NpcInteractionEvent(
-            new GameTimestamp(0, 5, 14, 25),
-            "Reminded me of happier times in my father's estate and Ivangrad.",
-            new Map([[PositiveEmotion.Gratitude, 2]])
-        )
-    );
+    // npcInteractionEvents.get(NpcId.Erica).get(PcIndex.ID_PANZER).addEvent(
+    //     new NpcInteractionEvent(
+    //         new GameTimestamp(0, 5, 14, 25),
+    //         "Was interested in my youth with Coroto and our past together.",
+    //         new Map([[PositiveEmotion.Gratitude, 1]])
+    //     )
+    // );
+    //
+    // npcInteractionEvents.get(NpcId.Erica).get(PcIndex.ID_PANZER).addEvent(
+    //     new NpcInteractionEvent(
+    //         new GameTimestamp(0, 5, 14, 25),
+    //         "Reminded me of happier times in my father's estate and Ivangrad.",
+    //         new Map([[PositiveEmotion.Gratitude, 2]])
+    //     )
+    // );
 
     npcInteractionEvents.get(NpcId.Erica).get(PcIndex.ID_CYRION).addEvent(
         new NpcInteractionEvent(
@@ -103,8 +103,7 @@ export function session4NpcInteractions(
         )
     );
 
-    for (const pc of [PcIndex.ID_PANZER,
-                      PcIndex.ID_HELIOS,
+    for (const pc of [PcIndex.ID_HELIOS,
                       PcIndex.ID_CYRION])
     {
         npcInteractionEvents.get(NpcId.Erica).get(pc).addEvent(
@@ -120,7 +119,6 @@ export function session4NpcInteractions(
 
     for (const pc of [PcIndex.ID_AURELIA,
                       PcIndex.ID_CYRION,
-                      PcIndex.ID_PANZER,
                       PcIndex.ID_HELIOS])
     {
         npcInteractionEvents.get(NpcId.Erica).get(pc).addEvent(
@@ -142,8 +140,7 @@ export function session4NpcInteractions(
     }
 
     // In Jordi's house.
-    for (const pc of [PcIndex.ID_PANZER,
-                      PcIndex.ID_HELIOS,
+    for (const pc of [PcIndex.ID_HELIOS,
                       PcIndex.ID_CYRION])
     {
         npcInteractionEvents.get(NpcId.Jordi).get(pc).addEvent(
@@ -200,8 +197,7 @@ export function session4NpcInteractions(
     // At Petra's meal.
     for (const pc of [PcIndex.ID_AURELIA,
                       PcIndex.ID_HELIOS,
-                      PcIndex.ID_CYRION,
-                      PcIndex.ID_PANZER])
+                      PcIndex.ID_CYRION])
     {
         npcInteractionEvents.get(NpcId.Petra).get(pc).addEvent(
             new NpcInteractionEvent(
@@ -214,8 +210,7 @@ export function session4NpcInteractions(
         );
     }
 
-    for (const pc of [PcIndex.ID_PANZER,
-                      PcIndex.ID_HELIOS,
+    for (const pc of [PcIndex.ID_HELIOS,
                       PcIndex.ID_CYRION])
     {
         npcInteractionEvents.get(NpcId.Petra).get(pc).addEvent(
@@ -245,22 +240,22 @@ export function session4NpcInteractions(
             new Map()
         )
     );
-
-    npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_PANZER).addEvent(
-        new NpcInteractionEvent(
-            new GameTimestamp(0, 5, 16, 30),
-            "Huh, that stupid bot actually challenged my skills.",
-            new Map([[PositiveEmotion.Respect, 1]])
-        )
-    );
-
-    npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_PANZER).addEvent(
-        new NpcInteractionEvent(
-            new GameTimestamp(0, 5, 16, 30),
-            "Huh, that stupid bot admittedly got a decent run, for a first timer.",
-            new Map([[PositiveEmotion.Respect, 1]])
-        )
-    );
+    //
+    // npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_PANZER).addEvent(
+    //     new NpcInteractionEvent(
+    //         new GameTimestamp(0, 5, 16, 30),
+    //         "Huh, that stupid bot actually challenged my skills.",
+    //         new Map([[PositiveEmotion.Respect, 1]])
+    //     )
+    // );
+    //
+    // npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_PANZER).addEvent(
+    //     new NpcInteractionEvent(
+    //         new GameTimestamp(0, 5, 16, 30),
+    //         "Huh, that stupid bot admittedly got a decent run, for a first timer.",
+    //         new Map([[PositiveEmotion.Respect, 1]])
+    //     )
+    // );
 
     npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_HELIOS).addEvent(
         new NpcInteractionEvent(
@@ -290,15 +285,15 @@ export function session4NpcInteractions(
         )
     );
 
-    npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_PANZER).addEvent(
-        new NpcInteractionEvent(
-            new GameTimestamp(0, 5, 16, 45),
-            "The bot acknowledged my skills, maybe I could try my hand at his " +
-            "modules...",
-            new Map([[PositiveEmotion.Gratitude, 1],
-                     [PositiveEmotion.Trust, 1]])
-        )
-    );
+    // npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_PANZER).addEvent(
+    //     new NpcInteractionEvent(
+    //         new GameTimestamp(0, 5, 16, 45),
+    //         "The bot acknowledged my skills, maybe I could try my hand at his " +
+    //         "modules...",
+    //         new Map([[PositiveEmotion.Gratitude, 1],
+    //                  [PositiveEmotion.Trust, 1]])
+    //     )
+    // );
 
     npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_CYRION).addEvent(
         new NpcInteractionEvent(
@@ -310,11 +305,11 @@ export function session4NpcInteractions(
         )
     );
 
-    for (const pc of [PcIndex.ID_HELIOS, PcIndex.ID_PANZER]) {
+    for (const pc of [PcIndex.ID_HELIOS]) {
         npcInteractionEvents.get(NpcId.Petra).get(pc).addEvent(
             new NpcInteractionEvent(
                 new GameTimestamp(0, 5, 16, 45),
-                "They're having fun with Hina.",
+                "He's having fun with Hina.",
                 new Map([[PositiveEmotion.Gratitude, 1]])
             )
         );

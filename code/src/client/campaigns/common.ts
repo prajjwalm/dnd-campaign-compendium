@@ -55,10 +55,8 @@ export class GameTimestamp
 
         const hourStr = String(hour).padStart(2, '0');
         const minStr = String(minute).padStart(2, '0');
-        return `<p>${day}<sup>${getNumberSuffix(day)}</sup> of Year ${year}, ${hourStr}:${minStr}</p>`;
+        return `${day}<sup>${getNumberSuffix(day)}</sup> of Year ${year}, ${hourStr}:${minStr}`;
     }
 }
 
-
-export const T_START = new GameTimestamp(0, 5, 8, 0);
 export const T_NOW = new GameTimestamp(0, 6, 12, 15);

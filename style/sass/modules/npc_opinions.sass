@@ -275,3 +275,68 @@ $attitude_circle_border: 8px
         background-color: $color_true_grey
 
         @include BoxShadowElevationHelper(1)
+
+.timeskip_li
+  padding: 2 * $padding_default
+  @include FontSize()
+
+  &__time
+    @include FontSize(8)
+
+  &__description
+    font-style: italic
+    text-align: justify
+
+
+.emotion_string
+  font-family: "Montserrat", sans-serif
+  display: inline-block
+  font-weight: 500
+  @include FontSize(7)
+
+  &--respect
+    @extend .emotion_string
+    color: $color_respect
+    &--neg
+      @extend .emotion_string
+      color: $color_contempt
+
+  &--trust
+    @extend .emotion_string
+    color: $color_trust
+    &--neg
+      @extend .emotion_string
+      color: $color_betrayal
+
+  &--gratitude
+    @extend .emotion_string
+    color: $color_gratitude
+    &--neg
+      @extend .emotion_string
+      color: $color_envy
+
+  &--envy
+    @extend .emotion_string
+    color: $color_envy
+    &--neg
+      @extend .emotion_string
+      color: $color_gratitude
+
+  &--paranoia
+    @extend .emotion_string
+    color: $color_betrayal
+    &--neg
+      @extend .emotion_string
+      color: $color_trust
+
+  &--contempt
+    @extend .emotion_string
+    color: $color_contempt
+    &--neg
+      @extend .emotion_string
+      color: $color_respect
+
+  &--hatred, &--affection
+    @extend .emotion_string
+    &--neg
+      @extend .emotion_string

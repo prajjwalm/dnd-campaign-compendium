@@ -1,34 +1,53 @@
-import {PcIndex}                                            from "../../../data/pcIndex";
-import {NpcId, NpcIndex}                                    from "../../../npcs/npcIndex";
-import {GameTimestamp}                                      from "../../common";
-import {NpcInteractionEvent, NpcOpinionV2, PositiveEmotion} from "../npcOpinions";
+import {PcIndex}                                                           from "../../../data/pcIndex";
+import {NpcId, NpcIndex}                                                   from "../../../npcs/npcIndex";
+import {GameTimestamp}                                                     from "../../common";
+import {NpcInteractionEvent, NpcOpinionV2, PositiveEmotion, TimeskipEvent} from "../npcOpinions";
+
+export function addInteractionEvent(
+    npcInteractionEvents: Map<NpcId, Map<PcIndex, NpcOpinionV2>>,
+    npc: NpcId,
+    pcs: PcIndex[],
+    timestamp: GameTimestamp,
+    text: string,
+    delta: Map<PositiveEmotion, number>,
+    insightGate: number = 10,
+    reverseEmotions: Set<PositiveEmotion> = new Set())
+{
+    let reMap: Map<PositiveEmotion, boolean> = null;
+    if (reverseEmotions) {
+        reMap = new Map();
+        for (const e of reverseEmotions) {
+            reMap.set(e, true);
+        }
+    }
+    for (const pc of pcs) {
+        npcInteractionEvents.get(npc).get(pc).addEvent(
+            new NpcInteractionEvent(timestamp, text, delta, insightGate, reMap)
+        );
+    }
+}
+
+export function addTimeSkipEvent(
+    npcInteractionEvents: Map<NpcId, Map<PcIndex, NpcOpinionV2>>,
+    npc: NpcId,
+    pcs: PcIndex[],
+    timestamp1: GameTimestamp,
+    timestamp2: GameTimestamp,
+    text: string,
+    delta: Map<PositiveEmotion, number>)
+{
+    for (const pc of pcs) {
+        npcInteractionEvents.get(npc).get(pc).addEvent(
+            new TimeskipEvent(timestamp1, timestamp2, delta, text)
+        );
+    }
+}
 
 export function session9NpcInteractions(
     npcInteractionEvents: Map<NpcId, Map<PcIndex, NpcOpinionV2>>)
 {
-    function addInteractionEvent(npc: NpcId,
-                                 pcs: PcIndex[],
-                                 timestamp: GameTimestamp,
-                                 text: string,
-                                 delta: Map<PositiveEmotion, number>,
-                                 insightGate: number = 10,
-                                 reverseEmotions: Set<PositiveEmotion> = new Set())
-    {
-        let reMap: Map<PositiveEmotion, boolean> = null;
-        if (reverseEmotions) {
-            reMap = new Map();
-            for (const e of reverseEmotions) {
-                reMap.set(e, true);
-            }
-        }
-        for (const pc of pcs) {
-            npcInteractionEvents.get(npc).get(pc).addEvent(
-                new NpcInteractionEvent(timestamp, text, delta, insightGate, reMap)
-            );
-        }
-    }
 
-    addInteractionEvent(
+    addInteractionEvent(npcInteractionEvents,
         NpcId.Dawn,
         [PcIndex.ID_AURELIA],
         new GameTimestamp(0, 6, 12, 20),
@@ -42,7 +61,7 @@ export function session9NpcInteractions(
         NpcIndex.get(NpcId.Dawn).passiveDeception + 5
     );
 
-    addInteractionEvent(
+    addInteractionEvent(npcInteractionEvents,
         NpcId.Dawn,
         [PcIndex.ID_AURELIA],
         new GameTimestamp(0, 6, 12, 20),
@@ -57,7 +76,7 @@ export function session9NpcInteractions(
         new Set([PositiveEmotion.Affection])
     );
 
-    addInteractionEvent(
+    addInteractionEvent(npcInteractionEvents,
         NpcId.Dawn,
         [PcIndex.ID_AURELIA],
         new GameTimestamp(0, 6, 12, 20),
@@ -71,7 +90,7 @@ export function session9NpcInteractions(
         new Set([PositiveEmotion.Affection])
     );
 
-    addInteractionEvent(
+    addInteractionEvent(npcInteractionEvents,
         NpcId.Dawn,
         [PcIndex.ID_AURELIA],
         new GameTimestamp(0, 6, 12, 20),
@@ -84,7 +103,22 @@ export function session9NpcInteractions(
         NpcIndex.get(NpcId.Dawn).passiveDeception
     );
 
-    addInteractionEvent(
+    addInteractionEvent(npcInteractionEvents,
+        NpcId.Dawn,
+        [PcIndex.ID_AURELIA],
+        new GameTimestamp(0, 6, 12, 20),
+        `Was concerned about how Ms Dusk treats us. Despite everything, it 
+        feels... rather good, to have someone finally voice the apprehensions
+        I've been clamping up for all these ages... Gods I am such a hypocrite.`,
+        new Map([
+            [PositiveEmotion.Affection, 3],
+            [PositiveEmotion.Respect, 3],
+            [PositiveEmotion.Gratitude, 1],
+        ]),
+        NpcIndex.get(NpcId.Dawn).passiveDeception
+    );
+
+    addInteractionEvent(npcInteractionEvents,
         NpcId.Ezell,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 12, 20),
@@ -98,7 +132,7 @@ export function session9NpcInteractions(
         ]),
     );
 
-    addInteractionEvent(
+    addInteractionEvent(npcInteractionEvents,
         NpcId.Ezell,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 12, 20),
@@ -110,7 +144,18 @@ export function session9NpcInteractions(
         ]),
     );
 
-    addInteractionEvent(
+    addInteractionEvent(npcInteractionEvents,
+        NpcId.Hina,
+        [PcIndex.ID_HELIOS],
+        new GameTimestamp(0, 6, 12, 25),
+        `I was hungry. He gave me good food... ... want more...`,
+        new Map([
+            [PositiveEmotion.Affection, 2],
+            [PositiveEmotion.Gratitude, 5],
+        ]),
+    );
+
+    addInteractionEvent(npcInteractionEvents,
         NpcId.Elysium,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 12, 20),
@@ -120,12 +165,11 @@ export function session9NpcInteractions(
         ]),
     );
 
-    addInteractionEvent(
+    addInteractionEvent(npcInteractionEvents,
         NpcId.Ezell,
         [PcIndex.ID_AURELIA,
          PcIndex.ID_HELIOS,
-         PcIndex.ID_CYRION,
-         PcIndex.ID_PANZER],
+         PcIndex.ID_CYRION],
         new GameTimestamp(0, 6, 12, 30),
         `While their primary concern is probably to escape out of this curse, 
         it does seem like they're trying to help the people here without any 
@@ -136,19 +180,53 @@ export function session9NpcInteractions(
         ]),
     );
 
-    addInteractionEvent(
+    addInteractionEvent(npcInteractionEvents,
         NpcId.Elysium,
         [PcIndex.ID_AURELIA,
          PcIndex.ID_HELIOS,
-         PcIndex.ID_CYRION,
-         PcIndex.ID_PANZER],
+         PcIndex.ID_CYRION],
         new GameTimestamp(0, 6, 12, 30),
         `While their primary concern is probably to escape out of this curse, 
         it does seem like they're trying to help the people here without any 
         ulterior motivations.`,
         new Map([
-            [PositiveEmotion.Respect, 2],
+            [PositiveEmotion.Respect, 3],
             [PositiveEmotion.Gratitude, 2],
+        ]),
+    );
+    addInteractionEvent(npcInteractionEvents,
+        NpcId.Elysium,
+        [PcIndex.ID_AURELIA,
+         PcIndex.ID_HELIOS,
+         PcIndex.ID_CYRION],
+        new GameTimestamp(0, 6, 12, 30),
+        `Even though they just got here and are way out of their depths, 
+         they're already willing to deep dive into the problems of the 
+         multiverse. I must say I like their hunger for lore.`,
+        new Map([
+            [PositiveEmotion.Respect, 2],
+        ]),
+    );
+    addInteractionEvent(npcInteractionEvents,
+        NpcId.Elysium,
+        [PcIndex.ID_AURELIA],
+        new GameTimestamp(0, 6, 12, 35),
+        `Not afraid to wade into the myriads of prosaic official journals I 
+         keep.`,
+        new Map([
+            [PositiveEmotion.Respect, 4],
+        ]),
+    );
+    addInteractionEvent(npcInteractionEvents,
+        NpcId.Ezell,
+        [PcIndex.ID_AURELIA,
+         PcIndex.ID_HELIOS],
+        new GameTimestamp(0, 6, 12, 35),
+        `So they've heard of the Order of St. Lataranus. Oh? As a shady criminal 
+        cult? lmao.`,
+        new Map([
+            [PositiveEmotion.Respect, 2],
+            [PositiveEmotion.Affection, 1],
         ]),
     );
 }

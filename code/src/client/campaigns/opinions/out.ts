@@ -1,17 +1,18 @@
-import {getEnumIterator}                       from "../../common/common";
-import {CharacterCard}                         from "../../data/cards/characterCard";
-import {PcCharismaMods, PcIndex, PcTokenNames}              from "../../data/pcIndex";
-import {NpcId}                                              from "../../npcs/npcIndex";
-import {T_START}                                            from "../common";
-import {NpcInteractionEvent, NpcOpinionV2, PositiveEmotion} from "./npcOpinions";
-import {session2NpcInteractions}                            from "./sessions/s2";
-import {session3NpcInteractions}                            from "./sessions/s3";
-import {session4NpcInteractions}                            from "./sessions/s4";
-import {session5NpcInteractions}                            from "./sessions/s5";
-import {session6NpcInteractions}                            from "./sessions/s6";
-import {session7NpcInteractions}                            from "./sessions/s7";
-import {session8NpcInteractions}                            from "./sessions/s8";
-import {session9NpcInteractions}                            from "./sessions/s9";
+import {getEnumIterator}          from "../../common/common";
+import {CharacterCard}            from "../../data/cards/characterCard";
+import {PcIndex, PcTokenNames}    from "../../data/pcIndex";
+import {NpcId}                    from "../../npcs/npcIndex";
+import {NpcOpinionV2}             from "./npcOpinions";
+import {session10NpcInteractions} from "./sessions/s10";
+import {session11NpcInteractions} from "./sessions/s11";
+import {session2NpcInteractions}  from "./sessions/s2";
+import {session3NpcInteractions}  from "./sessions/s3";
+import {session4NpcInteractions}  from "./sessions/s4";
+import {session5NpcInteractions}  from "./sessions/s5";
+import {session6NpcInteractions}  from "./sessions/s6";
+import {session7NpcInteractions}  from "./sessions/s7";
+import {session8NpcInteractions}  from "./sessions/s8";
+import {session9NpcInteractions}  from "./sessions/s9";
 
 
 export function renderNpcOpinionTable(
@@ -70,22 +71,6 @@ export function setupNpcOpinions()
         npcOpinions.set(npcIndex, npcMap);
     }
 
-    // Adjust for charisma respect.
-    for (const [npcIndex, npc] of CharacterCard.IndexById) {
-        if (!npc.isVillageNpc) {
-            continue;
-        }
-        for (const pc of getEnumIterator(PcIndex) as Generator<PcIndex>) {
-            npcOpinions.get(npcIndex).get(pc).addEvent(
-                new NpcInteractionEvent(
-                    T_START,
-                    "Base Charisma.",
-                    new Map([[PositiveEmotion.Respect, PcCharismaMods.get(pc)]])
-                )
-            );
-        }
-    }
-
     session2NpcInteractions(npcOpinions);
     session3NpcInteractions(npcOpinions);
     session4NpcInteractions(npcOpinions);
@@ -94,6 +79,8 @@ export function setupNpcOpinions()
     session7NpcInteractions(npcOpinions);
     session8NpcInteractions(npcOpinions);
     session9NpcInteractions(npcOpinions);
+    session10NpcInteractions(npcOpinions);
+    session11NpcInteractions(npcOpinions);
 
     const $individualAst = $("#individual_ast");
     const $table_area = $("#attitude_summary_table_area");

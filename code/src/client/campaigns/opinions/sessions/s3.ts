@@ -165,8 +165,7 @@ export function session3NpcInteractions(
     // Interacting with Erica.
     for (const pc of [PcIndex.ID_HELIOS,
                       PcIndex.ID_CYRION,
-                      PcIndex.ID_AURELIA,
-                      PcIndex.ID_PANZER])
+                      PcIndex.ID_AURELIA])
     {
         npcInteractionEvents.get(NpcId.Erica).get(pc).addEvent(
             new NpcInteractionEvent(

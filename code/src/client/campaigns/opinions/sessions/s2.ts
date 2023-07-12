@@ -1,12 +1,137 @@
-import {PcIndex}       from "../../../data/pcIndex";
-import {NpcId}         from "../../../npcs/npcIndex";
-import {GameTimestamp} from "../../common";
+import {PcIndex}                                            from "../../../data/pcIndex";
+import {NpcId, NpcIndex}                                    from "../../../npcs/npcIndex";
+import {GameTimestamp}                                      from "../../common";
 import {NpcInteractionEvent, NpcOpinionV2, PositiveEmotion} from "../npcOpinions";
+import {addInteractionEvent, addTimeSkipEvent}              from "./s9";
 
 
 export function session2NpcInteractions(
     npcOpinions: Map<NpcId, Map<PcIndex, NpcOpinionV2>>)
 {
+    addInteractionEvent(
+        npcOpinions,
+        NpcId.Dusk,
+        [PcIndex.ID_AURELIA, PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
+        new GameTimestamp(0, 1, 12, 0),
+        "Why are Champions of Ruin here? I do not remember doing " +
+        "anything to provoke him. Anyway...",
+        new Map([
+            [PositiveEmotion.Trust, -1]
+        ]),
+        10,
+        // NpcIndex.get(NpcId.Dusk).passiveDeception + 5,
+        new Set([PositiveEmotion.Trust])
+    )
+
+    addInteractionEvent(
+        npcOpinions,
+        NpcId.Dusk,
+        [PcIndex.ID_JULIUS],
+        new GameTimestamp(0, 1, 13, 0),
+        "Oh. I get to see the coronation of a champion?",
+        new Map([
+            [PositiveEmotion.Respect, 2]
+        ]),
+        NpcIndex.get(NpcId.Dusk).passiveDeception,
+    )
+
+    addInteractionEvent(
+        npcOpinions,
+        NpcId.Hina,
+        [PcIndex.ID_JULIUS],
+        new GameTimestamp(0, 1, 13, 0),
+        "He connected to my cognitive shadow! HELP!",
+        new Map([
+            [PositiveEmotion.Trust, -4]
+        ]),
+        NpcIndex.get(NpcId.Hina).passiveDeception,
+    );
+
+    addInteractionEvent(
+        npcOpinions,
+        NpcId.Hina,
+        [PcIndex.ID_JULIUS],
+        new GameTimestamp(0, 1, 13, 0),
+        "This card... why's a member of the troupe here?",
+        new Map([
+            [PositiveEmotion.Trust, -7]
+        ]),
+        NpcIndex.get(NpcId.Hina).passiveDeception,
+    );
+
+    addInteractionEvent(
+        npcOpinions,
+        NpcId.Hina,
+        [PcIndex.ID_JULIUS],
+        new GameTimestamp(0, 1, 13, 10),
+        "Though he doesn't look like one of them...",
+        new Map([
+            [PositiveEmotion.Trust, 3]
+        ]),
+    );
+
+    addInteractionEvent(
+        npcOpinions,
+        NpcId.Hina,
+        [PcIndex.ID_JULIUS],
+        new GameTimestamp(0, 1, 13, 15),
+        "Wait.. What?! This guy's on our side???",
+        new Map([
+            [PositiveEmotion.Trust, 6]
+        ]),
+    );
+
+
+    addInteractionEvent(
+        npcOpinions,
+        NpcId.Hina,
+        [PcIndex.ID_JULIUS],
+        new GameTimestamp(0, 1, 13, 15),
+        "Heeehhh... not many people get a recommendation by the God of death itself.",
+        new Map([
+            [PositiveEmotion.Respect, 7]
+        ]),
+        NpcIndex.get(NpcId.Hina).passiveDeception
+    );
+
+    addInteractionEvent(
+        npcOpinions,
+        NpcId.Hina,
+        [PcIndex.ID_JULIUS],
+        new GameTimestamp(0, 2, 8, 0),
+        "How come he doesn't need medical attention? Well it's probably not " +
+        "that surprising considering everything, and at least I get to " +
+        "slack off... (I think I'll just leave him here till he wakes - " +
+        "don't want Ms Dawn to get all tensed up)",
+        new Map([
+            [PositiveEmotion.Respect, 1],
+            [PositiveEmotion.Trust, -1],
+            [PositiveEmotion.Gratitude, 1],
+        ]),
+    );
+
+    addTimeSkipEvent(
+        npcOpinions,
+        NpcId.Hina,
+        [PcIndex.ID_JULIUS],
+        GameTimestamp.fromDays(3),
+        GameTimestamp.fromDays(27),
+        "",
+        new Map([[PositiveEmotion.Trust, 0.1]])
+    );
+
+    addInteractionEvent(
+        npcOpinions,
+        NpcId.Dusk,
+        [PcIndex.ID_AURELIA, PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
+        new GameTimestamp(0, 1, 13, 0),
+        "So these guys being here is probably not related to me too..",
+        new Map([
+            [PositiveEmotion.Trust, 1]
+        ]),
+        10,
+    )
+
     // Conversation with Dawn.
     // npcOpinions.get(NpcIndex.ID_DAWN).get(PcIndex.ID_QUINN).addEvent(
     //     new NpcInteractionEvent(
@@ -24,8 +149,7 @@ export function session2NpcInteractions(
     // );
     for (const pc of [PcIndex.ID_HELIOS,
                       PcIndex.ID_CYRION,
-                      PcIndex.ID_AURELIA,
-                      PcIndex.ID_PANZER])
+                      PcIndex.ID_AURELIA])
     {
         npcOpinions.get(NpcId.Dawn).get(pc).addEvent(
             new NpcInteractionEvent(

@@ -64,7 +64,11 @@ export function setupCharacters()
 
     new Character(NpcId.Yuki, [11, 12, 14,  8, 12, 20], Prof.get(4),
                   new Map([
-                      // Todo
+                      [Skill.Stealth,      [ProficiencyLevel.Prof, 0]],
+                      [Skill.Deception,    [ProficiencyLevel.Prof, 0]],
+                      [Skill.Intimidation, [ProficiencyLevel.Prof, 0]],
+                      [Skill.Insight,      [ProficiencyLevel.Prof, 0]],
+                      [Skill.Perception,   [ProficiencyLevel.Prof, 0]],
                   ]),
                   new Map([
                       [CoreStat.Str, [ProficiencyLevel.None, 5]],
@@ -151,12 +155,39 @@ export function setupCharacters()
                       [CoreStat.Cha, [ProficiencyLevel.Prof, 0]],
                   ]));
 
-    new Character(NpcId.Iona, [ 8, 10, 16, 17, 11, 12], Prof.get(2),
+    new Character(NpcId.Dusk, [28, 18, 26, 21, 24, 30], Prof.get(8),
                   new Map([
-                      // Todo
+                      [Skill.Persuasion,     [ProficiencyLevel.None,  -5]],
+                      [Skill.Deception,      [ProficiencyLevel.Half,   0]],
+                      [Skill.Perception,     [ProficiencyLevel.Half,   0]],
+                      [Skill.Stealth,        [ProficiencyLevel.Half,   0]],
+                      [Skill.History,        [ProficiencyLevel.Prof,   0]],
+                      [Skill.Insight,        [ProficiencyLevel.Prof,   0]],
+                      [Skill.Medicine,       [ProficiencyLevel.Expert, 0]],
+                      [Skill.Performance,    [ProficiencyLevel.Expert, 0]],
+                      [Skill.SlightOfHand,   [ProficiencyLevel.Expert, 5]],
                   ]),
                   new Map([
-                      // Todo
+                      [CoreStat.Dex, [ProficiencyLevel.Prof, 0]],
+                      [CoreStat.Con, [ProficiencyLevel.Prof, 0]],
+                      [CoreStat.Wis, [ProficiencyLevel.Prof, 0]],
+                      [CoreStat.Cha, [ProficiencyLevel.Prof, 0]],
+                  ]));
+
+    new Character(NpcId.Iona, [ 8, 10, 16, 17, 11, 12], Prof.get(2),
+                  new Map([
+                      [Skill.Arcana,        [ProficiencyLevel.Prof,   2]],
+                      [Skill.History,       [ProficiencyLevel.Prof,   2]],
+                      [Skill.Investigation, [ProficiencyLevel.Prof,   0]],
+                      [Skill.Nature,        [ProficiencyLevel.Prof,   2]],
+                      [Skill.Perception,    [ProficiencyLevel.Prof,   0]],
+                      [Skill.Religion,      [ProficiencyLevel.Prof,   0]],
+                      [Skill.Stealth,       [ProficiencyLevel.Prof,   0]],
+                      [Skill.Survival,      [ProficiencyLevel.Prof,   2]],
+                  ]),
+                  new Map([
+                      [CoreStat.Dex, [ProficiencyLevel.Prof, 0]],
+                      [CoreStat.Int, [ProficiencyLevel.Prof, 0]],
                   ]));
 
     new Character(NpcId.Kastor, [16, 14, 14,  8, 11, 14], Prof.get(3),

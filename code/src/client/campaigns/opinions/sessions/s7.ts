@@ -18,8 +18,7 @@ export function session7NpcInteractions(
         )
     );
 
-    for (const pc of [PcIndex.ID_PANZER,
-                      PcIndex.ID_HELIOS,
+    for (const pc of [PcIndex.ID_HELIOS,
                       PcIndex.ID_AURELIA,
                       PcIndex.ID_CYRION])
     {
@@ -73,8 +72,7 @@ export function session7NpcInteractions(
 
     for (const pc of [PcIndex.ID_AURELIA,
                       PcIndex.ID_CYRION,
-                      PcIndex.ID_HELIOS,
-                      PcIndex.ID_PANZER])
+                      PcIndex.ID_HELIOS])
     {
         npcInteractionEvents.get(NpcId.Vitacia).get(pc).addEvent(
             new NpcInteractionEvent(
@@ -117,8 +115,7 @@ export function session7NpcInteractions(
 
     for (const pc of [PcIndex.ID_HELIOS,
                       PcIndex.ID_CYRION,
-                      PcIndex.ID_AURELIA,
-                      PcIndex.ID_PANZER])
+                      PcIndex.ID_AURELIA])
     {
         npcInteractionEvents.get(NpcId.Vitacia).get(pc).addEvent(
             new NpcInteractionEvent(
@@ -184,15 +181,15 @@ export function session7NpcInteractions(
         )
     );
 
-    npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_PANZER).addEvent(
-        new NpcInteractionEvent(
-            new GameTimestamp(0, 6, 8, 30),
-            "Expected levels of sub-conscious guilt when provoked. Not much " +
-            "in active consciousness. Nothing to remark here.",
-            new Map([]),
-            NpcIndex.get(NpcId.Hina).passiveDeception + 10
-        )
-    );
+    // npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_PANZER).addEvent(
+    //     new NpcInteractionEvent(
+    //         new GameTimestamp(0, 6, 8, 30),
+    //         "Expected levels of sub-conscious guilt when provoked. Not much " +
+    //         "in active consciousness. Nothing to remark here.",
+    //         new Map([]),
+    //         NpcIndex.get(NpcId.Hina).passiveDeception + 10
+    //     )
+    // );
 
     npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_AURELIA).addEvent(
         new NpcInteractionEvent(
@@ -294,19 +291,19 @@ export function session7NpcInteractions(
             ]),
         )
     );
-    npcInteractionEvents.get(NpcId.Genefe).get(PcIndex.ID_PANZER).addEvent(
-        new NpcInteractionEvent(
-            new GameTimestamp(0, 6, 9, 30),
-            "Seems concerned about the children's education. Seems to " +
-            "consider those 'video games' from hell magical.",
-            new Map([
-                [PositiveEmotion.Respect, 0],
-                [PositiveEmotion.Gratitude, -1],
-            ]),
-            10,
-            new Map([[PositiveEmotion.Gratitude, true]])
-        )
-    );
+    // npcInteractionEvents.get(NpcId.Genefe).get(PcIndex.ID_PANZER).addEvent(
+    //     new NpcInteractionEvent(
+    //         new GameTimestamp(0, 6, 9, 30),
+    //         "Seems concerned about the children's education. Seems to " +
+    //         "consider those 'video games' from hell magical.",
+    //         new Map([
+    //             [PositiveEmotion.Respect, 0],
+    //             [PositiveEmotion.Gratitude, -1],
+    //         ]),
+    //         10,
+    //         new Map([[PositiveEmotion.Gratitude, true]])
+    //     )
+    // );
 
     npcInteractionEvents.get(NpcId.Cecelia).get(PcIndex.ID_HELIOS).addEvent(
         new NpcInteractionEvent(
@@ -467,8 +464,7 @@ export function session7NpcInteractions(
         )
     );
 
-    for (const pc of [PcIndex.ID_PANZER,
-                      PcIndex.ID_HELIOS,
+    for (const pc of [PcIndex.ID_HELIOS,
                       PcIndex.ID_CYRION,
                       PcIndex.ID_AURELIA])
     {

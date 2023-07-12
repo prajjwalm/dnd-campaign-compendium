@@ -96,10 +96,10 @@
  * values directly this early in the campaign.
  */
 
-import {getEnumIterator}        from "../../common/common";
-import {PARTY_INSIGHT, PcIndex} from "../../data/pcIndex";
-import {NpcId}                  from "../../npcs/npcIndex";
-import {GameTimestamp}          from "../common";
+import {getEnumIterator}                        from "../../common/common";
+import {PARTY_INSIGHT, PcCharismaMods, PcIndex} from "../../data/pcIndex";
+import {NpcId}                                  from "../../npcs/npcIndex";
+import {GameTimestamp}                          from "../common";
 
 
 export enum PositiveEmotion {
@@ -152,7 +152,7 @@ export class NpcInteractionEvent
 
         if (this.insightGate > PARTY_INSIGHT) {
             return `<div class='event_li'>
-                    <div class="timestamp">${this.timestamp.toString()}</div>
+                    <div class="timestamp"><span>${this.timestamp.toString()}</span></div>
                     <div class="effect_tags">${insightLock}</div>
                   </div>`;
         }
@@ -177,7 +177,7 @@ export class NpcInteractionEvent
             effectTags.push(`<div class="effect_tag" data-emo="${emotionColor}">${emotionStr}${effect}</div>`);
         }
         return `<div class='event_li'>
-                    <div class="timestamp">${this.timestamp.toString()}</div>
+                    <div class="timestamp"><span>${this.timestamp.toString()}</span></div>
                     <div class="display_text">${this.displayText}</div>
                     <div class="effect_tags">${insightLock} ${effectTags.join("")}</div>
                   </div>`;
@@ -196,16 +196,16 @@ export class TimeskipEvent
     public constructor(
         public readonly startTime: GameTimestamp,
         public readonly endTime: GameTimestamp,
-        public readonly ambientInteraction: Map<PositiveEmotion, number>
-    )
+        public readonly ambientInteraction: Map<PositiveEmotion, number>,
+        public readonly text: string)
     {}
 
     public get eventDesc()
     {
         if (this.ambientInteraction.size == 0) {
             return `<div class="timeskip_li">
-                        The time between ${this.startTime.toString()} and 
-                        ${this.endTime.toString()} passed with minimal/no
+                        The time between <span class="timeskip_li__time">${this.startTime.toString()}</span> and 
+                        <span class="timeskip_li__time">${this.endTime.toString()}</span> passed with negligible
                         interaction.
                     </div>`
         }
@@ -221,28 +221,40 @@ export class TimeskipEvent
             }
             if (val < 0) {
                 $interactions.push(
-                    `<div class="timeskip__emotion_desc">${emotionString} eroded slightly.</div>`
+                    `<li class="timeskip__emotion_desc">
+                        <span class="emotion_string--${emotionString.toLowerCase()}--neg">${emotionString}</span> eroded slightly.
+                    </li>`
                 );
-            } else if (val < 0.05) {
+            } else if (val < 0.35) {
                 $interactions.push(
-                    `<div class="timeskip__emotion_desc">${emotionString} increased slightly.</div>`
+                    `<li class="timeskip__emotion_desc">
+                        <span class="emotion_string--${emotionString.toLowerCase()}">${emotionString}</span> increased slightly.
+                    </li>`
                 );
-            } else if (val < 0.15) {
+            } else if (val < 0.75) {
                 $interactions.push(
-                    `<div class="timeskip__emotion_desc">${emotionString} increased moderately.</div>`
+                    `<li class="timeskip__emotion_desc">
+                        <span class="emotion_string--${emotionString.toLowerCase()}">${emotionString}</span> increased moderately.
+                    </li>`
                 );
             } else {
                 $interactions.push(
-                    `<div class="timeskip__emotion_desc">${emotionString} increased significantly.</div>`
+                    `<li class="timeskip__emotion_desc">
+                        <span class="emotion_string--${emotionString.toLowerCase()}">${emotionString}</span> increased significantly.
+                    </li>`
                 );
             }
         }
-        return `<div class="interactions_list__item timeskip">
+        const textHtml = this.text.length > 0 ? `<p class="timeskip_li__description">${this.text}</p>`: "";
+        return `<div class="interactions_list__item timeskip_li">
                     The time between 
-                    <span class="timeskip__time">${this.startTime.toString()}</span> and 
-                    <span class="timeskip__time">${this.endTime.toString()}</span> passed with the following notable 
+                    <span class="timeskip_li__time">${this.startTime.toString()}</span> and 
+                    <span class="timeskip_li__time">${this.endTime.toString()}</span> passed with the following notable 
                     ambient interaction for each day of the duration -
-                    ${$interactions.join()}
+                    <ul>
+                        ${$interactions.join("")}
+                    </ul>
+                    ${textHtml}
                 </div>`;
     }
 }
@@ -604,7 +616,7 @@ class OldAttitudeHandler
 
 interface IBufferedAttitude
 {
-    adjustValue(by: number, isDecay?: boolean);
+    adjustValue(by: number, isDecay?: boolean, days?: number);
 
     get rating(): number;
     get zone(): number;
@@ -910,8 +922,10 @@ abstract class BufferedAttitudeListBase
      * @param delta The amount to adjust.
      * @param isNatualDecay When true, the movement is expected to be towards
      *                      zero, and we do not cross zero or a zone boundary.
+     * @param days If specified, the number of days this (timeskip) adjustment
+     *             spans.
      */
-    public adjustValue(delta: number, isNatualDecay: boolean = false)
+    public adjustValue(delta: number, isNatualDecay: boolean = false, days?: number)
     {
         // Basic sanity checks.
         console.assert(this.posSlots[0].value * this.negSlots[0].value == 0);
@@ -945,6 +959,14 @@ abstract class BufferedAttitudeListBase
         // decay.
         if (!isNatualDecay) {
             delta = this.dynamicBuffer.adjust(delta);
+        } else {
+            // If this is natural decay, there's very little interaction. It
+            // means the dynamic buffer would fill naturally bit-by-bit. This
+            // doesn't affect the by at all.
+            // todo: work on this better
+            if (days) {
+                this.dynamicBuffer.adjust(Math.sign(this.dynamicBuffer.size) * days * 0.1);
+            }
         }
 
         // If this itself consumes all the delta, do nothing more.
@@ -1243,7 +1265,8 @@ abstract class AttitudeHandler
 
         this.bufferedAttitude.adjustValue(
             decay * (finalTime.totalDays - this.currentTime.totalDays),
-            naturalDecay
+            naturalDecay,
+            (finalTime.totalDays - this.currentTime.totalDays),
         );
         this.currentTime = finalTime;
     }
@@ -1308,10 +1331,25 @@ export class NpcOpinionV2
     }
 
     public addEvent(event: RenderableEvent): void {
-        if (this.currentTime != null &&
-            event.startTime.totalDays > this.currentTime.totalDays + 2)
-        {
-            throw new Error("Gap between events not covered by timeskip.");
+        if (this.currentTime != null) {
+            if (event.startTime.totalDays > this.currentTime.totalDays + 2) {
+                console.warn(`Gap between events ${event.startTime.totalDays} -> ` +
+                             `${this.currentTime.totalDays} not covered by timeskip.`);
+            }
+            if (event.startTime.totalMillis < this.currentTime.totalMillis) {
+                throw new Error(
+                    `Cannot move backward in time, current time ${this.currentTime.toString()} ` +
+                    `event start time ${event.startTime.toString()}.`);
+            }
+        } else {
+            // First impressions.
+            // Add the base charisma respect since this is the first interaction.
+            this.currentTime = event.startTime;
+            this.addEvent(new NpcInteractionEvent(
+                event.startTime,
+                "Base Charisma.",
+                new Map([[PositiveEmotion.Respect, PcCharismaMods.get(this.pc)]])
+            ));
         }
         this.events.push(event);
         if (event instanceof TimeskipEvent) {
