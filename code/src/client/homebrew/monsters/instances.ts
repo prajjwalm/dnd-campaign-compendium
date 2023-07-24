@@ -12,13 +12,20 @@ import {
 import {idToSheetGenerator, IStatSheet} from "./sheet";
 
 
-function setupMonster(category: string,
-                      id: string,
-                      title: string,
-                      imageFileName: string,
-                      creationMethod: () => IStatSheet)
+export function setupStatSheet(category: string,
+                               id: string,
+                               title: string,
+                               imageFileName: string,
+                               sheetObjectGetter: () => IStatSheet,
+                               fullImgPath: boolean = false)
 {
-    idToSheetGenerator.set(id, creationMethod);
+    console.log("setup stat sheet called for", id);
+    console.trace();
+    idToSheetGenerator.set(id, sheetObjectGetter);
+
+    const ip = fullImgPath ?
+               `<img class="icon_img" src="assets/images/${imageFileName}" alt="[NULL]">` :
+               `<img class="icon_img" src="assets/images/mob_tokens/${category}/${imageFileName}" alt="[NULL]">`;
 
     // todo: cache the jquery, add a duplicate creature id check.
     $("#beastiary .selectable_radio_container").append(`
@@ -26,7 +33,7 @@ function setupMonster(category: string,
              data-creature-id="${id}"
              data-mob-group="${category}"
              style="display: none;">
-            <img class="icon_img" src="assets/images/mob_tokens/${category}/${imageFileName}" alt="[NULL]">
+            ${ip}
             <div class="title selected_only">${title}</div>
         </div>`
     );
@@ -34,53 +41,53 @@ function setupMonster(category: string,
 
 export function setupMonsters()
 {
-    setupMonster("inkling",
-                 "inkling_insecurity",
-                 "Inkling: Insecurity",
-                 "insecurity.png",
-                 createInkling);
+    setupStatSheet("inkling",
+                   "inkling_insecurity",
+                   "Inkling: Insecurity",
+                   "insecurity.png",
+                   createInkling);
 
-    setupMonster("inkling",
-                 "inkling_impatience",
-                 "Inkling: Impatience",
-                 "impatience.png",
-                 createInklingDog);
+    setupStatSheet("inkling",
+                   "inkling_impatience",
+                   "Inkling: Impatience",
+                   "impatience.png",
+                   createInklingDog);
 
-    setupMonster("inkling",
-                 "inkling_envy",
-                 "Inkling: Envy",
-                 "envy.png",
-                 createInklingAberrant);
+    setupStatSheet("inkling",
+                   "inkling_envy",
+                   "Inkling: Envy",
+                   "envy.png",
+                   createInklingAberrant);
 
-    setupMonster("inkling",
-                 "inkling_fury",
-                 "Inkling: Fury",
-                 "fury.png",
-                 createInklingWannabeBoss);
+    setupStatSheet("inkling",
+                   "inkling_fury",
+                   "Inkling: Fury",
+                   "fury.png",
+                   createInklingWannabeBoss);
 
-    setupMonster("inkling",
-                 "inkling_sloth",
-                 "Inkling: Sloth",
-                 "sloth.png",
-                 createInklingTank);
+    setupStatSheet("inkling",
+                   "inkling_sloth",
+                   "Inkling: Sloth",
+                   "sloth.png",
+                   createInklingTank);
 
-    setupMonster("inkling",
-                 "inkling_arrogance",
-                 "Inkling: Arrogance",
-                 "arrogance.png",
-                 createInklingDynamite);
+    setupStatSheet("inkling",
+                   "inkling_arrogance",
+                   "Inkling: Arrogance",
+                   "arrogance.png",
+                   createInklingDynamite);
 
-    setupMonster("inkling",
-                 "inkling_free",
-                 "Freedom",
-                 "free.png",
-                 createFreedom);
+    setupStatSheet("inkling",
+                   "inkling_free",
+                   "Freedom",
+                   "free.png",
+                   createFreedom);
 
-    setupMonster("human",
-                 "human_jaye",
-                 "Jaye",
-                 "jaye.png.lnk",
-                 createJaye);
+    // setupStatSheet("human",
+    //                "human_jaye",
+    //                "Jaye",
+    //                "jaye.png.lnk",
+    //                createJaye);
 
 
     const $beastiary = $("#beastiary");
@@ -90,6 +97,7 @@ export function setupMonsters()
         const groupId = $(this).data("mobGroupId");
         $beastiary.find(".creature").hide();
         $beastiary.find(`.creature[data-mob-group=${groupId}]`).show();
+        console.log("mobgroup clicked");
     });
 
     $beastiary.on("click", ".creature:not(.disabled)", function () {

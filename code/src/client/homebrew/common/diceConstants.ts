@@ -1,5 +1,21 @@
-export class Dice {
-    public constructor(public readonly sides) {}
+export class Dice
+{
+    public readonly E: number;
+
+    public constructor(public readonly sides) {
+        this.E = (sides + 1) / 2;
+    }
+
+    public countHavingE(expectedValue: number): number
+    {
+        return Math.sign(expectedValue) *
+               Math.ceil(Math.abs(expectedValue) / this.E);
+    }
+
+    public roll(rng: () => number = Math.random): number
+    {
+        return Math.floor(rng() * this.sides) + 1;
+    }
 }
 
 export const D1 = new Dice(1);

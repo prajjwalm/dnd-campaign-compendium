@@ -1,8 +1,8 @@
 import {D1, D10, D12, D20, D4, D6, D8, Dice} from "../common/diceConstants";
 import {
     Activation,
-    Conditions,
-    CoreStat,
+    Condition,
+    DStat,
     CreatureSize,
     CRValue,
     DamageType, Prof,
@@ -10,7 +10,7 @@ import {
     Skill,
     Speed,
     StatValue
-} from "../definitions/constants";
+}                                            from "../definitions/constants";
 import {BuffedInternalAttack, IAttack}       from "./attack";
 import {BuffedStatSheet}                     from "./sheet";
 
@@ -19,7 +19,7 @@ export function createInkling()
     const inkSpray = new BuffedInternalAttack({
         title     : "Ink Spray",
         activation: Activation.Special,
-        mainStat  : CoreStat.Con,
+        mainStat  : DStat.Con,
         contentGenerator(args: IAttack): string {
             return `<p>Upon death, the inkling sprays viscous ink at all creatures within 15 feet of itself. The targets
             must succeed on a DC ${args.getDc()} Constitution saving throw or be blinded until the end of their next turn.</p>`;
@@ -28,7 +28,7 @@ export function createInkling()
     const bite = new BuffedInternalAttack({
         title     : "Bite",
         activation: Activation.Action,
-        mainStat  : CoreStat.Str,
+        mainStat  : DStat.Str,
         contentGenerator(args: IAttack): string {
             return `<p>Melee Weapon Attack: ${args.getToHitRollableStr({ name: "Bite" })}, reach 5 ft., one target. 
             Hit: ${args.getDamageRollableStr("Bite")} plus ${args.getDamageRollableStr("Blot")} and ${args.getDamageRollableStr(
@@ -56,12 +56,12 @@ export function createInkling()
         size               : CreatureSize.Medium,
         subtitle           : " Inkling(Ooze), Typically Chaotic Neutral",
         stats              : new Map([
-            [CoreStat.Str, new StatValue(13)],
-            [CoreStat.Dex, new StatValue(13)],
-            [CoreStat.Con, new StatValue(14)],
-            [CoreStat.Int, new StatValue(16)],
-            [CoreStat.Wis, new StatValue(15)],
-            [CoreStat.Cha, new StatValue(13)],
+            [DStat.Str, new StatValue(13)],
+            [DStat.Dex, new StatValue(13)],
+            [DStat.Con, new StatValue(14)],
+            [DStat.Int, new StatValue(16)],
+            [DStat.Wis, new StatValue(15)],
+            [DStat.Cha, new StatValue(13)],
         ]),
         ac                 : 13,
         acDesc             : "(Natural Armor)",
@@ -72,7 +72,7 @@ export function createInkling()
         ]),
         crValue            : new CRValue(2),
         saveProficiencies  : new Map([
-            [CoreStat.Con, [ProficiencyLevel.Prof, 0]],
+            [DStat.Con, [ProficiencyLevel.Prof, 0]],
         ]),
         skillProficiencies : new Map([
             [Skill.Stealth, [ProficiencyLevel.Expert, 0]],
@@ -96,9 +96,9 @@ export function createInkling()
             DamageType.Psychic,
         ]),
         conditionImmunities: new Set([
-            Conditions.Blinded,
-            Conditions.Deafened,
-            Conditions.Exhaustion,
+                                         Condition.Blinded,
+                                         Condition.Deafened,
+                                         Condition.Exhaustion,
         ]),
     });
 }
@@ -117,7 +117,7 @@ export function createInklingDog()
     const bite = new BuffedInternalAttack({
         title     : "Bite",
         activation: Activation.Action,
-        mainStat  : CoreStat.Dex,
+        mainStat  : DStat.Dex,
         contentGenerator(args: IAttack): string {
             return `<p>Melee Weapon Attack: ${args.getToHitRollableStr({ name: "Bite" })}, reach 5 ft., one target. 
             Hit: ${args.getDamageRollableStr("Bite")} plus ${args.getDamageRollableStr("BiteVenom")}</p>`;
@@ -142,12 +142,12 @@ export function createInklingDog()
         size              : CreatureSize.Small,
         subtitle          : " Inkling(Fiend), Typically Chaotic Neutral",
         stats             : new Map([
-            [CoreStat.Str, new StatValue(11)],
-            [CoreStat.Dex, new StatValue(17)],
-            [CoreStat.Con, new StatValue(11)],
-            [CoreStat.Int, new StatValue(6)],
-            [CoreStat.Wis, new StatValue(13)],
-            [CoreStat.Cha, new StatValue(7)],
+            [DStat.Str, new StatValue(11)],
+            [DStat.Dex, new StatValue(17)],
+            [DStat.Con, new StatValue(11)],
+            [DStat.Int, new StatValue(6)],
+            [DStat.Wis, new StatValue(13)],
+            [DStat.Cha, new StatValue(7)],
         ]),
         ac                : 13,
         acDesc            : "(Natural Armor)",
@@ -158,7 +158,7 @@ export function createInklingDog()
         ]),
         crValue           : new CRValue(1),
         saveProficiencies : new Map([
-            [CoreStat.Dex, [ProficiencyLevel.Prof, 0]],
+            [DStat.Dex, [ProficiencyLevel.Prof, 0]],
         ]),
         skillProficiencies: new Map([
             [Skill.Athletics, [ProficiencyLevel.Prof, 0]],
@@ -191,13 +191,13 @@ export function createInklingAberrant()
                 "BlotNeural")}.</p>`;
         },
         activation: Activation.Action,
-        mainStat  : CoreStat.Con,
+        mainStat  : DStat.Con,
         title     : "Ink Spit"
     }).bindDamages({
         expectedDamage        : 50,
         assignedDamages       : args => new Map([
-            ["Blot", new Map([[D1, args.getMod(CoreStat.Con)]])],
-            ["BlotNeural", new Map([[D1, args.getMod(CoreStat.Int)]])]
+            ["Blot", new Map([[D1, args.getMod(DStat.Con)]])],
+            ["BlotNeural", new Map([[D1, args.getMod(DStat.Int)]])]
         ]),
         unassignedDamageRatios: new Map([
             ["Blot", new Map([[D8, 3]])],
@@ -220,13 +220,13 @@ export function createInklingAberrant()
                     This damage is neural damage and can cause the target to be Stunned.</p>`;
         },
         activation: Activation.Action,
-        mainStat  : CoreStat.Int,
+        mainStat  : DStat.Int,
         title     : "Charged Spit"
     }).bindDamages({
         expectedDamage        : 100,
         assignedDamages       : args => new Map([
-            ["Blot", new Map([[D1, args.getMod(CoreStat.Con)]])],
-            ["BlotNeural", new Map([[D1, args.getMod(CoreStat.Int)]])]
+            ["Blot", new Map([[D1, args.getMod(DStat.Con)]])],
+            ["BlotNeural", new Map([[D1, args.getMod(DStat.Int)]])]
         ]),
         unassignedDamageRatios: new Map([
             ["Blot", new Map([[D8, 1]])],
@@ -254,12 +254,12 @@ export function createInklingAberrant()
         size               : CreatureSize.Medium,
         subtitle           : " Inkling(Aberration), Typically Chaotic Evil",
         stats              : new Map([
-            [CoreStat.Str, new StatValue(13)],
-            [CoreStat.Dex, new StatValue(11)],
-            [CoreStat.Con, new StatValue(16)],
-            [CoreStat.Int, new StatValue(19)],
-            [CoreStat.Wis, new StatValue(13)],
-            [CoreStat.Cha, new StatValue(15)],
+            [DStat.Str, new StatValue(13)],
+            [DStat.Dex, new StatValue(11)],
+            [DStat.Con, new StatValue(16)],
+            [DStat.Int, new StatValue(19)],
+            [DStat.Wis, new StatValue(13)],
+            [DStat.Cha, new StatValue(15)],
         ]),
         ac                 : 11,
         acDesc             : "(Natural Armor)",
@@ -271,8 +271,8 @@ export function createInklingAberrant()
         ]),
         crValue            : new CRValue(5),
         saveProficiencies  : new Map([
-            [CoreStat.Int, [ProficiencyLevel.Prof, 0]],
-            [CoreStat.Wis, [ProficiencyLevel.Prof, 0]],
+            [DStat.Int, [ProficiencyLevel.Prof, 0]],
+            [DStat.Wis, [ProficiencyLevel.Prof, 0]],
         ]),
         skillProficiencies : new Map([
             [Skill.Perception, [ProficiencyLevel.Expert, 0]],
@@ -289,8 +289,8 @@ export function createInklingAberrant()
             DamageType.Psychic,
         ]),
         conditionImmunities: new Set([
-            Conditions.Prone,
-            Conditions.Blinded,
+                                         Condition.Prone,
+                                         Condition.Blinded,
         ]),
     });
 }
@@ -308,7 +308,7 @@ export function createInklingWannabeBoss()
                     able to run away in time and sending thunderous shockwaves shaking those around.</em></p>`;
         },
         activation: Activation.Action,
-        mainStat  : CoreStat.Str,
+        mainStat  : DStat.Str,
         title     : "Slam",
     }).bindDamages({
         assignedDamages       : args => new Map([
@@ -331,7 +331,7 @@ export function createInklingWannabeBoss()
                        as part of the same action.</p>`;
         },
         activation: Activation.BonusAction,
-        mainStat  : CoreStat.Str,
+        mainStat  : DStat.Str,
         title     : "Jump",
     });
     const reactText = new BuffedInternalAttack({
@@ -339,7 +339,7 @@ export function createInklingWannabeBoss()
             return `<p>Can slam once as an opportunity attack whenever an enemy comes within range.</p>`;
         },
         activation: Activation.Reaction,
-        mainStat  : CoreStat.Str,
+        mainStat  : DStat.Str,
         title     : "Prepared",
     });
 
@@ -349,12 +349,12 @@ export function createInklingWannabeBoss()
         size              : CreatureSize.Huge,
         subtitle          : " Inkling(Beast), Typically Chaotic Neutral",
         stats             : new Map([
-            [CoreStat.Str, new StatValue(24)],
-            [CoreStat.Dex, new StatValue(13)],
-            [CoreStat.Con, new StatValue(24)],
-            [CoreStat.Int, new StatValue(7)],
-            [CoreStat.Wis, new StatValue(8)],
-            [CoreStat.Cha, new StatValue(13)],
+            [DStat.Str, new StatValue(24)],
+            [DStat.Dex, new StatValue(13)],
+            [DStat.Con, new StatValue(24)],
+            [DStat.Int, new StatValue(7)],
+            [DStat.Wis, new StatValue(8)],
+            [DStat.Cha, new StatValue(13)],
         ]),
         ac                : 18,
         acDesc            : "(Natural Armor)",
@@ -366,7 +366,7 @@ export function createInklingWannabeBoss()
         ]),
         crValue           : new CRValue(9),
         saveProficiencies : new Map([
-            [CoreStat.Dex, [ProficiencyLevel.Prof, 0]],
+            [DStat.Dex, [ProficiencyLevel.Prof, 0]],
         ]),
         skillProficiencies: new Map([
             [Skill.Athletics, [ProficiencyLevel.Expert, 0]],
@@ -396,7 +396,7 @@ export function createInklingDynamite()
                     instead to targets within 20ft and half damage to targets within 40ft.</p>`;
         },
         activation: Activation.Special,
-        mainStat  : CoreStat.Dex,
+        mainStat  : DStat.Dex,
         title     : "Boom",
     }).bindDamages({
         assignedDamages       : _ => new Map([]),
@@ -418,7 +418,7 @@ export function createInklingDynamite()
                     is half the rolled damage.</p>`;
         },
         activation: Activation.Special,
-        mainStat  : CoreStat.Dex,
+        mainStat  : DStat.Dex,
         title     : "Half Lives",
     });
 
@@ -429,12 +429,12 @@ export function createInklingDynamite()
         size               : CreatureSize.Tiny,
         subtitle           : " Inkling(Aberration), Typically Neutral Evil",
         stats              : new Map([
-            [CoreStat.Str, new StatValue(1)],
-            [CoreStat.Dex, new StatValue(28)],
-            [CoreStat.Con, new StatValue(10)],
-            [CoreStat.Int, new StatValue(13)],
-            [CoreStat.Wis, new StatValue(14)],
-            [CoreStat.Cha, new StatValue(11)],
+            [DStat.Str, new StatValue(1)],
+            [DStat.Dex, new StatValue(28)],
+            [DStat.Con, new StatValue(10)],
+            [DStat.Int, new StatValue(13)],
+            [DStat.Wis, new StatValue(14)],
+            [DStat.Cha, new StatValue(11)],
         ]),
         ac                 : 19,
         acDesc             : "(Natural Armor)",
@@ -445,9 +445,9 @@ export function createInklingDynamite()
         ]),
         crValue            : new CRValue(5),
         saveProficiencies  : new Map([
-            [CoreStat.Int, [ProficiencyLevel.Prof, 0]],
-            [CoreStat.Wis, [ProficiencyLevel.Prof, 0]],
-            [CoreStat.Cha, [ProficiencyLevel.Expert, 0]],
+            [DStat.Int, [ProficiencyLevel.Prof, 0]],
+            [DStat.Wis, [ProficiencyLevel.Prof, 0]],
+            [DStat.Cha, [ProficiencyLevel.Expert, 0]],
         ]),
         skillProficiencies : new Map([
             [Skill.Perception, [ProficiencyLevel.Expert, 0]],
@@ -466,12 +466,12 @@ export function createInklingDynamite()
             DamageType.Thunder,
         ]),
         conditionImmunities: new Set([
-            Conditions.Prone,
-            Conditions.Blinded,
-            Conditions.Frightened,
-            Conditions.Charmed,
-            Conditions.Grappled,
-            Conditions.Exhaustion,
+                                         Condition.Prone,
+                                         Condition.Blinded,
+                                         Condition.Frightened,
+                                         Condition.Charmed,
+                                         Condition.Grappled,
+                                         Condition.Exhaustion,
         ]),
     });
 }
@@ -488,7 +488,7 @@ export function createInklingTank()
                     the taunt effect, but the DC increases by 1 with each failure.</p>`;
         },
         activation: Activation.Special,
-        mainStat  : CoreStat.Con,
+        mainStat  : DStat.Con,
         title     : "Taunt",
     });
 
@@ -498,12 +498,12 @@ export function createInklingTank()
         size               : CreatureSize.Small,
         subtitle           : " Inkling(Construct), Typically Neutral",
         stats              : new Map([
-            [CoreStat.Str, new StatValue(28)],
-            [CoreStat.Dex, new StatValue(1)],
-            [CoreStat.Con, new StatValue(28)],
-            [CoreStat.Int, new StatValue(2)],
-            [CoreStat.Wis, new StatValue(13)],
-            [CoreStat.Cha, new StatValue(16)],
+            [DStat.Str, new StatValue(28)],
+            [DStat.Dex, new StatValue(1)],
+            [DStat.Con, new StatValue(28)],
+            [DStat.Int, new StatValue(2)],
+            [DStat.Wis, new StatValue(13)],
+            [DStat.Cha, new StatValue(16)],
         ]),
         ac                 : 22,
         acDesc             : "(Natural Armor)",
@@ -511,11 +511,11 @@ export function createInklingTank()
         attacks            : new Map([["tauntText", tauntText]]),
         crValue            : new CRValue(7, Prof.get(4)),
         saveProficiencies  : new Map([
-            [CoreStat.Str, [ProficiencyLevel.Expert, 0]],
-            [CoreStat.Con, [ProficiencyLevel.Expert, 0]],
-            [CoreStat.Int, [ProficiencyLevel.Expert, 0]],
-            [CoreStat.Wis, [ProficiencyLevel.Expert, 0]],
-            [CoreStat.Cha, [ProficiencyLevel.Expert, 0]],
+            [DStat.Str, [ProficiencyLevel.Expert, 0]],
+            [DStat.Con, [ProficiencyLevel.Expert, 0]],
+            [DStat.Int, [ProficiencyLevel.Expert, 0]],
+            [DStat.Wis, [ProficiencyLevel.Expert, 0]],
+            [DStat.Cha, [ProficiencyLevel.Expert, 0]],
         ]),
         skillProficiencies : new Map([
             [Skill.Athletics, [ProficiencyLevel.Expert, 0]],
@@ -547,9 +547,9 @@ export function createInklingTank()
             DamageType.Slashing,
         ]),
         conditionImmunities: new Set([
-            Conditions.Exhaustion,
-            Conditions.Poisoned,
-            Conditions.Prone,
+                                         Condition.Exhaustion,
+                                         Condition.Poisoned,
+                                         Condition.Prone,
         ]),
     });
 }
@@ -615,17 +615,17 @@ export function createFreedom()
             in 5 ft of it are <u>restrained</u> in an ink swirl and take
             <u>continuous ${args.getDamageRollableStr("inkSwirl")}</u> for
             two rounds. At the start of their turns, they can make a DC 
-            ${args.getDc({stat: CoreStat.Cha, prof: ProficiencyLevel.Expert})}
+            ${args.getDc({stat: DStat.Cha, prof: ProficiencyLevel.Expert})}
             atheletics check to escape the ink. The DC reduces by one after each
             instance of damage. Allies can attempt to draw them out by making 
             the same check, but on failure, the ink envelops them too.`;
         },
-        mainStat: CoreStat.Cha,
+        mainStat: DStat.Cha,
         title: "Ink Swirl"
     }).bindDamages({
         assignedDamages(args: IAttack): Map<string, Map<Dice, number>> {
             return new Map([
-                ["inkSwirl", new Map([[D1, args.getMod(CoreStat.Cha)]])]
+                ["inkSwirl", new Map([[D1, args.getMod(DStat.Cha)]])]
             ]);
         },
         damageTypes: new Map([["inkSwirl", DamageType.Corrosion]]),
@@ -645,7 +645,7 @@ export function createFreedom()
     const bite = new BuffedInternalAttack({
         title     : "Bite",
         activation: Activation.LegendaryAction,
-        mainStat  : CoreStat.Str,
+        mainStat  : DStat.Str,
         contentGenerator(args: IAttack): string {
             return `<p>Melee Weapon Attack: ${args.getToHitRollableStr({ name: "Bite" })}, reach 30 ft., one target. 
             Hit: ${args.getDamageRollableStr("Bite")} plus ${args.getDamageRollableStr("BiteVenom")}</p>`;
@@ -666,7 +666,7 @@ export function createFreedom()
     const biteA = new BuffedInternalAttack({
         title     : "Bite",
         activation: Activation.Action,
-        mainStat  : CoreStat.Str,
+        mainStat  : DStat.Str,
         contentGenerator(args: IAttack): string {
             return `<p>Melee Weapon Attack: ${args.getToHitRollableStr({ name: "Bite" })}, reach 30 ft., one target. 
             Hit: ${args.getDamageRollableStr("Bite")} plus ${args.getDamageRollableStr("BiteVenom")}. A target hit 
@@ -709,13 +709,13 @@ export function createFreedom()
         monster_id         : "inkling_free",
         title              : "Freedom",
         subtitle           : "dragon, typically Chaotic Neutral",
-        stats              : new Map<CoreStat, StatValue>([
-            [CoreStat.Str, new StatValue(27)],
-            [CoreStat.Dex, new StatValue(15)],
-            [CoreStat.Con, new StatValue(25)],
-            [CoreStat.Int, new StatValue(20)],
-            [CoreStat.Wis, new StatValue(15)],
-            [CoreStat.Cha, new StatValue(24)],
+        stats              : new Map<DStat, StatValue>([
+            [DStat.Str, new StatValue(27)],
+            [DStat.Dex, new StatValue(15)],
+            [DStat.Con, new StatValue(25)],
+            [DStat.Int, new StatValue(20)],
+            [DStat.Wis, new StatValue(15)],
+            [DStat.Cha, new StatValue(24)],
         ]),
         ac                 : 21,
         acDesc             : "Natural Armor",
@@ -734,13 +734,13 @@ export function createFreedom()
         size               : CreatureSize.Huge,
         biologicalHp       : 300,
         conditionImmunities: new Set([
-            Conditions.Charmed,
-            Conditions.Grappled,
-            Conditions.Frightened,
-            Conditions.Poisoned,
-            Conditions.Deafened,
-            Conditions.Restrained,
-            Conditions.Stunned,
+                                         Condition.Charmed,
+                                         Condition.Grappled,
+                                         Condition.Frightened,
+                                         Condition.Poisoned,
+                                         Condition.Deafened,
+                                         Condition.Restrained,
+                                         Condition.Stunned,
         ]),
         crValue            : new CRValue(15, Prof.get(6)),
         immunities         : new Set([
@@ -756,10 +756,10 @@ export function createFreedom()
         ]),
         isTough            : true,
         saveProficiencies  : new Map([
-            [CoreStat.Dex, [ProficiencyLevel.Prof, 0]],
-            [CoreStat.Con, [ProficiencyLevel.Prof, 0]],
-            [CoreStat.Wis, [ProficiencyLevel.Prof, 0]],
-            [CoreStat.Cha, [ProficiencyLevel.Prof, 0]],
+            [DStat.Dex, [ProficiencyLevel.Prof, 0]],
+            [DStat.Con, [ProficiencyLevel.Prof, 0]],
+            [DStat.Wis, [ProficiencyLevel.Prof, 0]],
+            [DStat.Cha, [ProficiencyLevel.Prof, 0]],
         ]),
         skillProficiencies : new Map([
             [Skill.Performance, [ProficiencyLevel.Expert, 0]],

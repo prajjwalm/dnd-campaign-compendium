@@ -1,5 +1,6 @@
-import {PcIndex}                       from "../../../data/pcIndex";
-import {NpcId, NpcIndex}               from "../../../npcs/npcIndex";
+import {PcIndex}   from "../../../data/pcIndex";
+import {Character} from "../../../gameplay/simulation/characters/Character";
+import {NpcId}     from "../../../npcs/npcIndex";
 import {GameTimestamp}                 from "../../common";
 import {NpcOpinionV2, PositiveEmotion} from "../npcOpinions";
 import {addInteractionEvent}           from "./s9";
@@ -104,7 +105,7 @@ export function session11NpcInteractions(
             [PositiveEmotion.Gratitude, -3],
             [PositiveEmotion.Affection, -2],
         ]),
-        NpcIndex.get(NpcId.Dawn).passiveDeception - 5
+        Character.get(NpcId.Dawn).passiveDeception - 5
     );
 
     addInteractionEvent(
@@ -115,9 +116,9 @@ export function session11NpcInteractions(
         "So that's what the sparring was about. (Sad smile) Pricks just a " +
         "bit...",
         new Map([
-            [PositiveEmotion.Gratitude, -1],
-        ]),
-        NpcIndex.get(NpcId.Verna).passiveDeception,
+                    [PositiveEmotion.Gratitude, -1],
+                ]),
+        Character.get(NpcId.Verna).passiveDeception,
         new Set([PositiveEmotion.Gratitude])
     );
 

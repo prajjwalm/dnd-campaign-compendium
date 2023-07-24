@@ -1,36 +1,20 @@
-import {NpcId, NpcIndex} from "../../npcs/npcIndex";
-import {
-    D1,
-    D4,
-    D6
-}                        from "../common/diceConstants";
-import {
-    Activation,
-    AdventurerClasses,
-    CoreStat,
-    CreatureSize,
-    CRValue,
-    DamageType,
-    ProficiencyLevel,
-    Speed
-}                        from "../definitions/constants";
-import {
-    IAttack,
-    InternalAttack
-}                        from "./attack";
-import {
-    StatSheet
-}                        from "./sheet";
+import {Character}                                                                                           from "../../gameplay/simulation/characters/character";
+import {NpcId}                                                                                               from "../../npcs/npcIndex";
+import {D1, D4, D6}                                                                                     from "../common/diceConstants";
+import {Activation, AdventurerClass, DStat, CreatureSize, CRValue, DamageType, ProficiencyLevel, Speed} from "../definitions/constants";
+import {IAttack, InternalAttack}                                                                        from "./attack";
+import {StatSheet}                                                                                           from "./sheet";
 
 
 const cunningAction = new InternalAttack({
-    title     : "Cunning Action",
-    activation: Activation.BonusAction,
-    mainStat  : null,
-    contentGenerator(_: IAttack): string {
-        return `<p>Can use a bonus action to take the Dash, Disengage, or Hide action.`;
-    },
-});
+                                             title     : "Cunning Action",
+                                             activation: Activation.BonusAction,
+                                             mainStat  : null,
+                                             contentGenerator(_: IAttack): string
+                                             {
+                                                 return `<p>Can use a bonus action to take the Dash, Disengage, or Hide action.`;
+                                             },
+                                         });
 
 
 export function createJaye()
@@ -91,7 +75,7 @@ export function createJaye()
     const focus = new InternalAttack({
         title     : "Predatory Hyperfocus",
         activation: Activation.Special,
-        mainStat  : CoreStat.Con,
+        mainStat  : DStat.Con,
         contentGenerator(args: IAttack): string {
             return `<p>Everytime he deals damage, Jaye must make a DC ${args.getDc()} Wis save. On failure, Jaye's 
             beastial instincts of an apex predator kick in, and he enters a vampiric hyperfocused state. While in that 
@@ -124,7 +108,7 @@ export function createJaye()
     const knife = new InternalAttack({
         title     : "Cooking Knife",
         activation: Activation.Action,
-        mainStat  : CoreStat.Dex,
+        mainStat  : DStat.Dex,
         contentGenerator(args: IAttack): string {
             return `<p>Melee Weapon Attack: ${args.getToHitRollableStr({ name: "Slash", prof: ProficiencyLevel.Expert })}, 
             reach 5 ft. (or a 60ft Ranged throw), one target.
@@ -150,7 +134,7 @@ export function createJaye()
         title     : "Cooking Knife",
         subtitle  : "(Offhand)",
         activation: Activation.BonusAction,
-        mainStat  : CoreStat.Dex,
+        mainStat  : DStat.Dex,
         contentGenerator(args: IAttack): string {
             return `<p>Melee Weapon Attack: ${args.getToHitRollableStr({ name: "Slash", prof: ProficiencyLevel.Expert })}, 
             reach 5 ft., one target.
@@ -171,7 +155,7 @@ export function createJaye()
         ])
     });
 
-    const jaye = NpcIndex.get(NpcId.Jaye)
+    const jaye = Character.get(NpcId.Jaye)
 
     return new StatSheet({
         monster_id         : "human_jaye",
@@ -179,17 +163,17 @@ export function createJaye()
         size               : CreatureSize.Medium,
         subtitle           : " Humanoid (Ursine | Polar), Neutral Good",
         stats              : new Map([
-            [CoreStat.Str, jaye.getStat(CoreStat.Str)],
-            [CoreStat.Dex, jaye.getStat(CoreStat.Dex)],
-            [CoreStat.Con, jaye.getStat(CoreStat.Con)],
-            [CoreStat.Int, jaye.getStat(CoreStat.Int)],
-            [CoreStat.Wis, jaye.getStat(CoreStat.Wis)],
-            [CoreStat.Cha, jaye.getStat(CoreStat.Cha)],
+            [DStat.Str, jaye.stats.get(DStat.Str)],
+            [DStat.Dex, jaye.stats.get(DStat.Dex)],
+            [DStat.Con, jaye.stats.get(DStat.Con)],
+            [DStat.Int, jaye.stats.get(DStat.Int)],
+            [DStat.Wis, jaye.stats.get(DStat.Wis)],
+            [DStat.Cha, jaye.stats.get(DStat.Cha)],
         ]),
         ac                 : 14,
         acDesc             : "(No Armor)",
         adventurerLevels   : new Map([
-            [AdventurerClasses.Rogue, 5]    // todo: use adv dice normally.
+            [AdventurerClass.Rogue, 5]    // todo: use adv dice normally.
         ]),
         biologicalHp       : 5,
         attacks            : new Map([
@@ -204,8 +188,8 @@ export function createJaye()
             ["cunning", cunningAction],
         ]),
         crValue            : new CRValue(5, jaye.pb),
-        saveProficiencies  : jaye.saves,
-        skillProficiencies : jaye.skills,
+        saveProficiencies  : new Map(), // todo
+        skillProficiencies : new Map(), // todo
         speeds             : new Map([
             [Speed.Walking, 30]
         ]),

@@ -1,49 +1,42 @@
-import {D1, Dice}              from "../common/diceConstants";
-import {NatRollable, Rollable} from "../common/rollable";
+import {wrapRoll}                    from "../../gameplay/simulation/action/Wrap";
+import {IDStats}                     from "../../gameplay/simulation/characters/aspects/IDStats";
+import {D1, Dice}                    from "../common/diceConstants";
+import {NatRollable, DamageRollable} from "../common/rollable";
 import {
-    Activation,
-    AdventurerClasses,
-    AdventurerHitDice,
-    Conditions,
-    CoreStat,
-    CreatureSize,
-    CRValue,
-    DamageType,
-    E,
-    Prof,
-    ProficiencyLevel,
-    SizeToDice,
-    Skill,
-    SkillForStat,
-    Speed,
-    StatValue,
-}                                                from "../definitions/constants";
-import {AttackContracts, IAttack, IBuffedAttack} from "./attack";
+    Activation, AdventurerClass, ClassHitDice, Condition, DStat,
+    CreatureSize, CRValue, DamageType, E, Prof, ProficiencyLevel, SizeToDice,
+    Skill, Speed, StatForSkill, StatValue,
+}                                    from "../definitions/constants";
+import {IAttack, IBuffedAttack} from "./attack";
+import {ISheetAction}           from "../../gameplay/simulation/action/ISheetAction";
+import { IActionContext }       from "../../gameplay/simulation/action/IActionContext";
 
 
 class HpBlock
 {
-    public constructor(public readonly stats: Map<CoreStat, StatValue>,
+    public constructor(public readonly stats: Map<DStat, StatValue>,
                        public readonly size: Dice,
                        public readonly biologicalHp: number,
-                       public readonly adventurerLevels: Map<AdventurerClasses, number> = new Map(),
+                       public readonly adventurerLevels: Map<AdventurerClass, number> = new Map(),
                        public readonly isTough: boolean = false)
     { }
 
     public get conHpPerDice()
     {
-        return this.stats.get(CoreStat.Con).mod + (this.isTough ? 2 : 0);
+        return this.stats.get(DStat.Con).mod + (this.isTough ? 2 : 0);
     }
 
-    private getAdventurerHp(): number {
+    private getAdventurerHp(): number
+    {
         let hp = 0;
         for (const [klass, level] of this.adventurerLevels.entries()) {
-            hp += (E(AdventurerHitDice.get(klass)) + this.conHpPerDice) * level;
+            hp += (E(ClassHitDice.get(klass)) + this.conHpPerDice) * level;
         }
         return hp;
     }
 
-    public get hpDiceCount(): number {
+    public get hpDiceCount(): number
+    {
         const totalHp = this.biologicalHp + this.getAdventurerHp();
         const hpPerDice = E(this.size) + this.conHpPerDice;
         return Math.round(totalHp / hpPerDice);
@@ -56,27 +49,29 @@ interface StatBlockParams {
     title: string;
     subtitle: string;
     crValue: CRValue;
-    stats: Map<CoreStat, StatValue>;
+    stats: Map<DStat, StatValue>;
     speeds: Map<Speed, number>;
     size: CreatureSize;
     biologicalHp: number;
     ac: number;
     acDesc?: string;
-    adventurerLevels?: Map<AdventurerClasses, number>;
+    adventurerLevels?: Map<AdventurerClass, number>;
     isTough?: boolean;
     attacks: Map<string, IAttack>;
-    saveProficiencies: Map<CoreStat, [ProficiencyLevel, number]>;
+    saveProficiencies: Map<DStat, [ProficiencyLevel, number]>;
     skillProficiencies: ReadonlyMap<Skill, [ProficiencyLevel, number]>;
     vulnerabilities?: ReadonlySet<DamageType>;
     resistances?: Set<DamageType>;
     immunities?: ReadonlySet<DamageType>;
-    conditionImmunities?: ReadonlySet<Conditions>;
+    conditionImmunities?: ReadonlySet<Condition>;
 }
+
 
 export interface IStatSheet
 {
     render(): string;
 }
+
 
 export interface IBuffedStatSheet
     extends IStatSheet
@@ -87,9 +82,10 @@ export interface IBuffedStatSheet
     get ac(): number;
     set ac(val: number);
     get res(): Set<DamageType>;
-    get saves(): Map<CoreStat, [ProficiencyLevel, number]>;
+    get saves(): Map<DStat, [ProficiencyLevel, number]>;
     get speeds(): Map<Speed, number>;
 }
+
 
 export const idToSheetGenerator: Map<string, () => IStatSheet> = new Map();
 
@@ -98,10 +94,14 @@ export const contractIndex: Map<string, ISheetContract> = new Map<string, ISheet
 
 export function isContractSelected(contractId)
 {
-    return $(`#contracts .contract[data-contract-uid=${contractId}]`).hasClass("selected");
+    return $(`#contracts .contract[data-contract-uid=${contractId}]`)
+        .hasClass("selected");
 }
 
+
 export class StatSheet
+    implements IDStats,
+               IStatSheet
 {
     public readonly monster_id: string;
 
@@ -111,7 +111,7 @@ export class StatSheet
 
     public readonly speeds: Map<Speed, number>;
 
-    public readonly stats: Map<CoreStat, StatValue>;
+    public readonly stats: Map<DStat, StatValue>;
 
     private readonly _hpDice: Map<Dice, number>;
 
@@ -123,9 +123,9 @@ export class StatSheet
 
     private readonly size: CreatureSize;
 
-    private readonly _attacks: Map<string, IAttack>;
+    private readonly _attacks: Map<string, ISheetAction>;
 
-    protected readonly saveProficiencies: Map<CoreStat, [ProficiencyLevel, number]>;
+    protected readonly saveProficiencies: Map<DStat, [ProficiencyLevel, number]>;
 
     private readonly skillProficiencies: ReadonlyMap<Skill, [ProficiencyLevel, number]>;
 
@@ -135,7 +135,7 @@ export class StatSheet
 
     private readonly immunities: ReadonlySet<DamageType>;
 
-    private readonly conditionImmunities: ReadonlySet<Conditions>;
+    private readonly conditionImmunities: ReadonlySet<Condition>;
 
     public constructor({
                            monster_id,
@@ -178,15 +178,21 @@ export class StatSheet
         this._attacks = attacks;
 
         const hpBlock = new HpBlock(stats,
-            SizeToDice.get(size),
-            biologicalHp,
-            adventurerLevels,
-            isTough);
+                                    SizeToDice.get(size),
+                                    biologicalHp,
+                                    adventurerLevels,
+                                    isTough);
 
         this._hpDice = new Map([
-            [SizeToDice.get(this.size), hpBlock.hpDiceCount],
-            [D1, hpBlock.hpDiceCount * hpBlock.conHpPerDice],
-        ]);
+                                   [SizeToDice.get(this.size),
+                                    hpBlock.hpDiceCount],
+                                   [D1,
+                                    hpBlock.hpDiceCount * hpBlock.conHpPerDice],
+                               ]);
+    }
+
+    get actionContentAPI(): IActionContext {
+        throw new Error("Method not implemented.");
     }
 
     // TODO: LANGUAGES, SENSES
@@ -197,25 +203,25 @@ export class StatSheet
         }
 
         const statList = [];
-        for (const stat of [CoreStat.Str,
-                            CoreStat.Dex,
-                            CoreStat.Con,
-                            CoreStat.Int,
-                            CoreStat.Wis,
-                            CoreStat.Cha])
+        for (const stat of [DStat.Str,
+                            DStat.Dex,
+                            DStat.Con,
+                            DStat.Int,
+                            DStat.Wis,
+                            DStat.Cha])
         {
             const statVal = this.stats.get(stat);
-            statList.push(`<td>${statVal.stat} ${NatRollable.generate(statVal.mod).getRollString(true)}</td>`);
+            statList.push(`<td>${statVal.stat} ${wrapRoll(statVal.mod)}</td>`);
         }
 
         const saveList = [];
         for (const [stat, save] of this.computeSaves().entries()) {
-            saveList.push(`${CoreStat[stat]} ${NatRollable.generate(save).getRollString(true)}`);
+            saveList.push(`${DStat[stat]} ${wrapRoll(save)}`);
         }
 
         const skillList = [];
         for (const [skill, mod] of this.computeSkills().entries()) {
-            skillList.push(`${Skill[skill]} ${NatRollable.generate(mod).getRollString(true)}`);
+            skillList.push(`${Skill[skill]} ${wrapRoll(mod)}`);
         }
 
         const contentList = [];
@@ -264,7 +270,7 @@ export class StatSheet
 
         const cimm = [];
         for (const v of this.conditionImmunities.values()) {
-            cimm.push(Conditions[v]);
+            cimm.push(Condition[v]);
         }
         const cimmStr = cimm.length == 0 ?
                         "" :
@@ -281,7 +287,7 @@ export class StatSheet
                     <table class="ignore_common_style">
                         <tr><td>Armor Class</td><td>${this._ac} ${this.acDesc}</td></tr>
                         <tr><td>Hit Points</td><td>${Math.round(E(this.hpDice))} 
-                            ${new Rollable(this.hpDice).getRollString(true)}</td></tr>
+                            ${wrapRoll(this.hpDice)}</td></tr>
                         <tr><td>Speed</td><td>${speedList.join(", ")}</td></tr>
                     </table>
                 </div>
@@ -309,7 +315,8 @@ export class StatSheet
         return this.crValue.prof;
     }
 
-    protected get attacks(): Map<string, IAttack> {
+    protected get attacks(): Map<string, ISheetAction>
+    {
         return this._attacks;
     }
 
@@ -320,13 +327,13 @@ export class StatSheet
             if (attack.activation != activation) {
                 continue;
             }
-            attack.bindSheet(this);
+            attack.bindStats(this);
             r.push(attack.createContent());
         }
         return r;
     }
 
-    private computeSaves(): ReadonlyMap<CoreStat, number> {
+    private computeSaves(): ReadonlyMap<DStat, number> {
         const m = new Map();
         for (const [stat, [saveProf, saveBonus]] of this.saveProficiencies.entries()) {
             m.set(stat,
@@ -338,7 +345,7 @@ export class StatSheet
     private computeSkills(): ReadonlyMap<Skill, ProficiencyLevel> {
         const m = new Map();
         for (const [skill, [saveProf, saveBonus]] of this.skillProficiencies.entries()) {
-            const stat = SkillForStat.get(skill);
+            const stat = StatForSkill.get(skill);
             m.set(skill,
                   (m.has(skill) ? m.get(skill) : this.stats.get(stat).mod) + this.pb.mod(saveProf) + saveBonus);
         }
@@ -347,6 +354,11 @@ export class StatSheet
 
     protected get hpDice(): Map<Dice, number> {
         return this._hpDice;
+    }
+
+    public mod(stat: DStat): number
+    {
+        return 0;
     }
 }
 
@@ -429,7 +441,7 @@ export class BuffedStatSheet
         return this.resistances;
     }
 
-    public get saves(): Map<CoreStat, [ProficiencyLevel, number]> {
+    public get saves(): Map<DStat, [ProficiencyLevel, number]> {
         return this.saveProficiencies;
     }
 }
@@ -441,26 +453,26 @@ export function test()
     //     prof                  : 6,
     //     activation            : Activation.Action,
     //     expectedDamage        : 100,
-    //     mainStat              : CoreStats.Str,
+    //     mainStat              : DStats.Str,
     //     stats                 : new Map([
-    //         [CoreStats.Str, new StatValue(22)],
-    //         [CoreStats.Dex, new StatValue(10)],
-    //         [CoreStats.Con, new StatValue(10)],
-    //         [CoreStats.Int, new StatValue(10)],
-    //         [CoreStats.Wis, new StatValue(10)],
-    //         [CoreStats.Cha, new StatValue(16)],
+    //         [DStats.Str, new StatValue(22)],
+    //         [DStats.Dex, new StatValue(10)],
+    //         [DStats.Con, new StatValue(10)],
+    //         [DStats.Int, new StatValue(10)],
+    //         [DStats.Wis, new StatValue(10)],
+    //         [DStats.Cha, new StatValue(16)],
     //     ]),
     //     title                 : "Greatsword",
     //     contentGenerator      : (args: AttackContentAPI) => {
     //         return `<p><em>Melee Weapon Attack</em>: ${args.getToHitRollableStr("Greatsword",
-    //             args.getToHit(args.mainStat) + args.getMod(CoreStats.Cha))},
+    //             args.getToHit(args.mainStat) + args.getMod(DStats.Cha))},
     //                 Reach 10ft., one target. <em>Hit</em>: ${args.getDamageRollableStr("GreatswordBase")}. Plus an additional
     //                 ${args.getDamageRollableStr("GreatswordTrauma")}. An additional ${args.getDamageRollableStr("Shroud")}
-    //                 is taken if the necrotic shroud is active. Also, the target must succeed a DC ${args.getDc(CoreStats.Str)}
+    //                 is taken if the necrotic shroud is active. Also, the target must succeed a DC ${args.getDc(DStats.Str)}
     //                 save or fall prone.</p>`;
     //     },
     //     assignedDamages       : args => new Map([
-    //         ["GreatswordBase", new Map([[D6, 2], [D1, args.getMod(CoreStats.Str) + args.getMod(CoreStats.Cha)]])],
+    //         ["GreatswordBase", new Map([[D6, 2], [D1, args.getMod(DStats.Str) + args.getMod(DStats.Cha)]])],
     //         ["GreatswordTrauma", new Map([[D8, 2]])]
     //     ]),
     //     unassignedDamageRatios: new Map([

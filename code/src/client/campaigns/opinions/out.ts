@@ -1,6 +1,7 @@
 import {getEnumIterator}          from "../../common/common";
 import {CharacterCard}            from "../../data/cards/characterCard";
 import {PcIndex, PcTokenNames}    from "../../data/pcIndex";
+import {Character}                from "../../gameplay/simulation/characters/Character";
 import {NpcId}                    from "../../npcs/npcIndex";
 import {NpcOpinionV2}             from "./npcOpinions";
 import {session10NpcInteractions} from "./sessions/s10";
@@ -34,13 +35,14 @@ export function renderNpcOpinionTable(
 
     const $tableBody = $("<div class='table_body'></div>");
 
-    for (const [npcIndex, npc] of CharacterCard.IndexById) {
-        if (!npc.isVillageNpc) {
+    for (const npcIndex of getEnumIterator(NpcId) as Generator<NpcId>) {
+        const npc = Character.get(npcIndex);
+        if (!npc || !npc.isOpinionated) {
             continue;
         }
         const $tableRow = $("<div class='row'></div>");
         const $npcCell =
-            $(`<div class='cell character_token'><img src="${npc.imgPath}" alt="[Img not found]"></div>`);
+            $(`<div class='cell character_token'><img src="./assets/images/${npc.imgPath}" alt="[Img not found]"></div>`);
         $npcCell.appendTo($tableRow);
 
         for (const pc of getEnumIterator(PcIndex) as Generator<PcIndex>) {
@@ -60,8 +62,9 @@ export function setupNpcOpinions()
 {
     const npcOpinions: Map<NpcId, Map<PcIndex, NpcOpinionV2>> = new Map();
 
-    for (const [npcIndex, npc] of CharacterCard.IndexById) {
-        if (!npc.isVillageNpc) {
+    for (const npcIndex of getEnumIterator(NpcId) as Generator<NpcId>) {
+        const npc = Character.get(npcIndex);
+        if (!npc || !npc.isOpinionated) {
             continue;
         }
         const npcMap: Map<PcIndex, NpcOpinionV2> = new Map();

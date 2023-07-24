@@ -1,8 +1,9 @@
-import {PcIndex}                                            from "../../../data/pcIndex";
-import {NpcId, NpcIndex}                                    from "../../../npcs/npcIndex";
-import {GameTimestamp}                                      from "../../common";
-import {NpcInteractionEvent, NpcOpinionV2, PositiveEmotion} from "../npcOpinions";
-import {addInteractionEvent, addTimeSkipEvent}              from "./s9";
+import {PcIndex}                               from "../../../data/pcIndex";
+import {Character}                             from "../../../gameplay/simulation/characters/Character";
+import {NpcId}                                 from "../../../npcs/npcIndex";
+import {GameTimestamp}                         from "../../common";
+import {NpcOpinionV2, PositiveEmotion}         from "../npcOpinions";
+import {addInteractionEvent, addTimeSkipEvent} from "./s9";
 
 
 export function session2NpcInteractions(
@@ -19,7 +20,7 @@ export function session2NpcInteractions(
             [PositiveEmotion.Trust, -1]
         ]),
         10,
-        // NpcIndex.get(NpcId.Dusk).passiveDeception + 5,
+        // Character.Index.get(NpcId.Dusk).passiveDeception + 5,
         new Set([PositiveEmotion.Trust])
     )
 
@@ -30,9 +31,9 @@ export function session2NpcInteractions(
         new GameTimestamp(0, 1, 13, 0),
         "Oh. I get to see the coronation of a champion?",
         new Map([
-            [PositiveEmotion.Respect, 2]
-        ]),
-        NpcIndex.get(NpcId.Dusk).passiveDeception,
+                    [PositiveEmotion.Respect, 2]
+                ]),
+        Character.get(NpcId.Dusk).passiveDeception,
     )
 
     addInteractionEvent(
@@ -42,9 +43,9 @@ export function session2NpcInteractions(
         new GameTimestamp(0, 1, 13, 0),
         "He connected to my cognitive shadow! HELP!",
         new Map([
-            [PositiveEmotion.Trust, -4]
-        ]),
-        NpcIndex.get(NpcId.Hina).passiveDeception,
+                    [PositiveEmotion.Trust, -4]
+                ]),
+        Character.get(NpcId.Hina).passiveDeception,
     );
 
     addInteractionEvent(
@@ -54,9 +55,9 @@ export function session2NpcInteractions(
         new GameTimestamp(0, 1, 13, 0),
         "This card... why's a member of the troupe here?",
         new Map([
-            [PositiveEmotion.Trust, -7]
-        ]),
-        NpcIndex.get(NpcId.Hina).passiveDeception,
+                    [PositiveEmotion.Trust, -7]
+                ]),
+        Character.get(NpcId.Hina).passiveDeception,
     );
 
     addInteractionEvent(
@@ -91,7 +92,7 @@ export function session2NpcInteractions(
         new Map([
             [PositiveEmotion.Respect, 7]
         ]),
-        NpcIndex.get(NpcId.Hina).passiveDeception
+        Character.get(NpcId.Hina).passiveDeception
     );
 
     addInteractionEvent(
@@ -151,20 +152,18 @@ export function session2NpcInteractions(
                       PcIndex.ID_CYRION,
                       PcIndex.ID_AURELIA])
     {
-        npcOpinions.get(NpcId.Dawn).get(pc).addEvent(
-            new NpcInteractionEvent(
-                new GameTimestamp(0, 5, 9, 0),
-                "A polite bunch it seems.",
-                new Map([[PositiveEmotion.Respect, 1]])
-            )
-        );
-        npcOpinions.get(NpcId.Tomasa).get(pc).addEvent(
-            new NpcInteractionEvent(
-                new GameTimestamp(0, 5, 9, 0),
-                "Liked the soup I made.",
-                new Map([[PositiveEmotion.Gratitude, 1]])
-            )
-        );
+        addInteractionEvent(npcOpinions,
+                            NpcId.Dawn,
+                            [pc],
+                            new GameTimestamp(0, 5, 9, 0),
+                            "A polite bunch it seems.",
+                            new Map([[PositiveEmotion.Respect, 1]]));
+        addInteractionEvent(npcOpinions,
+                            NpcId.Tomasa,
+                            [pc],
+                            new GameTimestamp(0, 5, 9, 0),
+                            "Liked the soup I made.",
+                            new Map([[PositiveEmotion.Gratitude, 1]]));
     }
 
     // npcOpinions.get(NpcIndex.ID_TOMASA).get(PcIndex.ID_QUINN).addEvent(
@@ -192,22 +191,22 @@ export function session2NpcInteractions(
     //     )
     // );
 
-    npcOpinions.get(NpcId.Hina).get(PcIndex.ID_HELIOS).addEvent(
-        new NpcInteractionEvent(
-            new GameTimestamp(0, 5, 10, 0),
-            "Cooler than I expected aasimar/paladins to be.",
-            new Map([[PositiveEmotion.Respect, 2]])
-        )
-    );
+    addInteractionEvent(npcOpinions,
+                        NpcId.Hina,
+                        [PcIndex.ID_HELIOS],
+                        new GameTimestamp(0, 5, 10, 0),
+                        "Cooler than I expected aasimar/paladins to be.",
+                        new Map([[PositiveEmotion.Respect, 2]]));
 
     // Interaction with Cec./Sasha pt.1.
-    npcOpinions.get(NpcId.Cecelia).get(PcIndex.ID_HELIOS).addEvent(
-        new NpcInteractionEvent(
-            new GameTimestamp(0, 5, 10, 30),
-            "A friend of my brother. Seems to be as noble and kind as I'd expect.",
-            new Map([[PositiveEmotion.Respect, 4],
-                     [PositiveEmotion.Trust, 4]])
-        )
+    addInteractionEvent(
+        npcOpinions,
+        NpcId.Cecelia,
+        [PcIndex.ID_HELIOS],
+        new GameTimestamp(0, 5, 10, 30),
+        "A friend of my brother. Seems to be as noble and kind as I'd expect.",
+        new Map([[PositiveEmotion.Respect, 4],
+                 [PositiveEmotion.Trust, 4]])
     );
 
     // npcOpinions.get(NpcIndex.ID_SASHA).get(PcIndex.ID_QUINN).addEvent(

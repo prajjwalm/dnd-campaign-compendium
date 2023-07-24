@@ -1,7 +1,7 @@
 import {D10, D100, D12, D20, D4, D6, D8, Dice} from "../common/diceConstants";
 
 
-export enum CoreStat {
+export enum DStat {
     Str = 0,
     Dex = 1,
     Con = 2,
@@ -18,11 +18,14 @@ export enum ProficiencyLevel {
     Expert,
 }
 
-export enum Senses {
-    DarkVision,
+export enum Sense {
+    Darkvision,
     BlindSight,
     TremorSense,
     TrueSight,
+    DevilSight,
+    _NonStandard,
+    SteelSight,
 }
 
 export enum CreatureSize {
@@ -32,6 +35,7 @@ export enum CreatureSize {
     Large,
     Huge,
     Gargantuan,
+    _NonStandard,
     Cosmic,
 }
 
@@ -65,27 +69,30 @@ export enum Skill {
     Stealth,
     Survival,
     _ALL,
+    _NonStandard,
+    Honor,
+    Sanity,
 }
 
-export const SkillForStat : Map<Skill, CoreStat> = new Map([
-    [Skill.Acrobatics, CoreStat.Dex],
-    [Skill.AnimalHandling, CoreStat.Wis],
-    [Skill.Arcana, CoreStat.Int],
-    [Skill.Athletics, CoreStat.Str],
-    [Skill.Deception, CoreStat.Cha],
-    [Skill.History, CoreStat.Int],
-    [Skill.Insight, CoreStat.Wis],
-    [Skill.Intimidation, CoreStat.Cha],
-    [Skill.Investigation, CoreStat.Int],
-    [Skill.Medicine, CoreStat.Wis],
-    [Skill.Nature, CoreStat.Int],
-    [Skill.Perception, CoreStat.Wis],
-    [Skill.Performance, CoreStat.Cha],
-    [Skill.Persuasion, CoreStat.Cha],
-    [Skill.Religion, CoreStat.Int],
-    [Skill.SlightOfHand, CoreStat.Dex],
-    [Skill.Stealth, CoreStat.Dex],
-    [Skill.Survival, CoreStat.Wis],
+export const StatForSkill : Map<Skill, DStat> = new Map([
+    [Skill.Acrobatics, DStat.Dex],
+    [Skill.AnimalHandling, DStat.Wis],
+    [Skill.Arcana, DStat.Int],
+    [Skill.Athletics, DStat.Str],
+    [Skill.Deception, DStat.Cha],
+    [Skill.History, DStat.Int],
+    [Skill.Insight, DStat.Wis],
+    [Skill.Intimidation, DStat.Cha],
+    [Skill.Investigation, DStat.Int],
+    [Skill.Medicine, DStat.Wis],
+    [Skill.Nature, DStat.Int],
+    [Skill.Perception, DStat.Wis],
+    [Skill.Performance, DStat.Cha],
+    [Skill.Persuasion, DStat.Cha],
+    [Skill.Religion, DStat.Int],
+    [Skill.SlightOfHand, DStat.Dex],
+    [Skill.Stealth, DStat.Dex],
+    [Skill.Survival, DStat.Wis],
 ])
 
 
@@ -95,9 +102,10 @@ export enum Speed {
     Flying,
     Climbing,
     Burrowing,
+    _NonStandard,
 }
 
-export enum AdventurerClasses {
+export enum AdventurerClass {
     Artificer,
     Barbarian,
     Bard,
@@ -127,13 +135,14 @@ export enum DamageType {
     Radiant,
     Slashing,
     Thunder,
+    Physical,
     _NonStandard,
     Biochemical,
     Corrosion,
     Neural,
 }
 
-export enum Conditions {
+export enum Condition {
     Blinded,
     Charmed,
     Deafened,
@@ -149,22 +158,25 @@ export enum Conditions {
     Stunned,
     Unconscious,
     Exhaustion,
+    _NonStandard,
+    Fragile,
+    Silenced
 }
 
-export const AdventurerHitDice: Map<AdventurerClasses, Dice> = new Map([
-    [AdventurerClasses.Artificer, D8],
-    [AdventurerClasses.Barbarian, D12],
-    [AdventurerClasses.Bard, D8],
-    [AdventurerClasses.Cleric, D8],
-    [AdventurerClasses.Druid, D8],
-    [AdventurerClasses.Fighter, D10],
-    [AdventurerClasses.Monk, D8],
-    [AdventurerClasses.Paladin, D10],
-    [AdventurerClasses.Ranger, D10],
-    [AdventurerClasses.Rogue, D8],
-    [AdventurerClasses.Sorcerer, D6],
-    [AdventurerClasses.Warlock, D8],
-    [AdventurerClasses.Wizard, D6],
+export const ClassHitDice: Map<AdventurerClass, Dice> = new Map([
+    [AdventurerClass.Artificer, D8],
+    [AdventurerClass.Barbarian, D12],
+    [AdventurerClass.Bard, D8],
+    [AdventurerClass.Cleric, D8],
+    [AdventurerClass.Druid, D8],
+    [AdventurerClass.Fighter, D10],
+    [AdventurerClass.Monk, D8],
+    [AdventurerClass.Paladin, D10],
+    [AdventurerClass.Ranger, D10],
+    [AdventurerClass.Rogue, D8],
+    [AdventurerClass.Sorcerer, D6],
+    [AdventurerClass.Warlock, D8],
+    [AdventurerClass.Wizard, D6],
 ]);
 
 
@@ -175,22 +187,22 @@ export enum Activation {
     Special,
     LegendaryAction,
     MythicAction,
+    LairAction,
+    _NonStandard,
 }
 
 
 export function E(dice: Dice | Map<Dice, number>) {
-    if (dice instanceof Dice) {
-        return (dice.sides + 1) / 2;
-    } else if (dice instanceof Map) {
+    if (dice instanceof Map) {
         let e = 0;
         for (const [die, count] of dice.entries()) {
             e += count * E(die);
         }
         return e;
     }
+    return (dice.sides + 1) / 2;
 }
 
-// [FutureScope] Introduce a readonly cached statValue.
 export class StatValue
 {
     private val: number;

@@ -1,5 +1,6 @@
-import {PcIndex}                               from "../../../data/pcIndex";
-import {NpcId, NpcIndex}                       from "../../../npcs/npcIndex";
+import {PcIndex}   from "../../../data/pcIndex";
+import {Character} from "../../../gameplay/simulation/characters/Character";
+import {NpcId}     from "../../../npcs/npcIndex";
 import {GameTimestamp}                         from "../../common";
 import {NpcOpinionV2, PositiveEmotion}         from "../npcOpinions";
 import {addInteractionEvent, addTimeSkipEvent} from "./s9";
@@ -48,7 +49,7 @@ export function session10NpcInteractions(
             [PositiveEmotion.Respect, -1],
             [PositiveEmotion.Gratitude, 1],
         ]),
-        NpcIndex.get(NpcId.Hina).passiveDeception
+        Character.get(NpcId.Hina).passiveDeception
     );
 
     addInteractionEvent(
@@ -62,10 +63,10 @@ export function session10NpcInteractions(
         recommend someone, and the local Goddess also picked them for the fight
         to decide the fate of this village. Maybe this will pay off handsomely?`,
         new Map([
-            [PositiveEmotion.Respect, 4],
-            [PositiveEmotion.Trust, -3],
-        ]),
-        NpcIndex.get(NpcId.Elysium).passiveDeception,
+                    [PositiveEmotion.Respect, 4],
+                    [PositiveEmotion.Trust, -3],
+                ]),
+        Character.get(NpcId.Elysium).passiveDeception,
         new Set([PositiveEmotion.Trust])
     );
 

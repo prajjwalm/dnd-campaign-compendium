@@ -1,25 +1,31 @@
-import {setupNpcOpinions}                       from "./campaigns/opinions/out";
-import {setupNav}                               from "./common/common";
-import {setupCards}                             from "./data/cards/card";
-import {setupCharacterCards}                    from "./data/cards/characterCard";
-import {setupCountries}                         from "./data/country";
-import {setupHistory}                           from "./history";
-import {renderContracts}                        from "./homebrew/monsters/contracts";
-import {setupCharacters as setupCharactersC2A1} from "./npcs/c2/arc1";
-import {setupUI}                                from "./ui/setupUI";
-import {setupMonsters}                          from "./homebrew/monsters/instances";
-
 // Test Suites.
-import {test as testNpcOpinion}                 from "./campaigns/opinions/npcOpinions";
-import {test as testStatSheetCreation}          from "./homebrew/monsters/sheet";
-import {enableRolling, test as testRollable}    from "./homebrew/common/rollable";
+import {test as testNpcOpinion}        from "./campaigns/opinions/npcOpinions";
+import {setupNpcOpinions}              from "./campaigns/opinions/out";
+import {setupNav}                      from "./common/common";
+import {setupCards}                    from "./data/cards/card";
+import {setupCharacterCards}           from "./data/cards/characterCard";
+import {setupCountries}                from "./data/country";
+import {enableRolling}                 from "./gameplay/simulation/action/Wrap";
+import {
+    setupCharacters
+}                                      from "./gameplay/simulation/characters/instances/_init";
+import {
+    testDamageTree
+}                                      from "./gameplay/simulation/damage/DamageTree";
+import {setupHistory}                  from "./history";
+import {test as testRollable}          from "./homebrew/common/rollable";
+import {renderContracts}               from "./homebrew/monsters/contracts";
+import {setupMonsters}                 from "./homebrew/monsters/instances";
+import {test as testStatSheetCreation} from "./homebrew/monsters/sheet";
+import {setupUI}                       from "./ui/setupUI";
 
 $(() => {
     testRollable();
+
+    setupCharacters();
     testNpcOpinion();
     testStatSheetCreation();
-
-    setupCharactersC2A1();
+    testDamageTree();
 
     setupNav();
     setupCards();

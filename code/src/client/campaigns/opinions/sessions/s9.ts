@@ -1,5 +1,8 @@
-import {PcIndex}                                                           from "../../../data/pcIndex";
-import {NpcId, NpcIndex}                                                   from "../../../npcs/npcIndex";
+import {PcIndex} from "../../../data/pcIndex";
+import {
+    Character
+}                from "../../../gameplay/simulation/characters/Character";
+import {NpcId}   from "../../../npcs/npcIndex";
 import {GameTimestamp}                                                     from "../../common";
 import {NpcInteractionEvent, NpcOpinionV2, PositiveEmotion, TimeskipEvent} from "../npcOpinions";
 
@@ -13,6 +16,11 @@ export function addInteractionEvent(
     insightGate: number = 10,
     reverseEmotions: Set<PositiveEmotion> = new Set())
 {
+    const c = Character.get(npc);
+    if (!c || !c.isOpinionated) {
+        return;
+    }
+
     let reMap: Map<PositiveEmotion, boolean> = null;
     if (reverseEmotions) {
         reMap = new Map();
@@ -36,6 +44,11 @@ export function addTimeSkipEvent(
     text: string,
     delta: Map<PositiveEmotion, number>)
 {
+    const c = Character.get(npc);
+    if (!c || !c.isOpinionated) {
+        return;
+    }
+
     for (const pc of pcs) {
         npcInteractionEvents.get(npc).get(pc).addEvent(
             new TimeskipEvent(timestamp1, timestamp2, delta, text)
@@ -48,74 +61,74 @@ export function session9NpcInteractions(
 {
 
     addInteractionEvent(npcInteractionEvents,
-        NpcId.Dawn,
-        [PcIndex.ID_AURELIA],
-        new GameTimestamp(0, 6, 12, 20),
-        `Ahh, so it was her tinkering that led to Taihe's death... Ms. Dusk says 
+                        NpcId.Dawn,
+                        [PcIndex.ID_AURELIA],
+                        new GameTimestamp(0, 6, 12, 20),
+                        `Ahh, so it was her tinkering that led to Taihe's death... Ms. Dusk says 
         it wasn't deliberate but... Who the fuck asked her to mess with things 
         that she doesn't understand? Are our lives mere-`,
-        new Map([
+                        new Map([
             [PositiveEmotion.Affection, -5],
             [PositiveEmotion.Respect, -2]
         ]),
-        NpcIndex.get(NpcId.Dawn).passiveDeception + 5
+                        Character.get(NpcId.Dawn).passiveDeception + 5
     );
 
     addInteractionEvent(npcInteractionEvents,
-        NpcId.Dawn,
-        [PcIndex.ID_AURELIA],
-        new GameTimestamp(0, 6, 12, 20),
-        `STOP. She didn't know what she was doing, and it's a scholar's duty to 
+                        NpcId.Dawn,
+                        [PcIndex.ID_AURELIA],
+                        new GameTimestamp(0, 6, 12, 20),
+                        `STOP. She didn't know what she was doing, and it's a scholar's duty to 
         be inquisitive. Who am I kidding? This was happening sooner or later 
         anyway... if anything its my fault for not sharing everything with them
         sooner... In fact my crimes date far back...`,
-        new Map([
-            [PositiveEmotion.Affection, 5]
-        ]),
-        NpcIndex.get(NpcId.Dawn).passiveDeception + 5,
-        new Set([PositiveEmotion.Affection])
+                        new Map([
+                                    [PositiveEmotion.Affection, 5]
+                                ]),
+                        Character.get(NpcId.Dawn).passiveDeception + 5,
+                        new Set([PositiveEmotion.Affection])
     );
 
     addInteractionEvent(npcInteractionEvents,
-        NpcId.Dawn,
-        [PcIndex.ID_AURELIA],
-        new GameTimestamp(0, 6, 12, 20),
-        `I see, sent by Ruin, huh. Well, in that case nothing to do but to face
+                        NpcId.Dawn,
+                        [PcIndex.ID_AURELIA],
+                        new GameTimestamp(0, 6, 12, 20),
+                        `I see, sent by Ruin, huh. Well, in that case nothing to do but to face
         the punishment that comes without inconveniencing the others. Sigh, I 
         should be happy that it happened...`,
-        new Map([
-            [PositiveEmotion.Affection, -1]
-        ]),
-        NpcIndex.get(NpcId.Dawn).passiveDeception + 5,
-        new Set([PositiveEmotion.Affection])
+                        new Map([
+                                    [PositiveEmotion.Affection, -1]
+                                ]),
+                        Character.get(NpcId.Dawn).passiveDeception + 5,
+                        new Set([PositiveEmotion.Affection])
     );
 
     addInteractionEvent(npcInteractionEvents,
-        NpcId.Dawn,
-        [PcIndex.ID_AURELIA],
-        new GameTimestamp(0, 6, 12, 20),
-        `Wait, she is coming. Stop thinking. Help her help the villagers, that's
+                        NpcId.Dawn,
+                        [PcIndex.ID_AURELIA],
+                        new GameTimestamp(0, 6, 12, 20),
+                        `Wait, she is coming. Stop thinking. Help her help the villagers, that's
          all that matters now. If the end is coming, might as well do it right. 
          Now smile.`,
-        new Map([
+                        new Map([
             [PositiveEmotion.Affection, -1]
         ]),
-        NpcIndex.get(NpcId.Dawn).passiveDeception
+                        Character.get(NpcId.Dawn).passiveDeception
     );
 
     addInteractionEvent(npcInteractionEvents,
-        NpcId.Dawn,
-        [PcIndex.ID_AURELIA],
-        new GameTimestamp(0, 6, 12, 20),
-        `Was concerned about how Ms Dusk treats us. Despite everything, it 
+                        NpcId.Dawn,
+                        [PcIndex.ID_AURELIA],
+                        new GameTimestamp(0, 6, 12, 20),
+                        `Was concerned about how Ms Dusk treats us. Despite everything, it 
         feels... rather good, to have someone finally voice the apprehensions
         I've been clamping up for all these ages... Gods I am such a hypocrite.`,
-        new Map([
+                        new Map([
             [PositiveEmotion.Affection, 3],
             [PositiveEmotion.Respect, 3],
             [PositiveEmotion.Gratitude, 1],
         ]),
-        NpcIndex.get(NpcId.Dawn).passiveDeception
+                        Character.get(NpcId.Dawn).passiveDeception
     );
 
     addInteractionEvent(npcInteractionEvents,

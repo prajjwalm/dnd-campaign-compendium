@@ -1,7 +1,7 @@
 import {D1, D12, D20, D4, D8, Dice} from "../common/diceConstants";
 import {
     Activation,
-    CoreStat,
+    DStat,
     DamageType,
     ProficiencyLevel
 }                                   from "../definitions/constants";
@@ -242,17 +242,17 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             in 5 ft of it are <u>restrained</u> in an ink swirl and take
             <u>continuous ${args.getDamageRollableStr("inkSwirl")}</u> for
             two rounds. At the start of their turns, they can make a DC 
-            ${args.getDc({stat: CoreStat.Cha, prof: ProficiencyLevel.Expert})}
+            ${args.getDc({stat: DStat.Cha, prof: ProficiencyLevel.Expert})}
             atheletics check to escape the ink. The DC reduces by one after each
             instance of damage. Allies can attempt to draw them out by making 
             the same check, but on failure, the ink envelops them too.`;
                     },
-                    mainStat: CoreStat.Cha,
+                    mainStat: DStat.Cha,
                     title: "Ink Swirl"
                 }).bindDamages({
                     assignedDamages(args: IAttack): Map<string, Map<Dice, number>> {
                         return new Map([
-                            ["inkSwirl", new Map([[D1, args.getMod(CoreStat.Cha)]])]
+                            ["inkSwirl", new Map([[D1, args.getMod(DStat.Cha)]])]
                         ]);
                     },
                     damageTypes: new Map([["inkSwirl", DamageType.Corrosion]]),
@@ -297,17 +297,17 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             in 5 ft of it are <u>restrained</u> in an ink swirl and take
             <u>continuous ${args.getDamageRollableStr("inkSwirl")}</u> for
             two rounds. At the start of their turns, they can make a DC 
-            ${args.getDc({stat: CoreStat.Cha, prof: ProficiencyLevel.Expert})}
+            ${args.getDc({stat: DStat.Cha, prof: ProficiencyLevel.Expert})}
             atheletics check to escape the ink. The DC reduces by one after each
             instance of damage. Allies can attempt to draw them out by making 
             the same check, but on failure, the ink envelops them too.`;
                     },
-                    mainStat: CoreStat.Cha,
+                    mainStat: DStat.Cha,
                     title: "Ink Swirl"
                 }).bindDamages({
                     assignedDamages(args: IAttack): Map<string, Map<Dice, number>> {
                         return new Map([
-                            ["inkSwirl", new Map([[D1, args.getMod(CoreStat.Cha)]])]
+                            ["inkSwirl", new Map([[D1, args.getMod(DStat.Cha)]])]
                         ]);
                     },
                     damageTypes: new Map([["inkSwirl", DamageType.Corrosion]]),
@@ -399,7 +399,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
                     }
                     hpDice.set(dice, number * 1.2);
                 }
-                sheet.saves.set(CoreStat.Con, [ProficiencyLevel.Half, 0]);
+                sheet.saves.set(DStat.Con, [ProficiencyLevel.Half, 0]);
             },
         )],
         [2, new SheetContract(
@@ -417,7 +417,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
                     }
                     hpDice.set(dice, number * 1.7);
                 }
-                sheet.saves.set(CoreStat.Con, [ProficiencyLevel.Prof, 0]);
+                sheet.saves.set(DStat.Con, [ProficiencyLevel.Prof, 0]);
                 for (const [_, attack] of sheet.attacks.entries()) {
                     if (attack.isDamaging) {
                         attack.activateContract(AttackContracts.get("StimulusEnvy1"));
@@ -440,7 +440,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
                     }
                     hpDice.set(dice, number * 2.2);
                 }
-                sheet.saves.set(CoreStat.Con, [ProficiencyLevel.Expert, 0]);
+                sheet.saves.set(DStat.Con, [ProficiencyLevel.Expert, 0]);
                 for (const [_, attack] of sheet.attacks.entries()) {
                     if (attack.isDamaging) {
                         attack.activateContract(AttackContracts.get("StimulusEnvy2"));
@@ -477,13 +477,13 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
                     the poison damage and are not blinded. Regardless of the roll, they take ${args.getDamageRollableStr(
                             "BlotNeural")}.</p>`;
                     },
-                    mainStat  : CoreStat.Con,
+                    mainStat  : DStat.Con,
                     title     : "Casual Spit"
                 }).bindDamages({
                     expectedDamage        : 30,
                     assignedDamages       : args => new Map([
-                        ["Blot", new Map([[D1, args.getMod(CoreStat.Con)]])],
-                        ["BlotNeural", new Map([[D1, args.getMod(CoreStat.Int)]])]
+                        ["Blot", new Map([[D1, args.getMod(DStat.Con)]])],
+                        ["BlotNeural", new Map([[D1, args.getMod(DStat.Int)]])]
                     ]),
                     unassignedDamageRatios: new Map([
                         ["Blot", new Map([[D8, 3]])],
@@ -525,13 +525,13 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
                     the poison damage and are not blinded. Regardless of the roll, they take ${args.getDamageRollableStr(
                             "BlotNeural")}.</p>`;
                     },
-                    mainStat  : CoreStat.Con,
+                    mainStat  : DStat.Con,
                     title     : "Casual Spit"
                 }).bindDamages({
                     expectedDamage        : 30,
                     assignedDamages       : args => new Map([
-                        ["Blot", new Map([[D1, args.getMod(CoreStat.Con)]])],
-                        ["BlotNeural", new Map([[D1, args.getMod(CoreStat.Int)]])]
+                        ["Blot", new Map([[D1, args.getMod(DStat.Con)]])],
+                        ["BlotNeural", new Map([[D1, args.getMod(DStat.Int)]])]
                     ]),
                     unassignedDamageRatios: new Map([
                         ["Blot", new Map([[D8, 3]])],
@@ -768,7 +768,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
                     instead to targets within 30ft and half damage to targets within 60ft.</p>`;
                     },
                     activation: Activation.Special,
-                    mainStat  : CoreStat.Dex,
+                    mainStat  : DStat.Dex,
                     title     : "Boom",
                 }).bindDamages({
                     assignedDamages       : _ => new Map([]),
@@ -811,7 +811,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
                     instead to targets within 40ft and half damage to targets within 80ft.</p>`;
                     },
                     activation: Activation.Special,
-                    mainStat  : CoreStat.Dex,
+                    mainStat  : DStat.Dex,
                     title     : "Boom",
                 }).bindDamages({
                     assignedDamages       : _ => new Map([]),

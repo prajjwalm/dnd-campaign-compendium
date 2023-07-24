@@ -1,5 +1,6 @@
-import {NpcId} from "../../npcs/npcIndex";
-import {Card}  from "./card";
+import {Character} from "../../gameplay/simulation/characters/Character";
+import {NpcId}     from "../../npcs/npcIndex";
+import {Card}      from "./card";
 
 
 enum NpcPersonalityTag {
@@ -82,17 +83,16 @@ interface CharacterArgs {
     gender: "M" | "F" | "-";
 }
 
+/**
+ * @deprecated Use the character interface with the card aspect henceforth.
+ */
 export class CharacterCard
     extends Card
 {
     // Shift to a collection class eventually? Also don't like how both this and
     // parent class have the same static thing. Now that we're taking this code
     // seriously, can we please clean this up?
-    public static readonly IndexById: Map<NpcId, CharacterCard> = new Map();
 
-    private static $commonCentralView: JQuery = null;
-    private static $tokenSpace: JQuery = null;
-    public readonly $centralView: JQuery;
     public readonly indexKey: string;
     private readonly name: string;
     public readonly id: NpcId;
@@ -109,7 +109,7 @@ export class CharacterCard
     {
         super();
 
-        if (CharacterCard.$commonCentralView == null) {
+        if (Card.$commonCentralView == null) {
             throw new Error("Premature instantiation of class. " +
                             "The page isn't loaded yet.");
         }
@@ -121,7 +121,7 @@ export class CharacterCard
         this.imgPath = `./assets/images/character_tokens/C${(args.campaign)}/Arc${(args.arc)}/${(args.tokenName)}.png`;
         this.indexKey = CharacterCard.getIndex(this.id);
 
-        CharacterCard.$tokenSpace.find(`.token_space[data-campaign='${this.campaign}'][data-arc='${this.arc}']`).append($(`
+        Card.$tokenSpace.find(`.token_space[data-campaign='${this.campaign}'][data-arc='${this.arc}']`).append($(`
             <img src=${this.imgPath} class="token" alt="[Img Not Found]" data-index-key="${this.indexKey}">
         `));
 
@@ -134,10 +134,7 @@ export class CharacterCard
         this.altImagePaths = args.altImagePaths;
         this.personalityTags = args.personalityTags;
 
-        this.$centralView = CharacterCard.$commonCentralView;
-
-        CharacterCard.IndexById.set(this.id, this);
-        this.registerSelf();
+        Card.register(this);
     }
 
     private static getIndex(id: NpcId)
@@ -150,19 +147,7 @@ export class CharacterCard
         return Card.link(CharacterCard.getIndex(id), displayText);
     }
 
-    public static loadStaticElements()
-    {
-        CharacterCard.$commonCentralView = $("#character_idx .central_view");
-        CharacterCard.$tokenSpace = $("#tokens");
-
-        CharacterCard.$commonCentralView.on("click", ".token_selector", function () {
-            const $tokens = $(this).parent().siblings(".tokens");
-            $tokens.children().hide();
-            $tokens.children(`[data-token='${$(this).data("token")}']`).show();
-        });
-    }
-
-    protected generateCard(floating: boolean): JQuery
+    public generateCard(floating: boolean): string
     {
         let tokenSpace: string;
         if (!floating && this.altImagePaths) {
@@ -204,7 +189,7 @@ export class CharacterCard
         }
 
 
-        return $(`
+        return `
         <div class="character_card" data-index-key="${this.indexKey}">
             <div class="token_space">
                 ${tokenSpace}
@@ -219,7 +204,7 @@ export class CharacterCard
                 ${personalityTags}
                 <div class="summary">${this.summary}</div>
             </div>
-        </div>`);
+        </div>`;
     }
 
     public get isVillageNpc()
@@ -454,13 +439,6 @@ const summaries: Map<string, string> = new Map([
       ${CharacterCard.linkNpc(NpcId.Mostima, "mysterious half-blood fallen aasimar")} while peacefully exploring the
       coast of Aegir.<br/>
       <div class="effect_tag">Incomplete</div>`],
-    ["Dawn",
-     `The gentle and reserved pawn shop owner and the de facto caretaker of the small mountainous village of Po'shan. 
-      Appears to hide quite a bit of pain underneath a sad smile. Was born in the hinterlands of Naiyumi around 
-      1200 AR. Kept witnessing the residents of her village constantly get slaughtered again and again, and lose 
-      quite a bit of the memeories of their times spent together again and again.<br/>
-      <div class="effect_tag">Incomplete</div>
-      `],
     ["", ``],
 ])
 
@@ -862,7 +840,6 @@ there was one other - a single Honorspren who stood next to her, waiting, and ha
 
 
 export function setupCharacterCards() {
-    CharacterCard.loadStaticElements();
 
     /************************* Campaign 1, Arc 1 **************************/
 
@@ -1519,51 +1496,51 @@ export function setupCharacterCards() {
         summary      : summaries.get("Andoain") ?? "???",
         description  : "",
     });
-    new CharacterCard({
-        id         : NpcId.Dusk,
-        name       : "Dusk",
-        tokenName  : "Dusk",
-        campaign   : 2,
-        arc        : 1,
-        age        : "",
-        gender     : "F",
-        tags       : [
-            'From | ??? / Devotion',
-            `Race | Titan ${Card.verbose("&times; Jade Dragon")}`,
-            `<span>Primordial | Outsider ${Card.verbose("(11<sup>th</sup> Fragment of Sui)")}</span>`,
-            'CR | 26'
-        ],
-        summary    : summaries.get("Dusk") ?? "???",
-        description: "",
-        // altImagePaths: new Map([
-        //     ["Wandering Painter", "Dusk"],
-        //     ["Shrine Maiden", "Dusk_sui"],
-        // ]),
-    });
-    new CharacterCard({
-        id           : NpcId.Dawn,
-        name         : "Dawn",
-        tokenName    : "Dawn",
-        campaign     : 2,
-        arc          : 1,
-        age          : "32 (405)",
-        gender       : "F",
-        tags         : [
-            "From | Materia / Devotion",
-            "Race | Human"
-        ],
-        summary      : summaries.get("Dawn") ?? "???",
-        description  : "",
-        personalityTags: new Map([
-            // [NpcPersonalityTag["Nature Lover"], 3],
-            // [NpcPersonalityTag.Industrious, 2],
-            // [NpcPersonalityTag.Ascetic, 2],
-            // [NpcPersonalityTag["Abhors Violence"], 2],
-            // [NpcPersonalityTag.Homosexual, 1],
-            // [NpcPersonalityTag.Accepting, 1],
-            // [NpcPersonalityTag.Depressive, 1],
-        ])
-    });
+    // new CharacterCard({
+    //     id         : NpcId.Dusk,
+    //     name       : "Dusk",
+    //     tokenName  : "Dusk",
+    //     campaign   : 2,
+    //     arc        : 1,
+    //     age        : "",
+    //     gender     : "F",
+    //     tags       : [
+    //         'From | ??? / Devotion',
+    //         `Race | Titan ${Card.verbose("&times; Jade Dragon")}`,
+    //         `<span>Primordial | Outsider ${Card.verbose("(11<sup>th</sup> Fragment of Sui)")}</span>`,
+    //         'CR | 26'
+    //     ],
+    //     summary    : summaries.get("Dusk") ?? "???",
+    //     description: "",
+    //     // altImagePaths: new Map([
+    //     //     ["Wandering Painter", "Dusk"],
+    //     //     ["Shrine Maiden", "Dusk_sui"],
+    //     // ]),
+    // });
+    // new CharacterCard({
+    //     id           : NpcId.Dawn,
+    //     name         : "Dawn",
+    //     tokenName    : "Dawn",
+    //     campaign     : 2,
+    //     arc          : 1,
+    //     age          : "32 (405)",
+    //     gender       : "F",
+    //     tags         : [
+    //         "From | Materia / Devotion",
+    //         "Race | Human"
+    //     ],
+    //     summary      : summaries.get("Dawn") ?? "???",
+    //     description  : "",
+    //     personalityTags: new Map([
+    //         // [NpcPersonalityTag["Nature Lover"], 3],
+    //         // [NpcPersonalityTag.Industrious, 2],
+    //         // [NpcPersonalityTag.Ascetic, 2],
+    //         // [NpcPersonalityTag["Abhors Violence"], 2],
+    //         // [NpcPersonalityTag.Homosexual, 1],
+    //         // [NpcPersonalityTag.Accepting, 1],
+    //         // [NpcPersonalityTag.Depressive, 1],
+    //     ])
+    // });
     new CharacterCard({
         id           : NpcId.Andri,
         name         : "Andri",
@@ -1717,29 +1694,29 @@ export function setupCharacterCards() {
         summary      : summaries.get("Hav") ?? "???",
         description  : "",
     });
-    new CharacterCard({
-        id           : NpcId.Hina,
-        name         : "Hina",
-        tokenName    : "Hina",
-        campaign     : 2,
-        arc          : 1,
-        age          : 14,
-        gender       : "F",
-        tags         : [
-        ],
-        summary      : summaries.get("Hina") ?? "???",
-        description  : ""
-        ,
-        personalityTags:  new Map([
-            // [NpcPersonalityTag.Gourmand, 3],
-            // [NpcPersonalityTag.Bloodlust, 2],
-            // [NpcPersonalityTag.Slothful, 2],
-            // [NpcPersonalityTag.Sanguine, 2],
-            // [NpcPersonalityTag.Quiet, 1],
-            // [NpcPersonalityTag.Distant, 1],
-            // [NpcPersonalityTag.Psychopath, 1],
-        ]),
-    });
+    // new CharacterCard({
+    //     id           : NpcId.Hina,
+    //     name         : "Hina",
+    //     tokenName    : "Hina",
+    //     campaign     : 2,
+    //     arc          : 1,
+    //     age          : 14,
+    //     gender       : "F",
+    //     tags         : [
+    //     ],
+    //     summary      : summaries.get("Hina") ?? "???",
+    //     description  : ""
+    //     ,
+    //     personalityTags:  new Map([
+    //         // [NpcPersonalityTag.Gourmand, 3],
+    //         // [NpcPersonalityTag.Bloodlust, 2],
+    //         // [NpcPersonalityTag.Slothful, 2],
+    //         // [NpcPersonalityTag.Sanguine, 2],
+    //         // [NpcPersonalityTag.Quiet, 1],
+    //         // [NpcPersonalityTag.Distant, 1],
+    //         // [NpcPersonalityTag.Psychopath, 1],
+    //     ]),
+    // });
     new CharacterCard({
         id           : NpcId.Ingrid,
         name         : "Ingrid",
@@ -1772,18 +1749,18 @@ export function setupCharacterCards() {
             // [NpcPersonalityTag.Modest, 1],
         ])
     });
-    new CharacterCard({
-        id           : NpcId.Jaye,
-        name         : "Jaye",
-        tokenName    : "Jaye",
-        campaign     : 2,
-        arc          : 1,
-        age          : 26,
-        gender       : "M",
-        tags         : [],
-        summary      : summaries.get("Jaye") ?? "???",
-        description  : "",
-    });
+    // new CharacterCard({
+    //     id           : NpcId.Jaye,
+    //     name         : "Jaye",
+    //     tokenName    : "Jaye",
+    //     campaign     : 2,
+    //     arc          : 1,
+    //     age          : 26,
+    //     gender       : "M",
+    //     tags         : [],
+    //     summary      : summaries.get("Jaye") ?? "???",
+    //     description  : "",
+    // });
     new CharacterCard({
         id           : NpcId.Jordi,
         name         : "Jordi",

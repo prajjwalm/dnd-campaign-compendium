@@ -98,6 +98,7 @@
 
 import {getEnumIterator}                        from "../../common/common";
 import {PARTY_INSIGHT, PcCharismaMods, PcIndex} from "../../data/pcIndex";
+import {Character}                              from "../../gameplay/simulation/characters/Character";
 import {NpcId}                                  from "../../npcs/npcIndex";
 import {GameTimestamp}                          from "../common";
 

@@ -1,19 +1,30 @@
-import {waitForFinalEvent}   from "../../common/common";
+import {waitForFinalEvent} from "../../common/common";
+import {ICard}             from "../../gameplay/simulation/characters/aspects/ICard";
+
 
 /**
  * Defines an object that can be indexed. Hovering on it will display a snippet
  * in card style and clicking on it will navigate to some section of the page.
  */
 export abstract class Card
+    implements ICard
 {
-    private static Index: Map<string, Card> = new Map<string, Card>();
+    public static $commonCentralView: JQuery = null;
+
+    public static $tokenSpace: JQuery = null;
+
+    private static Index: Map<string, ICard> = new Map<string, ICard>();
 
     private static $floatingCard: JQuery;
+
     private static $cardGraveyard: JQuery;
 
     private static floatingCardWidth: number;
+
     private static floatingCardHeight: number;
+
     private static viewportWidthInPx: number;
+
     private static viewportHeightInPx: number;
 
     protected constructor()
@@ -21,6 +32,15 @@ export abstract class Card
 
     public static loadFromDOM(): void
     {
+        Card.$commonCentralView = $("#character_idx .central_view");
+        Card.$tokenSpace = $("#tokens");
+
+        Card.$commonCentralView.on("click", ".token_selector", function () {
+            const $tokens = $(this).parent().siblings(".tokens");
+            $tokens.children().hide();
+            $tokens.children(`[data-token='${$(this).data("token")}']`).show();
+        });
+
         this.$floatingCard = $("#floating_card");
         this.$cardGraveyard = $("#card_graveyard");
         this.snapWindowDimensions();
@@ -106,52 +126,65 @@ export abstract class Card
         }
     }
 
-    public static getIndexible(key: string): Card
+    public static getIndexible(key: string): ICard
     {
         return this.Index.get(key);
     }
 
-    public showCardFullSize(): void
+    public static showCardFullSize(card: ICard): void
     {
-        this.$centralView.children().hide();
+        Card.$commonCentralView.children().hide();
 
-        const cardIndex = this.indexKey;
-        const $existingCard = this.$centralView.children(`[data-index-key='${cardIndex}']`);
+        const cardIndex = card.getCardIndex();
+        const $existingCard = Card.$commonCentralView.children(`[data-index-key='${cardIndex}']`);
         if ($existingCard.length > 0) {
             $existingCard.show();
         } else {
-            const $card = this.generateCard(false);
-            this.$centralView.append($card);
+            const $card = $(card.generateCard(false));
+            Card.$commonCentralView.append($card);
             $card.show();
         }
     }
 
-    public showCardFloating(): void
+    public static showCardFloating(card: ICard): void
     {
         Card.$floatingCard.children().hide();
 
-        const cardIndex = this.indexKey;
+        const cardIndex = card.getCardIndex();
         const $existingCard = Card.$floatingCard.children(`[data-index-key='${cardIndex}']`);
         if ($existingCard.length > 0) {
             $existingCard.show();
         } else {
-            const $card = this.generateCard(true);
+            const $card = $(card.generateCard(true));
             $card.addClass("floating");
             Card.$floatingCard.append($card);
             $card.show();
         }
     }
 
-    protected registerSelf(): void
+    public static register(card: ICard): void
     {
-        Card.Index.set(this.indexKey, this);
+        Card.Index.set(card.getCardIndex(), card);
     }
 
-    protected abstract generateCard(floating: boolean): JQuery;
+    public getCardIndex(): string
+    {
+        return this.indexKey;
+    }
 
     protected abstract get indexKey(): string;
 
-    protected abstract get $centralView(): JQuery;
+    public generatePrimaryToken(): string
+    {
+        throw new Error("Not implemented");
+    }
+
+    public createLink(displayText?: string): string
+    {
+        throw new Error("Not implemented");
+    }
+
+    public abstract generateCard(floating: boolean): string;
 }
 
 
@@ -162,9 +195,9 @@ export function setupCards()
     const $tokens = $("#tokens");
     $tokens.on("mouseenter", ".token", function (e) {
         const indexKey = $(this).data("indexKey");
-        const indexible = Card.getIndexible(indexKey);
+        const card = Card.getIndexible(indexKey);
+        Card.showCardFloating(card);
         Card.revealFloatingCard();
-        indexible.showCardFloating();
         Card.moveFloatingCard(e.clientX, e.clientY);
     });
     $tokens.on("mouseleave", ".token", function () {
@@ -177,18 +210,15 @@ export function setupCards()
         Card.hideFloatingCard();
 
         const indexKey = $(this).data("indexKey");
-        const indexible = Card.getIndexible(indexKey);
-
-        indexible.showCardFullSize();
+        const card = Card.getIndexible(indexKey);
+        Card.showCardFullSize(card);
     });
 
     const $card_links = $(".page");
     $card_links.on("mouseenter", ".card_link", function (e) {
         const indexKey = $(this).data("indexKey");
-        const indexible = Card.getIndexible(indexKey);
-
-        console.log(indexKey, indexible);
-        indexible.showCardFloating();
+        const card = Card.getIndexible(indexKey);
+        Card.showCardFloating(card);
         Card.revealFloatingCard();
         Card.moveFloatingCard(e.clientX, e.clientY);
     });
@@ -202,8 +232,8 @@ export function setupCards()
         Card.hideFloatingCard();
 
         const indexKey = $(this).data("indexKey");
-        const indexible = Card.getIndexible(indexKey);
+        const card = Card.getIndexible(indexKey);
 
-        indexible.showCardFullSize();
+        Card.showCardFullSize(card);
     });
 }

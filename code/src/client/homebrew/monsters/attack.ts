@@ -1,10 +1,20 @@
-import {D1, Dice}              from "../common/diceConstants";
-import {NatRollable, Rollable}                                       from "../common/rollable";
-import {Activation, CoreStat, DamageType, E, Prof, ProficiencyLevel} from "../definitions/constants";
-import type {StatSheet}                                              from "./sheet";
+import {ISheetAction} from "../../gameplay/simulation/action/ISheetAction";
+import {wrapRoll}     from "../../gameplay/simulation/action/Wrap";
+import {
+    IDStats
+}                    from "../../gameplay/simulation/characters/aspects/IDStats";
+import {
+    D1, Dice
+}                    from "../common/diceConstants";
+import {
+    NatRollable, DamageRollable
+}                    from "../common/rollable";
+import {
+    Activation, DStat, DamageType, E, ProficiencyLevel
+}                    from "../definitions/constants";
 
 
-interface DamageParams
+interface IAttackDamageParams
 {
     expectedDamage: number;
     assignedDamages?: (args: IAttack) => Map<string, Map<Dice, number>>;
@@ -18,7 +28,7 @@ interface AttackParams
     title: string;
     subtitle?: string;
     activation: Activation;
-    mainStat: CoreStat;
+    mainStat: DStat;
     hitBonus?: number;
     dcBonus?: number;
     contentGenerator: (args: IAttack) => string;
@@ -26,18 +36,15 @@ interface AttackParams
 
 
 export interface IAttack
+    extends ISheetAction
 {
-    get activation(): Activation;
-    getMod(stat?: CoreStat): number;
-    getDc(args?: { stat?: CoreStat, prof?: ProficiencyLevel }): number;
+    getMod(stat?: DStat): number;
+    getDc(args?: { stat?: DStat, prof?: ProficiencyLevel }): number;
 
     getDamageRollableStr(key: string): string;
-    getToHitRollableStr(args: { name: string, stat?: CoreStat, prof?: ProficiencyLevel }): string;
+    getToHitRollableStr(args: { name: string, stat?: DStat, prof?: ProficiencyLevel }): string;
 
-    bindDamages(damageParams: DamageParams): this;
-    bindSheet(sheet: StatSheet): this;
-
-    createContent(): string;
+    bindDamages(damageParams: IAttackDamageParams): this;
 }
 
 
@@ -99,7 +106,7 @@ abstract class Attack
 {
     public readonly activation: Activation;
 
-    public readonly mainStat: CoreStat;
+    public readonly mainStat: DStat;
 
     protected readonly title: string;
 
@@ -111,7 +118,7 @@ abstract class Attack
 
     protected contentGenerator: (args: IAttack) => string;
 
-    protected sheet: StatSheet;
+    protected sheet: IDStats;
 
     private readonly hitBonus: number;
 
@@ -144,7 +151,7 @@ abstract class Attack
     protected abstract doGetDamageRollableStr(key: string): string;
 
     public getToHitRollableStr({ name, stat = undefined, prof = ProficiencyLevel.Prof }
-                                   : { name: string, stat?: CoreStat, prof?: ProficiencyLevel }): string
+                                   : { name: string, stat?: DStat, prof?: ProficiencyLevel }): string
     {
         if (stat == undefined) {
             stat = this.mainStat;
@@ -162,7 +169,7 @@ abstract class Attack
         return this.doGetDamageRollableStr(key);
     }
 
-    public getMod(stat?: CoreStat): number
+    public getMod(stat?: DStat): number
     {
         if (stat == undefined) {
             stat = this.mainStat;
@@ -171,7 +178,7 @@ abstract class Attack
     }
 
     public getDc({ stat, prof = ProficiencyLevel.Prof }:
-                     { stat?: CoreStat, prof?: ProficiencyLevel } = {}): number
+                     { stat?: DStat, prof?: ProficiencyLevel } = {}): number
     {
         if (stat == undefined) {
             stat = this.mainStat;
@@ -181,7 +188,7 @@ abstract class Attack
         return 8 + this.getMod(stat) + this.sheet.pb.mod(prof) + this.dcBonus;
     }
 
-    public bindDamages(damageParams: DamageParams): this
+    public bindDamages(damageParams: IAttackDamageParams): this
     {
         this.expectedDamage = damageParams.expectedDamage;
         this.damageTypes = damageParams.damageTypes ?? new Map();
@@ -190,10 +197,9 @@ abstract class Attack
         return this;
     }
 
-    public bindSheet(sheet: StatSheet): this
+    public bindStats(sheet: IDStats): void
     {
         this.sheet = sheet;
-        return this;
     }
 
     public createContent(): string
@@ -252,28 +258,28 @@ abstract class Attack
 
 
 // noinspection JSUnusedLocalSymbols
-class DDBAttack
-    extends Attack
-{
-    protected doGetDamageRollableStr(key: string): string {
-        const rollStr = new Rollable(this.resolvedDamages.get(key)).getRollString(false);
-        return `[rollable]${rollStr};{
-            "diceNotation":   "${rollStr}", 
-            "rollType":       "damage", 
-            "rollAction":     "${key}", 
-            "rollDamageType": "${DamageType[this.damageTypes.get(key)]}"
-        }[/rollable] ${DamageType[this.damageTypes.get(key)]} damage`;
-    }
-
-    protected doGetToHitRollableStr(toHitMod: number): string {
-        const toHitStr = NatRollable.generate(toHitMod).getRollString(false);
-        return `[rollable]${toHitStr};{
-            "diceNotation": "1d20${toHitStr}", 
-            "rollType":     "to hit", 
-            "rollAction":   "${name}"
-        }[/rollable] to hit`;
-    }
-}
+// class DDBAttack
+//     extends Attack
+// {
+//     protected doGetDamageRollableStr(key: string): string {
+//         const rollStr = new DamageRollable(this.resolvedDamages.get(key)).getRollString(false);
+//         return `[rollable]${rollStr};{
+//             "diceNotation":   "${rollStr}",
+//             "rollType":       "damage",
+//             "rollAction":     "${key}",
+//             "rollDamageType": "${DamageType[this.damageTypes.get(key)]}"
+//         }[/rollable] ${DamageType[this.damageTypes.get(key)]} damage`;
+//     }
+//
+//     protected doGetToHitRollableStr(toHitMod: number): string {
+//         const toHitStr = NatRollable.generate(toHitMod).getRollString(false);
+//         return `[rollable]${toHitStr};{
+//             "diceNotation": "1d20${toHitStr}",
+//             "rollType":     "to hit",
+//             "rollAction":   "${name}"
+//         }[/rollable] to hit`;
+//     }
+// }
 
 
 export class InternalAttack
@@ -283,13 +289,13 @@ export class InternalAttack
     {
         const damagetype = DamageType[this.damageTypes.get(key)];
         const damagetypeString = damagetype ? `${damagetype} damage` : "";
-        return `${new Rollable(this.resolvedDamages.get(key)).getRollString(true)} 
+        return `${wrapRoll(this.resolvedDamages.get(key))} 
                 ${damagetypeString}`;
     }
 
     protected doGetToHitRollableStr(toHitMod: number): string
     {
-        return NatRollable.generate(toHitMod).getRollString(true);
+        return wrapRoll(toHitMod);
     }
 }
 
@@ -491,6 +497,7 @@ export class BuffedInternalAttack
 
     public get identificationInfo(): Map<string, string | number> {
         return new Map<string, string | number>([
+                                                    // @ts-ignore
             ["Creature", this.sheet.monster_id],
             ["Attack", this.title],
         ]);
