@@ -140,6 +140,7 @@ export enum DamageType {
     Biochemical,
     Corrosion,
     Neural,
+    Hellfire,
 }
 
 export enum Condition {
@@ -220,7 +221,11 @@ export class StatValue
     }
 
     public get mod(): number {
-        return Math.floor(this.val / 2) - 5;
+        return StatValue.mod(this.val);
+    }
+
+    public static mod(number) {
+        return Math.floor(number/ 2) - 5;
     }
 }
 

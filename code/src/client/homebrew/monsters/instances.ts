@@ -1,5 +1,5 @@
-import {generatedIds}                   from "./contracts";
-import {createJaye}                     from "./humans";
+import {GENERATED_IDS} from "./contracts";
+import {createJaye}    from "./humans";
 import {
     createFreedom,
     createInkling,
@@ -8,8 +8,8 @@ import {
     createInklingDynamite,
     createInklingTank,
     createInklingWannabeBoss
-}                                       from "./inklings";
-import {idToSheetGenerator, IStatSheet} from "./sheet";
+}                                          from "./inklings";
+import {ID_TO_SHEET_GENERATOR, IStatSheet} from "./sheet";
 
 
 export function setupStatSheet(category: string,
@@ -19,24 +19,59 @@ export function setupStatSheet(category: string,
                                sheetObjectGetter: () => IStatSheet,
                                fullImgPath: boolean = false)
 {
-    console.log("setup stat sheet called for", id);
-    console.trace();
-    idToSheetGenerator.set(id, sheetObjectGetter);
+    // Is created on the first call, ID_TO_SHEET_GENERATOR is set only here.
+    const iconCreated = ID_TO_SHEET_GENERATOR.has(id);
+    ID_TO_SHEET_GENERATOR.set(id, sheetObjectGetter);
 
-    const ip = fullImgPath ?
-               `<img class="icon_img" src="assets/images/${imageFileName}" alt="[NULL]">` :
-               `<img class="icon_img" src="assets/images/mob_tokens/${category}/${imageFileName}" alt="[NULL]">`;
 
-    // todo: cache the jquery, add a duplicate creature id check.
-    $("#beastiary .selectable_radio_container").append(`
-        <div class="selectable radio creature" 
-             data-creature-id="${id}"
-             data-mob-group="${category}"
-             style="display: none;">
-            ${ip}
-            <div class="title selected_only">${title}</div>
-        </div>`
-    );
+    if (!iconCreated) {
+        // Create icon.
+        const ip = fullImgPath ?
+                   `<img class="icon_img" src="assets/images/${imageFileName}" alt="[NULL]">` :
+                   `<img class="icon_img" src="assets/images/mob_tokens/${category}/${imageFileName}" alt="[NULL]">`;
+
+        $("#beastiary .selectable_radio_container").append(`
+            <div class="selectable radio creature" 
+                 data-creature-id="${id}"
+                 data-mob-group="${category}"
+                 style="display: none;">
+                ${ip}
+                <div class="title selected_only">${title}</div>
+            </div>`
+        );
+    }
+    console.log("PAS", `#stat_sheet_${id}`);
+
+    // Three cases - active sheet, has sheet, doesn't have sheet.
+    const $sheet = $(`#stat_sheet_${id}`);
+    if ($sheet.length > 1) {
+        throw new Error(`Duplicate sheet with id stat_sheet_${id}.`);
+    }
+
+    if ($sheet.length == 0) {
+        // Do nothing. When the sheet is lazily created, it'll be as per the new
+        // generator method.
+        console.log("PAS2")
+        return;
+    }
+
+    const isHidden = $sheet.is(":hidden");
+
+    if (isHidden) {
+        // Just remove the sheet, the next time its selected it'll be
+        // regenerated.
+        GENERATED_IDS.delete(id);
+        $sheet.remove();
+        console.log("PAS3")
+    }
+    else {
+        console.log("CHANGING ACTIVE SHEET");
+        // We have to update the sheet now, so remove the old and generate
+        // a new.
+        $sheet.remove();
+        $("#sheet_zone").append(sheetObjectGetter().render());
+    }
+
 }
 
 export function setupMonsters()
@@ -105,17 +140,17 @@ export function setupMonsters()
             const creatureId = $("#beastiary .creature.selected").data("creatureId");
             $(".stat_sheet").hide();
 
-            if (!idToSheetGenerator.has(creatureId)) {
+            if (!ID_TO_SHEET_GENERATOR.has(creatureId)) {
                 return;
             }
 
-            if (generatedIds.has(creatureId)) {
+            if (GENERATED_IDS.has(creatureId)) {
                 $(`#stat_sheet_${creatureId}`).show();
                 return;
             }
 
-            $("#sheet_zone").append(idToSheetGenerator.get(creatureId)().render());
-            generatedIds.add(creatureId);
+            $("#sheet_zone").append(ID_TO_SHEET_GENERATOR.get(creatureId)().render());
+            GENERATED_IDS.add(creatureId);
         }, 10);
     });
 }

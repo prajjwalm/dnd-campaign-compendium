@@ -101,9 +101,9 @@ export class Character
      */
     public constructor(public readonly id)
     {
-        if (Character._Index.has(id)) {
-            throw new DuplicateSetupException(NpcId[id]);
-        }
+        // if (Character._Index.has(id)) {
+        //     throw new DuplicateSetupException(NpcId[id]);
+        // }
         Character._Index.set(id, this);
         this._coreAspect = null;
         this._dStatsAspect = null;
@@ -172,6 +172,7 @@ export class Character
      */
     public finalize(): void
     {
+        console.log("A")
         // This finalization should've nothing to do with the setup, so the
         // order of finalization shouldn't matter.
         let aspect: BaseAspect;

@@ -6,10 +6,10 @@ export class Dice
         this.E = (sides + 1) / 2;
     }
 
-    public countHavingE(expectedValue: number): number
+    public countHavingE(expectedValue: number, modifier: number=0): number
     {
         return Math.sign(expectedValue) *
-               Math.ceil(Math.abs(expectedValue) / this.E);
+               Math.ceil(Math.abs(expectedValue) / (this.E + modifier));
     }
 
     public roll(rng: () => number = Math.random): number

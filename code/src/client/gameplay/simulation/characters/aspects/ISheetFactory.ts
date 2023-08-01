@@ -12,4 +12,6 @@ export interface ISheetFactory
     set cr(v: CRValue);
 
     set size(s: CreatureSize);
+
+    set category(s: string);
 }

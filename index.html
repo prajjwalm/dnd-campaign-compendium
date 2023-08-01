@@ -868,7 +868,7 @@
 </div>
 <div class="page gen2_ui">
     <h1 class="page_header" data-nav-id="beastiary">Beastiary</h1>
-    <div class="page_content advanced_style">
+    <div class="page_content advanced_style" id="combat">
         <div id="beastiary">
             <div class="selectable_radio_container translational_flags">
                 <div class="translation_base">
@@ -878,13 +878,23 @@
                     <div id="mob_group_inklings" class="mob_group_icon" data-mob-group-id="inkling">
                         <img src="assets/images/mob_tokens/inkling/envy.png" alt="[INKLINGS]">
                     </div>
+                    <div id="mob_group_seaborn" class="mob_group_icon"
+                         data-mob-group-id="seaborn">
+                        <img src="assets/images/mob_tokens/seaborn/Ephremis.png" alt="[SEABORN]">
+                    </div>
                 </div>
             </div>
             <div id="sheet_zone"></div>
         </div>
 
-        <div id="cc">
-            <h2>Tribulation of Champions</h2>
+        <h2>Exceptional Combat Scenarios</h2>
+        <div class="combat_picker">
+            <div class="combat_picker__item" data-picker-id="cc">Tribulation of Champions</div>
+            <div class="combat_picker__item" data-picker-id="hoth">The Undefeatable</div>
+        </div>
+
+        <div id="cc" class="combat_scenario" data-combat-id="cc" style="display: none;">
+            <h3 class="cool_intro">Tribulation of Champions</h3>
             <p class="cool_intro">
                 An exceedingly difficult combat scenario to prove oneself. Victory is NOT expected but every
                 action taken, every choice made is critically judged.<br/>
@@ -899,6 +909,25 @@
                 <div class="risk_effects">
                 </div>
                 <div id="contracts">
+                </div>
+            </div>
+        </div>
+        <div class="combat_scenario" data-combat-id="hoth" style="display: none;">
+            <h3 class="cool_intro">To Defeat The Undefeatable</h3>
+            <p class="cool_intro">
+                Drop-by-drop, bit-by-bit. It is unstoppable.
+            </p>
+            <div class="mob_space" data-npc-id="Ephremis">
+                <div class="mob_space__header">Target: Ephremis</div>
+                <div class="spinners">
+                    <div class="spinner">
+                        <div class="spinner__title">STR</div>
+                        <div class="spinner__slots">
+                            <div class="spinner__slots__slot">27</div>
+                            <div class="spinner__slots__slot">26</div>
+                            <div class="spinner__slots__slot">25</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

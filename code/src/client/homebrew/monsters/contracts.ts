@@ -13,7 +13,7 @@ import {
 import {
     contractIndex,
     IBuffedStatSheet,
-    idToSheetGenerator,
+    ID_TO_SHEET_GENERATOR,
     isContractSelected,
     ISheetContract,
     SheetContract
@@ -32,7 +32,7 @@ const RiskCutoffs = new Map([
 ])
 
 
-export const generatedIds: Set<string> = new Set();
+export const GENERATED_IDS: Set<string> = new Set();
 
 export function renderContracts()
 {
@@ -71,16 +71,13 @@ export function renderContracts()
 
             if ($currentSheet.length == 0) {
                 $(".stat_sheet").remove();
-                generatedIds.clear();
+                GENERATED_IDS.clear();
                 return;
             }
-            // stat_sheet_{category}_{name}
             const creatureId = $currentSheet.attr("id").substring(11);
-            console.log(creatureId);
-            console.log(idToSheetGenerator);
             $(".stat_sheet").remove();
-            generatedIds.clear();
-            $("#sheet_zone").append(idToSheetGenerator.get(creatureId)().render());
+            GENERATED_IDS.clear();
+            $("#sheet_zone").append(ID_TO_SHEET_GENERATOR.get(creatureId)().render());
         }, 10);
     }
     // Both need watchers since the selector stops propagation.

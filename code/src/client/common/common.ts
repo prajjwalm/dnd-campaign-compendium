@@ -89,12 +89,16 @@ export function getNumberSuffix(n: number) {
     }
     if (n % 10 == 1) {
         return n == 11 ? "th" : "st";
-    }
-    else if (n % 10 == 2) {
+    } else if (n % 10 == 2) {
         return n == 12 ? "th" : "nd";
-    }
-    else if (n % 10 == 3) {
+    } else if (n % 10 == 3) {
         return n == 13 ? "th" : "rd";
     }
     return "th";
+}
+
+
+export function updateMap<T>(m: Map<T, number>, key: T, val: number)
+{
+    m.set(key, (m.has(key) ? m.get(key) : 0) + val);
 }

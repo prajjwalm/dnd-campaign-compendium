@@ -1,0 +1,96 @@
+@import "../definitions/common_dimensions";
+@import "../definitions/colors";
+@import "../definitions/shadows";
+@import "../definitions/fonts";
+
+.combat_picker {
+  width: 100%;
+  height: 64px;
+  margin: $margin_default;
+  padding: $padding_default;
+  border-radius: 4px;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-evenly;
+  flex-flow: row nowrap;
+  background-color: #ccd;
+
+  &__item {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+
+    @include FontSize(3);
+
+    + .combat_picker__item {
+      border-left: solid 2px #88b;
+    }
+  }
+}
+
+.mob_space {
+  &__header {
+    font-family: RobotoCondensed, sans-serif;
+    @include FontSize(2)
+  }
+}
+
+.spinners {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  justify-content: space-between;
+  margin: $margin_default;
+  padding: $padding_default;
+  gap: 2 * $padding_default;
+
+  // Todo: neaten the styles up later.
+  .spinner {
+    width: 10%;
+    flex-grow: 1;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+
+    &__title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Montserrat", sans-serif;
+      border-bottom: solid 3px $color_primary;
+      padding: $padding_default;
+      margin: $margin_default $margin_default 2 * $margin_default;
+
+      @include FontSize(3);
+    }
+
+    &__slots {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-flow: column nowrap;
+      gap: $margin_default;
+
+      &__slot {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        @include BoxShadowElevationHelper(1);
+
+        &.active {
+          background-color: #10a2e3;
+        }
+      }
+    }
+  }
+}

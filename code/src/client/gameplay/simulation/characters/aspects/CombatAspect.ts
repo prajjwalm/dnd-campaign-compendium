@@ -1,3 +1,4 @@
+import {updateMap}      from "../../../../common/common";
 import {D1, Dice}       from "../../../../homebrew/common/diceConstants";
 import {
     AdventurerClass, ClassHitDice, Condition, DamageType, DStat, Prof,
@@ -51,6 +52,8 @@ export class CombatAspect
 
     private _hp: number;
 
+    private bioHpDice: [number, Dice][];
+
     constructor(c: Character)
     {
         super(c);
@@ -73,6 +76,11 @@ export class CombatAspect
         this._conditionImmunities = new Set();
 
         this._actions = [];
+        this.bioHpDice = [];
+    }
+
+    addBioHpDice(count: number, dice: Dice) {
+        this.bioHpDice.push([count, dice]);
     }
 
     /**
@@ -155,31 +163,49 @@ export class CombatAspect
     public computeHP()
     {
         this._hpDice.clear();
-        let adventurerHP = 0;
-        let bestHPFromClass = 0;
-        for (const [klass, levels] of this.classes.entries()) {
-            const hpDie = ClassHitDice.get(klass);
-            this._hpDice.set(
-                hpDie,
-                (this._hpDice.has(hpDie) ? this._hpDice.get(hpDie) : 0) + levels
-            );
-            this._hpDice.set(
-                D1,
-                (this._hpDice.has(D1) ? this._hpDice.get(D1) : 0) + levels * this.statsAspect.mod(DStat.Con)
-            );
-            let klassHP = hpDie.E;
-            adventurerHP += levels * (klassHP + this.statsAspect.mod(DStat.Con));
 
-            if (klassHP > bestHPFromClass) {
-                bestHPFromClass = klassHP;
+        const constPerDice = this.statsAspect.mod(DStat.Con);
+
+        // Add all non-D1 HP dice first.
+        for (const [klass, levels] of this.classes.entries()) {
+            if (levels < 1) {
+                throw new Error("AAAAAAARRRRRRRRRRGH");
+            }
+            if (this._hpDice.size == 0) {
+                updateMap(this._hpDice,
+                          D1,
+                          ClassHitDice.get(klass).sides + constPerDice);
+                updateMap(this._hpDice,
+                          ClassHitDice.get(klass),
+                          levels - 1);
+            }
+            else {
+                updateMap(this._hpDice,
+                          ClassHitDice.get(klass),
+                          levels);
             }
         }
-        adventurerHP += bestHPFromClass - 1;    // 2E = max+1
-        this._hpDice.set(
-            D1,
-            (this._hpDice.has(D1) ? this._hpDice.get(D1) : 0) + this._bonusHP + bestHPFromClass - 1
-        );
-        this._hp = adventurerHP + this._bonusHP;
+        for (const [count, dice] of this.bioHpDice) {
+            updateMap(this._hpDice, dice, count);
+        }
+
+        // Now add const for all the dice.
+        let totalDice = 0;
+        for (const [die, count] of this._hpDice.entries()) {
+            if (die.sides == 1) {
+                continue;
+            }
+            totalDice += count;
+        }
+        updateMap(this._hpDice, D1, totalDice * constPerDice);
+
+        // Now compute expected HP.
+
+        this._hp = 0;
+        for (const [die, count] of this._hpDice.entries()) {
+            this._hp += count * die.E;
+        }
+        this._hp = Math.round(this._hp);
     }
 
     public setSave(save: DStat,

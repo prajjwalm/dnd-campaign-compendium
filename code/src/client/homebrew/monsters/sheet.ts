@@ -87,7 +87,7 @@ export interface IBuffedStatSheet
 }
 
 
-export const idToSheetGenerator: Map<string, () => IStatSheet> = new Map();
+export const ID_TO_SHEET_GENERATOR: Map<string, () => IStatSheet> = new Map();
 
 export const contractIndex: Map<string, ISheetContract> = new Map<string, ISheetContract>();
 

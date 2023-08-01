@@ -1,7 +1,10 @@
+import {Dice}   from "../../../../homebrew/common/diceConstants";
 import {
-    AdventurerClass, Condition, DamageType, DStat, ProficiencyLevel, Sense,
+    Activation,
+    AdventurerClass, Condition, CreatureSize, DamageType, DStat,
+    ProficiencyLevel, Sense,
     Speed
-} from "../../../../homebrew/definitions/constants";
+}               from "../../../../homebrew/definitions/constants";
 import {Action} from "../../action/Action";
 
 
@@ -23,6 +26,7 @@ export interface ICombatFactory
     addClassLevels(klass: AdventurerClass, levels: number);
 
     set bonusHP(val:number);
+    addBioHpDice(count: number, dice: Dice);
     computeHP();
 
     setSave(save: DStat, proficiency?: ProficiencyLevel, mod?: number);

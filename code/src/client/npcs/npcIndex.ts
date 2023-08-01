@@ -63,6 +63,8 @@ export enum NpcId {
     Vitacia,
     Yuki,
     Ezell,
+    __MOBS__,
+    Ephremis,
 }
 
 // [FutureScope] Reconcile this with StatBlock params someday.

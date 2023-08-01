@@ -1,14 +1,10 @@
 import {
-    Activation,
-    Condition,
-    CreatureSize,
-    CRValue, DamageType,
-    DStat, E, Sense, Skill, Speed
+    Activation, Condition, CreatureSize, CRValue, DStat, Sense, Speed
 }                       from "../../../../homebrew/definitions/constants";
 import {setupStatSheet} from "../../../../homebrew/monsters/instances";
+import {NpcId}          from "../../../../npcs/npcIndex";
 import {
-    wrapActivation,
-    wrapCreatureSize, wrapDamageType, wrapRoll, wrapSkill
+    wrapActivation, wrapCreatureSize, wrapDamageType, wrapRoll, wrapSkill
 }                       from "../../action/Wrap";
 import {Character}      from "../Character";
 import {BaseAspect}     from "./BaseAspect";
@@ -16,8 +12,8 @@ import {ICombat}        from "./ICombat";
 import {ICore}          from "./ICore";
 import {IDSkills}       from "./IDSkills";
 import {IDStats}        from "./IDStats";
-import {ISheet}        from "./ISheet";
-import {ISheetFactory} from "./ISheetFactory";
+import {ISheet}         from "./ISheet";
+import {ISheetFactory}  from "./ISheetFactory";
 
 
 /**
@@ -48,8 +44,8 @@ export class SheetAspect
     private readonly statsAspect: IDStats;
 
     /**
-     * A reference to the {@link IDSkills} aspect of this character, we will need
-     * this to build the sheet.
+     * A reference to the {@link IDSkills} aspect of this character, we will
+     * need this to build the sheet.
      */
     private readonly skillAspect: IDSkills;
 
@@ -72,6 +68,8 @@ export class SheetAspect
      * Backing field under {@link size}.
      */
     private _size: CreatureSize;
+
+    public category: string;
 
     /**
      * CTOR.
@@ -145,7 +143,7 @@ export class SheetAspect
             }
             else {
                 const details = r == 100 ? "" : `(Heals for ${r - 100}% damage)`;
-                res.push(`${wrapDamageType(dt)} ${details}`);
+                imm.push(`${wrapDamageType(dt)} ${details}`);
             }
         }
 
@@ -191,7 +189,7 @@ export class SheetAspect
         }
 
         return `
-        <div class="stat_sheet">
+        <div class="stat_sheet" id="stat_sheet_${this.category}_${this.id}">
             <div class="sheet_header">
                 <div class="header_zone">
                 <h3 class="sheet_title">${this.coreAspect.name}</h3>
@@ -263,8 +261,9 @@ export class SheetAspect
     public finalize(): void
     {
         super.finalize();
-        setupStatSheet("human",
-                       "human_" + this.id,
+        console.log("Finalizing sheet", Character.get(NpcId.Ephremis).CON);
+        setupStatSheet(this.category,
+                       `${this.category}_${this.id}`,
                        this.coreAspect.name,
                        this.coreAspect.imgPath,
                        () => this,

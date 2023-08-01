@@ -128,4 +128,5 @@ export function setupJaye()
     jaye.sheet.size = CreatureSize.Medium;
     jaye.sheet.subtitle = " Humanoid (Ursine | Polar), Neutral Good";
     jaye.sheet.acDesc = "(Natural Dex)";
+    jaye.sheet.category = "human";
 }
