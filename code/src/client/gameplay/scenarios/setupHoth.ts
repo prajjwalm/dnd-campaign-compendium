@@ -113,11 +113,11 @@ export function setupHoth()
 
     const stats = new Map([
         ["STR", 30],
-        ["DEX", 30],
-        ["CON", 30],
-        ["INT", 30],
-        ["WIS", 30],
-        ["CHA", 30],
+        ["DEX", 24],
+        ["CON", 29],
+        ["INT", 21],
+        ["WIS", 18],
+        ["CHA", 28],
     ]);
 
     $("#combat").on("click", ".spinner__slots__slot", function () {
