@@ -1,0 +1,236 @@
+@import "../definitions/fonts";
+@import "../definitions/colors";
+@import "../definitions/shadows";
+@import "../definitions/common_dimensions";
+
+@import "common";
+@import "graph";
+
+
+.graph--map {
+  @extend .graph;
+}
+
+.map_vertex {
+  @extend .graph_vertex;
+
+  &__info {
+    @extend .graph_vertex__info;
+  }
+
+  %spanning_img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    object-fit: contain;
+  }
+
+  &__background {
+    @extend %spanning_img;
+  }
+
+  &__foreground {
+    @extend %spanning_img;
+  }
+
+  &--unknown {
+    .map_vertex__info {
+      @extend %info_unknown;
+    }
+  }
+  &--friendly {
+    .map_vertex__info {
+      @extend %info_friendly;
+    }
+  }
+  &--safe {
+    .map_vertex__info {
+      @extend %info_safe;
+    }
+  }
+  &--combat {
+    .map_vertex__info {
+      @extend %info_combat;
+    }
+  }
+  &--emergency {
+    .map_vertex__info {
+      @extend %info_emergency;
+    }
+  }
+  &--neutral {
+    .map_vertex__info {
+      @extend %info_neutral;
+    }
+  }
+  &--deadly {
+    .map_vertex__info {
+      @extend %info_deadly;
+    }
+  }
+  &--black {
+    .map_vertex__info {
+      @extend %info_black;
+    }
+  }
+
+  &.inactive {
+    width: 20px;
+    height: 20px;
+
+    .map_vertex__foreground {
+      display: none;
+    }
+  }
+
+  &__background, &__foreground {
+    &:hover ~ .map_vertex__info {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+.map_vertex_details {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  font-family: "Roboto", sans-serif;
+  padding: $padding_default;
+
+  &__desc {
+    text-align: justify;
+    @include FontSize(7);
+  }
+
+  &__characters {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: $margin_default;
+    justify-content: flex-start;
+    padding-left: 2*$padding_default;
+    padding-right: 2*$padding_default;
+  }
+
+  &__subheader {
+    margin-top: 2*$margin_default;
+    margin-bottom: $margin_default;
+    @include FontSize(3);
+  }
+}
+
+.site_of_interest {
+  &__header {
+    @extend .space_between;
+    margin-bottom: 8px;
+  }
+
+  &__category {
+    text-transform: uppercase;
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: bold;
+    @extend .space_between__left;
+  }
+
+  &__name {
+    font-style: italic;
+    font-family: "Montserrat", sans-serif;
+    @extend .space_between__right;
+    @include FontSize(8);
+  }
+
+  &__details {
+    margin-bottom: 8px;
+
+    &__key {
+      width: 100px;
+    }
+  }
+}
+
+.navigation {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  gap: 24px;
+
+  &__type {
+    display: flex;
+    flex-flow: row wrap;
+    width: 50px;
+    max-width: 100px;
+    gap: 8px;
+    justify-content: center;
+    flex-grow: 1;
+
+    &__means {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin: 8px;
+      @include FontSize(1);
+    }
+    &__time {
+      @include FontSize(8);
+    }
+    &__safety {
+      @include FontSize(8);
+    }
+  }
+}
+
+.map_edge {
+  position: absolute;
+  translate: -50% -50%;
+  height: 3px;
+  background: #aaa;//url($content_root + "images/gui/Stroke5pxHorizontal.png");
+  border-radius: 1px;
+}
+
+
+
+//.map_vertex_practice {
+//  width: 60px;
+//  height: 60px;
+//  position: relative;
+//
+//  img {
+//    object-fit: contain;
+//    width: 100%;
+//    height: 100%;
+//    top: 0; left: 0; right: 0; bottom: 0;
+//    padding: 0;
+//    margin: 0;
+//    position: absolute;
+//  }
+//
+//  .foo {
+//    mix-blend-mode: multiply;
+//    border-radius: 50%;
+//    background-color: #f00;
+//    top: 0; left: 0; right: 0; bottom: 0;
+//    display: block;
+//    position: absolute;
+//  }
+//}
+//
+//.map_vertex2_practice {
+//  width: 60px;
+//  height: 60px;
+//  position: relative;
+//
+//  background-image: linear-gradient(red, red),
+//                    url($content_root + "images/gui/BadgeRound.png");
+//
+//  background-size: contain;
+//  background-repeat: no-repeat;
+//  background-position: center;
+//  background-blend-mode: multiply;
+//}

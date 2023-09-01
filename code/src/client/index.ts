@@ -5,9 +5,13 @@ import {setupNav}               from "./common/common";
 import {setupCards}             from "./data/cards/card";
 import {setupCharacterCards}    from "./data/cards/characterCard";
 import {setupCountries}         from "./data/country";
+import {skillMap}               from "./gameplay/map/instances/skillMap";
+import {setupMapGraph}          from "./gameplay/map/MapGraph";
+import {devotionMap}       from "./gameplay/map/instances/devotionMap";
+import {setupUpgradeGraph} from "./gameplay/map/UpgradeGraph";
 import {
     activateCombatScenarios
-}                               from "./gameplay/scenarios/activateCombatScenarios";
+}                          from "./gameplay/scenarios/activateCombatScenarios";
 import {setupHoth}              from "./gameplay/scenarios/setupHoth";
 import {enableRolling}          from "./gameplay/simulation/action/Wrap";
 import {
@@ -50,4 +54,7 @@ $(() => {
 
     activateCombatScenarios();
     setupHoth();
+
+    setupMapGraph($("#map_graph_area"), devotionMap);
+    setupUpgradeGraph($("#skill_graph_area"), skillMap);
 });

@@ -1,28 +1,52 @@
 // This is wrt the css file. If I put the raw string Webstorm complains.
-$content_root: "../../assets/fonts/"
+//
+// OBVIOUS NOTE: USING THIS VARIABLE RELIES ON THE FACT THAT EVERY SASS FILE IS
+//               EQUALLY NESTED AS THIS.
+$content_root: "../../assets/"
 
 @font-face
   font-family: "Roboto"
-  src: url($content_root + "Roboto/Roboto-Regular.ttf")
+  src: url($content_root + "fonts/Roboto/Roboto-Regular.ttf")
 
 @font-face
   font-family: "Roboto"
   font-weight: bold
-  src: url($content_root + "Roboto/Roboto-Bold.ttf")
+  src: url($content_root + "fonts/Roboto/Roboto-Bold.ttf")
 
 @font-face
   font-family: "Roboto-thin"
-  src: url($content_root + "Roboto/Roboto-Thin.ttf")
+  src: url($content_root + "fonts/Roboto/Roboto-Thin.ttf")
 
 @font-face
   font-family: "RobotoCondensed"
-  src: url($content_root + "Roboto_Condensed/RobotoCondensed-Regular.ttf")
+  src: url($content_root + "fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf")
+
+@font-face
+  font-family: "RobotoCondensed"
+  font-weight: bold
+  src: url($content_root + "fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf")
 
 @font-face
   font-family: "Montserrat"
-  src: url($content_root + "Montserrat/Montserrat-Regular.ttf")
+  src: url($content_root + "fonts/Montserrat/Montserrat-Regular.ttf")
 
 @font-face
   font-family: "Montserrat"
   font-weight: 500
-  src: url($content_root + "Montserrat/Montserrat-SemiBold.ttf")
+  src: url($content_root + "fonts/Montserrat/Montserrat-SemiBold.ttf")
+
+
+@font-face
+  font-family: "LondrinaSolid"
+  font-weight: 200
+  src: url($content_root + "fonts/LondrinaSolid/LondrinaSolid-Light.ttf")
+
+@font-face
+  font-family: "LondrinaSolid"
+  font-weight: 400
+  src: url($content_root + "fonts/LondrinaSolid/LondrinaSolid-Regular.ttf")
+
+@font-face
+  font-family: "LondrinaSolid"
+  font-weight: bold
+  src: url($content_root + "fonts/LondrinaSolid/LondrinaSolid-Black.ttf")

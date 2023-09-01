@@ -16,6 +16,11 @@
   src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
 }
 @font-face {
+  font-family: "RobotoCondensed";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
+}
+@font-face {
   font-family: "Montserrat";
   src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
 }
@@ -23,6 +28,21 @@
   font-family: "Montserrat";
   font-weight: 500;
   src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 200;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 400;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: bold;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
 }
 * {
   font-family: "Roboto", sans-serif;
@@ -2227,16 +2247,6 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   text-align: right;
 }
 
-#workshop .backdrop {
-  background: black;
-  width: 70vw;
-  height: 70vh;
-}
-#workshop .backdrop .selectable_radio_container {
-  width: 100%;
-  height: 100%;
-}
-
 /**
  * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
  * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
@@ -2284,6 +2294,11 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
 }
 @font-face {
+  font-family: "RobotoCondensed";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
+}
+@font-face {
   font-family: "Montserrat";
   src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
 }
@@ -2291,6 +2306,21 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   font-family: "Montserrat";
   font-weight: 500;
   src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 200;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 400;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: bold;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
 }
 .advanced_style .stat_sheet, .gen2_ui .stat_sheet {
   background-size: 100% auto;
@@ -2616,6 +2646,11 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
 }
 @font-face {
+  font-family: "RobotoCondensed";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
+}
+@font-face {
   font-family: "Montserrat";
   src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
 }
@@ -2623,6 +2658,21 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   font-family: "Montserrat";
   font-weight: 500;
   src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 200;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 400;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: bold;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
 }
 #cc {
   width: 100%;
@@ -2854,6 +2904,11 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
 }
 @font-face {
+  font-family: "RobotoCondensed";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
+}
+@font-face {
   font-family: "Montserrat";
   src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
 }
@@ -2861,6 +2916,21 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
   font-family: "Montserrat";
   font-weight: 500;
   src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 200;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 400;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: bold;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
 }
 .combat_picker {
   width: 100%;
@@ -2939,6 +3009,389 @@ table:not(.ignore_common_style) tr:nth-child(2n+1) {
 }
 .spinners .spinner__slots__slot.active {
   background-color: #10a2e3;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
+}
+@font-face {
+  font-family: "Roboto-thin";
+  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 500;
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 200;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 400;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: bold;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
+}
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+.space_between, .site_of_interest__header {
+  display: flex;
+  justify-content: space-between;
+}
+.space_between__left, .site_of_interest__category {
+  order: 0;
+}
+.space_between__right, .site_of_interest__name {
+  order: 1;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
+}
+@font-face {
+  font-family: "Roboto-thin";
+  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 500;
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 200;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 400;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: bold;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
+}
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+.graph, .graph--map {
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+  z-index: 0;
+}
+.graph__edges {
+  z-index: -1;
+}
+
+.null_vertex {
+  display: none;
+}
+
+.graph_vertex, .map_vertex {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.graph_vertex__info, .map_vertex__info {
+  position: absolute;
+  width: 240px;
+  left: 40px;
+  visibility: hidden;
+  transition: opacity 0.3s;
+  opacity: 0;
+  z-index: 2;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.graph_vertex__info .overhead_text, .map_vertex__info .overhead_text {
+  font-family: "Montserrat", sans-serif;
+  color: #EAE6E5;
+  font-style: italic;
+  font-weight: bold;
+  width: 100%;
+  text-align: right;
+  font-size: 11px;
+}
+.graph_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title {
+  height: 24px;
+  font-size: 14px;
+}
+.graph_vertex__info .grunge_label__desc, .map_vertex__info .grunge_label__desc {
+  min-height: 40px;
+  padding: 4px;
+  font-size: 15px;
+}
+.graph_vertex__info .grunge_label__desc .vertex_id, .map_vertex__info .grunge_label__desc .vertex_id {
+  font-family: "RobotoCondensed", sans-serif;
+  font-weight: bold;
+  font-variant-caps: petite-caps;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.map_vertex--unknown .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/unknown/Panel450x100.png"), linear-gradient(#EAE6E5, #EAE6E5);
+  color: #00031D;
+}
+.map_vertex--unknown .map_vertex__info .grunge_label__desc {
+  background: #00031D;
+}
+
+.map_vertex--friendly .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/friendly/Panel450x100.png"), linear-gradient(#205017 50%, #059729);
+}
+.map_vertex--friendly .map_vertex__info .grunge_label__desc {
+  background: #160407;
+}
+
+.map_vertex--safe .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/safe/Panel450x100.png"), linear-gradient(#19297C 50%, #173FB3);
+}
+.map_vertex--safe .map_vertex__info .grunge_label__desc {
+  background: #0D160B;
+}
+
+.map_vertex--combat .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/combat/Panel450x100.png"), linear-gradient(#760BD4 50%, #9947EA);
+}
+.map_vertex--combat .map_vertex__info .grunge_label__desc {
+  background: #182825;
+}
+
+.map_vertex--emergency .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/emergency/Panel450x100.png"), linear-gradient(#381D2A, #E04D75 20%);
+}
+.map_vertex--emergency .map_vertex__info .grunge_label__desc {
+  background: #091E05;
+}
+
+.map_vertex--neutral .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/neutral/Panel450x100.png"), linear-gradient(#CC5505, #EC7005);
+}
+.map_vertex--neutral .map_vertex__info .grunge_label__desc {
+  background: #1D292F;
+}
+
+.map_vertex--deadly .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/deadly/Panel450x100.png"), linear-gradient(#420039, #CA1412 30%);
+}
+.map_vertex--deadly .map_vertex__info .grunge_label__desc {
+  background: #000B1E;
+}
+
+.map_vertex--black .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
+}
+.map_vertex--black .map_vertex__info .grunge_label__desc {
+  background: #00031D;
+  color: #EAE6E5;
+}
+
+.map_vertex .map_vertex__foreground, .map_vertex .map_vertex__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  object-fit: contain;
+}
+.map_vertex.inactive {
+  width: 20px;
+  height: 20px;
+}
+.map_vertex.inactive .map_vertex__foreground {
+  display: none;
+}
+.map_vertex__background:hover ~ .map_vertex__info, .map_vertex__foreground:hover ~ .map_vertex__info {
+  visibility: visible;
+  opacity: 1;
+}
+
+.map_vertex_details {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  font-family: "Roboto", sans-serif;
+  padding: 8px;
+}
+.map_vertex_details__desc {
+  text-align: justify;
+  font-size: 12px;
+}
+.map_vertex_details__characters {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-start;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.map_vertex_details__subheader {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.site_of_interest__header {
+  margin-bottom: 8px;
+}
+.site_of_interest__category {
+  text-transform: uppercase;
+  font-family: "RobotoCondensed", sans-serif;
+  font-weight: bold;
+}
+.site_of_interest__name {
+  font-style: italic;
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+}
+.site_of_interest__details {
+  margin-bottom: 8px;
+}
+.site_of_interest__details__key {
+  width: 100px;
+}
+
+.navigation {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  gap: 24px;
+}
+.navigation__type {
+  display: flex;
+  flex-flow: row wrap;
+  width: 50px;
+  max-width: 100px;
+  gap: 8px;
+  justify-content: center;
+  flex-grow: 1;
+}
+.navigation__type__means {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 8px;
+  font-size: 24px;
+}
+.navigation__type__time {
+  font-size: 11px;
+}
+.navigation__type__safety {
+  font-size: 11px;
+}
+
+.map_edge {
+  position: absolute;
+  translate: -50% -50%;
+  height: 3px;
+  background: #aaa;
+  border-radius: 1px;
 }
 
 #beastiary {

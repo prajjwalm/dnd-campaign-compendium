@@ -1,0 +1,22 @@
+.side_panel_page {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  justify-content: space-between;
+
+  &__panel {
+    width: 160px;
+    flex-grow: 0;
+  }
+
+  &__main {
+    min-width: 240px;
+    flex-grow: 1;
+  }
+}
+

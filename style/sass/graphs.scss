@@ -1,0 +1,40 @@
+@import "definitions/colors";
+@import "definitions/shadows";
+@import "modules/side_panel";
+@import "game_modules/graph";
+@import "game_modules/map";
+@import "game_modules/skills";
+@import "game_modules/ink_side_banner";
+@import "game_modules/grunge_modules";
+@import "game_modules/tokens";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: $color_graph_background;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+#graph_selection_panel {
+  background: $color_black;
+  color: $color_white;
+  width: 180px;
+
+  @include BoxShadowElevationHelper(3);
+}
+
+#map_graph_area, #skill_graph_area {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+}

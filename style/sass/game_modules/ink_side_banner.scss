@@ -1,0 +1,147 @@
+@import "../definitions/common_dimensions";
+@import "../definitions/colors";
+
+
+@keyframes main_wave {
+  0% {
+    translate: 0 0;
+    scale: 1 1;
+  }
+
+  16% {
+    translate: -8px 0;
+    scale: 1.02 1.02;
+  }
+
+  33% {
+    translate: 3px -5px;
+    scale: 1.01 1.02;
+  }
+
+  50% {
+    translate: -4px 0;
+    scale: 0.98 1.03;
+  }
+
+  66% {
+    translate: -10px 0;
+    scale: 1.01 1.02;
+  }
+
+  83% {
+    translate: 0 5px;
+    scale: 1.02 1.01;
+  }
+
+  100% {
+    translate: 0 0;
+    scale: 1 1;
+  }
+}
+
+@keyframes minor_wave {
+  0% {
+    translate: 0 0;
+    scale: 1 1;
+  }
+
+  16% {
+    translate: -8px 0;
+    scale: 1.04 0.99;
+  }
+
+  33% {
+    translate: -10px -3px;
+    scale: 1.03 1.01;
+  }
+
+  50% {
+    translate: -5px 0px;
+    scale: 1.02 1.03;
+  }
+
+  66% {
+    translate: -8px 4px;
+    scale: 1.05 0.99;
+  }
+
+  83% {
+    translate: 2px 5px;
+    scale: 1.03 0.98;
+  }
+
+  100% {
+    translate: 0 0;
+    scale: 1 1;
+  }
+}
+
+.ink_side_banner {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 480px;
+  background: linear-gradient(to right, rgba(#000, 0), rgba(#000, 0.7) 20%, rgba(#000, 1) 30%);
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.2s;
+  visibility: hidden;
+  color: $color_node_unknown;
+
+  &--right {
+    right: -500px;
+
+    &--visible {
+      right: 0;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &--left {
+    left: -500px;
+    scale: -1 1;
+
+    &--visible {
+      left: 0;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .ink_side_banner__content {
+      scale: -1 1;
+    }
+  }
+
+  %img {
+    position: absolute;
+    object-fit: fill;
+    z-index: 1;
+  }
+
+  .side_wave_background {
+    @extend %img;
+    width: 320px;
+    height: 100%;
+    left: -180px;
+    top: 0;
+    animation: 22s ease-in-out 0s infinite normal none running main_wave;
+  }
+
+  .side_wave_foreground {
+    @extend %img;
+    width: 300px;
+    height: 75%;
+    left: -108px;
+    top: 5%;
+    animation: 17s ease-in-out 0s infinite normal none running minor_wave;
+  }
+
+  &__content {
+    position: absolute;
+    right: 0;
+    width: 360px;
+    height: 100%;
+    z-index: 2;
+  }
+}

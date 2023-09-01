@@ -1,0 +1,147 @@
+@import "../definitions/fonts";
+@import "../definitions/colors";
+@import "../definitions/shadows";
+@import "../definitions/common_dimensions";
+
+.graph {
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+  z-index: 0;
+
+  &__edges {
+    z-index: -1;
+  }
+}
+
+.null_vertex {
+  display: none;
+}
+
+.graph_vertex {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+
+  &__info {
+    position: absolute;
+    width: 240px;
+    left: 40px;
+    visibility: hidden;
+    transition: opacity 0.3s;
+    opacity: 0;
+    z-index: 2;
+    @include BoxShadowElevationHelper(2);
+
+    .overhead_text {
+      font-family: "Montserrat", sans-serif;
+      color: $color_node_unknown;
+      font-style: italic;
+      font-weight: bold;
+      width: 100%;
+      text-align: right;
+
+      @include FontSize(8);
+    }
+
+    .grunge_label {
+      &__title {
+        height: 24px;
+        @include FontSize(6);
+      }
+
+      &__desc {
+        min-height: 40px;
+        padding: 4px;
+        @include FontSize(5);
+
+        .vertex_id {
+          font-family: "RobotoCondensed", sans-serif;
+          font-weight: bold;
+          font-variant-caps: petite-caps;
+          margin-right: 8px;
+          @include FontSize(6);
+        }
+      }
+    }
+  }
+}
+
+// To explain the naming - a map was the first graph I made...
+%info_unknown {
+  .grunge_label__title {
+    background-image: url($content_root + "images/gui/unknown/Panel450x100.png"),
+    linear-gradient($color_node_unknown, $color_node_unknown);
+    color: $color_black;
+
+  }
+  .grunge_label__desc {
+    background: $color_black;
+  }
+}
+%info_friendly {
+  .grunge_label__title {
+    background-image: url($content_root + "images/gui/friendly/Panel450x100.png"),
+    linear-gradient($color_node_friendly_dark 50%, $color_node_friendly);
+  }
+  .grunge_label__desc {
+    background: $color_node_friendly_black;
+  }
+}
+%info_safe {
+  .grunge_label__title {
+    background-image: url($content_root + "images/gui/safe/Panel450x100.png"),
+    linear-gradient($color_node_safe_dark 50%, $color_node_safe_50);
+  }
+  .grunge_label__desc {
+    background: $color_node_safe_black;
+  }
+}
+%info_combat {
+  .grunge_label__title {
+    background-image: url($content_root + "images/gui/combat/Panel450x100.png"),
+    linear-gradient($color_node_combat 50%, $color_node_combat_light);
+  }
+  .grunge_label__desc {
+    background: $color_node_combat_black;
+  }
+}
+%info_emergency {
+  .grunge_label__title {
+    background-image: url($content_root + "images/gui/emergency/Panel450x100.png"),
+    linear-gradient($color_node_emergency_dark, $color_node_emergency 20%);
+  }
+  .grunge_label__desc {
+    background: $color_node_emergency_black;
+  }
+}
+%info_neutral {
+  .grunge_label__title {
+    background-image: url($content_root + "images/gui/neutral/Panel450x100.png"),
+    linear-gradient($color_node_neutral_40, $color_node_neutral);
+  }
+  .grunge_label__desc {
+    background: $color_node_neutral_black;
+  }
+}
+%info_deadly {
+  .grunge_label__title {
+    background-image: url($content_root + "images/gui/deadly/Panel450x100.png"),
+    linear-gradient($color_node_deadly_dark, $color_node_deadly 30%);
+  }
+  .grunge_label__desc {
+    background: $color_node_deadly_black;
+  }
+}
+%info_black {
+  .grunge_label__title {
+    background-image: url($content_root + "images/gui/black/Panel450x100.png"),
+    linear-gradient($color_black 50%, $color_true_grey);
+  }
+  .grunge_label__desc {
+    background: $color_black;
+    color: $color_node_unknown;
+  }
+}

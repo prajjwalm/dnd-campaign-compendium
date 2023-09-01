@@ -1,0 +1,297 @@
+@import "../definitions/fonts";
+@import "../definitions/colors";
+@import "../definitions/shadows";
+@import "../definitions/shadows2";
+@import "../definitions/common_dimensions";
+@import "graph";
+
+.graph--skill {
+  @extend .graph;
+}
+
+.skill_vertex {
+  @extend .graph_vertex;
+
+  width: 44px;
+  height: 44px;
+
+  &__backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: $color_black; // Overridden by js.
+  }
+
+  &__cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  &__core {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    background-color: $color_dnd_common_light;
+    border-radius: 50%;
+    color: $color_black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+
+    &:hover + .skill_vertex__info {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &.connected:not(.active) {
+    cursor: pointer;
+  }
+
+  //@include BoxShadowElevationHelper(1);
+
+  &__info {
+    @extend .graph_vertex__info;
+
+    left: 0; // cannot be negative or z-index collapses.
+    top: 48px;
+  }
+
+  &.rarity {
+    &--black {
+      .skill_vertex__core {
+        background-color: black;
+        color: $color_dnd_common_light;
+      }
+
+      .fa-skull-cow {
+        font-size: 20px;
+      }
+
+      .skill_vertex__info {
+        @extend %info_black;
+      }
+
+      &.active {
+        @include neonShadow(#d30, 3px);
+      }
+    }
+    &--common {
+      &.active {
+        @include neonShadow($color_dnd_original_common_light, 3px);
+      }
+      .skill_vertex__core {
+        color: $color_dnd_common_dark;
+      }
+
+      .skill_vertex__info {
+        @extend %info_unknown;
+      }
+    }
+    &--uncommon {
+      &.active {
+        @include neonShadow($color_dnd_original_uncommon_light, 3px);
+      }
+      .skill_vertex__core {
+        color: $color_dnd_uncommon_dark;
+      }
+
+      .skill_vertex__info {
+        @extend %info_friendly;
+      }
+    }
+    &--rare {
+      &.active {
+        @include neonShadow($color_dnd_original_rare_light, 3px);
+      }
+      .skill_vertex__core {
+        color: $color_dnd_rare_dark;
+        top: 5px;
+        left: 5px;
+        width: calc(100% - 10px);
+        height: calc(100% - 10px);
+      }
+      width: 48px;
+      height: 48px;
+
+      .skill_vertex__info {
+        @extend %info_safe;
+        top: 54px;
+      }
+    }
+    &--epic {
+      &.active {
+        @include neonShadow($color_dnd_original_epic_light, 4px);
+      }
+      .skill_vertex__core {
+        color: $color_dnd_epic_dark;
+        top: 6px;
+        left: 6px;
+        width: calc(100% - 12px);
+        height: calc(100% - 12px);
+        font-size: 28px;
+      }
+      width: 54px;
+      height: 54px;
+
+      .duo_icon {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        :nth-child(1) {
+          position: absolute;
+          z-index: 0;
+          top: 6px;
+          left: 6px;
+          opacity: 0.6;
+          font-size: 24px;
+        }
+        :nth-child(2) {
+          position: absolute;
+          z-index: 1;
+          bottom: 6px;
+          right: 6px;
+          font-size: 24px;
+        }
+      }
+
+      .skill_vertex__info {
+        @extend %info_combat;
+        top: 60px;
+      }
+    }
+    &--legendary {
+      &.active {
+        @include neonShadow($color_dnd_original_legendary_light, 5px);
+      }
+      .skill_vertex__core {
+        color: $color_dnd_legendary_dark;
+        top: 6px;
+        left: 6px;
+        width: calc(100% - 12px);
+        height: calc(100% - 12px);
+        font-size: 32px;
+      }
+      width: 64px;
+      height: 64px;
+      border-width: 6px;
+
+      .fa-skull-cow {
+        font-size: 32px;
+      }
+
+      .tri_icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        flex-flow: row wrap;
+        font-size: 18px;
+      }
+
+      .skill_vertex__info {
+        @extend %info_neutral;
+        top: 60px;
+      }
+    }
+    &--artefact {
+      &.active {
+        @include neonShadow($color_dnd_original_artefact, 5px);
+      }
+      .skill_vertex__core {
+        color: $color_dnd_artefact_dark;
+        top: 8px;
+        left: 8px;
+        width: calc(100% - 16px);
+        height: calc(100% - 16px);
+        font-size: 36px;
+      }
+      width: 70px;
+      height: 70px;
+
+      .skill_vertex__info {
+        @extend %info_deadly;
+        top: 72px;
+      }
+    }
+  }
+}
+
+.upgrade_edge {
+  position: absolute;
+  translate: -50% -50%;
+  opacity: 0.07;
+
+  &.connected {
+    opacity: 0.3;
+  }
+
+  &.active {
+    opacity: 1;
+  }
+
+  &--linear {
+    @extend .upgrade_edge;
+    height: 4px;
+    background: #fff;
+  }
+
+  &--circular {
+    @extend .upgrade_edge;
+    border-radius: 50%;
+    background-color: red;
+    display: flex;
+
+    &__inner {
+      background: $color_graph_background;
+      border-radius: 50%;
+      margin: 4px;
+      z-index: 1;
+      flex-grow: 1;
+    }
+  }
+}
+
+
+.upgrade_details {
+  .theme_map__row__key {
+    min-width: 120px;
+    margin-right: 8px;
+  }
+
+  .upgrade_effects {
+    .theme_map__row__key {
+      min-width: 180px;
+    }
+  }
+}
+
+.progress_circle {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  &__spoke {
+    border-radius: 2px;
+    width: 4px;
+    height: 50%;
+    transform-origin: bottom center;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 2px);
+    background-color: #000;
+  }
+}

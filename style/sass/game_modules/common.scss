@@ -1,0 +1,12 @@
+.space_between {
+  display: flex;
+  justify-content: space-between;
+
+  &__left {
+    order: 0;
+  }
+
+  &__right {
+    order: 1;
+  }
+}
