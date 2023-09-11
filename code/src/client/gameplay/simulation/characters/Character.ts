@@ -1,35 +1,55 @@
-import {Dice}                    from "../../../homebrew/common/diceConstants";
+import {PcIndex} from "../../data/pcIndex";
+import {Dice}    from "../../rolling/Dice";
 import {
-    Condition, DamageType, DStat, Prof, ProficiencyLevel, Sense, Skill, Speed,
-    StatValue
-}                                from "../../../homebrew/definitions/constants";
-import {NpcId}                   from "../../../npcs/npcIndex";
-import {Action}                  from "../action/Action";
-import {IActionContext}          from "../action/IActionContext";
-import {AspectNotSetupException} from "./aspects/AspectNotSetupException";
-import {BaseAspect}              from "./aspects/BaseAspect";
-import {CardAspect}              from "./aspects/CardAspect";
-import {CombatAspect}            from "./aspects/CombatAspect";
-import {CoreAspect}              from "./aspects/CoreAspect";
-import {DSkillsAspect}           from "./aspects/DSkillsAspect";
-import {DStatsAspect}            from "./aspects/DStatsAspect";
-import {DuplicateSetupException} from "./aspects/DuplicateSetupException";
-import {ICard}                   from "./aspects/ICard";
-import {ICardFactory}            from "./aspects/ICardFactory";
-import {ICombat}                 from "./aspects/ICombat";
-import {ICombatFactory}          from "./aspects/ICombatFactory";
-import {ICore}                   from "./aspects/ICore";
-import {ICoreFactory}            from "./aspects/ICoreFactory";
-import {IDSkills}                from "./aspects/IDSkills";
-import {IDSkillsFactory}         from "./aspects/IDSkillsFactory";
-import {IDStats}                 from "./aspects/IDStats";
-import {IDStatsFactory}          from "./aspects/IDStatsFactory";
-import {IOpinionated}            from "./aspects/IOpinionated";
-import {IOpinionatedFactory}     from "./aspects/IOpinionatedFactory";
-import {ISheet}                  from "./aspects/ISheet";
-import {ISheetFactory}           from "./aspects/ISheetFactory";
-import {OpinionAspect}           from "./aspects/OpinionAspect";
-import {SheetAspect}             from "./aspects/SheetAspect";
+    Condition,
+    CSkill,
+    DamageType,
+    DSkill,
+    DStat,
+    Prof,
+    ProficiencyLevel,
+    Sense,
+    Speed,
+    StatValue,
+    VisibilityLevel
+}                from "../../data/constants";
+import {NpcID}   from "../../data/npcIndex";
+import {Action}  from "../action/Action";
+import {IActionContext}                       from "../action/IActionContext";
+import {
+    AspectNotSetupException
+}                                             from "./aspects/AspectNotSetupException";
+import {BaseAspect}                           from "./aspects/BaseAspect";
+import {CardAspect}                           from "./aspects/CardAspect";
+import {CombatAspect}                         from "./aspects/CombatAspect";
+import {CoreAspect}                           from "./aspects/CoreAspect";
+import {CSkillsAspect}                        from "./aspects/CSkillsAspect";
+import {DSkillsAspect}                        from "./aspects/DSkillsAspect";
+import {DStatsAspect}                         from "./aspects/DStatsAspect";
+import {ICard}                                from "./aspects/ICard";
+import {ICardFactory}                         from "./aspects/ICardFactory";
+import {ICombat}                              from "./aspects/ICombat";
+import {ICombatFactory}                       from "./aspects/ICombatFactory";
+import {ICore}                                from "./aspects/ICore";
+import {ICoreFactory}                         from "./aspects/ICoreFactory";
+import {ICSkills}                             from "./aspects/ICSkills";
+import {ICSkillsFactory}                      from "./aspects/ICSkillsFactory";
+import {IDSkills}                             from "./aspects/IDSkills";
+import {IDSkillsFactory}                      from "./aspects/IDSkillsFactory";
+import {IDStats}                              from "./aspects/IDStats";
+import {IDStatsFactory}                       from "./aspects/IDStatsFactory";
+import {IOperator}                            from "./aspects/IOperator";
+import {CombatRatingMetric, IOperatorFactory} from "./aspects/IOperatorFactory";
+import {IOpinionated}                         from "./aspects/IOpinionated";
+import {
+    IOpinionatedFactory
+}                                             from "./aspects/IOpinionatedFactory";
+import {ISheet}                               from "./aspects/ISheet";
+import {ISheetFactory}                        from "./aspects/ISheetFactory";
+import {OperatorAspect}                       from "./aspects/OperatorAspect";
+import {OpinionAspect}                        from "./aspects/OpinionAspect";
+import {SheetAspect}                          from "./aspects/SheetAspect";
+import {Morale}                               from "./Morale";
 
 
 /**
@@ -45,18 +65,20 @@ export class Character
                IDSkills,
                IOpinionated,
                ICombat,
-               ISheet
+               ISheet,
+               ICSkills,
+               IOperator
 {
     /**
      * An index to make sure we don't ever get two objects for one character.
      */
-    private static readonly _Index: Map<NpcId, Character> =
-        new Map<NpcId, Character>();
+    private static readonly _Index: Map<NpcID, Character> =
+        new Map<NpcID, Character>();
 
     /**
      * Fetch the {@link Character} for the given id.
      */
-    public static get(npcId: NpcId)
+    public static get(npcId: NpcID)
     {
         return Character._Index.get(npcId);
     }
@@ -97,9 +119,19 @@ export class Character
     private _sheetAspect: SheetAspect
 
     /**
+     * The aspect handling CoC skills.
+     */
+    private _cSkillsAspect: CSkillsAspect;
+
+    /**
+     * The aspect handling the operator.
+     */
+    private _operatorAspect: OperatorAspect;
+
+    /**
      * CTOR.
      */
-    public constructor(public readonly id)
+    public constructor(public readonly id: NpcID)
     {
         // if (Character._Index.has(id)) {
         //     throw new DuplicateSetupException(NpcId[id]);
@@ -112,22 +144,18 @@ export class Character
         this._opinionAspect = null;
         this._combatAspect = null;
         this._sheetAspect = null;
+        this._cSkillsAspect = null;
+        this._operatorAspect = null;
     }
 
     /**
      * @inheritDoc
      */
-    public getSkillMod(skill: Skill, profOverride?: ProficiencyLevel): number
+    public getSkillMod(skill: DSkill,
+                       profOverride: ProficiencyLevel=null,
+                       tentative: boolean=false): [number, VisibilityLevel]
     {
-        return this.dSkillsAspect.getSkillMod(skill, profOverride);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public get upgradedSKills(): ReadonlyMap<Skill, number>
-    {
-        return this.dSkillsAspect.upgradedSKills;
+        return this.dSkillsAspect.getSkillMod(skill, profOverride, tentative);
     }
 
     /**
@@ -168,11 +196,31 @@ export class Character
     }
 
     /**
+     * @inheritDoc
+     */
+    public mod(stat: DStat): number
+    {
+        return this.dStatsAspect.mod(stat);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public dc(stat: DStat): number
+    {
+        return this._combatAspect.dc(stat);
+    }
+
+    public getSkillVal(skill: CSkill): [number, VisibilityLevel]
+    {
+        return this.cSkillsAspect.getSkillVal(skill);
+    }
+
+    /**
      * Finalize({@link BaseAspect.finalize}) all the completed aspects.
      */
     public finalize(): void
     {
-        console.log("A")
         // This finalization should've nothing to do with the setup, so the
         // order of finalization shouldn't matter.
         let aspect: BaseAspect;
@@ -183,7 +231,8 @@ export class Character
             this._opinionAspect,
             this._cardAspect,
             this._combatAspect,
-            this._sheetAspect
+            this._sheetAspect,
+            this._cSkillsAspect,
         ])
         {
             if (aspect == null) {
@@ -191,6 +240,14 @@ export class Character
             }
             aspect.finalize();
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public get upgradedSKills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
+    {
+        return this.dSkillsAspect.upgradedSKills;
     }
 
     /**
@@ -207,14 +264,6 @@ export class Character
     public get stats(): ReadonlyMap<DStat, StatValue>
     {
         return this.dStatsAspect.stats;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public mod(stat: DStat): number
-    {
-        return this.dStatsAspect.mod(stat);
     }
 
     /**
@@ -268,25 +317,9 @@ export class Character
     /**
      * @inheritDoc
      */
-    public dc(stat: DStat): number
-    {
-        return this._combatAspect.dc(stat);
-    }
-
-    /**
-     * @inheritDoc
-     */
     get passivePerception(): number
     {
         return this.combatAspect.passivePerception;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    get passiveStealth(): number
-    {
-        return this.combatAspect.passiveStealth;
     }
 
     /**
@@ -348,6 +381,11 @@ export class Character
     public get imgPath(): string
     {
         return this.coreAspect.imgPath;
+    }
+
+    public get upgradedSkills(): ReadonlyMap<CSkill, [number, VisibilityLevel]>
+    {
+        return this.cSkillsAspect.upgradedSkills;
     }
 
     /**
@@ -431,6 +469,28 @@ export class Character
             this._sheetAspect = new SheetAspect(this);
         }
         return this._sheetAspect;
+    }
+
+    /**
+     * Accessor to factory methods for setting up coc skills information.
+     */
+    public get cSkills(): ICSkillsFactory
+    {
+        if (this._cSkillsAspect == null) {
+            this._cSkillsAspect = new CSkillsAspect(this);
+        }
+        return this._cSkillsAspect;
+    }
+
+    /**
+     * Accessor to factory methods for setting up the operator information.
+     */
+    public get operator(): IOperatorFactory
+    {
+        if (this._operatorAspect == null) {
+            this._operatorAspect = new OperatorAspect(this);
+        }
+        return this._operatorAspect;
     }
 
     /**
@@ -559,6 +619,94 @@ export class Character
             throw new AspectNotSetupException("sheetAspect");
         }
         return this._sheetAspect;
+    }
+
+    private get cSkillsAspect(): CSkillsAspect
+    {
+        if (this._cSkillsAspect == null) {
+            throw new AspectNotSetupException("sheetAspect");
+        }
+        return this._cSkillsAspect;
+    }
+
+    private get operatorAspect(): OperatorAspect
+    {
+        if (this._operatorAspect == null) {
+            throw new AspectNotSetupException("sheetAspect");
+        }
+        return this._operatorAspect;
+    }
+
+
+    public get fatigue(): number
+    {
+        return this.operatorAspect.fatigue;
+    }
+
+    public get morale(): Morale
+    {
+        return this.operatorAspect.morale;
+    }
+
+    public get notableCSkills(): ReadonlyMap<CSkill, [number, VisibilityLevel]>
+    {
+        return this.operatorAspect.notableCSkills;
+    }
+
+    public get notableDSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
+    {
+        return this.operatorAspect.notableDSkills;
+    }
+
+    public get notableStuff(): ReadonlyArray<[string, string]>
+    {
+        return this.operatorAspect.notableStuff;
+    }
+
+    public get ratings(): CombatRatingMetric
+    {
+        return this.operatorAspect.ratings;
+    }
+
+    /**
+     * Returns the DOM string generated by the D Skills Aspect.
+     */
+    public generateDSkillsDOM()
+    {
+        return this.dSkillsAspect.generateDOMString();
+    }
+
+    /**
+     * Returns the DOM string generated by the C Skills Aspect.
+     */
+    public generateCSkillsDOM()
+    {
+        return this.cSkillsAspect.generateDOMString();
+    }
+
+    /**
+     * Returns the DOM string generated by the operator aspect.
+     */
+    public generateOperatorDOM()
+    {
+        return this.operatorAspect.generateDOMString();
+    }
+
+    /**
+     * Returns the DOM string generated by the opinion aspect.
+     */
+    public generateOpinionDOM()
+    {
+        return this.opinionAspect.generateDOMString();
+    }
+
+    /**
+     * Returns the timeline DOM string generated by the opinion aspect for a
+     * particular PC.
+     */
+    public generateOpinionTimelineDOM(pc: PcIndex)
+    {
+        return this.opinionAspect.generateTimelineDOMString(pc);
     }
 }
 

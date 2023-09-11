@@ -1,22 +1,34 @@
 import {
     D1, D10, D12, D4, D6, D8
-}                                                from "../../../../../../homebrew/common/diceConstants";
+} from "../../../../../rolling/Dice";
 import {
-    Activation, AdventurerClass, Condition, CreatureSize, CRValue, DamageType,
-    DStat, Prof, ProficiencyLevel, Sense, Skill, Speed, StatValue
-}                                                from "../../../../../../homebrew/definitions/constants";
+    Activation,
+    AdventurerClass,
+    Condition,
+    CreatureSize,
+    CRValue,
+    DamageType,
+    DStat,
+    Prof,
+    ProficiencyLevel,
+    Sense,
+    DSkill,
+    Speed,
+    StatValue,
+    VisibilityLevel, Hidden
+} from "../../../../../data/constants";
 import {
-    NpcId
-}                                                from "../../../../../../npcs/npcIndex";
+    NpcID
+} from "../../../../../data/npcIndex";
 import {
     Action
-}                                                from "../../../../action/Action";
+} from "../../../../action/Action";
 import {wrapCondition, wrapDamageType, wrapRoll} from "../../../../action/Wrap";
 import {Character}                               from "../../../Character";
 
 export function setupEphremis(stats?: Map<string, number>)
 {
-    const Ephremis = new Character(NpcId.Ephremis);
+    const Ephremis = new Character(NpcID.Ephremis);
 
     Ephremis.core.name = "Ephremis";
     Ephremis.core.imgPath = "mob_tokens/seaborn/Ephremis.png";
@@ -33,10 +45,10 @@ export function setupEphremis(stats?: Map<string, number>)
     }
     Ephremis.dStats.pb = Prof.get(8);
 
-    Ephremis.dSKills.setSkillProficiency(Skill.Stealth,     ProficiencyLevel.Prof);
-    Ephremis.dSKills.setSkillProficiency(Skill.Athletics,   ProficiencyLevel.Prof);
-    Ephremis.dSKills.setSkillProficiency(Skill.Perception,  ProficiencyLevel.Prof);
-    Ephremis.dSKills.setSkillProficiency(Skill.Performance, ProficiencyLevel.Prof);
+    Ephremis.dSKills.setSkillProficiency(DSkill.Stealth, Hidden, ProficiencyLevel.Prof);
+    Ephremis.dSKills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Prof);
+    Ephremis.dSKills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Prof);
+    Ephremis.dSKills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Prof);
     Ephremis.dSKills.finalizeSkills();
 
     Ephremis.opinions.isOpinionated = false;

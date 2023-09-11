@@ -1,5 +1,5 @@
-import {NpcId}                   from "../../../../npcs/npcIndex";
-import {Character}               from "../Character";
+import {NpcID}     from "../../../data/npcIndex";
+import {Character} from "../Character";
 import {AspectFactoryFlag}       from "./AspectFactoryFlag";
 import {AspectNotSetupException} from "./AspectNotSetupException";
 import {DuplicateSetupException} from "./DuplicateSetupException";
@@ -20,7 +20,7 @@ export class BaseAspect
     /**
      * CTOR.
      */
-    constructor(private readonly character: Character)
+    constructor(protected readonly character: Character)
     {
         this.flags = new Set<AspectFactoryFlag>();
     }
@@ -77,7 +77,7 @@ export class BaseAspect
         else {
             console.warn(
                 `Aspect Factory setup not completed wrt ${AspectFactoryFlag[flag]} ` +
-                `on character ${NpcId[this.character.id]}.`
+                `on character ${NpcID[this.character.id]}.`
             );
         }
     }
@@ -93,7 +93,7 @@ export class BaseAspect
     /**
      * It's ok for all aspects to know the id.
      */
-    protected get id()
+    protected get id(): NpcID
     {
         // Or is it? What if they query the entire character itself using that?
         return this.character.id;

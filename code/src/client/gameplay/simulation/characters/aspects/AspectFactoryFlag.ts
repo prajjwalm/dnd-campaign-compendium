@@ -1,9 +1,13 @@
 export enum AspectFactoryFlag
 {
-    NameSetup,
-    ImgPathSetup,
-    StatsSetup,
-    ProficiencySetup,
-    SkillsDeclared,
-    SkillsFinalized,
+    CoreNameSetup,
+    CoreImgPathSetup,
+    DStatsStatsSetup,
+    DStatsProficiencyDeclared,
+    DStatsProficiencyFinalized,
+    DSkillsSkillsDeclared,
+    DSkillsSkillsFinalized,
+    CSkillsSkillsDeclared,
+    CSkillsSkillsFinalized,
+    CardCampaignSet,
 }

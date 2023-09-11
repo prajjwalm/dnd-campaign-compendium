@@ -1,7 +1,7 @@
 import {
     DStat, ProficiencyLevel
-}                       from "../../../homebrew/definitions/constants";
-import {IDStats}        from "../characters/aspects/IDStats";
+}                from "../../data/constants";
+import {IDStats} from "../characters/aspects/IDStats";
 import {IActionContext} from "./IActionContext";
 import {wrapRoll}       from "./Wrap";
 

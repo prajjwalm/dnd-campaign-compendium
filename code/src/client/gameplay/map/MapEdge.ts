@@ -1,6 +1,6 @@
-import {Edge}          from "./Edge";
-import {IDOMGenerator} from "./IDOMGenerator";
-import {MapGraph}      from "./MapGraph";
+import {Edge}                from "./Edge";
+import {IUniqueDOMGenerator} from "../IUniqueDOMGenerator";
+import {MapGraph}            from "./MapGraph";
 import {MapVertex}     from "./MapVertex";
 
 
@@ -9,7 +9,7 @@ import {MapVertex}     from "./MapVertex";
  */
 export class MapEdge
     extends    Edge<MapVertex>
-    implements IDOMGenerator
+    implements IUniqueDOMGenerator
 {
     /**
      * The id number of the vertex with the lower id number.

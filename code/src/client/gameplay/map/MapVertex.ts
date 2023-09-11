@@ -49,6 +49,11 @@ export class MapVertex
     private readonly _characterPaths: string[];
 
     /**
+     * If this vertex is the home base.
+     */
+    private isBase: boolean;
+
+    /**
      * CTOR.
      */
     public constructor(private readonly status: MapVertexStatus,
@@ -64,6 +69,7 @@ export class MapVertex
         this.intel = "<div>No intel available.</div>";
         this._sitesOfInterest = [];
         this._characterPaths = [];
+        this.isBase = false;
 
         this.graph.addVertex(this);
     }
@@ -109,6 +115,15 @@ export class MapVertex
         `;
     }
 
+
+    /**
+     * Marks this vertex as the home base.
+     */
+    public markAsBase(): void
+    {
+        this.isBase = true;
+    }
+
     /**
      * Add a site of interest to this spot.
      */
@@ -121,9 +136,9 @@ export class MapVertex
         const tableEntries = [];
         for (const [key, value] of info) {
             tableEntries.push(`
-                <div class="theme_map__row">
-                    <span class="theme_map__row__key site_of_interest__details__key">${key}</span>
-                    <span class="theme_map__row__value site_of_interest__details__value">${value}</span>
+                <div class="dictionary__row">
+                    <span class="dictionary__row__key site_of_interest__details__key">${key}</span>
+                    <span class="dictionary__row__value site_of_interest__details__value">${value}</span>
                 </div>
             `);
         }
@@ -131,10 +146,12 @@ export class MapVertex
         const navigationEntries = [];
         for (const [transportation, [nDays, safety]] of connections.entries()) {
             navigationEntries.push(`
-                <div class="navigation__type">
-                    <div class="navigation__type__means">${TransportationToDOMString.get(transportation)}</div>
-                    <div class="navigation__type__time">${nDays} days</div>
-                    <div class="navigation__type__safety">${safety}%</div>
+                <div class="navigation__type icon_table__slot">
+                    <div class="navigation__type__means icon_table__slot__icon">${TransportationToDOMString.get(transportation)}</div>
+                    <div class="icon_table__slot__label">
+                        <div class="navigation__type__time">${nDays} days</div>
+                        <div class="navigation__type__safety">${safety}%</div>
+                    </div>
                 </div>
             `);
         }
@@ -145,10 +162,10 @@ export class MapVertex
                     <div class="site_of_interest__category">${type}</div>
                     <div class="site_of_interest__name">${name}</div>
                 </div>
-                <div class="site_of_interest__details theme_map">
+                <div class="site_of_interest__details dictionary">
                     ${tableEntries.join("")}
                 </div>
-                <div class="site_of_interest__navigation navigation">
+                <div class="site_of_interest__navigation navigation icon_table">
                     ${navigationEntries.join("")}
                 </div>
             </div>
@@ -179,6 +196,18 @@ export class MapVertex
             tokenDOMs.push(`<img class="token_s" src="${path}" alt="">`);
         }
 
+        const soiDOM = this.isBase ?
+            "" :
+            `<div class="map_vertex_details__subheader theme_subheader">
+                Sites of interest
+            </div>
+            <div>
+                ${this._sitesOfInterest.join("")}
+            </div>`;
+
+        const baseDOM = this.isBase ?
+                        "<div class='inspect_base grunge_nav_button'>Inspect Base</div>" : "";
+
         return `
         <div class="map_vertex_details theme--${lowerCaseTypeName}">
             <div class="map_vertex_details__header grunge_panel">
@@ -190,18 +219,14 @@ export class MapVertex
                 <div class="theme_label">INTEL</div>
                 ${this.intel}
             </div>
-            <div class="map_vertex_details__subheader theme_subheader">
-                Sites of interest
-            </div>
-            <div>
-                ${this._sitesOfInterest.join("")}
-            </div>
+            ${soiDOM}
             <div class="map_vertex_details__subheader theme_subheader">
                 Characters here
             </div>
             <div class="map_vertex_details__characters">
                 ${tokenDOMs.join("")}
             </div>
+            ${baseDOM}
         </div>
         `;
     }

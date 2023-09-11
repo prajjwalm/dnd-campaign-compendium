@@ -1,14 +1,14 @@
-import {BaseDOMGenerator} from "./BaseDOMGenerator";
-import {Edge}             from "./Edge";
-import {IDOMGenerator}    from "./IDOMGenerator";
+import {BaseUniqueDOMGenerator} from "../BaseUniqueDOMGenerator";
+import {Edge}                   from "./Edge";
+import {IUniqueDOMGenerator} from "../IUniqueDOMGenerator";
 
 
 /**
  * Context free implementation of a vertex that can be rendered.
  */
 export abstract class Vertex
-    extends BaseDOMGenerator
-    implements IDOMGenerator
+    extends BaseUniqueDOMGenerator
+    implements IUniqueDOMGenerator
 {
     /**
      * @inheritDoc

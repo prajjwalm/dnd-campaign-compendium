@@ -10,6 +10,13 @@ export interface ICardFactory
     // details.
 
     /**
+     * Sets the campaign/arc to decide which section to display this character
+     * under. Thought of making this primary, but doesn't really concern any
+     * other aspect tbh.
+     */
+    setCampaignArc(c: number, a: number);
+
+    /**
      * Set a one-liner (actually around 7-liner) HTML summary of the character,
      * intended to be read at a glance.
      *

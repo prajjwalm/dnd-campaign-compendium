@@ -1,0 +1,330 @@
+@use "../definitions/colors";
+@use "../definitions/shadows";
+
+@use "../element_modules/tag";
+@use "../element_modules/simple_table";
+
+$img_diameter: 48px;
+$attitude_circle_border: 8px;
+
+// Opinion table.
+.opinion_summary_table {
+  flex-grow: 1;
+  width: 7 * ($img_diameter + 16px);
+  margin: 16px;
+  @include simple_table.SimpleTable($flex_based: true,
+                                    $body_max_height: 10.5 * ($img_diameter + 16px),
+                                    $min_cell_width: $img_diameter + 16px);
+
+  img {
+    width: $img_diameter;
+    height: $img_diameter;
+    margin: 0;
+  }
+}
+
+// Opinion Circles.
+.opinion_cell {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+%centered_circle {
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+%default_size_centered_circle {
+  @extend %centered_circle;
+  width: $img_diameter - 8px;
+  height: $img_diameter - 8px;
+  margin-top: -($img_diameter - 8px)/2;
+  margin-left: -($img_diameter - 8px)/2;
+}
+.npc_opinion_circle {
+  @extend %centered_circle;
+  width: $img_diameter - 8px - $attitude_circle_border;
+  height: $img_diameter - 8px - $attitude_circle_border;
+  margin-top: -($img_diameter - 8px - $attitude_circle_border)/2;
+  margin-left: -($img_diameter - 8px - $attitude_circle_border)/2;
+  z-index: 2;
+  background-color: colors.$white;
+  color: colors.$secondary_dark;
+  font-family: "Roboto", sans-serif;;;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;;
+  font-size: 16px;
+}
+.emotion_border {
+  @extend %default_size_centered_circle;
+  z-index: 1;
+
+  &--trust {
+    background: conic-gradient(#0000 0deg, #0000 0deg, colors.$trust 0deg, colors.$trust 120deg, #0000 120deg, #0000 360deg);
+  }
+  &--paranoia {
+    background: conic-gradient(#0000 0deg, #0000 0deg, colors.$betrayal 0deg, colors.$betrayal 120deg, #0000 120deg, #0000 360deg);
+  }
+  &--gratitude {
+    background: conic-gradient( #0000 0deg, #0000 120deg, colors.$gratitude 120deg, colors.$gratitude 240deg, #0000 240deg, #0000 360deg);
+  }
+  &--envy {
+    background: conic-gradient( #0000 0deg, #0000 120deg, colors.$envy 120deg, colors.$envy 240deg, #0000 240deg, #0000 360deg);
+  }
+  &--respect {
+    background: conic-gradient( #0000 0deg, #0000 240deg, colors.$respect 240deg, colors.$respect 360deg, #0000 360deg, #0000 360deg);
+  }
+  &--contempt {
+    background: conic-gradient( #0000 0deg, #0000 240deg, colors.$contempt 240deg, colors.$contempt 360deg, #0000 360deg, #0000 360deg);
+  }
+  &--value_0 {
+    opacity: 0;
+  }
+  &--value_1 {
+    opacity: 0.4;
+  }
+  &--value_2 {
+    opacity: 0.7;
+  }
+  &--value_3 {
+    opacity: 1;
+  }
+  &--backdrop {
+    @extend %default_size_centered_circle;
+    z-index: -2;
+    background-color: colors.$true_grey;
+    @include shadows.Elevation(1);
+  }
+}
+
+// Timeskip Events
+
+.timeskip_li {
+  padding: 16px;
+  font-size: 14px;
+
+  &__time {
+    font-size: 11px;
+  }
+
+  &__description {
+    font-style: italic;
+    text-align: justify;
+  }
+}
+
+.emotion_string {
+  font-family: "Montserrat", sans-serif;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 12px;
+
+  &--respect {
+    @extend .emotion_string;
+    color: colors.$respect;
+
+    &--neg {
+      @extend .emotion_string;
+      color: colors.$contempt;
+    }
+  }
+
+  &--trust {
+    @extend .emotion_string;
+    color: colors.$trust;
+
+    &--neg {
+      @extend .emotion_string;
+      color: colors.$betrayal;
+    }
+  }
+
+  &--gratitude {
+    @extend .emotion_string;
+    color: colors.$gratitude;
+
+    &--neg {
+      @extend .emotion_string;
+      color: colors.$envy;
+    }
+  }
+
+  &--envy {
+    @extend .emotion_string;
+    color: colors.$envy;
+
+    &--neg {
+      @extend .emotion_string;
+      color: colors.$gratitude;
+    }
+  }
+
+  &--paranoia {
+    @extend .emotion_string;
+    color: colors.$betrayal;
+
+    &--neg {
+      @extend .emotion_string;
+      color: colors.$trust;
+    }
+  }
+
+  &--contempt {
+    @extend .emotion_string;
+    color: colors.$contempt;
+
+    &--neg {
+      @extend .emotion_string;
+      color: colors.$respect;
+    }
+  }
+
+  &--hatred, &--affection {
+    @extend .emotion_string;
+
+    &--neg {
+      @extend .emotion_string;
+    }
+  }
+}
+
+// Uncategorized (so far).
+
+#active_characters .page__content {
+  display: flex;
+  flex-flow: row wrap-reverse;
+  align-items: flex-end;
+}
+
+#as_info_zone {
+  flex-grow: 3;
+  width: 640px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: space-between;
+  font-family: "RobotoCondensed", sans-serif;
+
+  & > * {
+    padding: 8px;
+    margin: 16px;
+    border-radius: 4px;
+  }
+}
+
+#ast_explanation {
+  min-height: 5 * ($img_diameter + 16px);
+  @include shadows.Elevation(1);
+
+  ul {
+    margin-top: 0;
+    padding: 12px;
+  }
+}
+
+.effect_tag {
+  &[data-emo="Affection"] {
+   @include tag.tag(colors.$prussian);
+  }
+
+  &[data-emo="Gratitude"] {
+   @include tag.tag(colors.$gratitude);
+  }
+
+  &[data-emo="Trust"] {
+   @include tag.tag(colors.$trust);
+  }
+
+  &[data-emo="Respect"] {
+   @include tag.tag(colors.$respect);
+  }
+
+  &[data-emo="Hatred"] {
+   @include tag.tag(colors.$prussian);
+  }
+
+  &[data-emo="Envy"] {
+   @include tag.tag(colors.$envy);
+  }
+
+  &[data-emo="Paranoia"] {
+   @include tag.tag(colors.$betrayal);
+  }
+
+  &[data-emo="Contempt"] {
+   @include tag.tag(colors.$contempt);
+  }
+}
+
+#individual_ast {
+  height: 5 * ($img_diameter + 16px);
+  overflow: auto;
+  padding: 16px;
+  display: none;
+  @include shadows.Elevation(1);
+
+  .events_list {
+    display: flex;
+    flex-flow: column-reverse nowrap;
+  }
+}
+
+.event_li {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  @include shadows.SoftInset();
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .timestamp {
+    font-size: 11px;
+    width: 120px;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 8px;
+    margin-right: 16px;
+    border-right: solid 1px rgba(colors.$grey, 0.2);
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  .display_text {
+    width: 400px;
+    font-size: 12px;
+    line-height: 1.4;
+    flex-grow: 1;
+  }
+
+  .effect_tags {
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    flex-flow: row-reverse nowrap;
+    padding-left: 8px;
+    margin-left: 8px;
+    flex-grow: 0;
+  }
+
+  .insight_lock {
+    @include tag.tag(#aaa, $font_color: #000);
+    min-width: 48px;
+  }
+}

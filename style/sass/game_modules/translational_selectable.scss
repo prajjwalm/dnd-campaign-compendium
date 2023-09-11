@@ -1,6 +1,6 @@
-@import "../definitions/common_dimensions";
-@import "../definitions/colors";
-@import "../definitions/shadows";
+@use "../definitions/colors";
+
+@use "../definitions/shadows";
 
 //
 // Translational Selectable
@@ -16,7 +16,7 @@ $default_theme: $theme_ocean_blue;
 @mixin translational_selectable_colors($direction: "up",
                                        $color_theme: $default_theme,
                                        $base_color: #151515,
-                                       $base_shadow: $color_white)
+                                       $base_shadow: colors.$white)
 {
   //
   // Since the card lights up from the direction from with it is drawn, when the
@@ -53,7 +53,7 @@ $default_theme: $theme_ocean_blue;
 
   .translation_base {
     background-color: $base_color;
-    @include BoxShadowUniformHelper(3, $base_shadow);
+    @include shadows.Uniform(3, $base_shadow);
   }
 
     .selectable {
@@ -64,7 +64,7 @@ $default_theme: $theme_ocean_blue;
                                 #131b27 45%,
                                 #090911 100%);
     border: solid 1px #242d40;
-    @include BoxShadowUniformHelper(4, #2e4983);
+    @include shadows.Uniform(4, #2e4983);
 
     &.disabled  {
       background: linear-gradient($angle,
@@ -122,7 +122,7 @@ $default_theme: $theme_ocean_blue;
     position: absolute;
   }
 
-  padding: 2 * $padding_default;
+  padding: 16px;
 
   @if ($direction == "up") {
     flex-direction: row;
@@ -240,14 +240,14 @@ $default_theme: $theme_ocean_blue;
     @include translational_selectable_colors("up");
     @include translational_selectable_dimensions("up",
                                                  $card_length: 350px,
-                                                 $card_gap: 4 * $margin_default);
+                                                 $card_gap: 32px);
 
     /**
      * Selectable content styling. This formats the interiors of the cards.
      */
     .selectable {
-      padding: 1.5 * $padding_default;
-      padding-top: 2 * $padding_default;
+      padding: 12px;
+      padding-top: 16px;
       display: flex;
       flex-flow: column nowrap;
       align-items: center;
@@ -266,38 +266,38 @@ $default_theme: $theme_ocean_blue;
       }
 
       .title {
-        color: $color-white;
+        color: colors.$white;
         font-family: "Montserrat", sans-serif;
-        border-bottom: solid 1px $color-grey;
+        border-bottom: solid 1px colors.$grey;
         height: 50px !important;
         text-align: center;
-        margin-bottom: $margin_default;
+        margin-bottom: 8px;
 
-        @include FontSize(4);
+        font-size: 16px;
       }
 
       .subtext {
-        color: $color_true_grey;
-        @include FontSize(6);
+        color: colors.$true_grey;
+        font-size: 14px;
       }
 
       .confirm {
         display: none;
-        padding-bottom: 2 * $padding_default;
+        padding-bottom: 16px;
         flex-direction: column;
         align-items: center;
         justify-content: flex-end;
         flex-grow: 1;
-        gap: 0.5 * $padding_default;
+        gap: 4px;
 
         .confirm_msg {
-          color: $color_true_grey;
-          @include FontSize(8);
+          color: colors.$true_grey;
+          font-size: 11px;
         }
         i {
           display: block;
-          color: $color_white;
-          text-shadow: 0 0 5px rgba($color-white, 0.5);
+          color: colors.$white;
+          text-shadow: 0 0 5px rgba(colors.$white, 0.5);
         }
       }
 
@@ -315,7 +315,7 @@ $default_theme: $theme_ocean_blue;
     @include translational_selectable_misc();
     @include translational_selectable_colors("right",
                                              $base_color: #77777f,
-                                             $base_shadow: $color_black);
+                                             $base_shadow: colors.$black);
     @include translational_selectable_dimensions("right",
                                                  $card_length: 96px,
                                                  $active_card_length: 256px,

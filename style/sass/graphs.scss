@@ -1,12 +1,15 @@
-@import "definitions/colors";
-@import "definitions/shadows";
+@use "definitions/_colors";
+
+@use "game_modules/_grunge_modules";
+@use "game_modules/_skills";
+
+@use "definitions/shadows";
 @import "modules/side_panel";
 @import "game_modules/graph";
 @import "game_modules/map";
-@import "game_modules/skills";
 @import "game_modules/ink_side_banner";
-@import "game_modules/grunge_modules";
 @import "game_modules/tokens";
+@import "game_modules/base";
 
 * {
   box-sizing: border-box;
@@ -15,7 +18,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: $color_graph_background;
+  background: colors.$graph_background;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -23,11 +26,11 @@ body {
 
 
 #graph_selection_panel {
-  background: $color_black;
-  color: $color_white;
+  background: colors.$black;
+  color: colors.$white;
   width: 180px;
 
-  @include BoxShadowElevationHelper(3);
+  @include shadows.Elevation(3);
 }
 
 #map_graph_area, #skill_graph_area {
@@ -37,4 +40,9 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: scroll;
+}
+
+#map_graph_area {
+  display: flex;
+  justify-content: center;
 }

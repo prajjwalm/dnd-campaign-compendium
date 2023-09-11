@@ -1,14 +1,14 @@
-import {BaseDOMGenerator} from "./BaseDOMGenerator";
-import {IDOMGenerator}    from "./IDOMGenerator";
-import {Vertex}           from "./Vertex";
+import {BaseUniqueDOMGenerator} from "../BaseUniqueDOMGenerator";
+import {IUniqueDOMGenerator}    from "../IUniqueDOMGenerator";
+import {Vertex}                 from "./Vertex";
 
 
 /**
  * A context-free edge whose concrete implementations can be rendered on screen.
  */
 export abstract class Edge<V extends Vertex>
-    extends BaseDOMGenerator
-    implements IDOMGenerator
+    extends BaseUniqueDOMGenerator
+    implements IUniqueDOMGenerator
 {
     /**
      * CTOR.

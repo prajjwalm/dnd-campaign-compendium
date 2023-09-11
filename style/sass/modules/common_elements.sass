@@ -1,30 +1,17 @@
-@import "../definitions/colors"
-@import "../definitions/shadows"
-@import "../definitions/common_dimensions"
-
+@use "../definitions/colors"
+@use "../definitions/shadows"
 
 
 // Headers
 %header
-  color: $color_secondary_dark
+  color: colors.$secondary_dark
 
-h1
-  @extend %header
-  @include FontSize(1)
-  font-family: Montserrat, sans-serif
-  font-weight: 500
-  width: 100%
-  padding: 6 * $padding_default 4 * $padding_default 2 * $padding_default
-  margin-top: 0
-  margin-bottom: 2 * $margin_default
-  color: $color_white
-  background-color: $color_secondary_dark
 h2
   @extend %header
-  @include FontSize(2)
+  font-size: 20px
   font-family: Montserrat, sans-serif
-  margin-top: 4 * $margin-default
-  margin-bottom: 2 * $margin-default
+  margin-top: 32px
+  margin-bottom: 16px
 
 %subheader
   @extend %header
@@ -32,148 +19,61 @@ h2
 
 h3
   @extend %header
-  @include FontSize(3)
-  margin-top: 3 * $margin-default
-  margin-bottom: $margin-default
+  font-size: 18px
+  margin-top: 24px
+  margin-bottom: 8px
 h4
   @extend %header
-  @include FontSize(4)
-  margin-top: 2 * $margin-default
-  margin-bottom: $margin-default
+  font-size: 16px
+  margin-top: 16px
+  margin-bottom: 8px
 h5
   @extend %header
-  @include FontSize(5)
-  margin-top: 1.5 * $margin-default
-  margin-bottom: 0.5 * $margin-default
+  font-size: 15px
+  margin-top: 12px
+  margin-bottom: 4px
 h6
   @extend %header
-  @include FontSize(6)
-  margin-top: $margin-default
-  margin-bottom: 0.25 * $margin-default
+  font-size: 14px
+  margin-top: 8px
+  margin-bottom: 2px
 
 p
-  @include FontSize()
   text-align: justify
-  margin-top: 0.5 * $margin_default
-  margin-bottom: $margin_default
+  margin-top: 4px
+  margin-bottom: 8px
 
 sub, sup
   margin-left: 1px
 
 li
-  @include FontSize()
+  font-size: 14px
   text-align: justify
 
 ul, ol
   margin-top: 0
-  margin-bottom: 1.5 * $margin_default
+  margin-bottom: 12px
 
 img
   display: inline-block
-  margin: $margin_default
+  margin: 8px
   object-fit: contain
 
 .section
   border-radius: 12px
-  background: linear-gradient(90deg, rgba($color_secondary,0.05) 0%, rgba($color_secondary,0.07) 73%, rgba($color_secondary,0.08) 100%)
+  background: linear-gradient(90deg, rgba(colors.$secondary,0.05) 0%, rgba(colors.$secondary,0.07) 73%, rgba(colors.$secondary,0.08) 100%)
   display: flex
   flex-flow: row nowrap
   align-items: center
   justify-content: flex-start
   gap: 10px
-  padding: 0 0 0 3 * $padding_default
-  margin: $margin_default 0
+  padding: 0 0 0 24px
+  margin: 8px 0
 
   .section_header
-    padding: 2 * $padding_default $padding_default
+    padding: 16px 8px
     margin: 0
     min-width: 80px
 
-.tag
-  background-color: $color-primary
-  color: $color-white
-  border-radius: 3px
-  padding: $padding_default / 2
-  margin: 0 $margin_default / 2 $margin_default / 2 0
-  display: inline-flex
-  justify-content: space-between
-  gap: 2px
-  align-items: center
-  min-height: 24px
-  @include FontSize(8)
-
-  &.leveled
-    @include rarity_background_light_foreground
-
-
 .card_link
-  color: $color-secondary
-
-.page
-  background-color: $color-white
-  border-radius: 4px
-  width: 80vw
-  min-width: 320px
-  margin: 8 * $margin_default auto auto
-  overflow: hidden
-
-  @include BoxShadowElevationHelper(2)
-
-  .page_content
-    padding: 2 * $padding_default 4 * $padding_default
-
-#page_nav
-  display: none
-
-  .page_nav_link
-    width: 100%
-    padding: 3*$padding_default $padding-default
-    cursor: pointer
-    color: $color-white
-    font-weight: 500
-    letter-spacing: 0.1px
-    transition: all 0.3s
-    font-family: Montserrat, sans-serif
-    @include FontSize(2)
-
-    &:hover
-      background-color: rgba($color_secondary, 0.1)
-
-
-table:not(.ignore_common_style)
-  @include FontSize()
-  margin-left: auto
-  margin-right: auto
-  margin-bottom: $margin_default
-
-  td
-    padding: $padding_default
-
-  th
-    padding: $padding_default
-    white-space: nowrap
-    font-family: "Montserrat", sans-serif
-    font-weight: 200
-    background-color: $color_grey_dark
-    color: $color_white
-
-  tr
-    &:nth-child(2n)
-      background-color: rgba($color_grey, 0.1)
-    &:nth-child(2n+1)
-      background-color: rgba($color_grey, 0.15)
-
-
-@media screen and (min-width: 960px)
-  .page
-    width: calc(80vw - 100px)
-    margin: 8*$margin_default 5vw 2*$margin_default calc(100px + 15vw)
-
-  #page_nav
-    display: unset
-    width: calc(100px + 10vw)
-    position: fixed
-    top: 0
-    left: 0
-    height: 100vw
-    background-color: $color_secondary_dark
+  color: colors.$secondary

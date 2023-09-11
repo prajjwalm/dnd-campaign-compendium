@@ -1,8 +1,8 @@
-import {Dice}   from "../../../../homebrew/common/diceConstants";
+import {Dice}   from "../../../rolling/Dice";
 import {
     Condition, DStat, DamageType, Prof, ProficiencyLevel, Sense, Speed,
     StatValue
-}               from "../../../../homebrew/definitions/constants";
+}               from "../../../data/constants";
 import {Action} from "../../action/Action";
 
 
@@ -34,7 +34,6 @@ export interface ICombat
     dc(stat: DStat): number;
 
     get passivePerception(): number;
-    get passiveStealth(): number;
 
     // We don't need CR here. That's a sheet only (user-facing) thing.
 

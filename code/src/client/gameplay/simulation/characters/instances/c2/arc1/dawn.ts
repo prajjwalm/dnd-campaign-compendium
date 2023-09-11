@@ -1,11 +1,16 @@
-import {Prof, ProficiencyLevel, Skill} from "../../../../../../homebrew/definitions/constants";
-import {NpcId}                         from "../../../../../../npcs/npcIndex";
-import {Character}                     from "../../../Character";
+import {
+    Prof,
+    ProficiencyLevel,
+    DSkill,
+    Hidden
+}                  from "../../../../../data/constants";
+import {NpcID}     from "../../../../../data/npcIndex";
+import {Character} from "../../../Character";
 
 export function setupDawn()
 {
     // Prepare the character object.
-    const dawn = new Character(NpcId.Dawn);
+    const dawn = new Character(NpcID.Dawn);
 
     dawn.core.name = "Dawn";
     dawn.core.imgPath = "character_tokens/C2/Arc1/Dawn.png";
@@ -15,28 +20,25 @@ export function setupDawn()
     dawn.dStats.pb = Prof.get(4);
 
     // Setup D&D skills.
-    dawn.dSKills.setSkillProficiency(Skill.AnimalHandling);
-    dawn.dSKills.setSkillProficiency(Skill.Deception);
-    dawn.dSKills.setSkillProficiency(Skill.History);
-    dawn.dSKills.setSkillProficiency(Skill.Insight);
-    dawn.dSKills.setSkillProficiency(Skill.Medicine);
-
-    // Advantage in finding/cooking food.
-    dawn.dSKills.setSkillProficiency(Skill.Survival,      ProficiencyLevel.Prof, 5);
-
-    dawn.dSKills.setSkillProficiency(Skill.Persuasion,    ProficiencyLevel.Expert);
-    dawn.dSKills.setSkillProficiency(Skill.Performance,   ProficiencyLevel.Expert);
-    dawn.dSKills.setSkillProficiency(Skill.SlightOfHand,  ProficiencyLevel.Expert);
-    dawn.dSKills.setSkillProficiency(Skill._ALL,          ProficiencyLevel.Half);
+    dawn.dSKills.setSkillProficiency(DSkill.AnimalHandling, Hidden);
+    dawn.dSKills.setSkillProficiency(DSkill.Deception, Hidden);
+    dawn.dSKills.setSkillProficiency(DSkill.History, Hidden);
+    dawn.dSKills.setSkillProficiency(DSkill.Insight, Hidden);
+    dawn.dSKills.setSkillProficiency(DSkill.Medicine, Hidden);
+    dawn.dSKills.setSkillProficiency(DSkill.Survival, Hidden, ProficiencyLevel.Prof, 5);
+    dawn.dSKills.setSkillProficiency(DSkill.Persuasion, Hidden, ProficiencyLevel.Expert);
+    dawn.dSKills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Expert);
+    dawn.dSKills.setSkillProficiency(DSkill.SlightOfHand, Hidden, ProficiencyLevel.Expert);
+    dawn.dSKills.setSkillProficiency(DSkill._ALL, Hidden, ProficiencyLevel.Half);
     dawn.dSKills.finalizeSkills();
 
     dawn.opinions.isOpinionated = true;
 
     // Card information.
+    dawn.card.setCampaignArc(2, 1);
     dawn.card.addCardTag("F32 (405)");
     dawn.card.addCardTag("From | Materia<span class='verbose'>(Naiyumi)</span> / Devotion");
     dawn.card.addCardTag("Race | Human");
-    dawn.card.addCardTag("Campaign 2 <span class='verbose'>Arc 1</span>");
 
     dawn.card.summary = `
     The gentle and reserved pawn shop owner and the de facto caretaker of the small mountainous village of Po'shan. 

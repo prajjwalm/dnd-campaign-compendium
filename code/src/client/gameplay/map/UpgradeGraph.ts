@@ -1,5 +1,5 @@
-import {getEnumIterator}                                                                            from "../../common/common";
-import {Graph}                                                                                      from "./Graph";
+import {getEnumIterator} from "../common";
+import {Graph}           from "./Graph";
 import {SidePanel}                                                                                  from "./SidePanel";
 import {UpgradeEdge}                                                                                from "./UpgradeEdge";
 import {UpgradeVertex}                                                                              from "./UpgradeVertex";
@@ -88,20 +88,20 @@ export class UpgradeGraph
                 <div class="theme_subheader">
                     Progress
                 </div>
-                <div class="theme_map">
-                    <div class="theme_map__row">
-                        <div class="theme_map__row__key">Nodes activated</div>
-                        <div class="theme_map__row__value">${activeNodes} / ${totalNodes}</div>
+                <div class="dictionary upgrade_stats">
+                    <div class="dictionary__row">
+                        <div class="dictionary__row__key">Nodes activated</div>
+                        <div class="dictionary__row__value">${activeNodes} / ${totalNodes}</div>
                     </div>                    
-                    <div class="theme_map__row">
-                        <div class="theme_map__row__key">Reclamation level</div>
-                        <div class="theme_map__row__value">${activations} / ${totalActivation}</div>
+                    <div class="dictionary__row">
+                        <div class="dictionary__row__key">Reclamation level</div>
+                        <div class="dictionary__row__value">${activations} / ${totalActivation}</div>
                     </div>                    
                 </div>
                 <div class="theme_subheader">
                     Cummulative Effects
                 </div>
-                <div class="theme_map upgrade_effects">
+                <div class="dictionary upgrade_effects">
                     ${effectStrings.join("")}
                 </div>
             </div>`;

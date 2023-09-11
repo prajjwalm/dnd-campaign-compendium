@@ -22,7 +22,7 @@
 </div>
 <div id="character_idx" class="page">
     <h1 class="page_header" data-nav-id="charIdx">Character Index</h1>
-    <div class="page_content">
+    <div class="page__content">
         <div class="central_view"></div>
         <div id="tokens">
             <div class="campaign">
@@ -48,7 +48,7 @@
 </div>
 <div id="material_plane" class="page">
     <h1 class="page_header" data-nav-id="material">Materia</h1>
-    <div class="page_content">
+    <div class="page__content">
         <div class="planet_info" id="planet_terra">
             <h4>Terra Prima</h4>
             <div class="section planet_maps">
@@ -84,7 +84,7 @@
 </div>
 <div class="page">
     <h1 class="page_header" data-nav-id="shards">Shards & Planes</h1>
-    <div class="page_content">
+    <div class="page__content">
         <h3>Explaining the Shards</h3>
         <p>
             Sixteen shards govern the entire multiverse. As their name suggests they are fragments, pieces of a whole,
@@ -221,29 +221,24 @@
     </div>
 </div>
 <div class="page">
-    <h1 class="page_header" data-nav-id="aberrations">Aberrations</h1>
-</div>
-<div class="page">
     <h1 class="page_header" data-nav-id="history">History</h1>
-    <div class="page_content">
-        <div class="intro">
-            <h4>Note</h4>
-            <p>Time flows differently in all realms - the more the shardic focus (i.e. the greater the
-               investiture) in a realm / point in space, the faster time moves there. For example time has not moved at
-               all in the outer fringes of the Gardens of Preservation, where no shard focuses. So a day there would be
-               equivalent to a century in Materia.</p>
-            <p>At first, time moved slowest in Materia - since the shards all focused on their realms. But as
-               threats from without started to take shape in Materia, and because there was a clash of interests which
-               unfolded there, shards shifted their focus completely over there. This reached a climax during the Silent
-               Age, where time passed in there nearly a dozen times as fast as in the other planes. After that,
-               during the archaic age the shards agreed to step away - causing time in the inner planes to
-               drop till it became around half the pace of the mean of the outer planes.</p>
-            <p>However, in the last few centuries, Preservation was weakening, again causing time to go slower in the
-               Gardens. One day there would roughly be a week in Materia. When the Survivor took up the Shard
-               however, he immediately focused on clearing the mess in his domain, which caused time to accelerate
-               rapidly in there causing hours spent in Ruin equivalent to weeks in the Gardens.</p>
-            <p>The Graph which follows is with respect to Materia, unless specific points mention otherwise...</p>
-        </div>
+    <div class="page__content">
+        <h4>Note</h4>
+        <p>Time flows differently in all realms - the more the shardic focus (i.e. the greater the
+           investiture) in a realm / point in space, the faster time moves there. For example time has not moved at
+           all in the outer fringes of the Gardens of Preservation, where no shard focuses. So a day there would be
+           equivalent to a century in Materia.</p>
+        <p>At first, time moved slowest in Materia - since the shards all focused on their realms. But as
+           threats from without started to take shape in Materia, and because there was a clash of interests which
+           unfolded there, shards shifted their focus completely over there. This reached a climax during the Silent
+           Age, where time passed in there nearly a dozen times as fast as in the other planes. After that,
+           during the archaic age the shards agreed to step away - causing time in the inner planes to
+           drop till it became around half the pace of the mean of the outer planes.</p>
+        <p>However, in the last few centuries, Preservation was weakening, again causing time to go slower in the
+           Gardens. One day there would roughly be a week in Materia. When the Survivor took up the Shard
+           however, he immediately focused on clearing the mess in his domain, which caused time to accelerate
+           rapidly in there causing hours spent in Ruin equivalent to weeks in the Gardens.</p>
+        <p>The Graph which follows is with respect to Materia, unless specific points mention otherwise...</p>
         <div id="history_space">
             <div id="history_zones"></div>
             <div id="history_bar"></div>
@@ -254,11 +249,8 @@
     </div>
 </div>
 <div class="page">
-    <h1 class="page_header" data-nav-id="factions">Factions</h1>
-</div>
-<div class="page">
     <h1 class="page_header" data-nav-id="rules">House Rules</h1>
-    <div class="page_content">
+    <div class="page__content">
         <h3>In game rules</h3>
         <p>
             Disclaimer: These rules are based on what I felt should be appropriate based on previous experience.
@@ -516,8 +508,10 @@
                 to heal), the negative effect becomes more frequently applied.</li>
         </ol>
         <p>Some escalated damage types encountered so far are -</p>
-        <table>
-            <tr><th>Damage Type</th><th>Escalated Damage Type</th><th>Save Stat</th><th>Fail Effect</th></tr>
+        <table class="simple_table">
+            <tr class="simple_table__row--header">
+                <th>Damage Type</th><th>Escalated Damage Type</th><th>Save</th><th>Fail Effect</th>
+            </tr>
             <tr>
                 <td>Psychic</td><td>Neural</td><td>INT</td>
                 <td>Stunned until the end of the same initiative count in the next round. Paralyzed on the second
@@ -579,8 +573,8 @@
                 of training. Also, the base rules had very little to say about this, and so I'll be much more receptive
                 to feedback here. For the purposes of the rules below, consider the following table (will be
                 elaborated in the points below) -
-                <table>
-                    <tr><th>Range</th><th>Grade</th><th>Description</th><th>Eq. D&D Rarity</th><th>Score
+                <table class="simple_table">
+                    <tr class="simple_table__row--header"><th>Range</th><th>Grade</th><th>Description</th><th>Eq. D&D Rarity</th><th>Score
                     </th><th>For bonus improvement roll</th></tr>
                     <tr>
                         <td>[1, 4]</td>
@@ -697,16 +691,16 @@
                     <li>
                         <b>Time devoted.</b> This mainly decides which dice will be used for skill improvement, given
                         that the (probabilistically) expected number of dice is determined by other factors.
-                        <table>
-                            <tr>
+                        <table class="simple_table">
+                            <tr class="simple_table__row--header">
                                 <th>Time</th>
                                 <th>Skill Improvement Dice</th>
                                 <th>Cooldown</th>
                                 <th>Spare time allocation</th>
                             </tr>
                             <tr>
-                                <td><em>How long will the course take?</em></td>
-                                <td><em>Rolled to see improvement magnitude.</em></td>
+                                <td><em>Course Duration.</em></td>
+                                <td><em>Rolled for improvement magnitude.</em></td>
                                 <td><em>When can the course be taken again? (Measured from start to start) </em></td>
                                 <td><em>How much of a day's spare time does the course take? (Shorter bursts are more
                                     intense)</em></td>
@@ -820,8 +814,8 @@
 </div>
 <div id="floating_opinions"></div>
 <div id="active_characters" class="page">
-    <h1 class="page_header" data-nav-id="interactions">Active NPC interaction</h1>
-    <div class="page_content">
+    <h1 class="page_header" data-nav-id="interactions">Opinions</h1>
+    <div class="page__content">
         <div id="attitude_summary_table_area"></div>
         <div id="as_info_zone">
             <div id="ast_explanation">
@@ -866,9 +860,9 @@
         </div>
     </div>
 </div>
-<div class="page gen2_ui">
+<div class="page page--beastiary">
     <h1 class="page_header" data-nav-id="beastiary">Beastiary</h1>
-    <div class="page_content advanced_style" id="combat">
+    <div class="page__content advanced_style" id="combat">
         <div id="beastiary">
             <div class="selectable_radio_container translational_flags">
                 <div class="translation_base">

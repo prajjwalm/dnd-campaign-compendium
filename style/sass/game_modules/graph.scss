@@ -1,7 +1,8 @@
-@import "../definitions/fonts";
-@import "../definitions/colors";
-@import "../definitions/shadows";
-@import "../definitions/common_dimensions";
+@use "../definitions/content";
+@use "../definitions/colors";
+
+@use "../definitions/shadows";
+
 
 .graph {
   position: relative;
@@ -33,36 +34,36 @@
     transition: opacity 0.3s;
     opacity: 0;
     z-index: 2;
-    @include BoxShadowElevationHelper(2);
+    @include shadows.Elevation(2);
 
     .overhead_text {
       font-family: "Montserrat", sans-serif;
-      color: $color_node_unknown;
+      color: colors.$node_unknown;
       font-style: italic;
       font-weight: bold;
       width: 100%;
       text-align: right;
 
-      @include FontSize(8);
+      font-size: 11px;
     }
 
     .grunge_label {
       &__title {
         height: 24px;
-        @include FontSize(6);
+        font-size: 14px;
       }
 
       &__desc {
         min-height: 40px;
         padding: 4px;
-        @include FontSize(5);
+        font-size: 15px;
 
         .vertex_id {
           font-family: "RobotoCondensed", sans-serif;
           font-weight: bold;
           font-variant-caps: petite-caps;
           margin-right: 8px;
-          @include FontSize(6);
+          font-size: 14px;
         }
       }
     }
@@ -72,76 +73,76 @@
 // To explain the naming - a map was the first graph I made...
 %info_unknown {
   .grunge_label__title {
-    background-image: url($content_root + "images/gui/unknown/Panel450x100.png"),
-    linear-gradient($color_node_unknown, $color_node_unknown);
-    color: $color_black;
+    background-image: url(content.$root + "images/gui/unknown/Panel450x100.png"),
+    linear-gradient(colors.$node_unknown, colors.$node_unknown);
+    color: colors.$black;
 
   }
   .grunge_label__desc {
-    background: $color_black;
+    background: colors.$black;
   }
 }
 %info_friendly {
   .grunge_label__title {
-    background-image: url($content_root + "images/gui/friendly/Panel450x100.png"),
-    linear-gradient($color_node_friendly_dark 50%, $color_node_friendly);
+    background-image: url(content.$root + "images/gui/friendly/Panel450x100.png"),
+    linear-gradient(colors.$node_friendly_dark 50%, colors.$node_friendly);
   }
   .grunge_label__desc {
-    background: $color_node_friendly_black;
+    background: colors.$node_friendly_black;
   }
 }
 %info_safe {
   .grunge_label__title {
-    background-image: url($content_root + "images/gui/safe/Panel450x100.png"),
-    linear-gradient($color_node_safe_dark 50%, $color_node_safe_50);
+    background-image: url(content.$root + "images/gui/safe/Panel450x100.png"),
+    linear-gradient(colors.$node_safe_dark 50%, colors.$node_safe_50);
   }
   .grunge_label__desc {
-    background: $color_node_safe_black;
+    background: colors.$node_safe_black;
   }
 }
 %info_combat {
   .grunge_label__title {
-    background-image: url($content_root + "images/gui/combat/Panel450x100.png"),
-    linear-gradient($color_node_combat 50%, $color_node_combat_light);
+    background-image: url(content.$root + "images/gui/combat/Panel450x100.png"),
+    linear-gradient(colors.$node_combat 50%, colors.$node_combat_light);
   }
   .grunge_label__desc {
-    background: $color_node_combat_black;
+    background: colors.$node_combat_black;
   }
 }
 %info_emergency {
   .grunge_label__title {
-    background-image: url($content_root + "images/gui/emergency/Panel450x100.png"),
-    linear-gradient($color_node_emergency_dark, $color_node_emergency 20%);
+    background-image: url(content.$root + "images/gui/emergency/Panel450x100.png"),
+    linear-gradient(colors.$node_emergency_dark, colors.$node_emergency 20%);
   }
   .grunge_label__desc {
-    background: $color_node_emergency_black;
+    background: colors.$node_emergency_black;
   }
 }
 %info_neutral {
   .grunge_label__title {
-    background-image: url($content_root + "images/gui/neutral/Panel450x100.png"),
-    linear-gradient($color_node_neutral_40, $color_node_neutral);
+    background-image: url(content.$root + "images/gui/neutral/Panel450x100.png"),
+    linear-gradient(colors.$node_neutral_40, colors.$node_neutral);
   }
   .grunge_label__desc {
-    background: $color_node_neutral_black;
+    background: colors.$node_neutral_black;
   }
 }
 %info_deadly {
   .grunge_label__title {
-    background-image: url($content_root + "images/gui/deadly/Panel450x100.png"),
-    linear-gradient($color_node_deadly_dark, $color_node_deadly 30%);
+    background-image: url(content.$root + "images/gui/deadly/Panel450x100.png"),
+    linear-gradient(colors.$node_deadly_dark, colors.$node_deadly 30%);
   }
   .grunge_label__desc {
-    background: $color_node_deadly_black;
+    background: colors.$node_deadly_black;
   }
 }
 %info_black {
   .grunge_label__title {
-    background-image: url($content_root + "images/gui/black/Panel450x100.png"),
-    linear-gradient($color_black 50%, $color_true_grey);
+    background-image: url(content.$root + "images/gui/black/Panel450x100.png"),
+    linear-gradient(colors.$black 50%, colors.$true_grey);
   }
   .grunge_label__desc {
-    background: $color_black;
-    color: $color_node_unknown;
+    background: colors.$black;
+    color: colors.$node_unknown;
   }
 }

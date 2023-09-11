@@ -1,5 +1,5 @@
-import {Rarity}            from "../../../homebrew/definitions/Rarity";
-import {UpgradeEdge}       from "../UpgradeEdge";
+import {Rarity}      from "../../data/Rarity";
+import {UpgradeEdge} from "../UpgradeEdge";
 import {UpgradeGraph}      from "../UpgradeGraph";
 import {UpgradeVertex}     from "../UpgradeVertex";
 import {UpgradeVertexType} from "../UpgradeVertexConfig";

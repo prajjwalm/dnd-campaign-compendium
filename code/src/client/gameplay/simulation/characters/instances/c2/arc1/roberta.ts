@@ -1,10 +1,15 @@
-import {Prof, ProficiencyLevel, Skill} from "../../../../../../homebrew/definitions/constants";
-import {NpcId}                         from "../../../../../../npcs/npcIndex";
-import {Character}                     from "../../../Character";
+import {
+    Prof,
+    ProficiencyLevel,
+    DSkill,
+    VisibilityLevel, Hidden
+}                  from "../../../../../data/constants";
+import {NpcID}     from "../../../../../data/npcIndex";
+import {Character} from "../../../Character";
 
 export function setupRoberta()
 {
-    const roberta = new Character(NpcId.Roberta);
+    const roberta = new Character(NpcID.Roberta);
 
     // Setup core.
     roberta.core.name = "Roberta";
@@ -15,13 +20,12 @@ export function setupRoberta()
     roberta.dStats.pb = Prof.get(4);
 
     // Setup D&D skills.
-    roberta.dSKills.setSkillProficiency(Skill.Performance);
-    roberta.dSKills.setSkillProficiency(Skill.Investigation);
-    roberta.dSKills.setSkillProficiency(Skill.Nature);
-
-    roberta.dSKills.setSkillProficiency(Skill.SlightOfHand, ProficiencyLevel.Expert);
-    roberta.dSKills.setSkillProficiency(Skill.Medicine,     ProficiencyLevel.Expert);
-    roberta.dSKills.setSkillProficiency(Skill._ALL,         ProficiencyLevel.Half);
+    roberta.dSKills.setSkillProficiency(DSkill.Performance, Hidden);
+    roberta.dSKills.setSkillProficiency(DSkill.Investigation, Hidden);
+    roberta.dSKills.setSkillProficiency(DSkill.Nature, Hidden);
+    roberta.dSKills.setSkillProficiency(DSkill.SlightOfHand, Hidden, ProficiencyLevel.Expert);
+    roberta.dSKills.setSkillProficiency(DSkill.Medicine, Hidden, ProficiencyLevel.Expert);
+    roberta.dSKills.setSkillProficiency(DSkill._ALL, Hidden, ProficiencyLevel.Half);
 
     roberta.opinions.isOpinionated = true;
 }

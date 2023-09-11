@@ -1,4 +1,4 @@
-import {DamageType, Skill} from "../../homebrew/definitions/constants";
+import {DamageType, DSkill} from "../data/constants";
 
 
 /**

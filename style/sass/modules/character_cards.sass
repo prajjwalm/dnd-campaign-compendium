@@ -1,15 +1,17 @@
-@import "../definitions/colors"
-@import "../definitions/shadows"
-@import "../definitions/common_dimensions"
+@use "../definitions/colors"
+@use "../element_modules/_tag"
+
+@use "../definitions/shadows"
+
 @import "common_elements"
 
 $character_card_floating_width: 660px
 $character_card_floating_image_diameter: 128px
-$character_card_floating_height: $character_card_floating_image_diameter + 2 * $margin_default
-$character_card_floating_title_font_size: $base_font_size + 6px
+$character_card_floating_height: $character_card_floating_image_diameter + 16px
+$character_card_floating_title_font_size: 20px
 
 $character_card_fixed_image_diameter: 256px
-$character_card_fixed_title_font_size: $base_font_size + 8px
+$character_card_fixed_title_font_size: 22px
 
 $token_icon_diameter: 64px
 
@@ -21,27 +23,27 @@ $token_icon_diameter: 64px
 .character_card
   width: 100%
   min-width: 300px
-  background-color: $color_white
-  margin: $margin_default auto
+  background-color: colors.$white
+  margin: 8px auto
   display: flex
   flex-flow: row wrap
   justify-content: space-between
   gap: 5vw
 
   .tags
-    margin-bottom: $margin_default / 2
+    margin-bottom: 4px
     display: flex
     flex-flow: row wrap
     align-items: center
     justify-content: flex-start
 
   .personality_tags
-    margin-top: $margin_default / 2
-    margin-bottom: $margin_default / 2
+    margin-top: 4px
+    margin-bottom: 4px
 
   .token_space
     width: $character_card_fixed_image_diameter
-    padding: $padding_default
+    padding: 8px
     order: -1
     display: flex
     flex-flow: column nowrap
@@ -62,22 +64,22 @@ $token_icon_diameter: 64px
     min-height: 100%
 
     .name
-      color: $color-primary !important
+      color: colors.$primary !important
 
     .summary
       font-style: italic
-      color: $color_black
+      color: colors.$black
       text-align: justify
-      margin-top: $margin_default
-      margin-bottom: $margin_default
+      margin-top: 8px
+      margin-bottom: 8px
       flex-shrink: 1
-      @include FontSize()
+      font-size: 14px
 
     .details
-      color: $color_black
+      color: colors.$black
       flex-grow: 1
       text-align: justify
-      @include FontSize(7)
+      font-size: 12px
 
   .content
     min-width: 300px
@@ -87,12 +89,12 @@ $token_icon_diameter: 64px
     width: $character_card_floating_width
     min-height: $character_card_floating_height
     border-radius: 5px
-    padding: $padding_default
-    gap: $margin_default * 2
+    padding: 8px
+    gap: 16px
     flex-flow: row nowrap
     overflow: hidden
 
-    @include BoxShadowElevationHelper(1)
+    @include shadows.Elevation(1)
 
     .verbose
       display: none !important
@@ -107,8 +109,10 @@ $token_icon_diameter: 64px
         display: None
 
       .name
-        @include FontSize(3)
+        font-size: 18px
         margin: 0
 
 
 
+.token_selector
+  @include tag.tag(colors.$primary, $compressed: true)

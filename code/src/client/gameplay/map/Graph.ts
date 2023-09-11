@@ -1,15 +1,15 @@
-import {BaseDOMGenerator} from "./BaseDOMGenerator";
-import {Edge}             from "./Edge";
-import {IDOMGenerator}    from "./IDOMGenerator";
-import {Vertex}           from "./Vertex";
+import {BaseUniqueDOMGenerator} from "../BaseUniqueDOMGenerator";
+import {Edge}                   from "./Edge";
+import {IUniqueDOMGenerator} from "../IUniqueDOMGenerator";
+import {Vertex}              from "./Vertex";
 
 
 /**
  * A graph that can be rendered as an element.
  */
 export abstract class Graph<V extends Vertex, E extends Edge<V>>
-    extends BaseDOMGenerator
-    implements IDOMGenerator
+    extends BaseUniqueDOMGenerator
+    implements IUniqueDOMGenerator
 {
     private static readonly PADDING = [50, 50];
 

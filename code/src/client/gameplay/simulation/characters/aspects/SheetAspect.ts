@@ -1,10 +1,20 @@
 import {
-    Activation, Condition, CreatureSize, CRValue, DStat, Sense, Speed
-}                       from "../../../../homebrew/definitions/constants";
-import {setupStatSheet} from "../../../../homebrew/monsters/instances";
-import {NpcId}          from "../../../../npcs/npcIndex";
+    Activation,
+    Condition,
+    CreatureSize,
+    CRValue,
+    DStat,
+    Sense,
+    Speed,
+    VisibilityLevel
+}                       from "../../../data/constants";
+import {setupStatSheet} from "../../../monsters/instances";
 import {
-    wrapActivation, wrapCreatureSize, wrapDamageType, wrapRoll, wrapSkill
+    wrapActivation,
+    wrapCreatureSize,
+    wrapDamageType,
+    wrapRoll,
+    wrapDSkill
 }                       from "../../action/Wrap";
 import {Character}      from "../Character";
 import {BaseAspect}     from "./BaseAspect";
@@ -120,9 +130,21 @@ export class SheetAspect
             saveList.push(`${DStat[stat]} ${wrapRoll(save)}`);
         }
 
+        let anySkillHidden = false;
         const skillList = [];
-        for (const [skill, mod] of this.skillAspect.upgradedSKills.entries()) {
-            skillList.push(`${wrapSkill(skill)} ${wrapRoll(mod)}`);
+        for (const [skill, [mod, vis]] of this.skillAspect.upgradedSKills.entries()) {
+            if (vis == VisibilityLevel.Hidden) {
+                anySkillHidden = true;
+            }
+            else if (vis == VisibilityLevel.Vague) {
+                skillList.push(`${wrapDSkill(skill)} ???`)
+            }
+            else if (vis == VisibilityLevel.Shown) {
+                skillList.push(`${wrapDSkill(skill)} ${wrapRoll(mod)}`);
+            }
+            else {
+                throw new Error("Unknown visibility level.");
+            }
         }
 
 
@@ -196,23 +218,23 @@ export class SheetAspect
                 <div class="sheet_subtitle">${wrapCreatureSize(this._size)} ${this._subtitle}</div>
                 </div>
                 <div class="header_zone">
-                    <table class="ignore_common_style">
+                    <table>
                         <tr><td>Armor Class</td><td>${this.combatAspect.ac} ${this._acDesc}</td></tr>
                         <tr><td>Hit Points</td><td>${this.combatAspect.hp } ${wrapRoll(this.combatAspect.hpDice)}</td></tr>
                         <tr><td>Speed</td><td>${speedList.join(", ")}</td></tr>
                     </table>
                 </div>
                 <div class="header_zone">
-                    <table class="stats_table ignore_common_style">
+                    <table class="stats_table">
                         <tr><th>STR</th><th>DEX</th><th>CON</th><th>INT</th><th>WIS</th><th>CHA</th></tr>
                         <tr>${statList.join("")}</tr>
                     </table>
                 </div>
                 <div class="header_zone">
-                    <table class="ignore_common_style">
+                    <table>
                         <tr><td>Senses</td><td>${senseList.join(" ")}</td></tr>
                         <tr><td>Saving Throws</td><td>${saveList.join(" ")}</td></tr>
-                        <tr><td>Skills</td><td>${skillList.join(" ")}</td></tr>
+                        <tr><td>Skills</td><td>${this.character.generateDSkillsDOM()}</td></tr>
                         <tr><td>Challenge Rating</td><td>${this._cr.cr}</td></tr>
                         <tr><td>Proficiency Bonus</td><td>${this.combatAspect.pb.mod()}</td></tr>
                         ${vulStr}${resStr}${immStr}${ciStr}
@@ -261,7 +283,6 @@ export class SheetAspect
     public finalize(): void
     {
         super.finalize();
-        console.log("Finalizing sheet", Character.get(NpcId.Ephremis).CON);
         setupStatSheet(this.category,
                        `${this.category}_${this.id}`,
                        this.coreAspect.name,

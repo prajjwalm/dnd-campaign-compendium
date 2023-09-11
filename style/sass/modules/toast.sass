@@ -1,6 +1,6 @@
-@import "../definitions/colors"
-@import "../definitions/shadows"
-@import "../definitions/common_dimensions"
+@use "../definitions/colors"
+@use "../definitions/shadows"
+
 
 #toast-container
   bottom: 10%
@@ -15,24 +15,24 @@
     flex-flow: column nowrap
     font-family: "Roboto", sans-serif
     text-transform: uppercase
-    background-color: $color_grey_dark
+    background-color: colors.$prussian
     z-index: 5
-    padding: 2 * $padding_default
-    gap: $padding_default
-    margin: $margin_default
+    padding: 16px
+    gap: 8px
+    margin: 8px
     justify-content: flex-start
     align-items: stretch
     border-radius: 6px
 
-    @include BoxShadowElevationHelper(2)
+    @include shadows.Elevation(2)
 
     .roll_result
       font-size: 24px
-      color: $color_white
+      color: colors.$white
 
     .roll_buildup
       display: block
       width: 100%
       font-size: 16px
-      color: $color-grey
+      color: colors.$grey
       text-align: right

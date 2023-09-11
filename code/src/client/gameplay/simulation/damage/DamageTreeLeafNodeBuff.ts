@@ -1,4 +1,4 @@
-import {DamageType}              from "../../../homebrew/definitions/constants";
+import {DamageType}              from "../../data/constants";
 import {IDamageTreeLeafNodeBuff} from "./IDamageTreeLeafNodeBuff";
 import {IDamageTreeNode}         from "./IDamageTreeNode";
 

@@ -1,4 +1,4 @@
-import {DStat, Prof, StatValue} from "../../../../homebrew/definitions/constants";
+import {DStat, Prof, StatValue} from "../../../data/constants";
 import {IActionContext}         from "../../action/IActionContext";
 
 

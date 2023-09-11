@@ -1,5 +1,5 @@
-import {NpcId}        from "../../../../../../npcs/npcIndex";
-import {Character}    from "../../../Character";
+import {NpcID}     from "../../../../../data/npcIndex";
+import {Character} from "../../../Character";
 import {setupAthlon}  from "./athlon";
 import {setupCecilia} from "./cecilia";
 import {setupCoroto}  from "./coroto";
@@ -35,22 +35,22 @@ export function setupC2A1()
     setupYuki();
 
     $(function () {
-        let npc: NpcId;
-        for (npc of [NpcId.Athlon,
-                     NpcId.Cecelia,
-                     NpcId.Coroto,
-                     NpcId.Dawn,
-                     NpcId.Dusk,
-                     NpcId.Elysium,
-                     NpcId.Erica,
-                     NpcId.Ezell,
-                     NpcId.Hina,
-                     NpcId.Iona,
-                     NpcId.Jaye,
-                     NpcId.Kastor,
-                     NpcId.Roberta,
-                     NpcId.Verna,
-                     NpcId.Yuki,])
+        let npc: NpcID;
+        for (npc of [NpcID.Athlon,
+                     NpcID.Cecelia,
+                     NpcID.Coroto,
+                     NpcID.Dawn,
+                     NpcID.Dusk,
+                     NpcID.Elysium,
+                     NpcID.Erica,
+                     NpcID.Ezell,
+                     NpcID.Hina,
+                     NpcID.Iona,
+                     NpcID.Jaye,
+                     NpcID.Kastor,
+                     NpcID.Roberta,
+                     NpcID.Verna,
+                     NpcID.Yuki,])
         {
             Character.get(npc).finalize();
         }

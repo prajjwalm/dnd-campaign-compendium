@@ -1,5 +1,5 @@
-@import "definitions/colors";
-@import "definitions/shadows";
+@use "definitions/colors";
+@use "definitions/shadows";
 @import "game_modules/ink_side_banner";
 
 body {

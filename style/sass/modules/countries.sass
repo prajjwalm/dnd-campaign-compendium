@@ -1,12 +1,12 @@
-@import "../definitions/colors"
-@import "../definitions/shadows"
-@import "../definitions/common_dimensions"
+@use "../definitions/colors"
+@use "../definitions/shadows"
+
 @import "common_elements"
 
 
 #material_plane
   a
-    @include FontSize(6)
+    font-size: 14px
     font-variant-caps: petite-caps
 
   .country_space
@@ -15,27 +15,27 @@
     flex-grow: 1
 
     h2, h3, h4, h5, h6
-      color: $color-primary !important
+      color: colors.$primary !important
 
     .country_names
       width: 180px
       flex-grow: 1
-      margin-left: $margin_default
-      margin-right: $margin_default
+      margin-left: 8px
+      margin-right: 8px
 
       .country_name
         font-weight: bold
         font-variant-caps: small-caps
-        color: $color-primary
-        margin: $margin_default
-        padding: $padding_default
+        color: colors.$primary
+        margin: 8px
+        padding: 8px
         border-radius: 4px
-        background-color: rgba($color_secondary_dark, 0.03)
+        background-color: rgba(colors.$secondary_dark, 0.03)
 
-        @include FontSize(4)
+        font-size: 16px
 
         &.active
-          background-color: rgba($color_secondary_dark, 0.07)
+          background-color: rgba(colors.$secondary_dark, 0.07)
 
 
     .country_desc
@@ -47,35 +47,35 @@
         display: flex
         flex-flow: row wrap
         justify-content: space-evenly
-        gap: $margin_default
-        padding: $padding_default
+        gap: 8px
+        padding: 8px
 
         .country_card
           width: 300px
           flex-grow: 1
           border-radius: 4px
-          background-color: $color_white
-          @include BoxShadowElevationHelper(1)
-          padding: $padding_default
-          @include FontSize(7)
+          background-color: colors.$white
+          @include shadows.Elevation(1)
+          padding: 8px
+          font-size: 12px
 
           table
             width: 100%
             border-collapse: collapse
 
             td
-              padding-right: $padding_default
+              padding-right: 8px
 
               &:first-child
                 font-variant-caps: small-caps
-                color: $color_primary
+                color: colors.$primary
 
               &:last-child
                 width: 100%
 
           .tags
-            padding-top: 1.5 * $padding_default
-            padding-bottom: $padding_default
+            padding-top: 12px
+            padding-bottom: 8px
             display: flex
             flex-flow: row wrap
             align-items: center
@@ -83,10 +83,10 @@
 
           .card_info
             font-style: italic
-            @include FontSize(8)
+            font-size: 11px
 
         .desc
-          @include FontSize()
+          font-size: 14px
           width: 100%
 
           .capital_info

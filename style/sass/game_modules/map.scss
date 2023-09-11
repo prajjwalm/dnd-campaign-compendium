@@ -1,7 +1,7 @@
-@import "../definitions/fonts";
-@import "../definitions/colors";
-@import "../definitions/shadows";
-@import "../definitions/common_dimensions";
+@use "../definitions/colors";
+@use "../definitions/content";
+@use "../definitions/shadows";
+
 
 @import "common";
 @import "graph";
@@ -101,27 +101,27 @@
   display: flex;
   flex-flow: column nowrap;
   font-family: "Roboto", sans-serif;
-  padding: $padding_default;
+  padding: 8px;
 
   &__desc {
     text-align: justify;
-    @include FontSize(7);
+    font-size: 12px;
   }
 
   &__characters {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
-    gap: $margin_default;
+    gap: 8px;
     justify-content: flex-start;
-    padding-left: 2*$padding_default;
-    padding-right: 2*$padding_default;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   &__subheader {
-    margin-top: 2*$margin_default;
-    margin-bottom: $margin_default;
-    @include FontSize(3);
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-size: 18px;
   }
 }
 
@@ -142,7 +142,7 @@
     font-style: italic;
     font-family: "Montserrat", sans-serif;
     @extend .space_between__right;
-    @include FontSize(8);
+    font-size: 11px;
   }
 
   &__details {
@@ -155,33 +155,13 @@
 }
 
 .navigation {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  gap: 24px;
-
   &__type {
-    display: flex;
-    flex-flow: row wrap;
-    width: 50px;
-    max-width: 100px;
-    gap: 8px;
-    justify-content: center;
-    flex-grow: 1;
-
     &__means {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      margin: 8px;
-      @include FontSize(1);
     }
     &__time {
-      @include FontSize(8);
+      margin-right: 8px;
     }
     &__safety {
-      @include FontSize(8);
     }
   }
 }
@@ -190,7 +170,7 @@
   position: absolute;
   translate: -50% -50%;
   height: 3px;
-  background: #aaa;//url($content_root + "images/gui/Stroke5pxHorizontal.png");
+  background: #aaa;//url($content_root + "images/gui/Stroke: 5px;Horizontal.png");
   border-radius: 1px;
 }
 

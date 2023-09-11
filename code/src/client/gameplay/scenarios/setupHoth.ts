@@ -1,5 +1,5 @@
-import {DStat}     from "../../homebrew/definitions/constants";
-import {NpcId}     from "../../npcs/npcIndex";
+import {DStat}     from "../data/constants";
+import {NpcID}     from "../data/npcIndex";
 import {Character} from "../simulation/characters/Character";
 import {
     setupEphremis
@@ -8,7 +8,7 @@ import {
 export function setupHoth()
 {
     $(".mob_space").each(function () {
-        const npcId: NpcId = NpcId[$(this).data("npcId")] as unknown as NpcId;
+        const npcId: NpcID = NpcID[$(this).data("npcId")] as unknown as NpcID;
 
         const npc = Character.get(npcId);
 

@@ -1,4 +1,4 @@
-import {IStatSheet} from "../../../../homebrew/monsters/sheet";
+import {IStatSheet} from "../../../monsters/sheet";
 
 
 export interface ISheet

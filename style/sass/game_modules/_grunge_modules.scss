@@ -1,0 +1,352 @@
+@use "../definitions/colors";
+@use "../definitions/content";
+@use "../element_modules/_dictionary";
+
+@use "../definitions/shadows";
+
+
+@import "common";
+
+.grunge_panel {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  background-size: 100% 100%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  width: 100%;
+  height: 80px;
+
+  &__icon {
+    width: 30%;
+    height: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__subtitle {
+    font-family: "RobotoCondensed", sans-serif;
+    font-weight: bold;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+  }
+
+  &__title {
+    font-family: "Montserrat", sans-serif;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    color: colors.$node_unknown;
+    font-size: 18px;
+  }
+}
+
+.grunge_label {
+  &__title {
+    background-size: 100% 100%;
+    background-blend-mode: normal;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding-left: 8px;
+    padding-right: 12px;
+    justify-content: space-between;
+    color: colors.$node_unknown;
+
+    &__left {
+      font-family: "RobotoCondensed", sans-serif;
+      font-weight: bold;
+      letter-spacing: -0.5px;
+    }
+
+    &__right {
+      font-family: "RobotoCondensed", sans-serif;
+    }
+  }
+
+  &__desc {
+    color: colors.$node_unknown;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "RobotoCondensed", sans-serif;
+    letter-spacing: -0.2px;
+  }
+}
+
+.theme_label {
+  margin-bottom: 8px;
+  padding: 2px 16px 2px 4px;
+  font-family: "RobotoCondensed", sans-serif;
+  font-weight: 200;
+  text-transform: uppercase;
+  color: colors.$node_unknown;
+  width: fit-content;
+  font-size: 16px;
+}
+
+.theme_subheader {
+  font-family: "Montserrat", sans-serif;
+  font-variant-caps: small-caps;
+}
+
+.theme_box {
+  margin: 4px;
+  padding: 8px;
+}
+
+.theme--unknown {
+  .grunge_panel {
+    background-image: url(content.$root + "images/gui/unknown/PanelFaded.png");
+
+    &__subtitle {
+      color: colors.$node_unknown;
+    }
+  }
+
+  .theme_label {
+    background-color: colors.$node_unknown;
+  }
+
+  .theme_subheader {
+    color: colors.$node_unknown;
+  }
+
+  //noinspection CssOverwrittenProperties
+  .theme_box {
+    border-image-source: url(content.$root + "images/gui/unknown/Stroke500x500.png");
+    border-image-slice: 5;
+    border-image-width: 2px;
+    border-image-repeat: repeat;
+  }
+
+  .dictionary {
+    @include dictionary.dictionary($theme_color: colors.$node_unknown);
+  }
+}
+
+.theme--friendly {
+  .grunge_panel {
+    background-image: url(content.$root + "images/gui/friendly/PanelFaded.png");
+
+    &__subtitle {
+      color: colors.$node_friendly;
+    }
+  }
+
+  .theme_label {
+    background-color: colors.$node_friendly_dark;
+  }
+
+  .theme_subheader {
+    color: colors.$node_friendly;
+  }
+
+  //noinspection CssOverwrittenProperties
+  .theme_box {
+    border-image-source: url(content.$root + "images/gui/friendly/Stroke500x500.png");
+    border-image-slice: 5;
+    border-image-width: 2px;
+    border-image-repeat: repeat;
+  }
+
+  .dictionary {
+    @include dictionary.dictionary($theme_color: colors.$node_friendly);
+  }
+}
+
+.theme--safe {
+  .grunge_panel {
+    background-image: url(content.$root + "images/gui/safe/PanelFaded.png");
+
+    &__subtitle {
+      color: colors.$node_safe;
+    }
+  }
+
+  .theme_label {
+    background-color: colors.$node_safe_dark;
+  }
+
+  .theme_subheader {
+    color: colors.$node_safe;
+  }
+
+  //noinspection CssOverwrittenProperties
+  .theme_box {
+    border-image-source: url(content.$root + "images/gui/safe/Stroke500x500.png");
+    border-image-slice: 5;
+    border-image-width: 2px;
+    border-image-repeat: repeat;
+  }
+
+  .dictionary {
+    @include dictionary.dictionary($theme_color: colors.$node_safe);
+  }
+}
+
+.theme--combat {
+  .grunge_panel {
+    background-image: url(content.$root + "images/gui/combat/PanelFaded.png");
+
+    &__subtitle {
+      color: colors.$node_combat;
+    }
+  }
+
+  .theme_label {
+    background-color: colors.$node_combat;
+  }
+
+  .theme_subheader {
+    color: colors.$node_combat;
+  }
+
+  //noinspection CssOverwrittenProperties
+  .theme_box {
+    border-image-source: url(content.$root + "images/gui/combat/Stroke500x500.png");
+    border-image-slice: 5;
+    border-image-width: 2px;
+    border-image-repeat: repeat;
+  }
+
+  .dictionary {
+    @include dictionary.dictionary($theme_color: colors.$node_combat);
+  }
+}
+
+.theme--emergency {
+  .grunge_panel {
+    background-image: url(content.$root + "images/gui/emergency/PanelFaded.png");
+
+    &__subtitle {
+      color: colors.$node_emergency;
+    }
+  }
+
+  .theme_label {
+    background-color: colors.$node_emergency_dark;
+  }
+
+  .theme_subheader {
+    color: colors.$node_emergency;
+  }
+
+  //noinspection CssOverwrittenProperties
+  .theme_box {
+    border-image-source: url(content.$root + "images/gui/emergency/Stroke500x500.png");
+    border-image-slice: 5;
+    border-image-width: 2px;
+    border-image-repeat: repeat;
+  }
+
+  .dictionary {
+    @include dictionary.dictionary($theme_color: colors.$node_emergency);
+  }
+}
+
+.theme--neutral {
+  .grunge_panel {
+    background-image: url(content.$root + "images/gui/neutral/PanelFaded.png");
+
+    &__subtitle {
+      color: colors.$node_neutral;
+    }
+  }
+
+  .theme_label {
+    background-color: colors.$node_neutral_dark;
+  }
+
+  .theme_subheader {
+    color: colors.$node_neutral;
+  }
+
+  //noinspection CssOverwrittenProperties
+  .theme_box {
+    border-image-source: url(content.$root + "images/gui/neutral/Stroke500x500.png");
+    border-image-slice: 5;
+    border-image-width: 2px;
+    border-image-repeat: repeat;
+  }
+
+  .dictionary {
+    @include dictionary.dictionary($theme_color: colors.$node_neutral);
+  }
+}
+
+.theme--deadly {
+  .grunge_panel {
+    background-image: url(content.$root + "images/gui/deadly/PanelFaded.png");
+
+    &__subtitle {
+      color: colors.$node_deadly;
+    }
+  }
+
+  .theme_label {
+    background-color: colors.$node_deadly_dark;
+  }
+
+  .theme_subheader {
+    color: colors.$node_deadly;
+  }
+
+  //noinspection CssOverwrittenProperties
+  .theme_box {
+    border-image-source: url(content.$root + "images/gui/deadly/Stroke500x500.png");
+    border-image-slice: 5;
+    border-image-width: 2px;
+    border-image-repeat: repeat;
+  }
+
+  .dictionary {
+    @include dictionary.dictionary($theme_color: colors.$node_deadly);
+  }
+}
+
+.theme--black {
+  .grunge_panel {
+    background-image: url(content.$root + "images/gui/black/PanelFaded.png");
+
+    &__subtitle {
+      color: colors.$black;
+    }
+  }
+
+  .theme_label {
+    background-color: colors.$black;
+  }
+
+  .theme_subheader {
+    color: colors.$black;
+  }
+
+  //noinspection CssOverwrittenProperties
+  .theme_box {
+    border-image-source: url(content.$root + "images/gui/black/Stroke500x500.png");
+    border-image-slice: 5;
+    border-image-width: 2px;
+    border-image-repeat: repeat;
+  }
+
+  .dictionary {
+    @include dictionary.dictionary($theme_color: colors.$black);
+  }
+}
+
+.grunge_nav_button {
+  padding: 8px 16px;
+  background-color: colors.$node_safe_dark;
+  color: colors.$node_unknown;
+  font-family: Montserrat, "sans-serif";
+}

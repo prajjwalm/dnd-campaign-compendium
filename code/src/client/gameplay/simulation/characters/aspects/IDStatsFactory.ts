@@ -1,4 +1,4 @@
-import {Prof} from "../../../../homebrew/definitions/constants";
+import {Prof} from "../../../data/constants";
 
 
 /**

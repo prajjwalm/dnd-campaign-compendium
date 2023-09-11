@@ -10,7 +10,12 @@ export interface ICore
     get name(): string;
 
     /**
-     * The file path (relative to assets/images/) of the character's token image.
+     * The file path of the character's token image.
+     *
+     * While setting, the directory must be specified wrt. assets/images.
+     *
+     * While using, the directory can be considered relative to the root (where
+     * the html resides).
      */
     get imgPath(): string;
 }

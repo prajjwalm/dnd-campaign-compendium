@@ -1,0 +1,46 @@
+// Well I call this a theme map due to legacy reasons, but it actually is a
+// dictionary of key-value pairs (the key was initially colored by theme, hence
+// the name.
+
+
+
+%dictionary {
+  font-family: "RobotoCondensed", sans-serif;
+  font-size: 14px;
+
+  & .dictionary__row {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-bottom: 4px;
+
+    &__key {
+      font-weight: bold;
+      font-variant-caps: small-caps;
+      flex-grow: 0;
+      margin-right: 4px;
+    }
+
+    &__value {
+      flex-grow: 1;
+    }
+  }
+}
+
+@mixin dictionary($theme_color: null,
+                  $key_min_width: null)
+{
+  @extend %dictionary;
+
+  .dictionary__row__key {
+    @if ($theme_color != null) {
+      color: $theme_color;
+    }
+    @if ($key_min_width != null) {
+      min-width: $key_min_width;
+    }
+  }
+}
+
+.dictionary {
+  @extend %dictionary;
+}

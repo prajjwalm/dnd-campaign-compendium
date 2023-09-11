@@ -1,10 +1,10 @@
-import {Prof}      from "../../../../../../homebrew/definitions/constants";
-import {NpcId}     from "../../../../../../npcs/npcIndex";
+import {Prof}      from "../../../../../data/constants";
+import {NpcID}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupAthlon()
 {
-    const athlon = new Character(NpcId.Athlon);
+    const athlon = new Character(NpcID.Athlon);
 
     athlon.core.name = "Athlon";
     athlon.core.imgPath = "character_tokens/C2/Arc1/Athlon.png";

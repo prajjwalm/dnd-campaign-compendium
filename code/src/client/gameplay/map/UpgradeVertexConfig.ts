@@ -1,4 +1,4 @@
-import {Rarity} from "../../homebrew/definitions/Rarity";
+import {Rarity} from "../data/Rarity";
 
 
 export enum UpgradeVertexType
@@ -363,148 +363,148 @@ export const UpgradeToAtomic: Map<UpgradeVertexType, Set<AtomicUpgradeVertexType
 export const AtomicUpgradeDescGenerators: Map<AtomicUpgradeVertexType, (number) => string> =
     new Map([
         [AtomicUpgradeVertexType.Sync,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Attunement Slot Count</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Attunement Slot Count</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.LandMovement,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Walking Speed</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n} ft</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Walking Speed</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n} ft</div>
                  </div>`],
         [AtomicUpgradeVertexType.SeaMovement,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Swimming Speed</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n} ft</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Swimming Speed</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n} ft</div>
                  </div>`],
         [AtomicUpgradeVertexType.StepMovement,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Teleportation</div>
-                     <div class="theme_map__row__value">${n > 0 ? `${n} &times; Walking speed` : "None"}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Teleportation</div>
+                     <div class="dictionary__row__value">${n > 0 ? `${n} &times; Walking speed` : "None"}</div>
                  </div>`],
         [AtomicUpgradeVertexType.DeathSaves,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Death Saves</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Death Saves</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.AC,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Armor Class</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Armor Class</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.HP,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Hit Points</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Hit Points</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.Accuracy,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">To-hit Modifier</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">To-hit Modifier</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.Damage,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Per-hit Damage Modifer</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Per-hit Damage Modifer</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.ProfBonus,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Proficiency Bonus</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Proficiency Bonus</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.Initiative,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Initiative</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Initiative</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.SavesStrDexCon,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">STR / DEX / CON saves</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">STR / DEX / CON saves</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.SavesIntWisCha,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">INT / WIS / CHA saves</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">INT / WIS / CHA saves</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.SkillStealth,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Stealth</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Stealth</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.SkillPerception,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Perception</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Perception</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.SkillInsight,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Insight</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Insight</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.SkillArcana,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Arcana</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Arcana</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.SkillPersuasion,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Persuasion</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Persuasion</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.SkillMedicineNatureSurvival,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Medicine, Nature, Survival</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Medicine, Nature, Survival</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.SkillDeceptionIntimidationReligion,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Deception, Intimidation, Religion</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Deception, Intimidation, Religion</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.SkillsInvestigationAcrobaticsAthletics,
-         (n) => `<div class="theme_map__row">
-             <div class="theme_map__row__key">Investigation, Acrobatics, Athletics</div>
-             <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+             <div class="dictionary__row__key">Investigation, Acrobatics, Athletics</div>
+             <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
          </div>`],
         [AtomicUpgradeVertexType.SkillSlightHistoryPerformance,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Slight-of-Hand, History, Performance</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Slight-of-Hand, History, Performance</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.SkillOther,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">All Other Skills</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">All Other Skills</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.StatsStr,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Strength Score</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Strength Score</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.StatsDex,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Dexterity Score</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Dexterity Score</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.StatsCon,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Constitution Score</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Constitution Score</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.StatsInt,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Intelligence Score</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Intelligence Score</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.StatsWis,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Wisdom Score</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Wisdom Score</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
         [AtomicUpgradeVertexType.StatsCha,
-         (n) => `<div class="theme_map__row">
-                     <div class="theme_map__row__key">Charisma Score</div>
-                     <div class="theme_map__row__value">${n >= 0 ? "+" : ""}${n}</div>
+         (n) => `<div class="dictionary__row">
+                     <div class="dictionary__row__key">Charisma Score</div>
+                     <div class="dictionary__row__value">${n >= 0 ? "+" : ""}${n}</div>
                  </div>`],
     ]);

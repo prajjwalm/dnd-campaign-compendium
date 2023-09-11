@@ -1,5 +1,5 @@
-import {IDStats}           from "../characters/aspects/IDStats";
-import {Activation}     from "../../../homebrew/definitions/constants";
+import {IDStats}        from "../characters/aspects/IDStats";
+import {Activation}     from "../../data/constants";
 import {IActionContext} from "./IActionContext";
 
 /**

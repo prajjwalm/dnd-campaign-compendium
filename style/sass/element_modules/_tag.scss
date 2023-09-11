@@ -1,0 +1,73 @@
+@use "../definitions/colors";
+
+%tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  min-height: 24px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  margin: 2px;
+  font-size: 12px;
+}
+
+@mixin tag($theme_color,
+           $font_color: null,
+           $disabled_font_color: null,
+           $compressed: false)
+{
+  @extend %tag;
+
+  @if ($font_color == null) {
+    @if ($compressed == true) {
+      $font_color: #fff;
+    }
+    @else {
+      $font_color: $theme_color;
+    }
+  }
+
+  @if ($compressed) {
+    color: $font_color;
+    font-family: "RobotoCondensed", sans-serif;
+
+    &:not(.disabled) {
+      background-color: $theme_color;
+    }
+    &.disabled {
+      background-color: #555;
+    }
+  }
+  @else {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+
+    &:not(.disabled) {
+      border: solid 2px $theme_color;
+      background-color: rgba($theme_color, 0.2);
+      color: $font_color;
+    }
+    &.disabled {
+      border: solid 2px #555;
+      background-color: rgba(#888, 0.2);
+      @if ($disabled_font_color == null) {
+        color: black;
+      }
+      @else {
+        color: $disabled_font_color;
+      }
+    }
+  }
+}
+
+// Some elements are tags, but it would be perfectly reasonable for them to be
+// something else - eg. buttons which appear like tags, such as the
+// .token_selector which appears within a card's expanded view. For those, I
+// choose to @include tag within the selector which describes what they are.
+//
+// Other elements are first and foremost (default) tags, for them it's fine for
+// js to add the style class .tag, and they will get their properties from here.
+.tag {
+  @include tag(colors.$primary, $compressed: true);
+}

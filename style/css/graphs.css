@@ -1,288 +1,68 @@
-/**
- * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
- * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
- * *
- * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
- * * the blur parameter has to be doubled.
- * *
- * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
- * *
- * * Example usage:
- * *
- * * .card {
- * *     width: 95px;
- * *     height: 95px;
- * *     background: #f4f4f4;
- * *     -webkit-transition: all 250ms;
- * *     -moz-transition: all 250ms;
- * *     transition: all 250ms;
- * *     @include BoxShadowHelper(1);
- * *     &:hover {
- * *         @include BoxShadowHelper(3);
- * *         -webkit-transform: translateY(-5px);
- * *         -moz-transform: translateY(-5px);
- * *         transform: translateY(-5px);
- * *     }
- * * }
- * *
- * * Also note: https://m3.material.io/styles/elevation/tokens
- * */
-.side_panel_page {
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+@font-face {
+  font-family: "Roboto";
+  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
+}
+@font-face {
+  font-family: "Roboto-thin";
+  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 500;
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 200;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 400;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: bold;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
+}
+.upgrade_stats, .upgrade_effects, .theme--unknown .dictionary, .theme--friendly .dictionary, .theme--safe .dictionary, .theme--combat .dictionary, .theme--emergency .dictionary, .theme--neutral .dictionary, .theme--deadly .dictionary, .theme--black .dictionary, .dictionary {
+  font-family: "RobotoCondensed", sans-serif;
+  font-size: 14px;
+}
+.upgrade_stats .dictionary__row, .upgrade_effects .dictionary__row, .dictionary .dictionary__row {
   display: flex;
   flex-flow: row nowrap;
-  align-items: stretch;
-  justify-content: space-between;
+  margin-bottom: 4px;
 }
-.side_panel_page__panel {
-  width: 160px;
+.upgrade_stats .dictionary__row__key, .upgrade_effects .dictionary__row__key, .dictionary .dictionary__row__key {
+  font-weight: bold;
+  font-variant-caps: small-caps;
   flex-grow: 0;
+  margin-right: 4px;
 }
-.side_panel_page__main {
-  min-width: 240px;
+.upgrade_stats .dictionary__row__value, .upgrade_effects .dictionary__row__value, .dictionary .dictionary__row__value {
   flex-grow: 1;
 }
 
-@font-face {
-  font-family: "Roboto";
-  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
-}
-@font-face {
-  font-family: "Roboto";
-  font-weight: bold;
-  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
-}
-@font-face {
-  font-family: "Roboto-thin";
-  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
-}
-@font-face {
-  font-family: "RobotoCondensed";
-  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
-}
-@font-face {
-  font-family: "RobotoCondensed";
-  font-weight: bold;
-  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
-}
-@font-face {
-  font-family: "Montserrat";
-  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
-}
-@font-face {
-  font-family: "Montserrat";
-  font-weight: 500;
-  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: 200;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: 400;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: bold;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
-}
-/**
- * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
- * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
- * *
- * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
- * * the blur parameter has to be doubled.
- * *
- * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
- * *
- * * Example usage:
- * *
- * * .card {
- * *     width: 95px;
- * *     height: 95px;
- * *     background: #f4f4f4;
- * *     -webkit-transition: all 250ms;
- * *     -moz-transition: all 250ms;
- * *     transition: all 250ms;
- * *     @include BoxShadowHelper(1);
- * *     &:hover {
- * *         @include BoxShadowHelper(3);
- * *         -webkit-transform: translateY(-5px);
- * *         -moz-transform: translateY(-5px);
- * *         transform: translateY(-5px);
- * *     }
- * * }
- * *
- * * Also note: https://m3.material.io/styles/elevation/tokens
- * */
-.graph, .graph--skill, .graph--map {
-  position: relative;
-  flex-shrink: 0;
-  flex-grow: 0;
-  z-index: 0;
-}
-.graph__edges {
-  z-index: -1;
-}
-
-.null_vertex {
-  display: none;
-}
-
-.graph_vertex, .skill_vertex, .map_vertex {
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-}
-.graph_vertex__info, .skill_vertex__info, .map_vertex__info {
-  position: absolute;
-  width: 240px;
-  left: 40px;
-  visibility: hidden;
-  transition: opacity 0.3s;
-  opacity: 0;
-  z-index: 2;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-.graph_vertex__info .overhead_text, .skill_vertex__info .overhead_text, .map_vertex__info .overhead_text {
-  font-family: "Montserrat", sans-serif;
-  color: #EAE6E5;
-  font-style: italic;
-  font-weight: bold;
-  width: 100%;
-  text-align: right;
-  font-size: 11px;
-}
-.graph_vertex__info .grunge_label__title, .skill_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title {
-  height: 24px;
-  font-size: 14px;
-}
-.graph_vertex__info .grunge_label__desc, .skill_vertex__info .grunge_label__desc, .map_vertex__info .grunge_label__desc {
-  min-height: 40px;
-  padding: 4px;
-  font-size: 15px;
-}
-.graph_vertex__info .grunge_label__desc .vertex_id, .skill_vertex__info .grunge_label__desc .vertex_id, .map_vertex__info .grunge_label__desc .vertex_id {
-  font-family: "RobotoCondensed", sans-serif;
-  font-weight: bold;
-  font-variant-caps: petite-caps;
-  margin-right: 8px;
-  font-size: 14px;
-}
-
-.skill_vertex.rarity--common .skill_vertex__info .grunge_label__title, .map_vertex--unknown .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/unknown/Panel450x100.png"), linear-gradient(#EAE6E5, #EAE6E5);
-  color: #00031D;
-}
-.skill_vertex.rarity--common .skill_vertex__info .grunge_label__desc, .map_vertex--unknown .map_vertex__info .grunge_label__desc {
-  background: #00031D;
-}
-
-.skill_vertex.rarity--uncommon .skill_vertex__info .grunge_label__title, .map_vertex--friendly .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/friendly/Panel450x100.png"), linear-gradient(#205017 50%, #059729);
-}
-.skill_vertex.rarity--uncommon .skill_vertex__info .grunge_label__desc, .map_vertex--friendly .map_vertex__info .grunge_label__desc {
-  background: #160407;
-}
-
-.skill_vertex.rarity--rare .skill_vertex__info .grunge_label__title, .map_vertex--safe .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/safe/Panel450x100.png"), linear-gradient(#19297C 50%, #173FB3);
-}
-.skill_vertex.rarity--rare .skill_vertex__info .grunge_label__desc, .map_vertex--safe .map_vertex__info .grunge_label__desc {
-  background: #0D160B;
-}
-
-.skill_vertex.rarity--epic .skill_vertex__info .grunge_label__title, .map_vertex--combat .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/combat/Panel450x100.png"), linear-gradient(#760BD4 50%, #9947EA);
-}
-.skill_vertex.rarity--epic .skill_vertex__info .grunge_label__desc, .map_vertex--combat .map_vertex__info .grunge_label__desc {
-  background: #182825;
-}
-
-.map_vertex--emergency .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/emergency/Panel450x100.png"), linear-gradient(#381D2A, #E04D75 20%);
-}
-.map_vertex--emergency .map_vertex__info .grunge_label__desc {
-  background: #091E05;
-}
-
-.skill_vertex.rarity--legendary .skill_vertex__info .grunge_label__title, .map_vertex--neutral .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/neutral/Panel450x100.png"), linear-gradient(#CC5505, #EC7005);
-}
-.skill_vertex.rarity--legendary .skill_vertex__info .grunge_label__desc, .map_vertex--neutral .map_vertex__info .grunge_label__desc {
-  background: #1D292F;
-}
-
-.skill_vertex.rarity--artefact .skill_vertex__info .grunge_label__title, .map_vertex--deadly .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/deadly/Panel450x100.png"), linear-gradient(#420039, #CA1412 30%);
-}
-.skill_vertex.rarity--artefact .skill_vertex__info .grunge_label__desc, .map_vertex--deadly .map_vertex__info .grunge_label__desc {
-  background: #000B1E;
-}
-
-.skill_vertex.rarity--black .skill_vertex__info .grunge_label__title, .map_vertex--black .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
-}
-.skill_vertex.rarity--black .skill_vertex__info .grunge_label__desc, .map_vertex--black .map_vertex__info .grunge_label__desc {
-  background: #00031D;
-  color: #EAE6E5;
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
-}
-@font-face {
-  font-family: "Roboto";
-  font-weight: bold;
-  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
-}
-@font-face {
-  font-family: "Roboto-thin";
-  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
-}
-@font-face {
-  font-family: "RobotoCondensed";
-  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
-}
-@font-face {
-  font-family: "RobotoCondensed";
-  font-weight: bold;
-  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
-}
-@font-face {
-  font-family: "Montserrat";
-  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
-}
-@font-face {
-  font-family: "Montserrat";
-  font-weight: 500;
-  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: 200;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: 400;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: bold;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
-}
 /**
  * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
  * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
@@ -323,301 +103,275 @@
   order: 1;
 }
 
-@font-face {
-  font-family: "Roboto";
-  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
-}
-@font-face {
-  font-family: "Roboto";
-  font-weight: bold;
-  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
-}
-@font-face {
-  font-family: "Roboto-thin";
-  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
-}
-@font-face {
-  font-family: "RobotoCondensed";
-  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
-}
-@font-face {
-  font-family: "RobotoCondensed";
-  font-weight: bold;
-  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
-}
-@font-face {
-  font-family: "Montserrat";
-  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
-}
-@font-face {
-  font-family: "Montserrat";
-  font-weight: 500;
-  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: 200;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: 400;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: bold;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
-}
-/**
- * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
- * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
- * *
- * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
- * * the blur parameter has to be doubled.
- * *
- * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
- * *
- * * Example usage:
- * *
- * * .card {
- * *     width: 95px;
- * *     height: 95px;
- * *     background: #f4f4f4;
- * *     -webkit-transition: all 250ms;
- * *     -moz-transition: all 250ms;
- * *     transition: all 250ms;
- * *     @include BoxShadowHelper(1);
- * *     &:hover {
- * *         @include BoxShadowHelper(3);
- * *         -webkit-transform: translateY(-5px);
- * *         -moz-transform: translateY(-5px);
- * *         transform: translateY(-5px);
- * *     }
- * * }
- * *
- * * Also note: https://m3.material.io/styles/elevation/tokens
- * */
-.graph, .graph--skill, .graph--map {
-  position: relative;
-  flex-shrink: 0;
-  flex-grow: 0;
-  z-index: 0;
-}
-.graph__edges {
-  z-index: -1;
-}
-
-.null_vertex {
-  display: none;
-}
-
-.graph_vertex, .skill_vertex, .map_vertex {
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-}
-.graph_vertex__info, .skill_vertex__info, .map_vertex__info {
-  position: absolute;
-  width: 240px;
-  left: 40px;
-  visibility: hidden;
-  transition: opacity 0.3s;
-  opacity: 0;
-  z-index: 2;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-}
-.graph_vertex__info .overhead_text, .skill_vertex__info .overhead_text, .map_vertex__info .overhead_text {
-  font-family: "Montserrat", sans-serif;
-  color: #EAE6E5;
-  font-style: italic;
-  font-weight: bold;
+.grunge_panel {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: flex-start;
+  background-size: 100% 100%;
+  margin-top: 16px;
+  margin-bottom: 16px;
   width: 100%;
-  text-align: right;
-  font-size: 11px;
+  height: 80px;
 }
-.graph_vertex__info .grunge_label__title, .skill_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title {
-  height: 24px;
-  font-size: 14px;
+.grunge_panel__icon {
+  width: 30%;
+  height: 100%;
 }
-.graph_vertex__info .grunge_label__desc, .skill_vertex__info .grunge_label__desc, .map_vertex__info .grunge_label__desc {
-  min-height: 40px;
-  padding: 4px;
-  font-size: 15px;
-}
-.graph_vertex__info .grunge_label__desc .vertex_id, .skill_vertex__info .grunge_label__desc .vertex_id, .map_vertex__info .grunge_label__desc .vertex_id {
-  font-family: "RobotoCondensed", sans-serif;
-  font-weight: bold;
-  font-variant-caps: petite-caps;
-  margin-right: 8px;
-  font-size: 14px;
-}
-
-.skill_vertex.rarity--common .skill_vertex__info .grunge_label__title, .map_vertex--unknown .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/unknown/Panel450x100.png"), linear-gradient(#EAE6E5, #EAE6E5);
-  color: #00031D;
-}
-.skill_vertex.rarity--common .skill_vertex__info .grunge_label__desc, .map_vertex--unknown .map_vertex__info .grunge_label__desc {
-  background: #00031D;
-}
-
-.skill_vertex.rarity--uncommon .skill_vertex__info .grunge_label__title, .map_vertex--friendly .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/friendly/Panel450x100.png"), linear-gradient(#205017 50%, #059729);
-}
-.skill_vertex.rarity--uncommon .skill_vertex__info .grunge_label__desc, .map_vertex--friendly .map_vertex__info .grunge_label__desc {
-  background: #160407;
-}
-
-.skill_vertex.rarity--rare .skill_vertex__info .grunge_label__title, .map_vertex--safe .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/safe/Panel450x100.png"), linear-gradient(#19297C 50%, #173FB3);
-}
-.skill_vertex.rarity--rare .skill_vertex__info .grunge_label__desc, .map_vertex--safe .map_vertex__info .grunge_label__desc {
-  background: #0D160B;
-}
-
-.skill_vertex.rarity--epic .skill_vertex__info .grunge_label__title, .map_vertex--combat .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/combat/Panel450x100.png"), linear-gradient(#760BD4 50%, #9947EA);
-}
-.skill_vertex.rarity--epic .skill_vertex__info .grunge_label__desc, .map_vertex--combat .map_vertex__info .grunge_label__desc {
-  background: #182825;
-}
-
-.map_vertex--emergency .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/emergency/Panel450x100.png"), linear-gradient(#381D2A, #E04D75 20%);
-}
-.map_vertex--emergency .map_vertex__info .grunge_label__desc {
-  background: #091E05;
-}
-
-.skill_vertex.rarity--legendary .skill_vertex__info .grunge_label__title, .map_vertex--neutral .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/neutral/Panel450x100.png"), linear-gradient(#CC5505, #EC7005);
-}
-.skill_vertex.rarity--legendary .skill_vertex__info .grunge_label__desc, .map_vertex--neutral .map_vertex__info .grunge_label__desc {
-  background: #1D292F;
-}
-
-.skill_vertex.rarity--artefact .skill_vertex__info .grunge_label__title, .map_vertex--deadly .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/deadly/Panel450x100.png"), linear-gradient(#420039, #CA1412 30%);
-}
-.skill_vertex.rarity--artefact .skill_vertex__info .grunge_label__desc, .map_vertex--deadly .map_vertex__info .grunge_label__desc {
-  background: #000B1E;
-}
-
-.skill_vertex.rarity--black .skill_vertex__info .grunge_label__title, .map_vertex--black .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
-}
-.skill_vertex.rarity--black .skill_vertex__info .grunge_label__desc, .map_vertex--black .map_vertex__info .grunge_label__desc {
-  background: #00031D;
-  color: #EAE6E5;
-}
-
-.map_vertex .map_vertex__foreground, .map_vertex .map_vertex__background {
-  position: absolute;
-  top: 0;
-  left: 0;
+.grunge_panel__icon img {
   width: 100%;
   height: 100%;
-  padding: 0;
-  margin: 0;
   object-fit: contain;
 }
-.map_vertex.inactive {
-  width: 20px;
-  height: 20px;
-}
-.map_vertex.inactive .map_vertex__foreground {
-  display: none;
-}
-.map_vertex__background:hover ~ .map_vertex__info, .map_vertex__foreground:hover ~ .map_vertex__info {
-  visibility: visible;
-  opacity: 1;
-}
-
-.map_vertex_details {
-  width: 100%;
-  height: 100%;
+.grunge_panel__subtitle {
+  font-family: "RobotoCondensed", sans-serif;
+  font-weight: bold;
+  height: 40%;
   display: flex;
-  flex-flow: column nowrap;
-  font-family: "Roboto", sans-serif;
-  padding: 8px;
-}
-.map_vertex_details__desc {
-  text-align: justify;
-  font-size: 12px;
-}
-.map_vertex_details__characters {
-  display: flex;
-  flex-flow: row wrap;
   align-items: center;
-  gap: 8px;
-  justify-content: flex-start;
-  padding-left: 16px;
-  padding-right: 16px;
+  font-size: 16px;
 }
-.map_vertex_details__subheader {
-  margin-top: 16px;
-  margin-bottom: 8px;
+.grunge_panel__title {
+  font-family: "Montserrat", sans-serif;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  color: #EAE6E5;
   font-size: 18px;
 }
 
-.site_of_interest__header {
-  margin-bottom: 8px;
+.grunge_label__title {
+  background-size: 100% 100%;
+  background-blend-mode: normal;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding-left: 8px;
+  padding-right: 12px;
+  justify-content: space-between;
+  color: #EAE6E5;
 }
-.site_of_interest__category {
-  text-transform: uppercase;
+.grunge_label__title__left {
   font-family: "RobotoCondensed", sans-serif;
   font-weight: bold;
+  letter-spacing: -0.5px;
 }
-.site_of_interest__name {
-  font-style: italic;
-  font-family: "Montserrat", sans-serif;
-  font-size: 11px;
+.grunge_label__title__right {
+  font-family: "RobotoCondensed", sans-serif;
 }
-.site_of_interest__details {
-  margin-bottom: 8px;
-}
-.site_of_interest__details__key {
-  width: 100px;
-}
-
-.navigation {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-  gap: 24px;
-}
-.navigation__type {
-  display: flex;
-  flex-flow: row wrap;
-  width: 50px;
-  max-width: 100px;
-  gap: 8px;
-  justify-content: center;
-  flex-grow: 1;
-}
-.navigation__type__means {
+.grunge_label__desc {
+  color: #EAE6E5;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  margin: 8px;
-  font-size: 24px;
-}
-.navigation__type__time {
-  font-size: 11px;
-}
-.navigation__type__safety {
-  font-size: 11px;
+  font-family: "RobotoCondensed", sans-serif;
+  letter-spacing: -0.2px;
 }
 
-.map_edge {
-  position: absolute;
-  translate: -50% -50%;
-  height: 3px;
-  background: #aaa;
-  border-radius: 1px;
+.theme_label {
+  margin-bottom: 8px;
+  padding: 2px 16px 2px 4px;
+  font-family: "RobotoCondensed", sans-serif;
+  font-weight: 200;
+  text-transform: uppercase;
+  color: #EAE6E5;
+  width: fit-content;
+  font-size: 16px;
+}
+
+.theme_subheader {
+  font-family: "Montserrat", sans-serif;
+  font-variant-caps: small-caps;
+}
+
+.theme_box {
+  margin: 4px;
+  padding: 8px;
+}
+
+.theme--unknown .grunge_panel {
+  background-image: url("../../assets/images/gui/unknown/PanelFaded.png");
+}
+.theme--unknown .grunge_panel__subtitle {
+  color: #EAE6E5;
+}
+.theme--unknown .theme_label {
+  background-color: #EAE6E5;
+}
+.theme--unknown .theme_subheader {
+  color: #EAE6E5;
+}
+.theme--unknown .theme_box {
+  border-image-source: url("../../assets/images/gui/unknown/Stroke500x500.png");
+  border-image-slice: 5;
+  border-image-width: 2px;
+  border-image-repeat: repeat;
+}
+.theme--unknown .dictionary .dictionary__row__key {
+  color: #EAE6E5;
+}
+
+.theme--friendly .grunge_panel {
+  background-image: url("../../assets/images/gui/friendly/PanelFaded.png");
+}
+.theme--friendly .grunge_panel__subtitle {
+  color: #059729;
+}
+.theme--friendly .theme_label {
+  background-color: #205017;
+}
+.theme--friendly .theme_subheader {
+  color: #059729;
+}
+.theme--friendly .theme_box {
+  border-image-source: url("../../assets/images/gui/friendly/Stroke500x500.png");
+  border-image-slice: 5;
+  border-image-width: 2px;
+  border-image-repeat: repeat;
+}
+.theme--friendly .dictionary .dictionary__row__key {
+  color: #059729;
+}
+
+.theme--safe .grunge_panel {
+  background-image: url("../../assets/images/gui/safe/PanelFaded.png");
+}
+.theme--safe .grunge_panel__subtitle {
+  color: #157FE3;
+}
+.theme--safe .theme_label {
+  background-color: #19297C;
+}
+.theme--safe .theme_subheader {
+  color: #157FE3;
+}
+.theme--safe .theme_box {
+  border-image-source: url("../../assets/images/gui/safe/Stroke500x500.png");
+  border-image-slice: 5;
+  border-image-width: 2px;
+  border-image-repeat: repeat;
+}
+.theme--safe .dictionary .dictionary__row__key {
+  color: #157FE3;
+}
+
+.theme--combat .grunge_panel {
+  background-image: url("../../assets/images/gui/combat/PanelFaded.png");
+}
+.theme--combat .grunge_panel__subtitle {
+  color: #760BD4;
+}
+.theme--combat .theme_label {
+  background-color: #760BD4;
+}
+.theme--combat .theme_subheader {
+  color: #760BD4;
+}
+.theme--combat .theme_box {
+  border-image-source: url("../../assets/images/gui/combat/Stroke500x500.png");
+  border-image-slice: 5;
+  border-image-width: 2px;
+  border-image-repeat: repeat;
+}
+.theme--combat .dictionary .dictionary__row__key {
+  color: #760BD4;
+}
+
+.theme--emergency .grunge_panel {
+  background-image: url("../../assets/images/gui/emergency/PanelFaded.png");
+}
+.theme--emergency .grunge_panel__subtitle {
+  color: #E04D75;
+}
+.theme--emergency .theme_label {
+  background-color: #381D2A;
+}
+.theme--emergency .theme_subheader {
+  color: #E04D75;
+}
+.theme--emergency .theme_box {
+  border-image-source: url("../../assets/images/gui/emergency/Stroke500x500.png");
+  border-image-slice: 5;
+  border-image-width: 2px;
+  border-image-repeat: repeat;
+}
+.theme--emergency .dictionary .dictionary__row__key {
+  color: #E04D75;
+}
+
+.theme--neutral .grunge_panel {
+  background-image: url("../../assets/images/gui/neutral/PanelFaded.png");
+}
+.theme--neutral .grunge_panel__subtitle {
+  color: #EC7005;
+}
+.theme--neutral .theme_label {
+  background-color: #520505;
+}
+.theme--neutral .theme_subheader {
+  color: #EC7005;
+}
+.theme--neutral .theme_box {
+  border-image-source: url("../../assets/images/gui/neutral/Stroke500x500.png");
+  border-image-slice: 5;
+  border-image-width: 2px;
+  border-image-repeat: repeat;
+}
+.theme--neutral .dictionary .dictionary__row__key {
+  color: #EC7005;
+}
+
+.theme--deadly .grunge_panel {
+  background-image: url("../../assets/images/gui/deadly/PanelFaded.png");
+}
+.theme--deadly .grunge_panel__subtitle {
+  color: #CA1412;
+}
+.theme--deadly .theme_label {
+  background-color: #420039;
+}
+.theme--deadly .theme_subheader {
+  color: #CA1412;
+}
+.theme--deadly .theme_box {
+  border-image-source: url("../../assets/images/gui/deadly/Stroke500x500.png");
+  border-image-slice: 5;
+  border-image-width: 2px;
+  border-image-repeat: repeat;
+}
+.theme--deadly .dictionary .dictionary__row__key {
+  color: #CA1412;
+}
+
+.theme--black .grunge_panel {
+  background-image: url("../../assets/images/gui/black/PanelFaded.png");
+}
+.theme--black .grunge_panel__subtitle {
+  color: #00031D;
+}
+.theme--black .theme_label {
+  background-color: #00031D;
+}
+.theme--black .theme_subheader {
+  color: #00031D;
+}
+.theme--black .theme_box {
+  border-image-source: url("../../assets/images/gui/black/Stroke500x500.png");
+  border-image-slice: 5;
+  border-image-width: 2px;
+  border-image-repeat: repeat;
+}
+.theme--black .dictionary .dictionary__row__key {
+  color: #00031D;
+}
+
+.grunge_nav_button {
+  padding: 8px 16px;
+  background-color: #19297C;
+  color: #EAE6E5;
+  font-family: Montserrat, "sans-serif";
 }
 
 @font-face {
@@ -695,82 +449,7 @@
  * *
  * * Also note: https://m3.material.io/styles/elevation/tokens
  * */
-@font-face {
-  font-family: "Roboto";
-  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
-}
-@font-face {
-  font-family: "Roboto";
-  font-weight: bold;
-  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
-}
-@font-face {
-  font-family: "Roboto-thin";
-  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
-}
-@font-face {
-  font-family: "RobotoCondensed";
-  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
-}
-@font-face {
-  font-family: "RobotoCondensed";
-  font-weight: bold;
-  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
-}
-@font-face {
-  font-family: "Montserrat";
-  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
-}
-@font-face {
-  font-family: "Montserrat";
-  font-weight: 500;
-  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: 200;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: 400;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: bold;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
-}
-/**
- * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
- * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
- * *
- * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
- * * the blur parameter has to be doubled.
- * *
- * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
- * *
- * * Example usage:
- * *
- * * .card {
- * *     width: 95px;
- * *     height: 95px;
- * *     background: #f4f4f4;
- * *     -webkit-transition: all 250ms;
- * *     -moz-transition: all 250ms;
- * *     transition: all 250ms;
- * *     @include BoxShadowHelper(1);
- * *     &:hover {
- * *         @include BoxShadowHelper(3);
- * *         -webkit-transform: translateY(-5px);
- * *         -moz-transform: translateY(-5px);
- * *         transform: translateY(-5px);
- * *     }
- * * }
- * *
- * * Also note: https://m3.material.io/styles/elevation/tokens
- * */
-.graph, .graph--skill, .graph--map {
+.graph, .graph--map, .graph--skill {
   position: relative;
   flex-shrink: 0;
   flex-grow: 0;
@@ -784,14 +463,14 @@
   display: none;
 }
 
-.graph_vertex, .skill_vertex, .map_vertex {
+.graph_vertex, .map_vertex, .skill_vertex {
   width: 24px;
   height: 24px;
   position: absolute;
   transform: translate(-50%, -50%);
   border-radius: 50%;
 }
-.graph_vertex__info, .skill_vertex__info, .map_vertex__info {
+.graph_vertex__info, .map_vertex__info, .skill_vertex__info {
   position: absolute;
   width: 240px;
   left: 40px;
@@ -801,7 +480,7 @@
   z-index: 2;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-.graph_vertex__info .overhead_text, .skill_vertex__info .overhead_text, .map_vertex__info .overhead_text {
+.graph_vertex__info .overhead_text, .map_vertex__info .overhead_text, .skill_vertex__info .overhead_text {
   font-family: "Montserrat", sans-serif;
   color: #EAE6E5;
   font-style: italic;
@@ -810,16 +489,16 @@
   text-align: right;
   font-size: 11px;
 }
-.graph_vertex__info .grunge_label__title, .skill_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title {
+.graph_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title, .skill_vertex__info .grunge_label__title {
   height: 24px;
   font-size: 14px;
 }
-.graph_vertex__info .grunge_label__desc, .skill_vertex__info .grunge_label__desc, .map_vertex__info .grunge_label__desc {
+.graph_vertex__info .grunge_label__desc, .map_vertex__info .grunge_label__desc, .skill_vertex__info .grunge_label__desc {
   min-height: 40px;
   padding: 4px;
   font-size: 15px;
 }
-.graph_vertex__info .grunge_label__desc .vertex_id, .skill_vertex__info .grunge_label__desc .vertex_id, .map_vertex__info .grunge_label__desc .vertex_id {
+.graph_vertex__info .grunge_label__desc .vertex_id, .map_vertex__info .grunge_label__desc .vertex_id, .skill_vertex__info .grunge_label__desc .vertex_id {
   font-family: "RobotoCondensed", sans-serif;
   font-weight: bold;
   font-variant-caps: petite-caps;
@@ -827,32 +506,32 @@
   font-size: 14px;
 }
 
-.skill_vertex.rarity--common .skill_vertex__info .grunge_label__title, .map_vertex--unknown .map_vertex__info .grunge_label__title {
+.map_vertex--unknown .map_vertex__info .grunge_label__title, .skill_vertex.rarity--common .skill_vertex__info .grunge_label__title {
   background-image: url("../../assets/images/gui/unknown/Panel450x100.png"), linear-gradient(#EAE6E5, #EAE6E5);
   color: #00031D;
 }
-.skill_vertex.rarity--common .skill_vertex__info .grunge_label__desc, .map_vertex--unknown .map_vertex__info .grunge_label__desc {
+.map_vertex--unknown .map_vertex__info .grunge_label__desc, .skill_vertex.rarity--common .skill_vertex__info .grunge_label__desc {
   background: #00031D;
 }
 
-.skill_vertex.rarity--uncommon .skill_vertex__info .grunge_label__title, .map_vertex--friendly .map_vertex__info .grunge_label__title {
+.map_vertex--friendly .map_vertex__info .grunge_label__title, .skill_vertex.rarity--uncommon .skill_vertex__info .grunge_label__title {
   background-image: url("../../assets/images/gui/friendly/Panel450x100.png"), linear-gradient(#205017 50%, #059729);
 }
-.skill_vertex.rarity--uncommon .skill_vertex__info .grunge_label__desc, .map_vertex--friendly .map_vertex__info .grunge_label__desc {
+.map_vertex--friendly .map_vertex__info .grunge_label__desc, .skill_vertex.rarity--uncommon .skill_vertex__info .grunge_label__desc {
   background: #160407;
 }
 
-.skill_vertex.rarity--rare .skill_vertex__info .grunge_label__title, .map_vertex--safe .map_vertex__info .grunge_label__title {
+.map_vertex--safe .map_vertex__info .grunge_label__title, .skill_vertex.rarity--rare .skill_vertex__info .grunge_label__title {
   background-image: url("../../assets/images/gui/safe/Panel450x100.png"), linear-gradient(#19297C 50%, #173FB3);
 }
-.skill_vertex.rarity--rare .skill_vertex__info .grunge_label__desc, .map_vertex--safe .map_vertex__info .grunge_label__desc {
+.map_vertex--safe .map_vertex__info .grunge_label__desc, .skill_vertex.rarity--rare .skill_vertex__info .grunge_label__desc {
   background: #0D160B;
 }
 
-.skill_vertex.rarity--epic .skill_vertex__info .grunge_label__title, .map_vertex--combat .map_vertex__info .grunge_label__title {
+.map_vertex--combat .map_vertex__info .grunge_label__title, .skill_vertex.rarity--epic .skill_vertex__info .grunge_label__title {
   background-image: url("../../assets/images/gui/combat/Panel450x100.png"), linear-gradient(#760BD4 50%, #9947EA);
 }
-.skill_vertex.rarity--epic .skill_vertex__info .grunge_label__desc, .map_vertex--combat .map_vertex__info .grunge_label__desc {
+.map_vertex--combat .map_vertex__info .grunge_label__desc, .skill_vertex.rarity--epic .skill_vertex__info .grunge_label__desc {
   background: #182825;
 }
 
@@ -863,24 +542,24 @@
   background: #091E05;
 }
 
-.skill_vertex.rarity--legendary .skill_vertex__info .grunge_label__title, .map_vertex--neutral .map_vertex__info .grunge_label__title {
+.map_vertex--neutral .map_vertex__info .grunge_label__title, .skill_vertex.rarity--legendary .skill_vertex__info .grunge_label__title {
   background-image: url("../../assets/images/gui/neutral/Panel450x100.png"), linear-gradient(#CC5505, #EC7005);
 }
-.skill_vertex.rarity--legendary .skill_vertex__info .grunge_label__desc, .map_vertex--neutral .map_vertex__info .grunge_label__desc {
+.map_vertex--neutral .map_vertex__info .grunge_label__desc, .skill_vertex.rarity--legendary .skill_vertex__info .grunge_label__desc {
   background: #1D292F;
 }
 
-.skill_vertex.rarity--artefact .skill_vertex__info .grunge_label__title, .map_vertex--deadly .map_vertex__info .grunge_label__title {
+.map_vertex--deadly .map_vertex__info .grunge_label__title, .skill_vertex.rarity--artefact .skill_vertex__info .grunge_label__title {
   background-image: url("../../assets/images/gui/deadly/Panel450x100.png"), linear-gradient(#420039, #CA1412 30%);
 }
-.skill_vertex.rarity--artefact .skill_vertex__info .grunge_label__desc, .map_vertex--deadly .map_vertex__info .grunge_label__desc {
+.map_vertex--deadly .map_vertex__info .grunge_label__desc, .skill_vertex.rarity--artefact .skill_vertex__info .grunge_label__desc {
   background: #000B1E;
 }
 
-.skill_vertex.rarity--black .skill_vertex__info .grunge_label__title, .map_vertex--black .map_vertex__info .grunge_label__title {
+.map_vertex--black .map_vertex__info .grunge_label__title, .skill_vertex.rarity--black .skill_vertex__info .grunge_label__title {
   background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
 }
-.skill_vertex.rarity--black .skill_vertex__info .grunge_label__desc, .map_vertex--black .map_vertex__info .grunge_label__desc {
+.map_vertex--black .map_vertex__info .grunge_label__desc, .skill_vertex.rarity--black .skill_vertex__info .grunge_label__desc {
   background: #00031D;
   color: #EAE6E5;
 }
@@ -1092,11 +771,11 @@
   flex-grow: 1;
 }
 
-.upgrade_details .theme_map__row__key {
+.upgrade_stats .dictionary__row__key {
   min-width: 120px;
-  margin-right: 8px;
 }
-.upgrade_details .upgrade_effects .theme_map__row__key {
+
+.upgrade_effects .dictionary__row__key {
   min-width: 180px;
 }
 
@@ -1118,123 +797,214 @@
   background-color: #000;
 }
 
-@keyframes main_wave {
-  0% {
-    translate: 0 0;
-    scale: 1 1;
-  }
-  16% {
-    translate: -8px 0;
-    scale: 1.02 1.02;
-  }
-  33% {
-    translate: 3px -5px;
-    scale: 1.01 1.02;
-  }
-  50% {
-    translate: -4px 0;
-    scale: 0.98 1.03;
-  }
-  66% {
-    translate: -10px 0;
-    scale: 1.01 1.02;
-  }
-  83% {
-    translate: 0 5px;
-    scale: 1.02 1.01;
-  }
-  100% {
-    translate: 0 0;
-    scale: 1 1;
-  }
+.side_panel_page {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  justify-content: space-between;
 }
-@keyframes minor_wave {
-  0% {
-    translate: 0 0;
-    scale: 1 1;
-  }
-  16% {
-    translate: -8px 0;
-    scale: 1.04 0.99;
-  }
-  33% {
-    translate: -10px -3px;
-    scale: 1.03 1.01;
-  }
-  50% {
-    translate: -5px 0px;
-    scale: 1.02 1.03;
-  }
-  66% {
-    translate: -8px 4px;
-    scale: 1.05 0.99;
-  }
-  83% {
-    translate: 2px 5px;
-    scale: 1.03 0.98;
-  }
-  100% {
-    translate: 0 0;
-    scale: 1 1;
-  }
+.side_panel_page__panel {
+  width: 160px;
+  flex-grow: 0;
 }
-.ink_side_banner {
+.side_panel_page__main {
+  min-width: 240px;
+  flex-grow: 1;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
+}
+@font-face {
+  font-family: "Roboto-thin";
+  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 500;
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 200;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 400;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: bold;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
+}
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+.graph, .graph--map {
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+  z-index: 0;
+}
+.graph__edges {
+  z-index: -1;
+}
+
+.null_vertex {
+  display: none;
+}
+
+.graph_vertex, .map_vertex {
+  width: 24px;
+  height: 24px;
   position: absolute;
-  top: 0;
-  height: 100%;
-  width: 480px;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7) 20%, black 30%);
-  z-index: 1;
-  opacity: 0;
-  transition: all 0.2s;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.graph_vertex__info, .map_vertex__info {
+  position: absolute;
+  width: 240px;
+  left: 40px;
   visibility: hidden;
-  color: #EAE6E5;
-}
-.ink_side_banner--right {
-  right: -500px;
-}
-.ink_side_banner--right--visible {
-  right: 0;
-  opacity: 1;
-  visibility: visible;
-}
-.ink_side_banner--left {
-  left: -500px;
-  scale: -1 1;
-}
-.ink_side_banner--left--visible {
-  left: 0;
-  opacity: 1;
-  visibility: visible;
-}
-.ink_side_banner--left .ink_side_banner__content {
-  scale: -1 1;
-}
-.ink_side_banner .side_wave_foreground, .ink_side_banner .side_wave_background {
-  position: absolute;
-  object-fit: fill;
-  z-index: 1;
-}
-.ink_side_banner .side_wave_background {
-  width: 320px;
-  height: 100%;
-  left: -180px;
-  top: 0;
-  animation: 22s ease-in-out 0s infinite normal none running main_wave;
-}
-.ink_side_banner .side_wave_foreground {
-  width: 300px;
-  height: 75%;
-  left: -108px;
-  top: 5%;
-  animation: 17s ease-in-out 0s infinite normal none running minor_wave;
-}
-.ink_side_banner__content {
-  position: absolute;
-  right: 0;
-  width: 360px;
-  height: 100%;
+  transition: opacity 0.3s;
+  opacity: 0;
   z-index: 2;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.graph_vertex__info .overhead_text, .map_vertex__info .overhead_text {
+  font-family: "Montserrat", sans-serif;
+  color: #EAE6E5;
+  font-style: italic;
+  font-weight: bold;
+  width: 100%;
+  text-align: right;
+  font-size: 11px;
+}
+.graph_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title {
+  height: 24px;
+  font-size: 14px;
+}
+.graph_vertex__info .grunge_label__desc, .map_vertex__info .grunge_label__desc {
+  min-height: 40px;
+  padding: 4px;
+  font-size: 15px;
+}
+.graph_vertex__info .grunge_label__desc .vertex_id, .map_vertex__info .grunge_label__desc .vertex_id {
+  font-family: "RobotoCondensed", sans-serif;
+  font-weight: bold;
+  font-variant-caps: petite-caps;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.map_vertex--unknown .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/unknown/Panel450x100.png"), linear-gradient(#EAE6E5, #EAE6E5);
+  color: #00031D;
+}
+.map_vertex--unknown .map_vertex__info .grunge_label__desc {
+  background: #00031D;
+}
+
+.map_vertex--friendly .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/friendly/Panel450x100.png"), linear-gradient(#205017 50%, #059729);
+}
+.map_vertex--friendly .map_vertex__info .grunge_label__desc {
+  background: #160407;
+}
+
+.map_vertex--safe .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/safe/Panel450x100.png"), linear-gradient(#19297C 50%, #173FB3);
+}
+.map_vertex--safe .map_vertex__info .grunge_label__desc {
+  background: #0D160B;
+}
+
+.map_vertex--combat .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/combat/Panel450x100.png"), linear-gradient(#760BD4 50%, #9947EA);
+}
+.map_vertex--combat .map_vertex__info .grunge_label__desc {
+  background: #182825;
+}
+
+.map_vertex--emergency .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/emergency/Panel450x100.png"), linear-gradient(#381D2A, #E04D75 20%);
+}
+.map_vertex--emergency .map_vertex__info .grunge_label__desc {
+  background: #091E05;
+}
+
+.map_vertex--neutral .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/neutral/Panel450x100.png"), linear-gradient(#CC5505, #EC7005);
+}
+.map_vertex--neutral .map_vertex__info .grunge_label__desc {
+  background: #1D292F;
+}
+
+.map_vertex--deadly .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/deadly/Panel450x100.png"), linear-gradient(#420039, #CA1412 30%);
+}
+.map_vertex--deadly .map_vertex__info .grunge_label__desc {
+  background: #000B1E;
+}
+
+.map_vertex--black .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
+}
+.map_vertex--black .map_vertex__info .grunge_label__desc {
+  background: #00031D;
+  color: #EAE6E5;
 }
 
 @font-face {
@@ -1323,292 +1093,787 @@
   order: 1;
 }
 
-.grunge_panel {
-  display: flex;
-  flex-flow: column wrap;
-  align-content: flex-start;
-  background-size: 100% 100%;
-  margin-top: 16px;
-  margin-bottom: 16px;
+@font-face {
+  font-family: "Roboto";
+  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
+}
+@font-face {
+  font-family: "Roboto-thin";
+  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 500;
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 200;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 400;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: bold;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
+}
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+.graph, .graph--map {
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+  z-index: 0;
+}
+.graph__edges {
+  z-index: -1;
+}
+
+.null_vertex {
+  display: none;
+}
+
+.graph_vertex, .map_vertex {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.graph_vertex__info, .map_vertex__info {
+  position: absolute;
+  width: 240px;
+  left: 40px;
+  visibility: hidden;
+  transition: opacity 0.3s;
+  opacity: 0;
+  z-index: 2;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.graph_vertex__info .overhead_text, .map_vertex__info .overhead_text {
+  font-family: "Montserrat", sans-serif;
+  color: #EAE6E5;
+  font-style: italic;
+  font-weight: bold;
   width: 100%;
-  height: 80px;
+  text-align: right;
+  font-size: 11px;
 }
-.grunge_panel__icon {
-  width: 30%;
-  height: 100%;
+.graph_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title {
+  height: 24px;
+  font-size: 14px;
 }
-.grunge_panel__icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.graph_vertex__info .grunge_label__desc, .map_vertex__info .grunge_label__desc {
+  min-height: 40px;
+  padding: 4px;
+  font-size: 15px;
 }
-.grunge_panel__subtitle {
+.graph_vertex__info .grunge_label__desc .vertex_id, .map_vertex__info .grunge_label__desc .vertex_id {
   font-family: "RobotoCondensed", sans-serif;
   font-weight: bold;
-  height: 40%;
-  display: flex;
-  align-items: center;
-  font-size: 16px;
+  font-variant-caps: petite-caps;
+  margin-right: 8px;
+  font-size: 14px;
 }
-.grunge_panel__title {
-  font-family: "Montserrat", sans-serif;
-  height: 50%;
-  display: flex;
-  align-items: center;
+
+.map_vertex--unknown .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/unknown/Panel450x100.png"), linear-gradient(#EAE6E5, #EAE6E5);
+  color: #00031D;
+}
+.map_vertex--unknown .map_vertex__info .grunge_label__desc {
+  background: #00031D;
+}
+
+.map_vertex--friendly .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/friendly/Panel450x100.png"), linear-gradient(#205017 50%, #059729);
+}
+.map_vertex--friendly .map_vertex__info .grunge_label__desc {
+  background: #160407;
+}
+
+.map_vertex--safe .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/safe/Panel450x100.png"), linear-gradient(#19297C 50%, #173FB3);
+}
+.map_vertex--safe .map_vertex__info .grunge_label__desc {
+  background: #0D160B;
+}
+
+.map_vertex--combat .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/combat/Panel450x100.png"), linear-gradient(#760BD4 50%, #9947EA);
+}
+.map_vertex--combat .map_vertex__info .grunge_label__desc {
+  background: #182825;
+}
+
+.map_vertex--emergency .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/emergency/Panel450x100.png"), linear-gradient(#381D2A, #E04D75 20%);
+}
+.map_vertex--emergency .map_vertex__info .grunge_label__desc {
+  background: #091E05;
+}
+
+.map_vertex--neutral .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/neutral/Panel450x100.png"), linear-gradient(#CC5505, #EC7005);
+}
+.map_vertex--neutral .map_vertex__info .grunge_label__desc {
+  background: #1D292F;
+}
+
+.map_vertex--deadly .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/deadly/Panel450x100.png"), linear-gradient(#420039, #CA1412 30%);
+}
+.map_vertex--deadly .map_vertex__info .grunge_label__desc {
+  background: #000B1E;
+}
+
+.map_vertex--black .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
+}
+.map_vertex--black .map_vertex__info .grunge_label__desc {
+  background: #00031D;
   color: #EAE6E5;
+}
+
+.map_vertex .map_vertex__foreground, .map_vertex .map_vertex__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  object-fit: contain;
+}
+.map_vertex.inactive {
+  width: 20px;
+  height: 20px;
+}
+.map_vertex.inactive .map_vertex__foreground {
+  display: none;
+}
+.map_vertex__background:hover ~ .map_vertex__info, .map_vertex__foreground:hover ~ .map_vertex__info {
+  visibility: visible;
+  opacity: 1;
+}
+
+.map_vertex_details {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  font-family: "Roboto", sans-serif;
+  padding: 8px;
+}
+.map_vertex_details__desc {
+  text-align: justify;
+  font-size: 12px;
+}
+.map_vertex_details__characters {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-start;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.map_vertex_details__subheader {
+  margin-top: 16px;
+  margin-bottom: 8px;
   font-size: 18px;
 }
 
-.grunge_label__title {
-  background-size: 100% 100%;
-  background-blend-mode: normal;
-  width: 100%;
-  position: relative;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  padding-left: 8px;
-  padding-right: 12px;
-  justify-content: space-between;
-  color: #EAE6E5;
-}
-.grunge_label__title__left {
-  font-family: "RobotoCondensed", sans-serif;
-  font-weight: bold;
-  letter-spacing: -0.5px;
-}
-.grunge_label__title__right {
-  font-family: "RobotoCondensed", sans-serif;
-}
-.grunge_label__desc {
-  color: #EAE6E5;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "RobotoCondensed", sans-serif;
-  letter-spacing: -0.2px;
-}
-
-.theme_label {
+.site_of_interest__header {
   margin-bottom: 8px;
-  padding: 2px 16px 2px 4px;
-  font-family: "RobotoCondensed", sans-serif;
-  font-weight: 200;
+}
+.site_of_interest__category {
   text-transform: uppercase;
-  color: #EAE6E5;
-  width: fit-content;
-  font-size: 16px;
-}
-
-.theme_subheader {
-  font-family: "Montserrat", sans-serif;
-  font-variant-caps: small-caps;
-}
-
-.theme_box {
-  margin: 4px;
-  padding: 8px;
-}
-
-.theme_map {
   font-family: "RobotoCondensed", sans-serif;
-  font-size: 14px;
+  font-weight: bold;
 }
-.theme_map__row {
+.site_of_interest__name {
+  font-style: italic;
+  font-family: "Montserrat", sans-serif;
+  font-size: 11px;
+}
+.site_of_interest__details {
+  margin-bottom: 8px;
+}
+.site_of_interest__details__key {
+  width: 100px;
+}
+
+.navigation__type__time {
+  margin-right: 8px;
+}
+.map_edge {
+  position: absolute;
+  translate: -50% -50%;
+  height: 3px;
+  background: #aaa;
+  border-radius: 1px;
+}
+
+@keyframes main_wave {
+  0% {
+    translate: 0 0;
+    scale: 1 1;
+  }
+  16% {
+    translate: -8px 0;
+    scale: 1.02 1.02;
+  }
+  33% {
+    translate: 3px -5px;
+    scale: 1.01 1.02;
+  }
+  50% {
+    translate: -4px 0;
+    scale: 0.98 1.03;
+  }
+  66% {
+    translate: -10px 0;
+    scale: 1.01 1.02;
+  }
+  83% {
+    translate: 0 5px;
+    scale: 1.02 1.01;
+  }
+  100% {
+    translate: 0 0;
+    scale: 1 1;
+  }
+}
+@keyframes minor_wave {
+  0% {
+    translate: 0 0;
+    scale: 1 1;
+  }
+  16% {
+    translate: -8px 0;
+    scale: 1.04 0.99;
+  }
+  33% {
+    translate: -10px -3px;
+    scale: 1.03 1.01;
+  }
+  50% {
+    translate: -5px 0px;
+    scale: 1.02 1.03;
+  }
+  66% {
+    translate: -8px 4px;
+    scale: 1.05 0.99;
+  }
+  83% {
+    translate: 2px 5px;
+    scale: 1.03 0.98;
+  }
+  100% {
+    translate: 0 0;
+    scale: 1 1;
+  }
+}
+.ink_side_banner {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.2s;
+  visibility: hidden;
+  color: #EAE6E5;
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 4px;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 0;
+  margin: 0;
 }
-.theme_map__row__key {
-  font-weight: bold;
-  font-variant-caps: small-caps;
-  flex-grow: 0;
+.ink_side_banner__gradient {
+  width: 144px;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7) 60%, black 100%);
+  transition: all 0.2s;
 }
-.theme_map__row__value {
-  flex-grow: 1;
+.ink_side_banner__content {
+  width: 336px;
+  background-color: black;
+  transition: all 0.2s;
+  z-index: 2;
 }
-
-.theme--unknown .grunge_panel {
-  background-image: url("../../assets/images/gui/unknown/PanelFaded.png");
+.ink_side_banner--right {
+  right: -500px;
 }
-.theme--unknown .grunge_panel__subtitle {
-  color: #EAE6E5;
+.ink_side_banner--right--visible {
+  right: 0;
+  opacity: 1;
+  visibility: visible;
 }
-.theme--unknown .theme_label {
-  background-color: #EAE6E5;
+.ink_side_banner--right--visible.full_span .ink_side_banner__content {
+  width: 100vw;
+  overflow: hidden;
 }
-.theme--unknown .theme_subheader {
-  color: #EAE6E5;
+.ink_side_banner--left {
+  left: -500px;
+  scale: -1 1;
 }
-.theme--unknown .theme_box {
-  border-image-source: url("../../assets/images/gui/unknown/Stroke500x500.png");
-  border-image-slice: 5;
-  border-image-width: 2px;
-  border-image-repeat: repeat;
+.ink_side_banner--left--visible {
+  left: 0;
+  opacity: 1;
+  visibility: visible;
 }
-.theme--unknown .theme_map__row__key {
-  color: #EAE6E5;
+.ink_side_banner--left--visible.full_span {
+  width: 100vw;
 }
-
-.theme--friendly .grunge_panel {
-  background-image: url("../../assets/images/gui/friendly/PanelFaded.png");
+.ink_side_banner--left .ink_side_banner__content {
+  scale: -1 1;
 }
-.theme--friendly .grunge_panel__subtitle {
-  color: #059729;
+.ink_side_banner .side_wave_foreground, .ink_side_banner .side_wave_background {
+  position: absolute;
+  object-fit: fill;
+  z-index: 1;
 }
-.theme--friendly .theme_label {
-  background-color: #205017;
+.ink_side_banner .side_wave_background {
+  width: 320px;
+  height: 100%;
+  left: -180px;
+  top: 0;
+  animation: 22s ease-in-out 0s infinite normal none running main_wave;
 }
-.theme--friendly .theme_subheader {
-  color: #059729;
-}
-.theme--friendly .theme_box {
-  border-image-source: url("../../assets/images/gui/friendly/Stroke500x500.png");
-  border-image-slice: 5;
-  border-image-width: 2px;
-  border-image-repeat: repeat;
-}
-.theme--friendly .theme_map__row__key {
-  color: #059729;
-}
-
-.theme--safe .grunge_panel {
-  background-image: url("../../assets/images/gui/safe/PanelFaded.png");
-}
-.theme--safe .grunge_panel__subtitle {
-  color: #157FE3;
-}
-.theme--safe .theme_label {
-  background-color: #19297C;
-}
-.theme--safe .theme_subheader {
-  color: #157FE3;
-}
-.theme--safe .theme_box {
-  border-image-source: url("../../assets/images/gui/safe/Stroke500x500.png");
-  border-image-slice: 5;
-  border-image-width: 2px;
-  border-image-repeat: repeat;
-}
-.theme--safe .theme_map__row__key {
-  color: #157FE3;
-}
-
-.theme--combat .grunge_panel {
-  background-image: url("../../assets/images/gui/combat/PanelFaded.png");
-}
-.theme--combat .grunge_panel__subtitle {
-  color: #760BD4;
-}
-.theme--combat .theme_label {
-  background-color: #760BD4;
-}
-.theme--combat .theme_subheader {
-  color: #760BD4;
-}
-.theme--combat .theme_box {
-  border-image-source: url("../../assets/images/gui/combat/Stroke500x500.png");
-  border-image-slice: 5;
-  border-image-width: 2px;
-  border-image-repeat: repeat;
-}
-.theme--combat .theme_map__row__key {
-  color: #760BD4;
-}
-
-.theme--emergency .grunge_panel {
-  background-image: url("../../assets/images/gui/emergency/PanelFaded.png");
-}
-.theme--emergency .grunge_panel__subtitle {
-  color: #E04D75;
-}
-.theme--emergency .theme_label {
-  background-color: #381D2A;
-}
-.theme--emergency .theme_subheader {
-  color: #E04D75;
-}
-.theme--emergency .theme_box {
-  border-image-source: url("../../assets/images/gui/emergency/Stroke500x500.png");
-  border-image-slice: 5;
-  border-image-width: 2px;
-  border-image-repeat: repeat;
-}
-.theme--emergency .theme_map__row__key {
-  color: #E04D75;
-}
-
-.theme--neutral .grunge_panel {
-  background-image: url("../../assets/images/gui/neutral/PanelFaded.png");
-}
-.theme--neutral .grunge_panel__subtitle {
-  color: #EC7005;
-}
-.theme--neutral .theme_label {
-  background-color: #520505;
-}
-.theme--neutral .theme_subheader {
-  color: #EC7005;
-}
-.theme--neutral .theme_box {
-  border-image-source: url("../../assets/images/gui/neutral/Stroke500x500.png");
-  border-image-slice: 5;
-  border-image-width: 2px;
-  border-image-repeat: repeat;
-}
-.theme--neutral .theme_map__row__key {
-  color: #EC7005;
-}
-
-.theme--deadly .grunge_panel {
-  background-image: url("../../assets/images/gui/deadly/PanelFaded.png");
-}
-.theme--deadly .grunge_panel__subtitle {
-  color: #CA1412;
-}
-.theme--deadly .theme_label {
-  background-color: #420039;
-}
-.theme--deadly .theme_subheader {
-  color: #CA1412;
-}
-.theme--deadly .theme_box {
-  border-image-source: url("../../assets/images/gui/deadly/Stroke500x500.png");
-  border-image-slice: 5;
-  border-image-width: 2px;
-  border-image-repeat: repeat;
-}
-.theme--deadly .theme_map__row__key {
-  color: #CA1412;
-}
-
-.theme--black .grunge_panel {
-  background-image: url("../../assets/images/gui/black/PanelFaded.png");
-}
-.theme--black .grunge_panel__subtitle {
-  color: #00031D;
-}
-.theme--black .theme_label {
-  background-color: #00031D;
-}
-.theme--black .theme_subheader {
-  color: #00031D;
-}
-.theme--black .theme_box {
-  border-image-source: url("../../assets/images/gui/black/Stroke500x500.png");
-  border-image-slice: 5;
-  border-image-width: 2px;
-  border-image-repeat: repeat;
-}
-.theme--black .theme_map__row__key {
-  color: #00031D;
+.ink_side_banner .side_wave_foreground {
+  width: 300px;
+  height: 75%;
+  left: -108px;
+  top: 5%;
+  animation: 17s ease-in-out 0s infinite normal none running minor_wave;
 }
 
 .token_s {
   width: 48px;
   height: 48px;
   object-fit: contain;
+}
+
+.log_tag--info, .log_level--info .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--critical, .log_level--critical .log_tag, .tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  min-height: 24px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  margin: 2px;
+  font-size: 12px;
+}
+
+.tag {
+  color: #fff;
+  font-family: "RobotoCondensed", sans-serif;
+}
+
+.tag:not(.disabled) {
+  background-color: #822000;
+}
+
+.tag.disabled {
+  background-color: #555;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
+}
+@font-face {
+  font-family: "Roboto-thin";
+  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 500;
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 200;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 400;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: bold;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
+}
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+h6, h5, h4, h3, h2 {
+  color: #240B36;
+}
+
+h2 {
+  font-size: 20px;
+  font-family: Montserrat, sans-serif;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+h4 {
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+h5 {
+  font-size: 15px;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+h6 {
+  font-size: 14px;
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+p {
+  text-align: justify;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+sub, sup {
+  margin-left: 1px;
+}
+
+li {
+  font-size: 14px;
+  text-align: justify;
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+img {
+  display: inline-block;
+  margin: 8px;
+  object-fit: contain;
+}
+
+.section {
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 0 0 24px;
+  margin: 8px 0;
+}
+.section .section_header {
+  padding: 16px 8px;
+  margin: 0;
+  min-width: 80px;
+}
+
+.card_link {
+  color: #576CA8;
+}
+
+.base_management {
+  min-width: 960px;
+  height: calc(100% - 32px);
+  display: grid;
+  grid-template-rows: 9fr 5fr 2fr;
+  grid-template-columns: 9fr 3fr 4fr;
+  gap: 24px;
+  margin: 16px;
+}
+.base_management .base_management__villagers, .base_management .base_management__buildings, .base_management .base_management__rating, .base_management .base_management__logs {
+  padding: 8px 16px;
+  background-color: #050505;
+  box-shadow: 0 0 2px #fff inset, 0 0 3px #fff inset, 0 0 4px #fff inset, 0 0 6px #173FB3 inset, 0 0 8px #173FB3 inset, 0 0 9px #173FB3 inset, 0 0 10px #173FB3 inset, 0 0 12px #173FB3 inset;
+}
+.base_management__logs {
+  grid-row: 1/span 1;
+  grid-column: 1/span 1;
+  font-family: "RobotoCondensed", sans-serif;
+}
+.base_management__logs__header {
+  display: grid;
+  grid-template-rows: 36px 20px;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  gap: 8px;
+  width: 100%;
+  height: 64px;
+}
+.base_management__logs__header .terminal_title {
+  grid-row: 1/span 2;
+  grid-column: 1/span 1;
+  justify-self: start;
+}
+.base_management__logs__header .log_filters {
+  grid-row: 1/span 1;
+  grid-column: 2/span 1;
+  justify-self: end;
+}
+.base_management__logs__header .intelligence {
+  grid-row: 2/span 1;
+  grid-column: 2/span 1;
+  justify-self: end;
+  margin-right: 12px;
+}
+.base_management__rating {
+  grid-row: 1/span 1;
+  grid-column: 2/span 1;
+}
+.base_management__buildings {
+  grid-row: 2/span 2;
+  grid-column: 1/span 2;
+}
+.base_management__villagers {
+  grid-row: 1/span 2;
+  grid-column: 3/span 1;
+}
+.base_management__navigation {
+  grid-row: 3/span 1;
+  grid-column: 3/span 1;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: space-evenly;
+}
+
+.terminal_title {
+  font-size: 20px;
+  font-weight: 200;
+  font-variant-caps: small-caps;
+  font-family: "Montserrat", sans-serif;
+}
+
+.log_tag--info, .log_level--info .log_tag {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.log_tag--info:not(.disabled), .log_level--info .log_tag:not(.disabled) {
+  border: solid 2px #059729;
+  background-color: rgba(5, 151, 41, 0.2);
+  color: #059729;
+}
+.log_tag--info.disabled, .log_level--info .log_tag.disabled {
+  border: solid 2px #555;
+  background-color: rgba(136, 136, 136, 0.2);
+  color: #ccc;
+}
+
+.log_tag--notable, .log_level--notable .log_tag {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.log_tag--notable:not(.disabled), .log_level--notable .log_tag:not(.disabled) {
+  border: solid 2px #EC7005;
+  background-color: rgba(236, 112, 5, 0.2);
+  color: #EC7005;
+}
+.log_tag--notable.disabled, .log_level--notable .log_tag.disabled {
+  border: solid 2px #555;
+  background-color: rgba(136, 136, 136, 0.2);
+  color: #ccc;
+}
+
+.log_tag--important, .log_level--important .log_tag {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.log_tag--important:not(.disabled), .log_level--important .log_tag:not(.disabled) {
+  border: solid 2px #760BD4;
+  background-color: rgba(118, 11, 212, 0.2);
+  color: #760BD4;
+}
+.log_tag--important.disabled, .log_level--important .log_tag.disabled {
+  border: solid 2px #555;
+  background-color: rgba(136, 136, 136, 0.2);
+  color: #ccc;
+}
+
+.log_tag--critical, .log_level--critical .log_tag {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.log_tag--critical:not(.disabled), .log_level--critical .log_tag:not(.disabled) {
+  border: solid 2px #CA1412;
+  background-color: rgba(202, 20, 18, 0.2);
+  color: #CA1412;
+}
+.log_tag--critical.disabled, .log_level--critical .log_tag.disabled {
+  border: solid 2px #555;
+  background-color: rgba(136, 136, 136, 0.2);
+  color: #ccc;
+}
+
+.log_entries {
+  overflow-y: scroll;
+}
+
+.log_entry {
+  display: grid;
+  grid-template-columns: 120px 90px 1fr;
+  align-items: center;
+  background-color: #222;
+  border-radius: 4px;
+  padding: 12px 8px;
+  margin-bottom: 8px;
+  margin-right: 12px;
+  gap: 8px;
+  justify-items: start;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) inset;
+  font-size: 15px;
+}
+.log_entry .log_time {
+  justify-self: end;
+  grid-column: 1/span 1;
+}
+.log_entry .log_tag {
+  grid-column: 2/span 1;
+}
+.log_entry .log_msg {
+  grid-column: 3/span 1;
 }
 
 * {
@@ -1638,6 +1903,11 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: scroll;
+}
+
+#map_graph_area {
+  display: flex;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=graphs.css.map */

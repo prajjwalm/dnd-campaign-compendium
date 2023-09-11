@@ -1,21 +1,34 @@
-import {D1, D4, D6, D8}                          from "../../../../../../homebrew/common/diceConstants";
+import {D1, D4, D6, D8} from "../../../../../rolling/Dice";
 import {
-    Activation, AdventurerClass, Condition, CreatureSize, CRValue, DamageType,
-    DStat, Prof, ProficiencyLevel, Sense, Skill, Speed
-}                                                from "../../../../../../homebrew/definitions/constants";
+    Activation,
+    AdventurerClass,
+    Condition,
+    CreatureSize,
+    CRValue,
+    DamageType,
+    DStat,
+    Prof,
+    ProficiencyLevel,
+    Sense,
+    DSkill,
+    Speed,
+    VisibilityLevel,
+    Hidden,
+    Shown
+} from "../../../../../data/constants";
 import {
-    NpcId
-}                                                from "../../../../../../npcs/npcIndex";
+    NpcID
+} from "../../../../../data/npcIndex";
 import {
     Action
-}                                                from "../../../../action/Action";
+} from "../../../../action/Action";
 import {wrapCondition, wrapDamageType, wrapRoll} from "../../../../action/Wrap";
 import {Character}                               from "../../../Character";
 
 export function setupJaye()
 {
     // Prepare the character object.
-    const jaye = new Character(NpcId.Jaye);
+    const jaye = new Character(NpcID.Jaye);
 
     jaye.core.name = "Jaye";
     jaye.core.imgPath = "character_tokens/C2/Arc1/Jaye.png";
@@ -25,24 +38,23 @@ export function setupJaye()
     jaye.dStats.pb = Prof.get(4);
 
     // Setup D&D skills.
-    jaye.dSKills.setSkillProficiency(Skill.Acrobatics);
-    jaye.dSKills.setSkillProficiency(Skill.Athletics);
-    jaye.dSKills.setSkillProficiency(Skill.Nature);
-    jaye.dSKills.setSkillProficiency(Skill.Intimidation);
-    jaye.dSKills.setSkillProficiency(Skill.Stealth, ProficiencyLevel.Expert);
-    jaye.dSKills.setSkillProficiency(Skill.SlightOfHand,
-                                     ProficiencyLevel.Expert);
-    jaye.dSKills.setSkillProficiency(Skill.Survival, ProficiencyLevel.Expert);
+    jaye.dSKills.setSkillProficiency(DSkill.Acrobatics, Hidden);
+    jaye.dSKills.setSkillProficiency(DSkill.Athletics, Hidden);
+    jaye.dSKills.setSkillProficiency(DSkill.Nature, Hidden);
+    jaye.dSKills.setSkillProficiency(DSkill.Intimidation, Hidden);
+    jaye.dSKills.setSkillProficiency(DSkill.Stealth, Hidden, ProficiencyLevel.Expert);
+    jaye.dSKills.setSkillProficiency(DSkill.SlightOfHand, Hidden, ProficiencyLevel.Expert);
+    jaye.dSKills.setSkillProficiency(DSkill.Survival, Shown, ProficiencyLevel.Expert);
     jaye.dSKills.finalizeSkills();
 
     // Setup Opinions.
     jaye.opinions.isOpinionated = true;
 
     // Setup card tags.
+    jaye.card.setCampaignArc(2, 1);
     jaye.card.addCardTag("M26");
     jaye.card.addCardTag(`Race | Ursine <span class='verbose'>(Polar)</span>`);
     jaye.card.addCardTag("CR | 5");
-    jaye.card.addCardTag("Campaign 2 <span class='verbose'>Arc 1</span>");
     jaye.card.summary = "???";
 
     jaye.combat.addClassLevels(AdventurerClass.Rogue, 5);

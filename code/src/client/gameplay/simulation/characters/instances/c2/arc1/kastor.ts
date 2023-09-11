@@ -1,10 +1,10 @@
-import {Prof}      from "../../../../../../homebrew/definitions/constants";
-import {NpcId}     from "../../../../../../npcs/npcIndex";
+import {Prof}      from "../../../../../data/constants";
+import {NpcID}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupKastor()
 {
-    const kastor = new Character(NpcId.Kastor);
+    const kastor = new Character(NpcID.Kastor);
 
     kastor.core.name = "Kastor";
     kastor.core.imgPath = "character_tokens/C2/Arc1/Kastor.png";

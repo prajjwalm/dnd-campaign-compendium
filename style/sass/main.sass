@@ -1,11 +1,14 @@
-@import "modules/dom_elements"
+@use "definitions/content"
+
+@use "pages/page"
+@use "pages/page_history"
+@use "pages/page_interactions"
+
 @import "modules/common_elements"
 @import "modules/character_cards"
 @import "modules/unique_elements"
 @import "modules/countries"
-@import "modules/history_elements"
 @import "modules/written_content"
-@import "modules/npc_opinions"
 @import "modules/toast"
 
 @import "game_modules/stat_sheet"
@@ -15,3 +18,9 @@
 @import "game_modules/map"
 
 @import "modules/beastiary"
+
+*
+  box-sizing: border-box
+
+body
+  margin: 0

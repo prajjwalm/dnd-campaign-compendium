@@ -1,11 +1,15 @@
-import {Prof, Skill} from "../../../../../../homebrew/definitions/constants";
-import {NpcId}       from "../../../../../../npcs/npcIndex";
-import {Character}   from "../../../Character";
+import {
+    Prof,
+    DSkill,
+    Hidden
+}                  from "../../../../../data/constants";
+import {NpcID}     from "../../../../../data/npcIndex";
+import {Character} from "../../../Character";
 
 export function setupIona()
 {
     // Prepare the character object.
-    const iona = new Character(NpcId.Iona);
+    const iona = new Character(NpcID.Iona);
 
     iona.core.name = "Iona";
     iona.core.imgPath = "character_tokens/C2/Arc1/Iona.png";
@@ -15,14 +19,14 @@ export function setupIona()
     iona.dStats.pb = Prof.get(2);
 
     // Setup D&D skills.
-    iona.dSKills.setSkillProficiency(Skill.Arcana);
-    iona.dSKills.setSkillProficiency(Skill.History);
-    iona.dSKills.setSkillProficiency(Skill.Investigation);
-    iona.dSKills.setSkillProficiency(Skill.Nature);
-    iona.dSKills.setSkillProficiency(Skill.Perception);
-    iona.dSKills.setSkillProficiency(Skill.Religion);
-    iona.dSKills.setSkillProficiency(Skill.Stealth);
-    iona.dSKills.setSkillProficiency(Skill.Survival);
+    iona.dSKills.setSkillProficiency(DSkill.Arcana, Hidden);
+    iona.dSKills.setSkillProficiency(DSkill.History, Hidden);
+    iona.dSKills.setSkillProficiency(DSkill.Investigation, Hidden);
+    iona.dSKills.setSkillProficiency(DSkill.Nature, Hidden);
+    iona.dSKills.setSkillProficiency(DSkill.Perception, Hidden);
+    iona.dSKills.setSkillProficiency(DSkill.Religion, Hidden);
+    iona.dSKills.setSkillProficiency(DSkill.Stealth, Hidden);
+    iona.dSKills.setSkillProficiency(DSkill.Survival, Hidden);
     iona.dSKills.finalizeSkills();
 
     iona.opinions.isOpinionated = true;

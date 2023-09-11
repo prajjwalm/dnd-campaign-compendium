@@ -1,6 +1,6 @@
 import {
     CreatureSize, CRValue
-} from "../../../../homebrew/definitions/constants";
+} from "../../../data/constants";
 
 
 export interface ISheetFactory

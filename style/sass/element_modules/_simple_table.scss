@@ -1,0 +1,101 @@
+@use "../definitions/colors";
+
+
+%simple_table__row__cell {
+  padding: 8px;
+}
+
+%simple_table__row {
+  width: 100%;
+  font-size: 14px;
+  color: colors.$black;
+
+  &:nth-child(2n) {
+    background-color: rgba(colors.$grey, 0.1);
+  }
+
+  &:nth-child(2n+1) {
+    background-color: rgba(colors.$grey, 0.15);
+  }
+}
+
+%simple_table {
+  border-radius: 8px;
+  border: solid 4px colors.$prussian;
+  font-family: "RobotoCondensed", sans-serif;
+
+  & .simple_table__body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  & .simple_table__row {
+    @extend %simple_table__row;
+
+    &--header {
+      background-color: colors.$prussian !important;
+      color: colors.$white;
+
+      & .simple_table__row__cell {
+        @extend %simple_table__row__cell;
+        font-family: "Montserrat", sans-serif
+      }
+    }
+
+    &__cell {
+      @extend %simple_table__row__cell;
+    }
+  }
+}
+
+@mixin SimpleTable($flex_based: false,
+                   $body_max_height: null,
+                   $min_cell_width: null)
+{
+  @extend %simple_table;
+
+  @if ($body_max_height != null) {
+    overflow: hidden;
+
+    & .simple_table__body {
+      overflow-y: scroll;
+      height: $body_max_height;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+  @if ($min_cell_width != null) {
+    & .simple_table__row__cell {
+      min-width: $min_cell_width;
+    }
+  }
+  @if ($flex_based == true) {
+    & .simple_table__row {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}
+
+.simple_table {
+  @include SimpleTable();
+}
+
+table.simple_table {
+  border-spacing: 0;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+
+  tr {
+    @extend %simple_table__row;
+
+    td, th {
+      @extend %simple_table__row__cell;
+    }
+  }
+}

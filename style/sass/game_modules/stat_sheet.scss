@@ -1,9 +1,8 @@
-@import "../definitions/common_dimensions";
-@import "../definitions/colors";
-@import "../definitions/shadows";
-@import "../definitions/fonts";
+@use "../definitions/colors";
 
-@mixin characterSheetCustomizer($primary_color: $color_primary,
+@use "../definitions/shadows";
+
+@mixin characterSheetCustomizer($primary_color: colors.$primary,
                                 $hue_rotate: null,
                                 $height: null)
 {
@@ -53,8 +52,8 @@ $img_content_root: "../../assets/";
     position: relative;
     box-shadow: 0 0 5px #979AA4;
     border: 1px solid #d4d0ce;
-    padding: 2 * $padding_default;
-    margin: $margin_default 0;
+    padding: 16px;
+    margin: 8px 0;
     font-family: "Scala Sans Offc", Roboto, Helvetica, sans-serif;
     font-size: 14px;
 
@@ -71,25 +70,25 @@ $img_content_root: "../../assets/";
 
     .sheet_header {
       .header_zone {
-        padding-bottom: $padding_default;
+        padding-bottom: 8px;
         border-bottom: solid 3px;
-        margin-bottom: $padding_default;
+        margin-bottom: 8px;
 
         .sheet_title {
           font-family: "Roboto", sans-serif;
           font-variant-caps: small-caps;
           font-size: 34px;
-          margin-bottom: $margin_default / 2;
+          margin-bottom: 4px;
         }
 
         .sheet_subtitle {
           font-style: italic;
-          padding-bottom: $padding_default;
+          padding-bottom: 8px;
         }
 
         table {
           td, th {
-            padding: $padding_default / 2;
+            padding: 4px;
           }
           th {
             text-transform: uppercase;
@@ -127,6 +126,6 @@ $img_content_root: "../../assets/";
   }
 }
 
-.advanced_style, .gen2_ui {
+.advanced_style, .page--beastiary {
   @extend %advanced_style_div;
 }

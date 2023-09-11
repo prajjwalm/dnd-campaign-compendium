@@ -1,10 +1,10 @@
-import {Prof}      from "../../../../../../homebrew/definitions/constants";
-import {NpcId}     from "../../../../../../npcs/npcIndex";
+import {Prof}      from "../../../../../data/constants";
+import {NpcID}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupEzell()
 {
-    const ezell = new Character(NpcId.Ezell);
+    const ezell = new Character(NpcID.Ezell);
 
     ezell.core.name = "Ezell";
     ezell.core.imgPath = "character_tokens/C2/Arc1/Ezell.png";

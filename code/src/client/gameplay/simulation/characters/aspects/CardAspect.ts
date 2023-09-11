@@ -1,10 +1,11 @@
-import {Card}         from "../../../../data/cards/card";
-import {NpcId}        from "../../../../npcs/npcIndex";
-import {Character}    from "../Character";
-import {BaseAspect}   from "./BaseAspect";
-import {ICard}        from "./ICard";
-import {ICardFactory} from "./ICardFactory";
-import {ICore}        from "./ICore";
+import {Card}      from "../../../data/cards/card";
+import {NpcID}     from "../../../data/npcIndex";
+import {Character} from "../Character";
+import {AspectFactoryFlag} from "./AspectFactoryFlag";
+import {BaseAspect}        from "./BaseAspect";
+import {ICard}             from "./ICard";
+import {ICardFactory}      from "./ICardFactory";
+import {ICore}             from "./ICore";
 
 
 /**
@@ -32,6 +33,8 @@ export class CardAspect
      */
     private readonly images: Map<string, string>;
 
+    private primaryImageName: string;
+
     /**
      * A list of the various meta tags this character can be associated with.
      */
@@ -47,6 +50,10 @@ export class CardAspect
      */
     private _story: string;
 
+    private campaign: number;
+
+    private arc: number;
+
     /**
      * CTOR.
      */
@@ -58,8 +65,8 @@ export class CardAspect
         this._story = "";
 
         this.images = new Map();
-        this.images.set(CardAspect.defaultPrimaryImageName,
-                        this.characterCore.imgPath);
+        this.primaryImageName = CardAspect.defaultPrimaryImageName;
+        this.images.set(this.primaryImageName, this.characterCore.imgPath);
     }
 
     /**
@@ -91,8 +98,6 @@ export class CardAspect
                           data-token="${tag}" 
                           style=${firstImage ? '""' : '"display: none;"'}>`
                 );
-                // [FutureScope] Move the above inline style to a class.
-                // [FutureScope] Don't need both the classes tag, tag--selected.
                 tokenTagsHTML.push(
                     `<span class="token_selector tag ${firstImage ? "tag--selected": ""}" 
                            data-token="${tag}">${tag}</span>`
@@ -104,7 +109,7 @@ export class CardAspect
                           <div>${tokenTagsHTML.join("")}</div>`;
         }
         else {
-            tokensHTML = `<img src="./assets/images/${this.images.get(CardAspect.defaultPrimaryImageName)}" 
+            tokensHTML = `<img src="${this.images.get(this.primaryImageName)}" 
                                class="token" 
                                alt="[NULL]">`;
         }
@@ -152,6 +157,7 @@ export class CardAspect
     {
         // Who knows, we may someday add support to change the primary image.
         this.images.set(s, this.images.get(CardAspect.defaultPrimaryImageName));
+        this.primaryImageName = s;
         this.images.delete(CardAspect.defaultPrimaryImageName);
     }
 
@@ -190,7 +196,7 @@ export class CardAspect
      */
     public generatePrimaryToken(): string
     {
-        return `<img src="./assets/images/${this.characterCore.imgPath}" 
+        return `<img src="${this.characterCore.imgPath}" 
                      class="token" 
                      alt="[NULL]" 
                      data-index-key="${this.getCardIndex()}">`;
@@ -201,11 +207,44 @@ export class CardAspect
      */
     public finalize(): void
     {
+        this.ensure(AspectFactoryFlag.CardCampaignSet);
+
         super.finalize();
-        console.log("Registering card for", NpcId[this.id]);
-        $("#tokens .token_space[data-campaign='2'][data-arc='1']").append(
+        console.log("Registering card for", NpcID[this.id]);
+        $(`#tokens .token_space[data-campaign='${this.campaign}'][data-arc='${this.arc}']`).append(
             $(this.generatePrimaryToken())
         );
         Card.register(this);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public setCampaignArc(c: number, a: number)
+    {
+        this.setupSentinel(AspectFactoryFlag.CardCampaignSet);
+        this.campaign = c;
+        this.arc = a;
+        this.tags.push(`Campaign ${c} <span class='verbose'>Arc ${a}</span>`);
+    }
+
+    /**
+     * Setup runtime handling common to all cards.
+     */
+    public static setupCardLogic()
+    {
+        $(".central_view").on("click", ".tag", function () {
+            $(this).siblings(".tag").removeClass("tag--selected");
+            $(this).addClass("tag--selected");
+
+            const token   = $(this).data("token");
+            const $tokens = $(this).parent().siblings(".tokens");
+
+            console.log($tokens.find(`.token[data-token="${token}"]`));
+            console.log(token);
+
+            $tokens.find(".token").hide();
+            $tokens.find(`.token[data-token="${token}"]`).show();
+        });
     }
 }

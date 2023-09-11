@@ -1,11 +1,15 @@
-import {DStat, Prof, StatValue} from "../../../../homebrew/definitions/constants";
-import {ActionContext}          from "../../action/ActionContext";
-import {IActionContext}            from "../../action/IActionContext";
-import {Character}        from "../Character";
-import {AspectFactoryFlag}         from "./AspectFactoryFlag";
-import {BaseAspect}                from "./BaseAspect";
-import {IDStats}                   from "./IDStats";
-import {IDStatsFactory}            from "./IDStatsFactory";
+import {
+    DStat,
+    Prof,
+    StatValue
+}                      from "../../../data/constants";
+import {ActionContext} from "../../action/ActionContext";
+import {IActionContext}    from "../../action/IActionContext";
+import {Character}         from "../Character";
+import {AspectFactoryFlag} from "./AspectFactoryFlag";
+import {BaseAspect}        from "./BaseAspect";
+import {IDStats}           from "./IDStats";
+import {IDStatsFactory}    from "./IDStatsFactory";
 
 
 /**
@@ -43,7 +47,7 @@ export class DStatsAspect
                            wis: number,
                            cha: number): void
     {
-        this.setupSentinel(AspectFactoryFlag.StatsSetup);
+        this.setupSentinel(AspectFactoryFlag.DStatsStatsSetup);
         this._stats.set(DStat.Str, new StatValue(str));
         this._stats.set(DStat.Dex, new StatValue(dex));
         this._stats.set(DStat.Con, new StatValue(con));
@@ -65,7 +69,7 @@ export class DStatsAspect
      */
     public get pb(): Prof
     {
-        this.ensure(AspectFactoryFlag.ProficiencySetup);
+        this.ensure(AspectFactoryFlag.DStatsProficiencyDeclared);
         return this._pb;
     }
 
@@ -74,7 +78,8 @@ export class DStatsAspect
      */
     public set pb(val: Prof)
     {
-        this.setupSentinel(AspectFactoryFlag.ProficiencySetup);
+        this.buildSentinel(AspectFactoryFlag.DStatsProficiencyDeclared,
+                           AspectFactoryFlag.DStatsProficiencyFinalized);
         this._pb = val;
     }
 

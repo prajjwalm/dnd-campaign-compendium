@@ -1,11 +1,16 @@
-import {Prof, ProficiencyLevel, Skill} from "../../../../../../homebrew/definitions/constants";
-import {NpcId}                         from "../../../../../../npcs/npcIndex";
-import {Character}                     from "../../../Character";
+import {
+    DSkill,
+    Hidden,
+    Prof,
+    ProficiencyLevel
+}                  from "../../../../../data/constants";
+import {NpcID}     from "../../../../../data/npcIndex";
+import {Character} from "../../../Character";
 
 export function setupCoroto()
 {
     // Prepare the character object.
-    const coroto = new Character(NpcId.Coroto);
+    const coroto = new Character(NpcID.Coroto);
 
     coroto.core.name = "Coroto";
     coroto.core.imgPath = "character_tokens/C2/Arc1/Coroto.png";
@@ -15,13 +20,12 @@ export function setupCoroto()
     coroto.dStats.pb = Prof.get(3);
 
     // Setup D&D skills.
-    coroto.dSKills.setSkillProficiency(Skill.Intimidation);
-    coroto.dSKills.setSkillProficiency(Skill.Nature);
-    coroto.dSKills.setSkillProficiency(Skill.Performance);
-    coroto.dSKills.setSkillProficiency(Skill.Stealth);
-
-    coroto.dSKills.setSkillProficiency(Skill.Deception,  ProficiencyLevel.Expert);
-    coroto.dSKills.setSkillProficiency(Skill.Persuasion, ProficiencyLevel.Expert);
+    coroto.dSKills.setSkillProficiency(DSkill.Intimidation, Hidden);
+    coroto.dSKills.setSkillProficiency(DSkill.Nature, Hidden);
+    coroto.dSKills.setSkillProficiency(DSkill.Performance, Hidden);
+    coroto.dSKills.setSkillProficiency(DSkill.Stealth, Hidden);
+    coroto.dSKills.setSkillProficiency(DSkill.Deception, Hidden, ProficiencyLevel.Expert);
+    coroto.dSKills.setSkillProficiency(DSkill.Persuasion, Hidden, ProficiencyLevel.Expert);
     coroto.dSKills.finalizeSkills();
 
     coroto.opinions.isOpinionated = true;

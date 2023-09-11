@@ -1,7 +1,8 @@
-import {Graph}     from "./Graph";
-import {MapEdge}   from "./MapEdge";
-import {MapVertex} from "./MapVertex";
-import {SidePanel} from "./SidePanel";
+import {generateBaseDOM} from "../simulation/base/Base";
+import {Graph}           from "./Graph";
+import {MapEdge}         from "./MapEdge";
+import {MapVertex}       from "./MapVertex";
+import {SidePanel}       from "./SidePanel";
 
 
 export class MapGraph
@@ -60,8 +61,8 @@ function setupMapGraphLogic($area: JQuery, graph: MapGraph)
 {
     const $sideBanner = $("#side_banner");
     const $mapGraph = $(".graph--map");
-
     const sidePanel = new SidePanel($sideBanner);
+    let activeVertex: MapVertex = null;
 
     function resetGraphState()
     {
@@ -72,6 +73,8 @@ function setupMapGraphLogic($area: JQuery, graph: MapGraph)
 
         // Distances Handling.
         $mapGraph.find(".map_vertex .overhead_text").text("");
+
+        activeVertex = null;
     }
 
     $mapGraph.on("click", ".map_vertex", function (e)
@@ -119,7 +122,16 @@ function setupMapGraphLogic($area: JQuery, graph: MapGraph)
             vertex.generateSiteDOMString()
         );
 
+        activeVertex = vertex;
         e.stopPropagation();
+    });
+
+    $sideBanner.on("click", ".inspect_base", function () {
+        sidePanel.toggleFullSpan(generateBaseDOM());
+    });
+
+    $sideBanner.on("click", ".hide_base", function () {
+        sidePanel.toggleFullSpan(activeVertex.generateSiteDOMString());
     });
 
     $area.on("click", resetGraphState);

@@ -1,11 +1,16 @@
-import {Prof, ProficiencyLevel, Skill} from "../../../../../../homebrew/definitions/constants";
-import {NpcId}                         from "../../../../../../npcs/npcIndex";
-import {Character}                     from "../../../Character";
+import {
+    Prof,
+    ProficiencyLevel,
+    DSkill,
+    Hidden
+}                  from "../../../../../data/constants";
+import {NpcID}     from "../../../../../data/npcIndex";
+import {Character} from "../../../Character";
 
 export function setupErica()
 {
     // Prepare the character object.
-    const erica = new Character(NpcId.Erica);
+    const erica = new Character(NpcID.Erica);
 
     erica.core.name = "Erica";
     erica.core.imgPath = "character_tokens/C2/Arc1/Erica.png";
@@ -15,11 +20,10 @@ export function setupErica()
     erica.dStats.pb = Prof.get(3);
 
     // Setup D&D skills.
-    erica.dSKills.setSkillProficiency(Skill.Perception);
-
-    erica.dSKills.setSkillProficiency(Skill.Insight,     ProficiencyLevel.Expert);
-    erica.dSKills.setSkillProficiency(Skill.Performance, ProficiencyLevel.Expert);
-    erica.dSKills.setSkillProficiency(Skill._ALL,        ProficiencyLevel.Half);
+    erica.dSKills.setSkillProficiency(DSkill.Perception, Hidden);
+    erica.dSKills.setSkillProficiency(DSkill.Insight, Hidden, ProficiencyLevel.Expert);
+    erica.dSKills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Expert);
+    erica.dSKills.setSkillProficiency(DSkill._ALL, Hidden, ProficiencyLevel.Half);
     erica.dSKills.finalizeSkills();
 
     erica.opinions.isOpinionated = true;

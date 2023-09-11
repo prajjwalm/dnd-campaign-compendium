@@ -1,10 +1,14 @@
-import {Prof, Skill} from "../../../../../../homebrew/definitions/constants";
-import {NpcId}       from "../../../../../../npcs/npcIndex";
-import {Character}   from "../../../Character";
+import {
+    DSkill,
+    Hidden,
+    Prof
+}                  from "../../../../../data/constants";
+import {NpcID}     from "../../../../../data/npcIndex";
+import {Character} from "../../../Character";
 
 export function setupCecilia()
 {
-    const cecilia = new Character(NpcId.Cecelia);
+    const cecilia = new Character(NpcID.Cecelia);
 
     cecilia.core.name = "Cecilia";
     cecilia.core.imgPath = "character_tokens/C2/Arc1/Cecilia.png";
@@ -13,8 +17,9 @@ export function setupCecilia()
     cecilia.dStats.initializeStats(6, 16, 8, 10, 14, 18);
     cecilia.dStats.pb = Prof.get(3);
 
+    cecilia.dSKills.setSkillProficiency(DSkill.Insight, Hidden);
     //todo
-    cecilia.dSKills.setSkillProficiency(Skill.Insight);
+    cecilia.dSKills.finalizeSkills();
 
     cecilia.opinions.isOpinionated = true;
 }

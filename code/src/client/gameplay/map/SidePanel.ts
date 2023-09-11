@@ -74,6 +74,12 @@ export class SidePanel
     private static readonly SLIDE_TIME = 200;
 
     /**
+     * Setting this as a class means the side banner would cover the whole
+     * screen.
+     */
+    private static readonly FULL_SPAN = "full_span";
+
+    /**
      * The element having the content of this panel.
      */
     private readonly $content: JQuery;
@@ -128,6 +134,25 @@ export class SidePanel
         this.hideThenShow(left, () => {
             this.swapContent(newContent);
         })
+    }
+
+    /**
+     * Clears the side banner, makes it cover the whole screen if it doesn't or
+     * retreat back to the side if it does.
+     *
+     * This method only works if the banner is at least visible.
+     */
+    public toggleFullSpan(newContent: string)
+    {
+        if (!this.isVisible()) {
+            return;
+        }
+        this.empty();
+        this.$panel.toggleClass(SidePanel.FULL_SPAN);
+        setTimeout(() => {
+            this.$content.append(newContent);
+        },
+        SidePanel.SLIDE_TIME);
     }
 
     /**

@@ -1,0 +1,71 @@
+@use "../definitions/colors";
+@use "../definitions/shadows";
+
+.page {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+
+  background-color: colors.$white;
+  border-radius: 4px;
+  width: 80vw;
+  min-width: 320px;
+  margin: 64px auto auto;
+  overflow: hidden;
+
+  @include shadows.Elevation(2);
+
+  &__content {
+    padding: 16px 32px;
+  }
+}
+
+.page_header {
+  font-size: 24px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  width: 100%;
+  padding: 48px 32px 16px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: colors.$white;
+  background-color: colors.$secondary_dark;
+}
+
+
+#page_nav {
+  display: none;
+
+  .page_nav_link {
+    width: 100%;
+    padding: 24px 8px;
+    cursor: pointer;
+    color: colors.$white;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+    transition: all 0.3s;
+    font-family: Montserrat, sans-serif;
+    font-size: 20px;
+
+    &:hover {
+      background-color: rgba(colors.$secondary, 0.1);
+    }
+  }
+}
+
+
+@media screen and (min-width: 960px) {
+  .page {
+    width: calc(80vw - 100px);
+    margin: 64px 5vw 16px calc(100px + 15vw);
+  }
+
+  #page_nav {
+    display: unset;
+    width: calc(100px + 10vw);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vw;
+    background-color: colors.$secondary_dark;
+  }
+}

@@ -36,7 +36,7 @@ export class CoreAspect
      */
     public set name(value)
     {
-        this.setupSentinel(AspectFactoryFlag.NameSetup);
+        this.setupSentinel(AspectFactoryFlag.CoreNameSetup);
         this._name = value;
     }
 
@@ -45,7 +45,7 @@ export class CoreAspect
      */
     public get name(): string
     {
-        this.ensure(AspectFactoryFlag.NameSetup);
+        this.ensure(AspectFactoryFlag.CoreNameSetup);
         return this._name;
     }
 
@@ -54,7 +54,7 @@ export class CoreAspect
      */
     public set imgPath(value)
     {
-        this.setupSentinel(AspectFactoryFlag.ImgPathSetup);
+        this.setupSentinel(AspectFactoryFlag.CoreImgPathSetup);
         this._imgPath = value;
     }
 
@@ -63,7 +63,7 @@ export class CoreAspect
      */
     public get imgPath(): string
     {
-        this.ensure(AspectFactoryFlag.ImgPathSetup);
-        return this._imgPath;
+        this.ensure(AspectFactoryFlag.CoreImgPathSetup);
+        return `./assets/images/${this._imgPath}`;
     }
 }

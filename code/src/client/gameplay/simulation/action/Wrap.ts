@@ -1,10 +1,18 @@
-import {D1, Dice, RollVariant} from "../../../homebrew/common/diceConstants";
+import {D1, Dice, RollVariant} from "../../rolling/Dice";
 import {
     DamageRollable, IRollable, NatRollable
-}                              from "../../../homebrew/common/rollable";
+}               from "../../rolling/Rollable";
 import {
-    Activation, Condition, CreatureSize, DamageType, Sense, Skill, Speed
-}                              from "../../../homebrew/definitions/constants";
+    Activation,
+    Condition,
+    CreatureSize,
+    DamageType,
+    Sense,
+    DSkill,
+    Speed,
+    CSkill
+}               from "../../data/constants";
+import {Rating} from "../../data/Rarity";
 
 
 /**
@@ -131,15 +139,39 @@ export function wrapCondition(c: Condition): string
 }
 
 /**
- * Wrap a {@link Skill} into an HTML string.
+ * Wrap a {@link DSkill} into an HTML string.
  */
-export function wrapSkill(s: Skill): string
+export function wrapDSkill(s: DSkill): string
 {
-    if (s > Skill._NonStandard) {
-        return `<span class="skill__nonstd">${Skill[s]}</span>`;
+    if (s > DSkill._NonStandard) {
+        return `<span class="d_skill__nonstd">${DSkill[s]}</span>`;
     } else {
-        return `<span class="skill">${Skill[s]}</span>`;
+        return `<span class="d_skill">${DSkill[s]}</span>`;
     }
+}
+
+/**
+ * Wrap a {@link CSkill} into an HTML string.
+ */
+export function wrapCSkill(s: CSkill): string
+{
+    return `<span class="c_skill">${CSkill[s]}</span>`;
+}
+
+/**
+ * Wrap a {@link CSkill}'s value into an HTML string.
+ */
+export function wrapCSkillValue(s: number): string
+{
+    return `<span class="c_skill_value">${s}</span>`;
+}
+
+/**
+ * Wrap a {@link Rating} into an HTML string.
+ */
+export function wrapRating(r: Rating): string
+{
+    return `<span class="rating">${Rating[r]}</span>`;
 }
 
 /**

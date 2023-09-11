@@ -1,0 +1,118 @@
+@use "../definitions/colors";
+@use "../definitions/shadows";
+@use "../element_modules/tag";
+
+#history_space {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  overflow: visible;
+  align-items: stretch;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  box-sizing: content-box;
+}
+
+#history_bar {
+  width: 4px;
+  border-radius: 2px;
+  background-color: colors.$grey;
+  flex-grow: 0;
+  z-index: 3;
+}
+
+#history_zones {
+  transform: translate(4px);
+  width: 320px;
+  flex-grow: 0;
+  border-radius: 6px 4px 4px 6px;
+  overflow: visible;
+  background-color: colors.$prussian;
+  font-variant-caps: small-caps;
+  color: colors.$white;
+  flex-shrink: 0;
+  z-index: 2;
+
+  .history_zone {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-variant-caps: small-caps;
+    padding: 16px 16px 8px 8px;
+
+    .zone_start {
+      position: absolute;
+      top: 4px;
+      left: 8px;
+      font-size: 11px;
+    }
+
+    &:not(:first-child) {
+      &:before {
+        position: absolute;
+        display: block;
+        width: 60%;
+        height: 2px;
+        background-color: colors.$black;
+        top: 0;
+        right: auto;
+        left: auto;
+        content: '';
+      }
+    }
+
+    &:nth-child(2n+1) {
+      @include colors.centralGradient(colors.$grey);
+    }
+  }
+}
+
+#history_right_desc {
+  width: 30%;
+  flex-grow: 8;
+  padding: 8px;
+}
+
+%history_tags {
+  width: 280px;
+  flex-grow: 0;
+  position: relative;
+  margin-left: 8px;
+  margin-right: 8px;
+
+  .history_event {
+    @include tag.tag(colors.$primary, $compressed: true);
+    position: absolute;
+    left: 0;
+    transform: translate(0, -50%);
+    @include shadows.Elevation(1);
+
+    &:before {
+      position: absolute;
+      width: 320px;
+      left: 0;
+      top: 50%;
+      bottom: 50%;
+      transform: translate(-100%);
+      content: "";
+      height: 4px;
+      background-color: colors.$grey;
+      display: block;
+      z-index: -1;
+    }
+  }
+}
+
+#history_left_tags {
+  @extend %history_tags;
+  z-index: 1;
+}
+
+#history_right_tags {
+  @extend %history_tags;
+  z-index: 0;
+}

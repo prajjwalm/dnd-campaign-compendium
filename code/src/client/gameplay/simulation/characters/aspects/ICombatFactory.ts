@@ -1,10 +1,10 @@
-import {Dice}   from "../../../../homebrew/common/diceConstants";
+import {Dice}   from "../../../rolling/Dice";
 import {
     Activation,
     AdventurerClass, Condition, CreatureSize, DamageType, DStat,
     ProficiencyLevel, Sense,
     Speed
-}               from "../../../../homebrew/definitions/constants";
+}               from "../../../data/constants";
 import {Action} from "../../action/Action";
 
 

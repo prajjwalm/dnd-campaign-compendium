@@ -1,4 +1,8 @@
-import {ProficiencyLevel, Skill} from "../../../../homebrew/definitions/constants";
+import {
+    ProficiencyLevel,
+    DSkill,
+    VisibilityLevel
+} from "../../../data/constants";
 
 
 /**
@@ -9,17 +13,10 @@ export interface IDSkillsFactory
     /**
      * Add / Override proficiency level in the given skill.
      */
-    setSkillProficiency(skill: Skill,
+    setSkillProficiency(skill: DSkill,
+                        visibility: VisibilityLevel,
                         proficiency?: ProficiencyLevel,
                         mod?: number);
-
-    /**
-     * Sets the skill proficiency only if it doesn't make it worse in either
-     * the level or the modifier.
-     */
-    upgradeSkillProficiency(skill: Skill,
-                            proficiency?: ProficiencyLevel,
-                            mod?: number);
 
     /**
      * Once called, we can no longer edit the skills in any way. This is to

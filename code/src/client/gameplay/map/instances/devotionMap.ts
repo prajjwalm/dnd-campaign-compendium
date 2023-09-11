@@ -123,6 +123,8 @@ v19.z = Math.sqrt(360000 - v19.x * v19.x);
 v32.z = Math.sqrt(360000 - v32.x * v32.x);
 v62.z = Math.sqrt(360000 - v62.x * v62.x);
 
+v00.markAsBase();
+
 function edge(v00: MapVertex, v01: MapVertex, distMul: number = 1.0): void
 {
     const e = new MapEdge(g, v00, v01);

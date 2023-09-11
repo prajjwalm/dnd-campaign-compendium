@@ -1,11 +1,11 @@
-import {updateMap}      from "../../../../common/common";
-import {D1, Dice}       from "../../../../homebrew/common/diceConstants";
+import {updateMap} from "../../../common";
+import {D1, Dice}  from "../../../rolling/Dice";
 import {
     AdventurerClass, ClassHitDice, Condition, DamageType, DStat, Prof,
-    ProficiencyLevel, Sense, Skill, Speed, StatValue
-}                       from "../../../../homebrew/definitions/constants";
-import {NpcId}          from "../../../../npcs/npcIndex";
-import {Action}         from "../../action/Action";
+    ProficiencyLevel, Sense, DSkill, Speed, StatValue
+}                 from "../../../data/constants";
+import {NpcID}    from "../../../data/npcIndex";
+import {Action}   from "../../action/Action";
 import {Character}      from "../Character";
 import {BaseAspect}     from "./BaseAspect";
 import {ICombat}        from "./ICombat";
@@ -122,7 +122,7 @@ export class CombatAspect
     public set bladeSinger(val: boolean)
     {
         if (!this.classes.has(AdventurerClass.Wizard)) {
-            console.warn("BladeSinger on non wizard:", NpcId[this.id]);
+            console.warn("BladeSinger on non wizard:", NpcID[this.id]);
         }
         this.baseACSources.push(
             this.statsAspect.mod(DStat.Dex) +
@@ -296,12 +296,7 @@ export class CombatAspect
 
     public get passivePerception(): number
     {
-        return this.skillsAspect.getSkillMod(Skill.Perception) + 10;
-    }
-
-    public get passiveStealth(): number
-    {
-        return this.skillsAspect.getSkillMod(Skill.Stealth) + 10;
+        return this.skillsAspect.getSkillMod(DSkill.Perception)[0] + 10;
     }
 
     public get damageRes(): ReadonlyMap<DamageType, number>
