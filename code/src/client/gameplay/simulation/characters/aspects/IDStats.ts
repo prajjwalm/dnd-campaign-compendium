@@ -1,5 +1,5 @@
-import {DStat, Prof, StatValue} from "../../../data/constants";
-import {IActionContext}         from "../../action/IActionContext";
+import {DStat, Prof, StatValue, VisibilityLevel} from "../../../data/constants";
+import {IActionContext}                          from "../../action/IActionContext";
 
 
 /**
@@ -11,6 +11,11 @@ export interface IDStats
      * Return a map from each {@link DStat} to their {@link StatValue}.
      */
     get stats(): ReadonlyMap<DStat, StatValue>;
+
+    /**
+     * Returns this visibility level of the given stat.
+     */
+    visibility(stat: DStat): VisibilityLevel;
 
     /**
      * Acronym for {@link stats}.get(stat).mod

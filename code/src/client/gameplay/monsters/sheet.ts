@@ -5,13 +5,16 @@ import {NatRollable, DamageRollable} from "../rolling/Rollable";
 import {
     Activation, AdventurerClass, ClassHitDice, Condition, DStat,
     CreatureSize, CRValue, DamageType, E, Prof, ProficiencyLevel, SizeToDice,
-    DSkill, Speed, StatForSkill, StatValue,
-}                                    from "../data/constants";
-import {IAttack, IBuffedAttack}      from "./attack";
-import {ISheetAction}                from "../simulation/action/ISheetAction";
-import { IActionContext }            from "../simulation/action/IActionContext";
+    DSkill, Speed, StatForSkill, StatValue, VisibilityLevel,
+}                               from "../data/constants";
+import {IAttack, IBuffedAttack} from "./attack";
+import {ISheetAction}           from "../simulation/action/ISheetAction";
+import {IActionContext}         from "../simulation/action/IActionContext";
 
 
+/**
+ * @deprecated
+ */
 class HpBlock
 {
     public constructor(public readonly stats: Map<DStat, StatValue>,
@@ -44,6 +47,9 @@ class HpBlock
 }
 
 
+/**
+ * @deprecated
+ */
 interface StatBlockParams {
     monster_id: string;
     title: string;
@@ -73,6 +79,9 @@ export interface IStatSheet
 }
 
 
+/**
+ * @deprecated
+ */
 export interface IBuffedStatSheet
     extends IStatSheet
 {
@@ -99,6 +108,9 @@ export function isContractSelected(contractId)
 }
 
 
+/**
+ * @deprecated
+ */
 export class StatSheet
     implements IDStats,
                IStatSheet
@@ -184,11 +196,19 @@ export class StatSheet
                                     isTough);
 
         this._hpDice = new Map([
-                                   [SizeToDice.get(this.size),
-                                    hpBlock.hpDiceCount],
-                                   [D1,
-                                    hpBlock.hpDiceCount * hpBlock.conHpPerDice],
+                                   [
+                                       SizeToDice.get(this.size),
+                                       hpBlock.hpDiceCount
+                                   ],
+                                   [
+                                       D1,
+                                       hpBlock.hpDiceCount * hpBlock.conHpPerDice
+                                   ],
                                ]);
+    }
+
+    visibility(stat: DStat): VisibilityLevel {
+        throw new Error("Method not implemented.");
     }
 
     get actionContentAPI(): IActionContext {
@@ -363,6 +383,9 @@ export class StatSheet
 }
 
 
+/**
+ * @deprecated
+ */
 export interface ISheetContract
 {
     get risk(): number;
@@ -378,6 +401,9 @@ export interface ISheetContract
 }
 
 
+/**
+ * @deprecated
+ */
 export class SheetContract
     implements ISheetContract
 {
@@ -401,6 +427,9 @@ export class SheetContract
 }
 
 
+/**
+ * @deprecated
+ */
 export class BuffedStatSheet
     extends    StatSheet
     implements IBuffedStatSheet

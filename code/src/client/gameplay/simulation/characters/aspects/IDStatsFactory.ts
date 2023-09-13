@@ -1,4 +1,4 @@
-import {Prof} from "../../../data/constants";
+import {DStat, Prof, VisibilityLevel} from "../../../data/constants";
 
 
 /**
@@ -16,6 +16,11 @@ export interface IDStatsFactory
                     int: number,
                     wis: number,
                     cha: number): void;
+
+    /**
+     * Set the visibility level of a particular or all stats.
+     */
+    setVisibilityLevel(vis: VisibilityLevel, stat?: DStat);
 
     /**
      * Set the proficiency bonus.

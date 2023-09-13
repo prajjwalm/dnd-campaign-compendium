@@ -1,15 +1,15 @@
+import {DStat, Prof, StatValue, VisibilityLevel} from "../../../data/constants";
 import {
-    DStat,
-    Prof,
-    StatValue
-}                      from "../../../data/constants";
-import {ActionContext} from "../../action/ActionContext";
-import {IActionContext}    from "../../action/IActionContext";
-import {Character}         from "../Character";
-import {AspectFactoryFlag} from "./AspectFactoryFlag";
-import {BaseAspect}        from "./BaseAspect";
-import {IDStats}           from "./IDStats";
-import {IDStatsFactory}    from "./IDStatsFactory";
+    ActionContext
+}                                                from "../../action/ActionContext";
+import {
+    IActionContext
+}                                                from "../../action/IActionContext";
+import {Character}                               from "../Character";
+import {AspectFactoryFlag}                       from "./AspectFactoryFlag";
+import {BaseAspect}                              from "./BaseAspect";
+import {IDStats}                                 from "./IDStats";
+import {IDStatsFactory}                          from "./IDStatsFactory";
 
 
 /**
@@ -25,6 +25,8 @@ export class DStatsAspect
      */
     private readonly _stats: Map<DStat, StatValue>;
 
+    private readonly _statVisibilities: Map<DStat, VisibilityLevel>;
+
     private _pb: Prof;
 
     /**
@@ -34,6 +36,7 @@ export class DStatsAspect
     {
         super(c);
         this._stats = new Map();
+        this._statVisibilities = new Map();
         this._pb = null;
     }
 
@@ -54,6 +57,27 @@ export class DStatsAspect
         this._stats.set(DStat.Int, new StatValue(int));
         this._stats.set(DStat.Wis, new StatValue(wis));
         this._stats.set(DStat.Cha, new StatValue(cha));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public setVisibilityLevel(vis: VisibilityLevel, stat: DStat=null)
+    {
+        if (stat == null) {
+            for (const stat of [DStat.Str,
+                                DStat.Dex,
+                                DStat.Con,
+                                DStat.Int,
+                                DStat.Wis,
+                                DStat.Cha,])
+            {
+                this._statVisibilities.set(stat, vis);
+            }
+        }
+        else {
+            this._statVisibilities.set(stat, vis);
+        }
     }
 
     /**
@@ -97,5 +121,14 @@ export class DStatsAspect
     public mod(stat: DStat): number
     {
         return this._stats.get(stat).mod;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public visibility(stat: DStat): VisibilityLevel
+    {
+        return this._statVisibilities.has(stat) ? this._statVisibilities.get(stat)
+                                                : VisibilityLevel.Hinted;
     }
 }

@@ -1,4 +1,4 @@
-import {getEnumIterator} from "../common";
+import {getEnumIterator} from "../../common/common";
 import {Graph}           from "./Graph";
 import {SidePanel}                                                                                  from "./SidePanel";
 import {UpgradeEdge}                                                                                from "./UpgradeEdge";
@@ -81,9 +81,21 @@ export class UpgradeGraph
         return `
             <div class="upgrade_details theme--safe">
                 <div class="grunge_panel">
-                    <div class="grunge_panel__icon"></div>
-                    <div class="grunge_panel__subtitle">Status</div>
+                    <div class="grunge_panel__icon"><i class="fa-light fa-chart-radar" style="rotate: 30deg;"></i></div>
+                    <div class="grunge_panel__subtitle">Investiture Reclamation</div>
                     <div class="grunge_panel__title">Cognitive Resequencing</div>
+                </div>
+                <div class="theme_text">
+                    <p>You find yourself staring down a Priomrdial Leviathan.
+                    Once the embodiment of Growth, all that remains of this dead 
+                    Titan of the Abyss is a cluster of creeping branches.</p>
+                    <p>Having fallen from the grace of We Many, His conciousness 
+                    is long perished, and even if new branches grow - they are 
+                    all already withered and dead. His journey has come to an 
+                    end.</p>
+                    <p>Yet fate is not done with this Firstborn, and eons later,
+                    upon a silvery, shrivelled branch, dark azure leaves begin to grow.</p><br/>
+                    <p>Drop by drop, bit by bit. It is unstoppable.</p>
                 </div>
                 <div class="theme_subheader">
                     Progress
@@ -127,6 +139,7 @@ function setupUpgradeGraphLogic(graph)
         if (e.key != "Escape") {
             return;
         }
+        sidePanel.swapContent(graph.generateActiveVertexEffectsDOMString());
         sidePanel.toggle(false);
     });
 

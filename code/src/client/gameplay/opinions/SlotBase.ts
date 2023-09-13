@@ -1,4 +1,4 @@
-import {EQ} from "../common";
+import {EQ} from "../../common/common";
 
 
 /**

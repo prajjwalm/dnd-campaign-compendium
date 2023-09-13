@@ -1,4 +1,4 @@
-import {updateMap} from "../../../common";
+import {updateMap} from "../../../../common/common";
 import {D1, Dice}  from "../../../rolling/Dice";
 import {
     AdventurerClass, ClassHitDice, Condition, DamageType, DStat, Prof,
@@ -197,7 +197,7 @@ export class CombatAspect
             }
             totalDice += count;
         }
-        updateMap(this._hpDice, D1, totalDice * constPerDice);
+        updateMap(this._hpDice, D1, totalDice * constPerDice + this._bonusHP);
 
         // Now compute expected HP.
 

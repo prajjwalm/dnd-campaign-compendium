@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphs</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+            crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/83b5b8258f.js" crossorigin="anonymous"></script>
+    <!-- Local stuff. All paths must be relative. -->
+
+    <script src="./public/src/main.js"></script>
+
+    <link rel="stylesheet" href="./style/css/graphs.css">
+</head>
+<body>
+    <div id="side_banner" class="ink_side_banner">
+        <img class="side_wave_background" src="assets/images/gui/splotches/BlackSplotchLongSide.png" alt="">
+        <img class="side_wave_foreground" src="assets/images/gui/splotches/BlackScatter3.png" alt="">
+        <div class="ink_side_banner__gradient"></div>
+        <div class="ink_side_banner__content">
+        </div>
+    </div>
+    <div id="map_graph_area" class="graph_area"></div>
+    <div id="skill_graph_area" class="graph_area" style="display: none;"></div>
+    <div id="graph_labels">
+        <div class="graph_label selected" data-graph-id="map_graph_area">Map of Devotion</div>
+        <div class="graph_label" data-graph-id="skill_graph_area">Cognitive ReSequencing</div>
+    </div>
+</body>
+</html>

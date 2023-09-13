@@ -107,7 +107,7 @@ const v54 = vertex(  125,  -80,  v39,  true, null,                      null,   
 const v55 = vertex(   80, -100,  v54,  true, null,                      null,                           null);
 const v56 = vertex(  120,  140,  v15,  true, null,                      null,                           null);
 const v57 = vertex(   60,   90,  v48,  true, null,                      null,                           null);
-const v58 = vertex(   70,  120,  v21,  true, MapVertexStatus.Neutral,   MapVertexType.ResearchHub,      "??? Labs");
+const v58 = vertex(   70,  120,  v21,  true, MapVertexStatus.Neutral,   MapVertexType.ResearchHub,      "RyneTech Labs");
 const v59 = vertex(  240,  -40,  v33,  true, null,                      null,                           null);
 const v60 = vertex(   80,  -60,  v33,  true, null,                      null,                           null);
 const v61 = vertex(  180,   85,  v43,  true, null,                      null,                           null);
@@ -124,6 +124,32 @@ v32.z = Math.sqrt(360000 - v32.x * v32.x);
 v62.z = Math.sqrt(360000 - v62.x * v62.x);
 
 v00.markAsBase();
+
+v00.intel = `<p>An apology, by an eldritch monstrosity on behalf of a mankind who 
+             had failed, terribly, one of their own. One who, while she walked 
+             Terra, only got to see the worst that life had to offer.</p>
+             <p>On her deathbed, she finally broke. As her Goddess looked down 
+             upon her, she wished, choked by wrath and tears. She wished that 
+             she could spend just one more day in her childhood village, amidst
+             warm company with whom she belonged, in a time and place that just 
+             felt <i>right</i>.</p>
+             <p>And the Goddess, a Fragment that Should Not Be, listened. And so
+             She took her home. And then She painted. Fueled by ferventness and 
+             disdain, She painted. And painted. Thus creating a work of art that
+             would never be rivaled, bringing to life not just the long-lost 
+             village of Po'Shan, but also a myriad breathtaking visions, of 
+             alpine meadows and deep ravines, of snow clad hills and warm beaches, in what was 
+             before naught but barren rock...</p>
+             <p>Over time this painted realm became home to quite a varied 
+             assortment of people. Lost and abandoned elsewhere, they found this
+             village in the middle of nowhere a welcoming and warm reprieve.</p> 
+             <p>A wish fulfilled.</p>
+             <p>At least, while it lasted. For the She-Dragon was not human, nor
+              mortal. And She did not see Herself as one. Until recently, the 
+              village was both a boon and a curse, paradise and damnation.</p>
+             <p>But now freed, it forms the key to your survival. With its fate 
+             intricately tangled with your own, the path you tread remains to be 
+             seen...</p>`
 
 function edge(v00: MapVertex, v01: MapVertex, distMul: number = 1.0): void
 {

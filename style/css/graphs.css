@@ -47,6 +47,7 @@
 .upgrade_stats, .upgrade_effects, .theme--unknown .dictionary, .theme--friendly .dictionary, .theme--safe .dictionary, .theme--combat .dictionary, .theme--emergency .dictionary, .theme--neutral .dictionary, .theme--deadly .dictionary, .theme--black .dictionary, .dictionary {
   font-family: "RobotoCondensed", sans-serif;
   font-size: 14px;
+  margin-bottom: 8px;
 }
 .upgrade_stats .dictionary__row, .upgrade_effects .dictionary__row, .dictionary .dictionary__row {
   display: flex;
@@ -116,11 +117,12 @@
 .grunge_panel__icon {
   width: 30%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.grunge_panel__icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.grunge_panel__icon i {
+  font-size: 40px;
 }
 .grunge_panel__subtitle {
   font-family: "RobotoCondensed", sans-serif;
@@ -191,14 +193,26 @@
   padding: 8px;
 }
 
+.theme_text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  font-family: "Roboto", sans-serif;
+  padding: 8px;
+  text-align: justify;
+  font-size: 12px;
+}
+
 .theme--unknown .grunge_panel {
   background-image: url("../../assets/images/gui/unknown/PanelFaded.png");
 }
-.theme--unknown .grunge_panel__subtitle {
+.theme--unknown .grunge_panel__subtitle, .theme--unknown .grunge_panel__icon {
   color: #EAE6E5;
 }
 .theme--unknown .theme_label {
   background-color: #EAE6E5;
+  color: #00031D;
 }
 .theme--unknown .theme_subheader {
   color: #EAE6E5;
@@ -216,7 +230,7 @@
 .theme--friendly .grunge_panel {
   background-image: url("../../assets/images/gui/friendly/PanelFaded.png");
 }
-.theme--friendly .grunge_panel__subtitle {
+.theme--friendly .grunge_panel__subtitle, .theme--friendly .grunge_panel__icon {
   color: #059729;
 }
 .theme--friendly .theme_label {
@@ -238,7 +252,7 @@
 .theme--safe .grunge_panel {
   background-image: url("../../assets/images/gui/safe/PanelFaded.png");
 }
-.theme--safe .grunge_panel__subtitle {
+.theme--safe .grunge_panel__subtitle, .theme--safe .grunge_panel__icon {
   color: #157FE3;
 }
 .theme--safe .theme_label {
@@ -260,14 +274,14 @@
 .theme--combat .grunge_panel {
   background-image: url("../../assets/images/gui/combat/PanelFaded.png");
 }
-.theme--combat .grunge_panel__subtitle {
+.theme--combat .grunge_panel__subtitle, .theme--combat .grunge_panel__icon {
   color: #760BD4;
 }
 .theme--combat .theme_label {
   background-color: #760BD4;
 }
 .theme--combat .theme_subheader {
-  color: #760BD4;
+  color: #9947EA;
 }
 .theme--combat .theme_box {
   border-image-source: url("../../assets/images/gui/combat/Stroke500x500.png");
@@ -282,7 +296,7 @@
 .theme--emergency .grunge_panel {
   background-image: url("../../assets/images/gui/emergency/PanelFaded.png");
 }
-.theme--emergency .grunge_panel__subtitle {
+.theme--emergency .grunge_panel__subtitle, .theme--emergency .grunge_panel__icon {
   color: #E04D75;
 }
 .theme--emergency .theme_label {
@@ -304,7 +318,7 @@
 .theme--neutral .grunge_panel {
   background-image: url("../../assets/images/gui/neutral/PanelFaded.png");
 }
-.theme--neutral .grunge_panel__subtitle {
+.theme--neutral .grunge_panel__subtitle, .theme--neutral .grunge_panel__icon {
   color: #EC7005;
 }
 .theme--neutral .theme_label {
@@ -326,7 +340,7 @@
 .theme--deadly .grunge_panel {
   background-image: url("../../assets/images/gui/deadly/PanelFaded.png");
 }
-.theme--deadly .grunge_panel__subtitle {
+.theme--deadly .grunge_panel__subtitle, .theme--deadly .grunge_panel__icon {
   color: #CA1412;
 }
 .theme--deadly .theme_label {
@@ -348,14 +362,15 @@
 .theme--black .grunge_panel {
   background-image: url("../../assets/images/gui/black/PanelFaded.png");
 }
-.theme--black .grunge_panel__subtitle {
-  color: #00031D;
+.theme--black .grunge_panel__subtitle, .theme--black .grunge_panel__icon {
+  color: #EAE6E5;
 }
 .theme--black .theme_label {
   background-color: #00031D;
+  border: solid 2px #822000;
 }
 .theme--black .theme_subheader {
-  color: #00031D;
+  color: #CA1412;
 }
 .theme--black .theme_box {
   border-image-source: url("../../assets/images/gui/black/Stroke500x500.png");
@@ -532,7 +547,7 @@
   background-image: url("../../assets/images/gui/combat/Panel450x100.png"), linear-gradient(#760BD4 50%, #9947EA);
 }
 .map_vertex--combat .map_vertex__info .grunge_label__desc, .skill_vertex.rarity--epic .skill_vertex__info .grunge_label__desc {
-  background: #182825;
+  background: #091E05;
 }
 
 .map_vertex--emergency .map_vertex__info .grunge_label__title {
@@ -546,7 +561,7 @@
   background-image: url("../../assets/images/gui/neutral/Panel450x100.png"), linear-gradient(#CC5505, #EC7005);
 }
 .map_vertex--neutral .map_vertex__info .grunge_label__desc, .skill_vertex.rarity--legendary .skill_vertex__info .grunge_label__desc {
-  background: #1D292F;
+  background: #0D160B;
 }
 
 .map_vertex--deadly .map_vertex__info .grunge_label__title, .skill_vertex.rarity--artefact .skill_vertex__info .grunge_label__title {
@@ -797,26 +812,6 @@
   background-color: #000;
 }
 
-.side_panel_page {
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: stretch;
-  justify-content: space-between;
-}
-.side_panel_page__panel {
-  width: 160px;
-  flex-grow: 0;
-}
-.side_panel_page__main {
-  min-width: 240px;
-  flex-grow: 1;
-}
-
 @font-face {
   font-family: "Roboto";
   src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
@@ -975,7 +970,7 @@
   background-image: url("../../assets/images/gui/combat/Panel450x100.png"), linear-gradient(#760BD4 50%, #9947EA);
 }
 .map_vertex--combat .map_vertex__info .grunge_label__desc {
-  background: #182825;
+  background: #091E05;
 }
 
 .map_vertex--emergency .map_vertex__info .grunge_label__title {
@@ -989,7 +984,7 @@
   background-image: url("../../assets/images/gui/neutral/Panel450x100.png"), linear-gradient(#CC5505, #EC7005);
 }
 .map_vertex--neutral .map_vertex__info .grunge_label__desc {
-  background: #1D292F;
+  background: #0D160B;
 }
 
 .map_vertex--deadly .map_vertex__info .grunge_label__title {
@@ -1251,7 +1246,7 @@
   background-image: url("../../assets/images/gui/combat/Panel450x100.png"), linear-gradient(#760BD4 50%, #9947EA);
 }
 .map_vertex--combat .map_vertex__info .grunge_label__desc {
-  background: #182825;
+  background: #091E05;
 }
 
 .map_vertex--emergency .map_vertex__info .grunge_label__title {
@@ -1265,7 +1260,7 @@
   background-image: url("../../assets/images/gui/neutral/Panel450x100.png"), linear-gradient(#CC5505, #EC7005);
 }
 .map_vertex--neutral .map_vertex__info .grunge_label__desc {
-  background: #1D292F;
+  background: #0D160B;
 }
 
 .map_vertex--deadly .map_vertex__info .grunge_label__title {
@@ -1449,6 +1444,11 @@
   background-color: black;
   transition: all 0.2s;
   z-index: 2;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.ink_side_banner__content::-webkit-scrollbar {
+  display: none;
 }
 .ink_side_banner--right {
   right: -500px;
@@ -1678,7 +1678,6 @@ sub, sup {
 }
 
 li {
-  font-size: 14px;
   text-align: justify;
 }
 
@@ -1876,6 +1875,16 @@ img {
   grid-column: 3/span 1;
 }
 
+.inspect_base {
+  margin-top: 16px;
+}
+.inspect_base:not(.disabled) {
+  cursor: pointer;
+}
+.inspect_base.disabled {
+  background-color: #777;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -1908,6 +1917,28 @@ body {
 #map_graph_area {
   display: flex;
   justify-content: center;
+}
+
+#graph_labels {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 8px;
+}
+#graph_labels .graph_label {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  background-color: #00031D;
+  color: #FAFCFF;
+  border-radius: 8px;
+  padding: 8px 24px;
+  font-family: "RobotoCondensed", sans-serif;
+  cursor: pointer;
+}
+#graph_labels .graph_label.selected {
+  background-color: #822000;
+  cursor: unset;
 }
 
 /*# sourceMappingURL=graphs.css.map */

@@ -107,11 +107,7 @@ $attitude_circle_border: 8px;
 
 .timeskip_li {
   padding: 16px;
-  font-size: 14px;
-
-  &__time {
-    font-size: 11px;
-  }
+  font-size: 13px;
 
   &__description {
     font-style: italic;
@@ -123,7 +119,7 @@ $attitude_circle_border: 8px;
   font-family: "Montserrat", sans-serif;
   display: inline-block;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 13px;
 
   &--respect {
     @extend .emotion_string;

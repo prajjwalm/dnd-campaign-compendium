@@ -4,7 +4,6 @@
 @use "game_modules/_skills";
 
 @use "definitions/shadows";
-@import "modules/side_panel";
 @import "game_modules/graph";
 @import "game_modules/map";
 @import "game_modules/ink_side_banner";
@@ -45,4 +44,28 @@ body {
 #map_graph_area {
   display: flex;
   justify-content: center;
+}
+
+#graph_labels {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 8px;
+
+  .graph_label {
+    @include shadows.Elevation(3);
+    background-color: colors.$black;
+    color: colors.$white;
+    border-radius: 8px;
+    padding: 8px 24px;
+    font-family: "RobotoCondensed", sans-serif;
+    cursor: pointer;
+
+    &.selected {
+      background-color: colors.$primary;
+      cursor: unset;
+    }
+  }
 }

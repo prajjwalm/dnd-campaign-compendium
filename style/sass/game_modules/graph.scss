@@ -106,7 +106,7 @@
     linear-gradient(colors.$node_combat 50%, colors.$node_combat_light);
   }
   .grunge_label__desc {
-    background: colors.$node_combat_black;
+    background: colors.$node_emergency_black;
   }
 }
 %info_emergency {
@@ -124,7 +124,7 @@
     linear-gradient(colors.$node_neutral_40, colors.$node_neutral);
   }
   .grunge_label__desc {
-    background: colors.$node_neutral_black;
+    background: colors.$node_safe_black;
   }
 }
 %info_deadly {

@@ -1,15 +1,26 @@
 @use "../definitions/colors";
 @use "../definitions/shadows";
 
-.page {
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
+#page_area {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 
+#pages {
+  width: 100vw;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 64px;
+  padding: 64px 64px 64px 384px;
+  z-index: -1;
+}
+
+.page {
   background-color: colors.$white;
   border-radius: 4px;
-  width: 80vw;
   min-width: 320px;
-  margin: 64px auto auto;
   overflow: hidden;
 
   @include shadows.Elevation(2);
@@ -28,44 +39,68 @@
   margin-top: 0;
   margin-bottom: 16px;
   color: colors.$white;
-  background-color: colors.$secondary_dark;
+  background-color: colors.$theme_dark;
 }
-
 
 #page_nav {
-  display: none;
+  position: absolute;
+  width: 320px;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: colors.$theme_dark;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 8px;
+  padding: 8px;
+  color: colors.$white;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
 
-  .page_nav_link {
-    width: 100%;
-    padding: 24px 8px;
-    cursor: pointer;
-    color: colors.$white;
-    font-weight: 500;
-    letter-spacing: 0.1px;
-    transition: all 0.3s;
-    font-family: Montserrat, sans-serif;
-    font-size: 20px;
-
-    &:hover {
-      background-color: rgba(colors.$secondary, 0.1);
-    }
+  .space_filler {
+    flex-grow: 1;
   }
 }
 
+.page_nav_link {
+  width: 100%;
+  padding: 24px 8px 24px 16px;
+  cursor: pointer;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  transition: all 0.1s;
+  border-radius: 8px;
 
-@media screen and (min-width: 960px) {
-  .page {
-    width: calc(80vw - 100px);
-    margin: 64px 5vw 16px calc(100px + 15vw);
+  i {
+    margin-right: 16px;
   }
 
-  #page_nav {
-    display: unset;
-    width: calc(100px + 10vw);
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vw;
-    background-color: colors.$secondary_dark;
+  &:hover {
+    background-color: colors.$dark_focus;
+  }
+}
+
+.page_zone_shift {
+  justify-self: flex-end;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  order: 100;
+  width: 100%;
+  padding: 24px 8px 24px 16px;
+  border-radius: 8px;
+  position: sticky;
+  background-color: colors.$theme_dark;
+  color: colors.$white;
+
+  i {
+    margin-left: 16px;
+  }
+
+  &:hover {
+    background-color: colors.$dark_focus;
   }
 }

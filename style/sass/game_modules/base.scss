@@ -160,3 +160,15 @@
     grid-column: 3 / span 1;
   }
 }
+
+.inspect_base {
+  margin-top: 16px;
+
+  &:not(.disabled) {
+    cursor: pointer;
+  }
+
+  &.disabled {
+    background-color: #777;
+  }
+}

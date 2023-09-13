@@ -38,13 +38,13 @@ export function setupJaye()
     jaye.dStats.pb = Prof.get(4);
 
     // Setup D&D skills.
-    jaye.dSKills.setSkillProficiency(DSkill.Acrobatics, Hidden);
-    jaye.dSKills.setSkillProficiency(DSkill.Athletics, Hidden);
-    jaye.dSKills.setSkillProficiency(DSkill.Nature, Hidden);
+    jaye.dSKills.setSkillProficiency(DSkill.Acrobatics,   Hidden);
+    jaye.dSKills.setSkillProficiency(DSkill.Athletics,    Hidden);
+    jaye.dSKills.setSkillProficiency(DSkill.Nature,       Hidden);
     jaye.dSKills.setSkillProficiency(DSkill.Intimidation, Hidden);
-    jaye.dSKills.setSkillProficiency(DSkill.Stealth, Hidden, ProficiencyLevel.Expert);
+    jaye.dSKills.setSkillProficiency(DSkill.Stealth,      Hidden, ProficiencyLevel.Expert);
     jaye.dSKills.setSkillProficiency(DSkill.SlightOfHand, Hidden, ProficiencyLevel.Expert);
-    jaye.dSKills.setSkillProficiency(DSkill.Survival, Shown, ProficiencyLevel.Expert);
+    jaye.dSKills.setSkillProficiency(DSkill.Survival,     Shown, ProficiencyLevel.Expert);
     jaye.dSKills.finalizeSkills();
 
     // Setup Opinions.

@@ -2,9 +2,9 @@ import {
     CSkill,
     DSkill,
     Prof,
-    ProficiencyLevel,
+    ProficiencyLevel, StatForSkill,
     VisibilityLevel
-}                      from "../../../data/constants";
+} from "../../../data/constants";
 import {
     Rarity
 }                      from "../../../data/Rarity";
@@ -137,7 +137,7 @@ export class OperatorAspect
                     ${tableEntries.join("")}
                 </div>
                 <div class="operator_screen__d_skills">
-                    ${this.character.generateDSkillsDOM()}
+                    
                 </div>
                 <div class="operator_screen__c_skills">
                     ${this.character.generateCSkillsDOM()}
@@ -204,28 +204,8 @@ export class OperatorAspect
                 Prof.get(this.dStats.pb.mod() + effects.get(NpcMoraleEffects.ProficiencyBonusModifier));
         }
         if (effects.has(NpcMoraleEffects.SkillModifier)) {
-            for (const skill of [
-                DSkill.Acrobatics,
-                DSkill.AnimalHandling,
-                DSkill.Arcana,
-                DSkill.Athletics,
-                DSkill.Deception,
-                DSkill.History,
-                DSkill.Insight,
-                DSkill.Intimidation,
-                DSkill.Investigation,
-                DSkill.Medicine,
-                DSkill.Nature,
-                DSkill.Perception,
-                DSkill.Performance,
-                DSkill.Persuasion,
-                DSkill.Religion,
-                DSkill.SlightOfHand,
-                DSkill.Stealth,
-                DSkill.Survival,
-            ])
-            {
-                const [num, vis] = this.dSkills.getSkillMod(skill, null, true);
+            for (let [skill, [num, vis]] of this.dSkills.upgradedSKills) {
+                num -= this.dStats.mod(StatForSkill.get(skill));
                 this.character.dSKills.setSkillProficiency(
                     skill,
                     vis,

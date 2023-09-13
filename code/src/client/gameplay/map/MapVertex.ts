@@ -1,6 +1,10 @@
 import {MapGraph}                                     from "./MapGraph";
 import {MapTransportation, TransportationToDOMString} from "./MapTransportation";
-import {MapVertexStatus, MapVertexStatusDescriptions} from "./MapVertexStatus";
+import {
+    MapVertexStatus,
+    MapVertexStatusDescriptions,
+    MapVertexStatusIcons
+}                                                     from "./MapVertexStatus";
 import {MapVertexType, MapVertexTypeDescriptions}     from "./MapVertexType";
 import {Vertex}                                       from "./Vertex";
 
@@ -191,27 +195,63 @@ export class MapVertex
                            ? MapVertexStatusDescriptions.get(this.status)
                            : this.statusDescOverride;
 
-        const tokenDOMs = [];
-        for (const path of this._characterPaths) {
-            tokenDOMs.push(`<img class="token_s" src="${path}" alt="">`);
+        let tokenDOM: string;
+        if (this.isBase) {
+            tokenDOM = "";
+        }
+        else if (this._characterPaths.length == 0) {
+            tokenDOM = `
+            <div class="map_vertex_details__subheader theme_subheader">
+                NPCs here
+            </div>
+            <div class="map_vertex_details__desc">
+                No known NPCs are wandering out here.
+            </div>`;
+        }
+        else {
+            const tokenDOMs = [];
+            for (const path of this._characterPaths) {
+                tokenDOMs.push(`<img class="token_s" src="${path}" alt="">`);
+            }
+            tokenDOM = `
+            <div class="map_vertex_details__subheader theme_subheader">
+                NPCs here
+            </div>
+            <div class="map_vertex_details__characters">
+                ${tokenDOMs.join("")}
+            </div>`;
         }
 
-        const soiDOM = this.isBase ?
-            "" :
-            `<div class="map_vertex_details__subheader theme_subheader">
+        let soiDOM: string;
+        if (this.isBase) {
+            soiDOM = "";
+        }
+        else if (this._sitesOfInterest.length == 0) {
+            soiDOM = `
+            <div class="map_vertex_details__subheader theme_subheader">
+                Sites of interest
+            </div>
+            <div class="map_vertex_details__desc">
+                No sites of interest have been discovered so far.
+            </div>`
+        }
+        else {
+            soiDOM = `
+            <div class="map_vertex_details__subheader theme_subheader">
                 Sites of interest
             </div>
             <div>
                 ${this._sitesOfInterest.join("")}
             </div>`;
+        }
 
         const baseDOM = this.isBase ?
-                        "<div class='inspect_base grunge_nav_button'>Inspect Base</div>" : "";
+                        "<div class='inspect_base grunge_nav_button disabled'>Inspect Base</div>" : "";
 
         return `
         <div class="map_vertex_details theme--${lowerCaseTypeName}">
             <div class="map_vertex_details__header grunge_panel">
-                <div class="grunge_panel__icon"></div>
+                <div class="grunge_panel__icon">${MapVertexStatusIcons.get(this.status)}</div>
                 <div class="grunge_panel__subtitle">${statusDesc}</div>
                 <div class="grunge_panel__title">${this.name}</div>
             </div>
@@ -220,12 +260,7 @@ export class MapVertex
                 ${this.intel}
             </div>
             ${soiDOM}
-            <div class="map_vertex_details__subheader theme_subheader">
-                Characters here
-            </div>
-            <div class="map_vertex_details__characters">
-                ${tokenDOMs.join("")}
-            </div>
+            ${tokenDOM}
             ${baseDOM}
         </div>
         `;

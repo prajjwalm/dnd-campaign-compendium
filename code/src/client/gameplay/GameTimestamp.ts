@@ -1,4 +1,4 @@
-import {getNumberSuffix} from "./common";
+import {getNumberSuffix} from "../common/common";
 import {IDOMGenerator}   from "./IDomGenerator";
 
 

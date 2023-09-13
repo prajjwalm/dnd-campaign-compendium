@@ -79,7 +79,7 @@
  *
  */
 
-import {getEnumIterator}         from "../common";
+import {getEnumIterator}         from "../../common/common";
 import {PcCharismaMods, PcIndex} from "../data/pcIndex";
 import {IDOMGenerator}           from "../IDomGenerator";
 import {NpcID }                  from "../data/npcIndex";

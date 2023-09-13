@@ -10,8 +10,8 @@ import {
     Sense,
     DSkill,
     Speed,
-    CSkill
-}               from "../../data/constants";
+    CSkill, senseStr
+} from "../../data/constants";
 import {Rating} from "../../data/Rarity";
 
 
@@ -192,9 +192,9 @@ export function wrapSpeed(s: Speed): string
 export function wrapSense(s: Sense): string
 {
     if (s > Sense._NonStandard) {
-        return `<span class="sense__nonstd">${Sense[s]}</span>`;
+        return `<span class="sense__nonstd">${senseStr.get(s)}</span>`;
     } else {
-        return `<span class="sense">${Sense[s]}</span>`;
+        return `<span class="sense">${senseStr.get(s)}</span>`;
     }
 }
 

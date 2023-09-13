@@ -127,6 +127,9 @@ function setupMapGraphLogic($area: JQuery, graph: MapGraph)
     });
 
     $sideBanner.on("click", ".inspect_base", function () {
+        if ($(this).hasClass("disabled")) {
+            return;
+        }
         sidePanel.toggleFullSpan(generateBaseDOM());
     });
 

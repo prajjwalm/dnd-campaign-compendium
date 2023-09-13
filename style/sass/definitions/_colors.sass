@@ -23,32 +23,30 @@ $parchment: #fcf5c5
 
 $white: #FAFCFF
 
+$theme_dark: #1c1c24
+$dark_focus: #2f2f3c
+
+
+// Rarity colors from D&D Beyond.
 
 $dnd_original_common_light: #FFE
-$dnd_original_common_dark: #242528
-$dnd_original_uncommon_dark: #1FC219
-$dnd_original_rare_dark: #4990E2
-$dnd_original_epic_dark: #9810E0
-$dnd_original_legendary_dark: #FEA227
-$dnd_original_artefact_dark: #BE8972
 $dnd_original_uncommon_light: #5cbe3e
 $dnd_original_rare_light: #5991dc
 $dnd_original_epic_light: #b55dff
 $dnd_original_legendary_light: #f2a546
 $dnd_original_artefact: #BE8972
-
 $dnd_common_light: #FFE
 $dnd_uncommon_light: #5cbe3e
 $dnd_rare_light: #5991dc
 $dnd_epic_light: #b55dff
 $dnd_legendary_light: #f2a546
 $dnd_artefact_light: #d59e86
-$dnd_common_dark: #444548
-$dnd_uncommon_dark: #0F720C
-$dnd_rare_dark: #003b81
-$dnd_epic_dark: #7400be
-$dnd_legendary_dark: #cf7b00
-$dnd_artefact_dark: #7a4c37
+$dnd_common_dark: #444548     // original: #242528
+$dnd_uncommon_dark: #0F720C   // original: #1FC219
+$dnd_rare_dark: #003b81       // original: #4990E2
+$dnd_epic_dark: #7400be       // original: #9810E0
+$dnd_legendary_dark: #cf7b00  // original: #FEA227
+$dnd_artefact_dark: #7a4c37   // original: #BE8972
 
 
 $true_grey: #aaa
@@ -102,92 +100,3 @@ $node_deadly: #CA1412
 $node_deadly_dark: #420039
 $node_deadly_black: #000B1E
 $node_deadly_gray: #686963
-
-///////////////////////////////////////////////////////////////////////////////
-
-@mixin _light_rarity_foreground
-  &.t1
-    color: $dnd_common_light
-  &.t2
-    color: $dnd_uncommon_light
-  &.t3
-    color: $dnd_rare_light
-  &.t4
-    color: $dnd_epic_light
-  &.t5
-    color: $dnd_legendary_light
-  &.t6
-    color: $dnd_artefact_light
-
-@mixin _dark_rarity_foreground
-  &.t1
-    color: $dnd_common_dark
-  &.t2
-    color: $dnd_uncommon_dark
-  &.t3
-    color: $dnd_rare_dark
-  &.t4
-    color: $dnd_epic_dark
-  &.t5
-    color: $dnd_legendary_dark
-  &.t6
-    color: $dnd_artefact_dark
-
-@mixin _light_rarity_background
-  &.t1
-    background-color: $dnd_common_light
-  &.t2
-    background-color: $dnd_uncommon_light
-  &.t3
-    background-color: $dnd_rare_light
-  &.t4
-    background-color: $dnd_epic_light
-  &.t5
-    background-color: $dnd_legendary_light
-  &.t6
-    background-color: $dnd_artefact_light
-
-@mixin _dark_rarity_background
-  &.t1
-    background-color: $dnd_common_dark
-  &.t2
-    background-color: $dnd_uncommon_dark
-  &.t3
-    background-color: $dnd_rare_dark
-  &.t4
-    background-color: $dnd_epic_dark
-  &.t5
-    background-color: $dnd_legendary_dark
-  &.t6
-    background-color: $dnd_artefact_dark
-
-@mixin rarity_foreground_dark_background
-  background-color: $black
-  @include _light_rarity_foreground
-
-@mixin rarity_foreground_light_background
-  background-color: $white
-  @include _dark_rarity_foreground
-
-@mixin rarity_background_light_foreground
-  color: $white
-  @include _dark_rarity_background
-
-@mixin rarity_background_dark_foreground
-  color: $black
-  @include _light_rarity_background
-
-@mixin gradient($val, $reverse: false)
-  $angle: 90deg
-  @if ($reverse==true)
-    $angle: 270deg
-
-  $v1: 0.05
-  $v2: 0.07
-  $v3: 0.08
-
-  background: linear-gradient($angle, rgba($val, $v1) 0%, rgba($val, $v2) 73%, rgba($val, $v3) 100%)
-
-
-@mixin centralGradient($val)
-  background: linear-gradient(0deg, rgba($val,0.1) 0%, rgba($val,0.04) 22%, rgba($val,0.02) 50%, rgba($val,0.04) 78%, rgba($val,0.1) 100%)

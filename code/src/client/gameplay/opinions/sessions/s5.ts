@@ -1,4 +1,4 @@
-import {getEnumIterator} from "../../common";
+import {getEnumIterator} from "../../../common/common";
 import {PcIndex}         from "../../data/pcIndex";
 import {
     Character

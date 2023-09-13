@@ -1,4 +1,4 @@
-import {waitForFinalEvent} from "../../common";
+import {waitForFinalEvent} from "../../../common/common";
 import {ICard}             from "../../simulation/characters/aspects/ICard";
 
 

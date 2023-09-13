@@ -28,6 +28,15 @@ export enum Sense {
     SteelSight,
 }
 
+export const senseStr: Map<Sense,string> = new Map([
+    [Sense.Darkvision,  "Darkvision"],
+    [Sense.BlindSight,  "Blindsight"],
+    [Sense.TremorSense, "Tremor Sense"],
+    [Sense.TrueSight,   "Truesight"],
+    [Sense.DevilSight,  "Devil's Sight"],
+    [Sense.SteelSight,  "Steelsight"],
+]);
+
 export enum CreatureSize {
     Tiny,
     Small,
@@ -71,7 +80,6 @@ export enum DSkill {
     _ALL,
     _NonStandard,
     Honor,
-    Sanity,
 }
 
 export const StatForSkill : Map<DSkill, DStat> = new Map([
@@ -93,6 +101,7 @@ export const StatForSkill : Map<DSkill, DStat> = new Map([
     [DSkill.SlightOfHand, DStat.Dex],
     [DSkill.Stealth, DStat.Dex],
     [DSkill.Survival, DStat.Wis],
+    [DSkill.Honor, DStat.Cha],
 ])
 
 

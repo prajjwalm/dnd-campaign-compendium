@@ -5,8 +5,7 @@ import {
     CRValue,
     DStat,
     Sense,
-    Speed,
-    VisibilityLevel
+    Speed
 }                       from "../../../data/constants";
 import {setupStatSheet} from "../../../monsters/instances";
 import {
@@ -14,8 +13,8 @@ import {
     wrapCreatureSize,
     wrapDamageType,
     wrapRoll,
-    wrapDSkill
-}                       from "../../action/Wrap";
+    wrapDSkill, wrapSense, wrapSpeed
+} from "../../action/Wrap";
 import {Character}      from "../Character";
 import {BaseAspect}     from "./BaseAspect";
 import {ICombat}        from "./ICombat";
@@ -104,12 +103,12 @@ export class SheetAspect
     {
         const speedList = [];
         for (const [speed, value] of this.combatAspect.speeds.entries()) {
-            speedList.push(`${Speed[speed]} ${value} ft.`);
+            speedList.push(`${wrapSpeed(speed)} ${value} ft.`);
         }
 
         const senseList = [];
         for (const [sense, value] of this.combatAspect.senses.entries()) {
-            senseList.push(`${Sense[sense]} ${value} ft.`);
+            senseList.push(`${wrapSense(sense)} ${value} ft.`);
         }
 
         const statList = [];
@@ -130,23 +129,10 @@ export class SheetAspect
             saveList.push(`${DStat[stat]} ${wrapRoll(save)}`);
         }
 
-        let anySkillHidden = false;
         const skillList = [];
-        for (const [skill, [mod, vis]] of this.skillAspect.upgradedSKills.entries()) {
-            if (vis == VisibilityLevel.Hidden) {
-                anySkillHidden = true;
-            }
-            else if (vis == VisibilityLevel.Vague) {
-                skillList.push(`${wrapDSkill(skill)} ???`)
-            }
-            else if (vis == VisibilityLevel.Shown) {
-                skillList.push(`${wrapDSkill(skill)} ${wrapRoll(mod)}`);
-            }
-            else {
-                throw new Error("Unknown visibility level.");
-            }
+        for (const [skill, [mod, _]] of this.skillAspect.upgradedSKills.entries()) {
+            skillList.push(`<span style="display: inline-block;">${wrapDSkill(skill)} ${wrapRoll(mod)}</span>`);
         }
-
 
         const vul = [];
         const res = [];
@@ -234,7 +220,7 @@ export class SheetAspect
                     <table>
                         <tr><td>Senses</td><td>${senseList.join(" ")}</td></tr>
                         <tr><td>Saving Throws</td><td>${saveList.join(" ")}</td></tr>
-                        <tr><td>Skills</td><td>${this.character.generateDSkillsDOM()}</td></tr>
+                        <tr><td>Skills</td><td>${skillList.join(" ")}</td></tr>
                         <tr><td>Challenge Rating</td><td>${this._cr.cr}</td></tr>
                         <tr><td>Proficiency Bonus</td><td>${this.combatAspect.pb.mod()}</td></tr>
                         ${vulStr}${resStr}${immStr}${ciStr}

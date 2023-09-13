@@ -22,19 +22,6 @@ export function EQ(a, b) {
     return Math.abs(a - b) < 0.00001;
 }
 
-export function setupNav() {
-    const $pageNav = $("#page_nav");
-    $(".page_header").each(function () {
-        $(`<div class="page_nav_link" data-nav-to="${$(this).data("navId")}">${$(this).text()}</div>`)
-            .appendTo($pageNav);
-    });
-
-    $pageNav.on("click", ".page_nav_link", function () {
-        const navTo = $(this).data("navTo");
-        const $navTo = $(`.page_header[data-nav-id='${navTo}']`);
-        $navTo[0].scrollIntoView({ behavior: "smooth" });
-    });
-}
 
 /**
  * Simple memoization implementation. Should only be used if we anticipate a lot

@@ -20,11 +20,12 @@
   &__icon {
     width: 30%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+    i {
+      font-size: 40px;
     }
   }
 
@@ -104,17 +105,29 @@
   padding: 8px;
 }
 
+.theme_text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  font-family: "Roboto", sans-serif;
+  padding: 8px;
+  text-align: justify;
+  font-size: 12px;
+}
+
 .theme--unknown {
   .grunge_panel {
     background-image: url(content.$root + "images/gui/unknown/PanelFaded.png");
 
-    &__subtitle {
+    &__subtitle, &__icon {
       color: colors.$node_unknown;
     }
   }
 
   .theme_label {
     background-color: colors.$node_unknown;
+    color: colors.$black;
   }
 
   .theme_subheader {
@@ -138,7 +151,7 @@
   .grunge_panel {
     background-image: url(content.$root + "images/gui/friendly/PanelFaded.png");
 
-    &__subtitle {
+    &__subtitle, &__icon {
       color: colors.$node_friendly;
     }
   }
@@ -168,7 +181,7 @@
   .grunge_panel {
     background-image: url(content.$root + "images/gui/safe/PanelFaded.png");
 
-    &__subtitle {
+    &__subtitle, &__icon {
       color: colors.$node_safe;
     }
   }
@@ -198,7 +211,7 @@
   .grunge_panel {
     background-image: url(content.$root + "images/gui/combat/PanelFaded.png");
 
-    &__subtitle {
+    &__subtitle, &__icon {
       color: colors.$node_combat;
     }
   }
@@ -208,7 +221,7 @@
   }
 
   .theme_subheader {
-    color: colors.$node_combat;
+    color: colors.$node_combat_light;
   }
 
   //noinspection CssOverwrittenProperties
@@ -228,7 +241,7 @@
   .grunge_panel {
     background-image: url(content.$root + "images/gui/emergency/PanelFaded.png");
 
-    &__subtitle {
+    &__subtitle, &__icon {
       color: colors.$node_emergency;
     }
   }
@@ -258,7 +271,7 @@
   .grunge_panel {
     background-image: url(content.$root + "images/gui/neutral/PanelFaded.png");
 
-    &__subtitle {
+    &__subtitle, &__icon {
       color: colors.$node_neutral;
     }
   }
@@ -288,7 +301,7 @@
   .grunge_panel {
     background-image: url(content.$root + "images/gui/deadly/PanelFaded.png");
 
-    &__subtitle {
+    &__subtitle, &__icon {
       color: colors.$node_deadly;
     }
   }
@@ -318,17 +331,18 @@
   .grunge_panel {
     background-image: url(content.$root + "images/gui/black/PanelFaded.png");
 
-    &__subtitle {
-      color: colors.$black;
+    &__subtitle, &__icon {
+      color: colors.$node_unknown;
     }
   }
 
   .theme_label {
     background-color: colors.$black;
+    border: solid 2px colors.$primary;
   }
 
   .theme_subheader {
-    color: colors.$black;
+    color: colors.$node_deadly;
   }
 
   //noinspection CssOverwrittenProperties

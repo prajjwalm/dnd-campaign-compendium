@@ -66,7 +66,11 @@
     }
 
     &:nth-child(2n+1) {
-      @include colors.centralGradient(colors.$grey);
+      background: linear-gradient(0deg, rgba(colors.$grey, 0.1)  0%,
+                                        rgba(colors.$grey, 0.04) 22%,
+                                        rgba(colors.$grey, 0.02) 50%,
+                                        rgba(colors.$grey, 0.04) 78%,
+                                        rgba(colors.$grey, 0.1)  100%);
     }
   }
 }

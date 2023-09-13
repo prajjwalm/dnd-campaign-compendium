@@ -3,7 +3,7 @@ import {NpcInteractionEvent} from "../../../opinions/NpcInteractionEvent";
 import {NpcOpinion}          from "../../../opinions/NpcOpinions";
 import {PositiveEmotion}     from "../../../opinions/PositiveEmotion";
 import {TimeskipEvent}         from "../../../opinions/TimeskipEvent";
-import {getEnumIterator}       from "../../../common";
+import {getEnumIterator}       from "../../../../common/common";
 import {PcIndex, PcTokenNames} from "../../../data/pcIndex";
 import {DSkill}                from "../../../data/constants";
 import {NpcID}                 from "../../../data/npcIndex";

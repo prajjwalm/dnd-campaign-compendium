@@ -4,7 +4,7 @@
  */
 export function setupUI()
 {
-    const $enclosingDiv = $(".page--beastiary");
+    const $enclosingDiv = $(`.page[data-nav-id="beastiary"]`);
 
     $enclosingDiv.find(".selectable_radio_container .selectable.radio .selected_only").hide();
 

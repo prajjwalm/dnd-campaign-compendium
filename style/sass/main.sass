@@ -1,8 +1,13 @@
+@use "definitions/colors"
 @use "definitions/content"
+@use "definitions/shadows"
 
 @use "pages/page"
 @use "pages/page_history"
 @use "pages/page_interactions"
+@use "pages/page_beastiary"
+@use "game_modules/_grunge_modules"
+@use "game_modules/_skills"
 
 @import "modules/common_elements"
 @import "modules/character_cards"
@@ -11,16 +16,27 @@
 @import "modules/written_content"
 @import "modules/toast"
 
-@import "game_modules/stat_sheet"
-@import "game_modules/translational_selectable"
-@import "game_modules/cc"
 @import "game_modules/scenarios"
 @import "game_modules/map"
 
-@import "modules/beastiary"
+@import "game_modules/graph"
+@import "game_modules/map"
+@import "game_modules/ink_side_banner"
+@import "game_modules/tokens"
+@import "game_modules/base"
+
 
 *
   box-sizing: border-box
 
 body
   margin: 0
+  width: 100vw
+  height: 100vh
+  overflow: hidden
+  font-family: "Roboto", sans-serif
+  font-size: 13px
+  background: linear-gradient(to bottom, colors.$white 50%, #BABDC0 50%)
+
+#pages
+  background: linear-gradient(to bottom, colors.$white 0%, #BABDC0 100%)

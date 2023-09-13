@@ -1,21 +1,16 @@
 import {
     DSkill,
-    ProficiencyLevel,
-    Shown,
+    ProficiencyLevel, Shown,
     StatForSkill,
     VisibilityLevel
-}                      from "../../../data/constants";
-import {
-    Rating
-}                      from "../../../data/Rarity";
-import {IDOMGenerator} from "../../../IDomGenerator";
-import {wrapRating, wrapRoll, wrapDSkill} from "../../action/Wrap";
-import {Character}                        from "../Character";
-import {AspectFactoryFlag}               from "./AspectFactoryFlag";
-import {BaseAspect}                      from "./BaseAspect";
-import {IDSkills}                        from "./IDSkills";
-import {IDSkillsFactory}                 from "./IDSkillsFactory";
-import {IDStats}                         from "./IDStats";
+} from "../../../data/constants";
+import {Rating}            from "../../../data/Rarity";
+import {Character}         from "../Character";
+import {AspectFactoryFlag} from "./AspectFactoryFlag";
+import {BaseAspect}        from "./BaseAspect";
+import {IDSkills}          from "./IDSkills";
+import {IDSkillsFactory}   from "./IDSkillsFactory";
+import {IDStats}           from "./IDStats";
 
 
 /**
@@ -25,8 +20,7 @@ import {IDStats}                         from "./IDStats";
 export class DSkillsAspect
     extends    BaseAspect
     implements IDSkills,
-               IDSkillsFactory,
-               IDOMGenerator
+               IDSkillsFactory
 {
     /**
      * The skills this character is notable in.
@@ -65,43 +59,63 @@ export class DSkillsAspect
     /**
      * @inheritDoc
      */
-    public getSkillMod(skill: DSkill, profOverride: ProficiencyLevel=null, tentative: boolean=false):
+    public getSkillMod(skill: DSkill,
+                       profOverride: ProficiencyLevel=null,
+                       tentative: boolean=false):
         [number, VisibilityLevel]
     {
         if (!tentative) {
             this.ensure(AspectFactoryFlag.DSkillsSkillsFinalized, true);
         }
 
+        // First get the contribution from the stat.
+        let statMod = this.dStats.mod(StatForSkill.get(skill));
+
+        // Now find the proficiency level to apply.
         let prof: ProficiencyLevel;
         let mod: number;
         let vis: VisibilityLevel;
-        if (!this.skills.has(skill)) {
-            prof = ProficiencyLevel.None;
-            mod = 0;
-            vis = Shown;
-        } else {
+        if (this.skills.has(skill)) {
             [prof, mod, vis] = this.skills.get(skill);
         }
+        else if (this.skills.has(DSkill._ALL)) {
+            [prof, mod, vis] = this.skills.get(DSkill._ALL);
+        }
+        else {
+            [prof, mod, vis] = [ProficiencyLevel.None, 0, Shown];
+        }
+
         if (profOverride) {
             prof = profOverride;
         }
-        if (this.skills.has(DSkill._ALL)) {
-            const [minProf, minMod, _] = this.skills.get(DSkill._ALL);
-            if (prof < minProf) {
-                prof = minProf;
-            }
-            if (mod < minMod) {
-                mod = minMod;
-            }
-        }
+        return [statMod + this.dStats.pb.mod(prof) + mod, vis];
 
-        // TODO: better visibility handling.
-
-        return [this.dStats.mod(StatForSkill.get(skill)) +
-                this.dStats.pb.mod(prof) +
-                mod,
-                vis
-        ];
+        // if (!this.skills.has(skill)) {
+        //     prof = ProficiencyLevel.None;
+        //     mod = 0;
+        //     vis = Shown;
+        // }
+        // else {
+        //     [prof, mod, vis] = this.skills.get(skill);
+        // }
+        // if (profOverride) {
+        //     prof = profOverride;
+        // }
+        // if (this.skills.has(DSkill._ALL)) {
+        //     const [minProf, minMod, _] = this.skills.get(DSkill._ALL);
+        //     if (prof < minProf) {
+        //         prof = minProf;
+        //     }
+        //     if (mod < minMod) {
+        //         mod = minMod;
+        //     }
+        // }
+        //
+        // return [this.dStats.mod(StatForSkill.get(skill)) +
+        //         this.dStats.pb.mod(prof) +
+        //         mod,
+        //         vis
+        // ];
     }
 
     /**
@@ -151,31 +165,6 @@ export class DSkillsAspect
                                 this.dStats.pb.mod(pb) + mod, vis]);
         }
         return upgradedSkills;
-    }
-
-    public generateDOMString(): string
-    {
-        let anySkillHidden = false;
-        const skillList = [];
-        for (const [skill, [mod, vis]] of this.upgradedSKills.entries()) {
-            if (vis == VisibilityLevel.Hidden) {
-                anySkillHidden = true;
-            }
-            else if (vis == VisibilityLevel.Hinted) {
-                skillList.push(`${wrapDSkill(skill)} ???`);
-            }
-            else if (vis == VisibilityLevel.Vague) {
-                skillList.push(`${wrapDSkill(skill)} ${wrapRating(DSkillsAspect.getRatingForSkillModifier(mod))}`);
-            }
-            else if (vis == VisibilityLevel.Shown) {
-                skillList.push(`${wrapDSkill(skill)} ${wrapRoll(mod)}`);
-            }
-            else {
-                throw new Error("Unknown visibility level.");
-            }
-        }
-        return skillList.join(" ") +
-               (anySkillHidden ? "<br/><span>Has skills not yet revealed.</span>" : "");
     }
 
     private static getRatingForSkillModifier(mod: number): Rating

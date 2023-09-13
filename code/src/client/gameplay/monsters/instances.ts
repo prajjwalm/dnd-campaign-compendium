@@ -1,5 +1,4 @@
 import {GENERATED_IDS}                     from "./contracts";
-import {createJaye}                        from "./humans";
 import {
     createFreedom,
     createInkling,
@@ -74,6 +73,9 @@ export function setupStatSheet(category: string,
 
 }
 
+/**
+ * @deprecated
+ */
 export function setupMonsters()
 {
     setupStatSheet("inkling",
@@ -118,16 +120,8 @@ export function setupMonsters()
                    "free.png",
                    createFreedom);
 
-    // setupStatSheet("human",
-    //                "human_jaye",
-    //                "Jaye",
-    //                "jaye.png.lnk",
-    //                createJaye);
-
-
     const $beastiary = $("#beastiary");
 
-    // todo: create the sheets on button click.
     $beastiary.on("click", ".mob_group_icon", function () {
         const groupId = $(this).data("mobGroupId");
         $beastiary.find(".creature").hide();

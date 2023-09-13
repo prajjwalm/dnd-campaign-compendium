@@ -1,5 +1,4 @@
 @use "../definitions/colors";
-
 @use "../definitions/shadows";
 
 @mixin characterSheetCustomizer($primary_color: colors.$primary,
@@ -126,6 +125,6 @@ $img_content_root: "../../assets/";
   }
 }
 
-.advanced_style, .page--beastiary {
+.advanced_style, .page[data-nav-id="beastiary"] {
   @extend %advanced_style_div;
 }
