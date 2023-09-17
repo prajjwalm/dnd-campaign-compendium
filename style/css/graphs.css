@@ -44,23 +44,23 @@
   font-weight: bold;
   src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
 }
-.upgrade_stats, .upgrade_effects, .theme--unknown .dictionary, .theme--friendly .dictionary, .theme--safe .dictionary, .theme--combat .dictionary, .theme--emergency .dictionary, .theme--neutral .dictionary, .theme--deadly .dictionary, .theme--black .dictionary, .dictionary {
+.ratings_dictionary, .upgrade_stats, .upgrade_effects, .theme--unknown .dictionary, .theme--friendly .dictionary, .theme--safe .dictionary, .theme--combat .dictionary, .theme--emergency .dictionary, .theme--neutral .dictionary, .theme--deadly .dictionary, .theme--black .dictionary, .dictionary {
   font-family: "RobotoCondensed", sans-serif;
   font-size: 14px;
   margin-bottom: 8px;
 }
-.upgrade_stats .dictionary__row, .upgrade_effects .dictionary__row, .dictionary .dictionary__row {
+.ratings_dictionary .dictionary__row, .upgrade_stats .dictionary__row, .upgrade_effects .dictionary__row, .dictionary .dictionary__row {
   display: flex;
   flex-flow: row nowrap;
   margin-bottom: 4px;
 }
-.upgrade_stats .dictionary__row__key, .upgrade_effects .dictionary__row__key, .dictionary .dictionary__row__key {
+.ratings_dictionary .dictionary__row__key, .upgrade_stats .dictionary__row__key, .upgrade_effects .dictionary__row__key, .dictionary .dictionary__row__key {
   font-weight: bold;
   font-variant-caps: small-caps;
   flex-grow: 0;
   margin-right: 4px;
 }
-.upgrade_stats .dictionary__row__value, .upgrade_effects .dictionary__row__value, .dictionary .dictionary__row__value {
+.ratings_dictionary .dictionary__row__value, .upgrade_stats .dictionary__row__value, .upgrade_effects .dictionary__row__value, .dictionary .dictionary__row__value {
   flex-grow: 1;
 }
 
@@ -812,6 +812,410 @@
   background-color: #000;
 }
 
+.log_tag--info, .log_level--info .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--critical, .log_level--critical .log_tag, .tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  min-height: 24px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  margin: 2px;
+  font-size: 12px;
+}
+
+.tag {
+  color: #fff;
+  font-family: "RobotoCondensed", sans-serif;
+}
+.tag:not(.disabled) {
+  background-color: #822000;
+}
+.tag.disabled {
+  background-color: #555;
+}
+
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+h6, h5, h4, h3, h2 {
+  color: #240B36;
+}
+
+h2 {
+  font-size: 20px;
+  font-family: Montserrat, sans-serif;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+h3 {
+  font-size: 18px;
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+h4 {
+  font-size: 16px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+h5 {
+  font-size: 15px;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+h6 {
+  font-size: 14px;
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+p {
+  text-align: justify;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+sub, sup {
+  margin-left: 1px;
+}
+
+li {
+  text-align: justify;
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+img {
+  display: inline-block;
+  margin: 8px;
+  object-fit: contain;
+}
+
+.section {
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 0 0 24px;
+  margin: 8px 0;
+}
+.section .section_header {
+  padding: 16px 8px;
+  margin: 0;
+  min-width: 80px;
+}
+
+.card_link {
+  color: #576CA8;
+}
+
+.base_management {
+  min-width: 960px;
+  height: calc(100% - 32px);
+  display: grid;
+  grid-template-rows: 9fr 5fr 2fr;
+  grid-template-columns: 9fr 3fr 4fr;
+  gap: 24px;
+  margin: 16px;
+}
+.base_management .base_management__villagers, .base_management .base_management__buildings, .base_management .base_management__rating, .base_management .base_management__logs {
+  padding: 8px 16px;
+  background-color: #050505;
+  box-shadow: 0 0 2px #fff inset, 0 0 3px #fff inset, 0 0 4px #fff inset, 0 0 6px #173FB3 inset, 0 0 8px #173FB3 inset, 0 0 9px #173FB3 inset, 0 0 10px #173FB3 inset, 0 0 12px #173FB3 inset;
+}
+.base_management__logs {
+  grid-row: 1/span 1;
+  grid-column: 1/span 1;
+  font-family: "RobotoCondensed", sans-serif;
+  min-width: 0;
+  min-height: 0;
+}
+.base_management__rating {
+  grid-row: 1/span 1;
+  grid-column: 2/span 1;
+}
+.base_management__buildings {
+  grid-row: 2/span 2;
+  grid-column: 1/span 2;
+}
+.base_management__villagers {
+  grid-row: 1/span 2;
+  grid-column: 3/span 1;
+}
+.base_management__navigation {
+  grid-row: 3/span 1;
+  grid-column: 3/span 1;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: space-evenly;
+}
+
+.terminal_title {
+  font-size: 20px;
+  font-weight: 200;
+  font-variant-caps: small-caps;
+  font-family: "Montserrat", sans-serif;
+}
+
+.inspect_base {
+  margin-top: 16px;
+}
+.inspect_base:not(.disabled) {
+  cursor: pointer;
+}
+.inspect_base.disabled {
+  background-color: #777;
+}
+
+.world_logs__header {
+  display: grid;
+  grid-template-rows: 36px 20px;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  gap: 8px;
+  width: 100%;
+  height: 64px;
+}
+.world_logs__header .terminal_title {
+  grid-row: 1/span 2;
+  grid-column: 1/span 1;
+  justify-self: start;
+}
+.world_logs__header .log_filters {
+  grid-row: 1/span 1;
+  grid-column: 2/span 1;
+  justify-self: end;
+}
+.world_logs__header .intelligence {
+  grid-row: 2/span 1;
+  grid-column: 2/span 1;
+  justify-self: end;
+  margin-right: 12px;
+}
+
+.log_tag--info, .log_level--info .log_tag {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.log_tag--info:not(.disabled), .log_level--info .log_tag:not(.disabled) {
+  border: solid 2px #059729;
+  background-color: rgba(5, 151, 41, 0.2);
+  color: #059729;
+}
+.log_tag--info.disabled, .log_level--info .log_tag.disabled {
+  border: solid 2px #555;
+  background-color: rgba(136, 136, 136, 0.2);
+  color: #ccc;
+}
+
+.log_tag--notable, .log_level--notable .log_tag {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.log_tag--notable:not(.disabled), .log_level--notable .log_tag:not(.disabled) {
+  border: solid 2px #EC7005;
+  background-color: rgba(236, 112, 5, 0.2);
+  color: #EC7005;
+}
+.log_tag--notable.disabled, .log_level--notable .log_tag.disabled {
+  border: solid 2px #555;
+  background-color: rgba(136, 136, 136, 0.2);
+  color: #ccc;
+}
+
+.log_tag--important, .log_level--important .log_tag {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.log_tag--important:not(.disabled), .log_level--important .log_tag:not(.disabled) {
+  border: solid 2px #760BD4;
+  background-color: rgba(118, 11, 212, 0.2);
+  color: #760BD4;
+}
+.log_tag--important.disabled, .log_level--important .log_tag.disabled {
+  border: solid 2px #555;
+  background-color: rgba(136, 136, 136, 0.2);
+  color: #ccc;
+}
+
+.log_tag--critical, .log_level--critical .log_tag {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+}
+.log_tag--critical:not(.disabled), .log_level--critical .log_tag:not(.disabled) {
+  border: solid 2px #CA1412;
+  background-color: rgba(202, 20, 18, 0.2);
+  color: #CA1412;
+}
+.log_tag--critical.disabled, .log_level--critical .log_tag.disabled {
+  border: solid 2px #555;
+  background-color: rgba(136, 136, 136, 0.2);
+  color: #ccc;
+}
+
+.world_logs {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+}
+
+.log_entries {
+  overflow-y: scroll;
+}
+
+.log_entry {
+  display: grid;
+  grid-template-columns: 120px 90px 1fr;
+  align-items: center;
+  background-color: #222;
+  border-radius: 4px;
+  padding: 12px 8px;
+  margin-bottom: 8px;
+  margin-right: 12px;
+  gap: 8px;
+  justify-items: start;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) inset;
+  font-size: 15px;
+}
+.log_entry .log_time {
+  justify-self: end;
+  grid-column: 1/span 1;
+}
+.log_entry .log_tag {
+  grid-column: 2/span 1;
+}
+.log_entry .log_msg {
+  grid-column: 3/span 1;
+}
+
+.achievements {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+}
+.achievements__header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+.achievements__header .xp_summary {
+  padding: 8px;
+  font-style: italic;
+  font-family: "RobotoCondensed", sans-serif;
+}
+.achievements__list {
+  overflow: scroll;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) inset;
+}
+
+.achievement, .achievement--inner {
+  background-color: #222;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  padding: 8px;
+  margin-right: 8px;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 80px 40px;
+  gap: 8px;
+}
+.achievement__title {
+  grid-row: 1/span 1;
+  grid-column: 1/span 1;
+  font-size: 13px;
+  font-weight: 200;
+  font-family: "Montserrat", sans-serif;
+}
+.achievement__xp {
+  grid-row: 1/span 2;
+  grid-column: 2/span 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 16px;
+}
+.achievement__status {
+  grid-row: 1/span 2;
+  grid-column: 3/span 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+}
+.achievement__desc {
+  grid-row: 2/span 1;
+  grid-column: 1/span 1;
+  font-family: "RobotoCondensed", sans-serif;
+  font-style: italic;
+  font-size: 12px;
+}
+.achievement--complete {
+  box-shadow: 0 3px 6px rgba(0, 128, 0, 0.28) inset;
+}
+.achievement--complete .achievement__status {
+  visibility: visible;
+  font-size: 28px;
+  color: green;
+  text-shadow: 0 1px 3px rgba(0, 128, 0, 0.12), 0 1px 2px rgba(0, 128, 0, 0.24);
+}
+.achievement--inner {
+  margin-left: 16px;
+}
+
+.achievement_category {
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-size: 17px;
+  font-weight: bold;
+  color: #157FE3;
+}
+
+.ratings_dictionary {
+  margin-top: 12px;
+}
+.ratings_dictionary .dictionary__row__key {
+  color: #157FE3;
+  min-width: 136px;
+}
+
 @font-face {
   font-family: "Roboto";
   src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
@@ -1501,388 +1905,6 @@
   width: 48px;
   height: 48px;
   object-fit: contain;
-}
-
-.log_tag--info, .log_level--info .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--critical, .log_level--critical .log_tag, .tag {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2px;
-  min-height: 24px;
-  padding: 3px 6px;
-  border-radius: 3px;
-  margin: 2px;
-  font-size: 12px;
-}
-
-.tag {
-  color: #fff;
-  font-family: "RobotoCondensed", sans-serif;
-}
-
-.tag:not(.disabled) {
-  background-color: #822000;
-}
-
-.tag.disabled {
-  background-color: #555;
-}
-
-@font-face {
-  font-family: "Roboto";
-  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
-}
-@font-face {
-  font-family: "Roboto";
-  font-weight: bold;
-  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
-}
-@font-face {
-  font-family: "Roboto-thin";
-  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
-}
-@font-face {
-  font-family: "RobotoCondensed";
-  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
-}
-@font-face {
-  font-family: "RobotoCondensed";
-  font-weight: bold;
-  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
-}
-@font-face {
-  font-family: "Montserrat";
-  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
-}
-@font-face {
-  font-family: "Montserrat";
-  font-weight: 500;
-  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: 200;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: 400;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
-}
-@font-face {
-  font-family: "LondrinaSolid";
-  font-weight: bold;
-  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
-}
-/**
- * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
- * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
- * *
- * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
- * * the blur parameter has to be doubled.
- * *
- * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
- * *
- * * Example usage:
- * *
- * * .card {
- * *     width: 95px;
- * *     height: 95px;
- * *     background: #f4f4f4;
- * *     -webkit-transition: all 250ms;
- * *     -moz-transition: all 250ms;
- * *     transition: all 250ms;
- * *     @include BoxShadowHelper(1);
- * *     &:hover {
- * *         @include BoxShadowHelper(3);
- * *         -webkit-transform: translateY(-5px);
- * *         -moz-transform: translateY(-5px);
- * *         transform: translateY(-5px);
- * *     }
- * * }
- * *
- * * Also note: https://m3.material.io/styles/elevation/tokens
- * */
-/**
- * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
- * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
- * *
- * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
- * * the blur parameter has to be doubled.
- * *
- * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
- * *
- * * Example usage:
- * *
- * * .card {
- * *     width: 95px;
- * *     height: 95px;
- * *     background: #f4f4f4;
- * *     -webkit-transition: all 250ms;
- * *     -moz-transition: all 250ms;
- * *     transition: all 250ms;
- * *     @include BoxShadowHelper(1);
- * *     &:hover {
- * *         @include BoxShadowHelper(3);
- * *         -webkit-transform: translateY(-5px);
- * *         -moz-transform: translateY(-5px);
- * *         transform: translateY(-5px);
- * *     }
- * * }
- * *
- * * Also note: https://m3.material.io/styles/elevation/tokens
- * */
-h6, h5, h4, h3, h2 {
-  color: #240B36;
-}
-
-h2 {
-  font-size: 20px;
-  font-family: Montserrat, sans-serif;
-  margin-top: 32px;
-  margin-bottom: 16px;
-}
-
-h3 {
-  font-size: 18px;
-  margin-top: 24px;
-  margin-bottom: 8px;
-}
-
-h4 {
-  font-size: 16px;
-  margin-top: 16px;
-  margin-bottom: 8px;
-}
-
-h5 {
-  font-size: 15px;
-  margin-top: 12px;
-  margin-bottom: 4px;
-}
-
-h6 {
-  font-size: 14px;
-  margin-top: 8px;
-  margin-bottom: 2px;
-}
-
-p {
-  text-align: justify;
-  margin-top: 4px;
-  margin-bottom: 8px;
-}
-
-sub, sup {
-  margin-left: 1px;
-}
-
-li {
-  text-align: justify;
-}
-
-ul, ol {
-  margin-top: 0;
-  margin-bottom: 12px;
-}
-
-img {
-  display: inline-block;
-  margin: 8px;
-  object-fit: contain;
-}
-
-.section {
-  border-radius: 12px;
-  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  padding: 0 0 0 24px;
-  margin: 8px 0;
-}
-.section .section_header {
-  padding: 16px 8px;
-  margin: 0;
-  min-width: 80px;
-}
-
-.card_link {
-  color: #576CA8;
-}
-
-.base_management {
-  min-width: 960px;
-  height: calc(100% - 32px);
-  display: grid;
-  grid-template-rows: 9fr 5fr 2fr;
-  grid-template-columns: 9fr 3fr 4fr;
-  gap: 24px;
-  margin: 16px;
-}
-.base_management .base_management__villagers, .base_management .base_management__buildings, .base_management .base_management__rating, .base_management .base_management__logs {
-  padding: 8px 16px;
-  background-color: #050505;
-  box-shadow: 0 0 2px #fff inset, 0 0 3px #fff inset, 0 0 4px #fff inset, 0 0 6px #173FB3 inset, 0 0 8px #173FB3 inset, 0 0 9px #173FB3 inset, 0 0 10px #173FB3 inset, 0 0 12px #173FB3 inset;
-}
-.base_management__logs {
-  grid-row: 1/span 1;
-  grid-column: 1/span 1;
-  font-family: "RobotoCondensed", sans-serif;
-}
-.base_management__logs__header {
-  display: grid;
-  grid-template-rows: 36px 20px;
-  grid-template-columns: 1fr 1fr;
-  margin-top: 8px;
-  margin-bottom: 16px;
-  gap: 8px;
-  width: 100%;
-  height: 64px;
-}
-.base_management__logs__header .terminal_title {
-  grid-row: 1/span 2;
-  grid-column: 1/span 1;
-  justify-self: start;
-}
-.base_management__logs__header .log_filters {
-  grid-row: 1/span 1;
-  grid-column: 2/span 1;
-  justify-self: end;
-}
-.base_management__logs__header .intelligence {
-  grid-row: 2/span 1;
-  grid-column: 2/span 1;
-  justify-self: end;
-  margin-right: 12px;
-}
-.base_management__rating {
-  grid-row: 1/span 1;
-  grid-column: 2/span 1;
-}
-.base_management__buildings {
-  grid-row: 2/span 2;
-  grid-column: 1/span 2;
-}
-.base_management__villagers {
-  grid-row: 1/span 2;
-  grid-column: 3/span 1;
-}
-.base_management__navigation {
-  grid-row: 3/span 1;
-  grid-column: 3/span 1;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: stretch;
-  justify-content: space-evenly;
-}
-
-.terminal_title {
-  font-size: 20px;
-  font-weight: 200;
-  font-variant-caps: small-caps;
-  font-family: "Montserrat", sans-serif;
-}
-
-.log_tag--info, .log_level--info .log_tag {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-}
-.log_tag--info:not(.disabled), .log_level--info .log_tag:not(.disabled) {
-  border: solid 2px #059729;
-  background-color: rgba(5, 151, 41, 0.2);
-  color: #059729;
-}
-.log_tag--info.disabled, .log_level--info .log_tag.disabled {
-  border: solid 2px #555;
-  background-color: rgba(136, 136, 136, 0.2);
-  color: #ccc;
-}
-
-.log_tag--notable, .log_level--notable .log_tag {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-}
-.log_tag--notable:not(.disabled), .log_level--notable .log_tag:not(.disabled) {
-  border: solid 2px #EC7005;
-  background-color: rgba(236, 112, 5, 0.2);
-  color: #EC7005;
-}
-.log_tag--notable.disabled, .log_level--notable .log_tag.disabled {
-  border: solid 2px #555;
-  background-color: rgba(136, 136, 136, 0.2);
-  color: #ccc;
-}
-
-.log_tag--important, .log_level--important .log_tag {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-}
-.log_tag--important:not(.disabled), .log_level--important .log_tag:not(.disabled) {
-  border: solid 2px #760BD4;
-  background-color: rgba(118, 11, 212, 0.2);
-  color: #760BD4;
-}
-.log_tag--important.disabled, .log_level--important .log_tag.disabled {
-  border: solid 2px #555;
-  background-color: rgba(136, 136, 136, 0.2);
-  color: #ccc;
-}
-
-.log_tag--critical, .log_level--critical .log_tag {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-}
-.log_tag--critical:not(.disabled), .log_level--critical .log_tag:not(.disabled) {
-  border: solid 2px #CA1412;
-  background-color: rgba(202, 20, 18, 0.2);
-  color: #CA1412;
-}
-.log_tag--critical.disabled, .log_level--critical .log_tag.disabled {
-  border: solid 2px #555;
-  background-color: rgba(136, 136, 136, 0.2);
-  color: #ccc;
-}
-
-.log_entries {
-  overflow-y: scroll;
-}
-
-.log_entry {
-  display: grid;
-  grid-template-columns: 120px 90px 1fr;
-  align-items: center;
-  background-color: #222;
-  border-radius: 4px;
-  padding: 12px 8px;
-  margin-bottom: 8px;
-  margin-right: 12px;
-  gap: 8px;
-  justify-items: start;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) inset;
-  font-size: 15px;
-}
-.log_entry .log_time {
-  justify-self: end;
-  grid-column: 1/span 1;
-}
-.log_entry .log_tag {
-  grid-column: 2/span 1;
-}
-.log_entry .log_msg {
-  grid-column: 3/span 1;
-}
-
-.inspect_base {
-  margin-top: 16px;
-}
-.inspect_base:not(.disabled) {
-  cursor: pointer;
-}
-.inspect_base.disabled {
-  background-color: #777;
 }
 
 * {

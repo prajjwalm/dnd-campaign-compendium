@@ -246,7 +246,7 @@ export class MapVertex
         }
 
         const baseDOM = this.isBase ?
-                        "<div class='inspect_base grunge_nav_button disabled'>Inspect Base</div>" : "";
+                        "<div class='inspect_base grunge_nav_button'>Inspect Base</div>" : "";
 
         return `
         <div class="map_vertex_details theme--${lowerCaseTypeName}">

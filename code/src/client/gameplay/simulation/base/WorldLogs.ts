@@ -21,7 +21,7 @@ function log(time: GameTimestamp, level: LogLevel, msg: string)
 }
 
 
-export const WorldLogs =
+const WorldLogs =
 [
     log(GameTimestamp.fromDays(0), LogLevel.INFO,
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in sagittis neque."),
@@ -51,3 +51,28 @@ export const WorldLogs =
         "Nullam et justo interdum, euismod purus ut, congue lacus. Praesent at tortor " +
         "nibh. Nunc porttitor dolor eu massa luctus, mattis fringilla metus hendrerit.")
 ];
+
+
+export function generateWorldLogsPanel(): string
+{
+    return `
+        <div class="world_logs">
+            <div class="world_logs__header">
+                <div class="terminal_title">Global Updates</div>
+                <div class="log_filters">
+                    <div class="log_tag tag_filter log_tag--info">INFO</div>
+                    <div class="log_tag tag_filter log_tag--notable">NOTABLE</div>
+                    <div class="log_tag tag_filter log_tag--important">IMPORTANT</div>
+                    <div class="log_tag tag_filter log_tag--critical disabled">CRITICAL</div>
+                </div>
+                <div class="intelligence">
+                    <span class="intelligence__label">Intelligence Level</span>
+                    <span class="intelligence__label">17%</span>
+                </div>        
+            </div>
+            <div class="log_entries">
+                ${WorldLogs.join("")}
+            </div>
+        </div>
+        `;
+}

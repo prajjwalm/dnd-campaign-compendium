@@ -1,61 +1,71 @@
-import {WorldLogs} from "./WorldLogs";
+import {generateAchievementsPanel} from "./Achievements";
+import {generateWorldLogsPanel}    from "./WorldLogs";
 
 export function generateBaseDOM()
 {
     return `
 <div class="base_management">
     <div class="base_management__logs">
-        <div class="base_management__logs__header">
-        <div class="terminal_title">Adventure Logs and Updates</div>
-            <div class="log_filters">
-                <div class="log_tag tag_filter log_tag--info">INFO</div>
-                <div class="log_tag tag_filter log_tag--notable">NOTABLE</div>
-                <div class="log_tag tag_filter log_tag--important">IMPORTANT</div>
-                <div class="log_tag tag_filter log_tag--critical disabled">CRITICAL</div>
-            </div>
-            <div class="intelligence">
-                <span class="intelligence__label">Intelligence Level</span>
-                <span class="intelligence__label">17%</span>
-            </div>        
-        </div>
-        <div class="log_entries">
-            ${WorldLogs.join("")}
-        </div>    
+        ${generateAchievementsPanel()}
     </div> 
     <div class="base_management__rating">
         <div class="terminal_title">Faction Ratings</div>
-        <div class="dictionary">
+        <div class="ratings_dictionary">
+            <div class="dictionary__row">
+                <div class="dictionary__row__key">Recognition</div>
+                <div class="dictionary__row__value">Unknown nobodies</div>
+            </div>
             <div class="dictionary__row">
                 <div class="dictionary__row__key">Honor</div>
-                <div class="dictionary__row__value">0</div>
+                <div class="dictionary__row__value">5</div>
             </div>
             <div class="dictionary__row">
                 <div class="dictionary__row__key">Notoriety</div>
                 <div class="dictionary__row__value">0</div>
             </div>
             <div class="dictionary__row">
-                <div class="dictionary__row__key">Military</div>
+                <div class="dictionary__row__key">Intelligence Level</div>
+                <div class="dictionary__row__value">20</div>
+            </div>
+            <div class="dictionary__row">
+                <div class="dictionary__row__key">Internal Security</div>
                 <div class="dictionary__row__value">0</div>
             </div>
             <div class="dictionary__row">
-                <div class="dictionary__row__key">Security</div>
-                <div class="dictionary__row__value">0</div>
+                <div class="dictionary__row__key">Offensive capbilities</div>
+                <div class="dictionary__row__value">8</div>
             </div>
             <div class="dictionary__row">
-                <div class="dictionary__row__key">Information</div>
-                <div class="dictionary__row__value">0</div>
-            </div>
-            <div class="dictionary__row">
-                <div class="dictionary__row__key">Technology</div>
+                <div class="dictionary__row__key">Defenses</div>
                 <div class="dictionary__row__value">0</div>
             </div>
             <div class="dictionary__row">
                 <div class="dictionary__row__key">Shardic Investiture</div>
-                <div class="dictionary__row__value">0</div>
+                <div class="dictionary__row__value">33</div>
             </div>
             <div class="dictionary__row">
                 <div class="dictionary__row__key">Eldritch Investiture</div>
+                <div class="dictionary__row__value">17</div>
+            </div>
+            <div class="dictionary__row">
+                <div class="dictionary__row__key">Technology</div>
+                <div class="dictionary__row__value">15</div>
+            </div>
+            <div class="dictionary__row">
+                <div class="dictionary__row__key">Culture</div>
+                <div class="dictionary__row__value">7</div>
+            </div>
+            <div class="dictionary__row">
+                <div class="dictionary__row__key">Economy</div>
                 <div class="dictionary__row__value">0</div>
+            </div>
+            <div class="dictionary__row">
+                <div class="dictionary__row__key">Amentities</div>
+                <div class="dictionary__row__value">0</div>
+            </div>
+            <div class="dictionary__row">
+                <div class="dictionary__row__key">General Morale</div>
+                <div class="dictionary__row__value">-25</div>
             </div>
         </div>
     </div> 

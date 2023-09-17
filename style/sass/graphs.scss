@@ -4,11 +4,11 @@
 @use "game_modules/_skills";
 
 @use "definitions/shadows";
+@use "game_modules/base";
 @import "game_modules/graph";
 @import "game_modules/map";
 @import "game_modules/ink_side_banner";
 @import "game_modules/tokens";
-@import "game_modules/base";
 
 * {
   box-sizing: border-box;
