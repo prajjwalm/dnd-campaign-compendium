@@ -2,7 +2,8 @@ import {
     ProficiencyLevel,
     DSkill,
     VisibilityLevel, CSkill
-} from "../../../data/constants";
+}               from "../../../data/constants";
+import {Rating} from "../../../data/Rarity";
 
 /**
  * Objects supporting this interface can be queried to get their modifiers for
@@ -18,5 +19,5 @@ export interface ICSkills
     /**
      * @returns All the skills that were improved beyond usual.
      */
-    get upgradedSkills(): ReadonlyMap<CSkill, [number, VisibilityLevel]>;
+    get cSkillRatings(): ReadonlyMap<CSkill, Rating>;
 }

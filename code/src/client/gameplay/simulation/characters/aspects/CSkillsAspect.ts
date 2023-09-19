@@ -1,17 +1,10 @@
-import {
-    CSkill,
-    VisibilityLevel
-}                      from "../../../data/constants";
-import {
-    Rating
-}                      from "../../../data/Rarity";
-import {IDOMGenerator} from "../../../IDomGenerator";
-import {wrapCSkill, wrapCSkillValue, wrapRating} from "../../action/Wrap";
-import {Character}                               from "../Character";
-import {AspectFactoryFlag}                       from "./AspectFactoryFlag";
-import {BaseAspect}                              from "./BaseAspect";
-import {ICSkills}                                from "./ICSkills";
-import {ICSkillsFactory}                         from "./ICSkillsFactory";
+import {CSkill, VisibilityLevel} from "../../../data/constants";
+import {Rating}                  from "../../../data/Rarity";
+import {Character}               from "../Character";
+import {AspectFactoryFlag}       from "./AspectFactoryFlag";
+import {BaseAspect}              from "./BaseAspect";
+import {ICSkills}                from "./ICSkills";
+import {ICSkillsFactory}         from "./ICSkillsFactory";
 
 
 /**
@@ -21,8 +14,7 @@ import {ICSkillsFactory}                         from "./ICSkillsFactory";
 export class CSkillsAspect
     extends    BaseAspect
     implements ICSkills,
-               ICSkillsFactory,
-               IDOMGenerator
+               ICSkillsFactory
 {
     private static readonly BASE_VALUES = new Map([
         [CSkill.Accounting,            5],
@@ -125,16 +117,19 @@ export class CSkillsAspect
         this.skills.set(skill, [value, visibility]);
     }
 
-    public get upgradedSkills(): ReadonlyMap<CSkill, [number, VisibilityLevel]>
+    public get cSkillRatings(): ReadonlyMap<CSkill, Rating>
     {
         this.ensure(AspectFactoryFlag.CSkillsSkillsFinalized, true);
-        return this.skills;
+        const ratings: Map<CSkill, Rating> = new Map();
+        for (const [skill, [value, _]] of this.skills.entries()) {
+            ratings.set(skill, CSkillsAspect.getRatingForSkillModifier(value));
+        }
+        return ratings;
     }
 
     public setSkillValues(data: [CSkill, number, VisibilityLevel][])
     {
-        this.buildSentinel(AspectFactoryFlag.CSkillsSkillsDeclared,
-                           AspectFactoryFlag.CSkillsSkillsFinalized);
+        this.finalizeSkills();
         for (const datum of data) {
             if (datum[1] == CSkillsAspect.BASE_VALUES.get(datum[0])) {
                 continue;
@@ -143,58 +138,30 @@ export class CSkillsAspect
         }
     }
 
-    /**
-     * @inheritDoc
-     */
-    public generateDOMString(): string
-    {
-        let anySkillHidden = false;
-        const skillList = [];
-        for (const [skill, [v, vis]] of this.skills.entries()) {
-            if (vis == VisibilityLevel.Hidden) {
-                anySkillHidden = true;
-            }
-            else if (vis == VisibilityLevel.Hinted) {
-                skillList.push(`${wrapCSkill(skill)} ???`);
-            }
-            else if (vis == VisibilityLevel.Vague) {
-                skillList.push(`${wrapCSkill(skill)} ${wrapRating(CSkillsAspect.getRatingForSkillModifier(v))}`);
-            }
-            else if (vis == VisibilityLevel.Shown) {
-                skillList.push(`${wrapCSkill(skill)} ${wrapCSkillValue(v)}`);
-            }
-            else {
-                throw new Error("Unknown visibility level.");
-            }
-        }
-        return skillList.join(" ") +
-               (anySkillHidden ? "<br/><span>Has skills not yet revealed.</span>" : "");
-    }
-
     private static getRatingForSkillModifier(v: number): Rating
     {
-        if (v < 1) {
+        if (v < 5) {
             return Rating.F;
         }
-        if (v < 5) {
+        if (v < 20) {
             return Rating.E;
         }
-        if (v < 20) {
+        if (v < 50) {
             return Rating.D;
         }
-        if (v < 50) {
+        if (v < 75) {
             return Rating.C;
         }
-        if (v < 75) {
+        if (v < 90) {
             return Rating.B;
         }
-        if (v < 90) {
+        if (v < 100) {
             return Rating.A;
         }
-        if (v < 100) {
-            return Rating.S;
-        }
         if (v < 150) {
+            return Rating.S ;
+        }
+        if (v < 200) {
             return Rating.SS;
         }
         return Rating.SSS;

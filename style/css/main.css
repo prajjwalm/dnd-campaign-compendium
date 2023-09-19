@@ -1299,23 +1299,23 @@ table.simple_table {
   min-width: 320px;
 }
 
-.upgrade_stats, .upgrade_effects, .ratings_dictionary, .theme--unknown .dictionary, .theme--friendly .dictionary, .theme--safe .dictionary, .theme--combat .dictionary, .theme--emergency .dictionary, .theme--neutral .dictionary, .theme--deadly .dictionary, .theme--black .dictionary, .dictionary {
+.upgrade_stats, .upgrade_effects, .ratings_dictionary, .infrastructure .building__dictionary, .operator_screen__details, .operator_screen__skills, .theme--unknown .dictionary, .theme--friendly .dictionary, .theme--safe .dictionary, .theme--combat .dictionary, .theme--emergency .dictionary, .theme--neutral .dictionary, .theme--deadly .dictionary, .theme--black .dictionary, .dictionary {
   font-family: "RobotoCondensed", sans-serif;
   font-size: 14px;
   margin-bottom: 8px;
 }
-.upgrade_stats .dictionary__row, .upgrade_effects .dictionary__row, .ratings_dictionary .dictionary__row, .dictionary .dictionary__row {
+.upgrade_stats .dictionary__row, .upgrade_effects .dictionary__row, .ratings_dictionary .dictionary__row, .infrastructure .building__dictionary .dictionary__row, .operator_screen__details .dictionary__row, .operator_screen__skills .dictionary__row, .dictionary .dictionary__row {
   display: flex;
   flex-flow: row nowrap;
   margin-bottom: 4px;
 }
-.upgrade_stats .dictionary__row__key, .upgrade_effects .dictionary__row__key, .ratings_dictionary .dictionary__row__key, .dictionary .dictionary__row__key {
+.upgrade_stats .dictionary__row__key, .upgrade_effects .dictionary__row__key, .ratings_dictionary .dictionary__row__key, .infrastructure .building__dictionary .dictionary__row__key, .operator_screen__details .dictionary__row__key, .operator_screen__skills .dictionary__row__key, .dictionary .dictionary__row__key {
   font-weight: bold;
   font-variant-caps: small-caps;
   flex-grow: 0;
   margin-right: 4px;
 }
-.upgrade_stats .dictionary__row__value, .upgrade_effects .dictionary__row__value, .ratings_dictionary .dictionary__row__value, .dictionary .dictionary__row__value {
+.upgrade_stats .dictionary__row__value, .upgrade_effects .dictionary__row__value, .ratings_dictionary .dictionary__row__value, .infrastructure .building__dictionary .dictionary__row__value, .operator_screen__details .dictionary__row__value, .operator_screen__skills .dictionary__row__value, .dictionary .dictionary__row__value {
   flex-grow: 1;
 }
 
@@ -2123,7 +2123,6 @@ ul, ol {
 
 img {
   display: inline-block;
-  margin: 8px;
   object-fit: contain;
 }
 
@@ -2287,7 +2286,6 @@ ul, ol {
 
 img {
   display: inline-block;
-  margin: 8px;
   object-fit: contain;
 }
 
@@ -2538,7 +2536,6 @@ ul, ol {
 
 img {
   display: inline-block;
-  margin: 8px;
   object-fit: contain;
 }
 
@@ -2763,7 +2760,6 @@ ul, ol {
 
 img {
   display: inline-block;
-  margin: 8px;
   object-fit: contain;
 }
 
@@ -4086,26 +4082,26 @@ img {
   background-color: #555;
 }
 
-.ratings_dictionary, .dictionary {
+.ratings_dictionary, .infrastructure .building__dictionary, .operator_screen__details, .operator_screen__skills, .dictionary {
   font-family: "RobotoCondensed", sans-serif;
   font-size: 14px;
   margin-bottom: 8px;
 }
 
-.ratings_dictionary .dictionary__row, .dictionary .dictionary__row {
+.ratings_dictionary .dictionary__row, .infrastructure .building__dictionary .dictionary__row, .operator_screen__details .dictionary__row, .operator_screen__skills .dictionary__row, .dictionary .dictionary__row {
   display: flex;
   flex-flow: row nowrap;
   margin-bottom: 4px;
 }
 
-.ratings_dictionary .dictionary__row__key, .dictionary .dictionary__row__key {
+.ratings_dictionary .dictionary__row__key, .infrastructure .building__dictionary .dictionary__row__key, .operator_screen__details .dictionary__row__key, .operator_screen__skills .dictionary__row__key, .dictionary .dictionary__row__key {
   font-weight: bold;
   font-variant-caps: small-caps;
   flex-grow: 0;
   margin-right: 4px;
 }
 
-.ratings_dictionary .dictionary__row__value, .dictionary .dictionary__row__value {
+.ratings_dictionary .dictionary__row__value, .infrastructure .building__dictionary .dictionary__row__value, .operator_screen__details .dictionary__row__value, .operator_screen__skills .dictionary__row__value, .dictionary .dictionary__row__value {
   flex-grow: 1;
 }
 
@@ -4269,7 +4265,6 @@ ul, ol {
 
 img {
   display: inline-block;
-  margin: 8px;
   object-fit: contain;
 }
 
@@ -4298,10 +4293,13 @@ img {
   min-width: 960px;
   height: calc(100% - 32px);
   display: grid;
-  grid-template-rows: 9fr 5fr 2fr;
+  grid-template-rows: 1fr 240px 100px;
   grid-template-columns: 9fr 3fr 4fr;
   gap: 24px;
   margin: 16px;
+}
+.base_management .grunge_nav_button:hover {
+  cursor: pointer;
 }
 .base_management .base_management__villagers, .base_management .base_management__buildings, .base_management .base_management__rating, .base_management .base_management__logs {
   padding: 8px 16px;
@@ -4322,6 +4320,10 @@ img {
 .base_management__buildings {
   grid-row: 2/span 2;
   grid-column: 1/span 2;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
 }
 .base_management__villagers {
   grid-row: 1/span 2;
@@ -4336,7 +4338,7 @@ img {
   justify-content: space-evenly;
 }
 
-.terminal_title {
+.terminal_title, .operator_screen__title {
   font-size: 20px;
   font-weight: 200;
   font-variant-caps: small-caps;
@@ -4363,7 +4365,7 @@ img {
   width: 100%;
   height: 64px;
 }
-.world_logs__header .terminal_title {
+.world_logs__header .terminal_title, .world_logs__header .operator_screen__title {
   grid-row: 1/span 2;
   grid-column: 1/span 1;
   justify-self: start;
@@ -4537,13 +4539,13 @@ img {
   font-size: 12px;
 }
 .achievement--complete {
-  box-shadow: 0 3px 6px rgba(0, 128, 0, 0.28) inset;
+  box-shadow: 0 3px 6px rgba(21, 127, 227, 0.28) inset;
 }
 .achievement--complete .achievement__status {
   visibility: visible;
   font-size: 28px;
-  color: green;
-  text-shadow: 0 1px 3px rgba(0, 128, 0, 0.12), 0 1px 2px rgba(0, 128, 0, 0.24);
+  color: #157FE3;
+  text-shadow: 0 1px 3px rgba(21, 127, 227, 0.12), 0 1px 2px rgba(21, 127, 227, 0.24);
 }
 .achievement--inner {
   margin-left: 16px;
@@ -4565,6 +4567,229 @@ img {
   min-width: 136px;
 }
 
+.infrastructure {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  padding: 8px 16px;
+  gap: 8px;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+.infrastructure::-webkit-scrollbar {
+  display: none;
+}
+.infrastructure .building {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 8px;
+  overflow: hidden;
+  background-color: #272727;
+  border-radius: 8px;
+  flex-shrink: 0;
+  width: 700px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) inset;
+}
+.infrastructure .building__title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-variant-caps: small-caps;
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+.infrastructure .building .icon_space {
+  width: 2px;
+  height: 2px;
+  overflow: visible;
+  align-self: flex-end;
+}
+.infrastructure .building__icon {
+  transform: translate(calc(-50% - 8px), -70px);
+  font-size: 16px;
+  font-family: "RobotoCondensed", sans-serif;
+  border: solid 2px #FAFCFF;
+  font-weight: bold;
+  background-color: #444548;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  overflow: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.infrastructure .building__icon i {
+  font-size: 20px;
+}
+.infrastructure .building__icon .icon_bar {
+  width: 100%;
+  background-color: #FAFCFF;
+  height: 2px;
+}
+.infrastructure .building__art {
+  width: auto;
+  aspect-ratio: 1/1;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+.infrastructure .building__art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.infrastructure .building__details {
+  font-family: "RobotoCondensed", sans-serif;
+  margin: 8px;
+  font-size: 13px;
+}
+.infrastructure .building__dictionary {
+  margin-top: 4px;
+}
+.infrastructure .building__dictionary .dictionary__row__key {
+  color: #157FE3;
+  min-width: 120px;
+}
+
+.operator_screen {
+  display: flex;
+  flex-flow: column nowrap;
+  font-family: "RobotoCondensed", sans-serif;
+  gap: 8px;
+  height: 100%;
+  overflow-y: scroll;
+}
+.operator_screen::-webkit-scrollbar {
+  display: none;
+}
+.operator_screen__icon {
+  align-self: center;
+}
+.operator_screen__details .dictionary__row__key {
+  color: #157FE3;
+  min-width: 120px;
+}
+.operator_screen__subtitle {
+  font-family: "Montserrat", sans-serif;
+  font-variant-caps: small-caps;
+  color: #157FE3;
+}
+.operator_screen__skills .dictionary__row__key {
+  color: #157FE3;
+  min-width: 80px;
+}
+
+.skill_block .dictionary__row__key {
+  display: flex;
+  align-items: center;
+}
+.skill_block .c_skill {
+  display: inline-block;
+  border-radius: 8px;
+  background-color: #222;
+  font-size: 12px;
+  padding: 4px 8px;
+  margin: 2px;
+}
+.skill_block .d_skill {
+  display: inline-block;
+  border-radius: 8px;
+  background-color: #222;
+  font-size: 12px;
+  padding: 4px 8px;
+  margin: 2px;
+}
+
+.icon_table {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 4px;
+}
+.icon_table__slot {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.icon_table__slot__icon {
+  font-size: 20px;
+  color: #157FE3;
+}
+.icon_table__slot__value {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+}
+.icon_table__slot__label {
+  background-color: #19297C;
+  font-family: "RobotoCondensed", sans-serif;
+  font-size: 13px;
+  padding: 8px 4px;
+  border-radius: 4px;
+  position: absolute;
+  top: 45px;
+  left: auto;
+  right: auto;
+  width: 120px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s;
+  z-index: 1;
+  box-shadow: 0 0 2px #fff inset, 0 0 4px #157FE3 inset, 0 0 6px #173FB3 inset, 0 0 8px #173FB3 inset;
+}
+.icon_table__slot:hover .icon_table__slot__label {
+  visibility: visible;
+  opacity: 1;
+}
+
+.npc_chemistry {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.npc_chemistry__npc {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  position: relative;
+  flex-shrink: 0;
+}
+.npc_chemistry__npc img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.npc_chemistry__value {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(20%, 20%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #19297C;
+  border: solid 1px #00031D;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "RobotoCondensed", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.npc_chemistry__desc {
+  font-size: 13px;
+  display: inline-block;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -4581,6 +4806,10 @@ body {
 
 #pages {
   background: linear-gradient(to bottom, #FAFCFF 0%, #BABDC0 100%);
+}
+
+img {
+  margin: 8px;
 }
 
 /*# sourceMappingURL=main.css.map */

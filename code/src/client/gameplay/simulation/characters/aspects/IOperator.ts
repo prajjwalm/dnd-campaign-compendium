@@ -1,14 +1,24 @@
 import {
     CSkill,
-    DSkill,
+    DSkill, Era,
     VisibilityLevel
-}               from "../../../data/constants";
+} from "../../../data/constants";
 import {Morale} from "../Morale";
 import {CombatRatingMetric} from "./IOperatorFactory";
 
 
 export interface IOperator
 {
+    /**
+     * The era in terms of science this operator comes from.
+     */
+    get era(): Era;
+
+    /**
+     * The old, current professions the character had.
+     */
+    get professions(): [string, string];
+
     /**
      * The morale of this operator
      */

@@ -2,7 +2,8 @@ import {
     DSkill,
     ProficiencyLevel,
     VisibilityLevel
-} from "../../../data/constants";
+}               from "../../../data/constants";
+import {Rating} from "../../../data/Rarity";
 
 
 /**
@@ -33,7 +34,7 @@ export interface IDSkills
      * @returns All the skills that were improved beyond usual, via proficiency,
      *          or constant value.
      */
-    get upgradedSKills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>;
+    get upgradedSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>;
 
-
+    get dSkillRatings(): ReadonlyMap<DSkill, Rating>;
 }

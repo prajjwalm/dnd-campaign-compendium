@@ -137,6 +137,15 @@ function setupMapGraphLogic($area: JQuery, graph: MapGraph)
         sidePanel.toggleFullSpan(activeVertex.generateSiteDOMString());
     });
 
+    $sideBanner.on("click", ".cog_reseq", function () {
+        $(".graph_label").removeClass("selected");
+        $(".graph_label[data-graph-id='skill_graph_area']").addClass("selected");
+
+        $(".graph_area").hide();
+        $(`#skill_graph_area`).show();
+        sidePanel.reset();
+    });
+
     $area.on("click", resetGraphState);
 }
 
@@ -147,7 +156,6 @@ export function setupMapGraph($element: JQuery, graph: MapGraph)
         return;
     }
     $element.append(graph.generateDOMString());
-    // Todo: super broken stuff, will fall apart the minute we have two graphs.
     setupMapGraphLogic($element, graph);
 }
 

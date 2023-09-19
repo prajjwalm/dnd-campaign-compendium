@@ -1,3 +1,4 @@
+import {Era}    from "../../../data/constants";
 import {Rarity} from "../../../data/Rarity";
 import {NpcID}  from "../../../data/npcIndex";
 import {Morale} from "../Morale";
@@ -5,13 +6,18 @@ import {Morale} from "../Morale";
 
 export interface CombatRatingMetric
 {
-    damage: number;
-    control: number;
-    survival: number;
+    pro: string;
+    damage: string;
+    control: string;
+    survival: string;
 }
 
 export interface IOperatorFactory
 {
+    set era(v: Era);
+
+    set professions(v: [string, string]);
+
     /**
      * Damage, Control, Survivability
      */

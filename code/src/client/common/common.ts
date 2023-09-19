@@ -57,7 +57,6 @@ function _getEnumLength(en: object) {
 export const getEnumLength = memoize(_getEnumLength);
 
 function* _getEnumIterator(args) {
-    // WHAT THE ACTUAL FUCK? WHY THE [0]?
     for (let item in args[0]) {
         if (isNaN(Number(item))) {
             continue;

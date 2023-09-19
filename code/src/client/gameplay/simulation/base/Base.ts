@@ -1,5 +1,8 @@
+import {NpcID}                     from "../../data/npcIndex";
+import {Character}                 from "../characters/Character";
 import {generateAchievementsPanel} from "./Achievements";
-import {generateWorldLogsPanel}    from "./WorldLogs";
+import {generateBuildingsPanel}    from "./buildingInstances";
+import {generateOperatorProfile}   from "./Operator";
 
 export function generateBaseDOM()
 {
@@ -57,11 +60,11 @@ export function generateBaseDOM()
             </div>
             <div class="dictionary__row">
                 <div class="dictionary__row__key">Economy</div>
-                <div class="dictionary__row__value">0</div>
+                <div class="dictionary__row__value">2</div>
             </div>
             <div class="dictionary__row">
                 <div class="dictionary__row__key">Amentities</div>
-                <div class="dictionary__row__value">0</div>
+                <div class="dictionary__row__value">6</div>
             </div>
             <div class="dictionary__row">
                 <div class="dictionary__row__key">General Morale</div>
@@ -70,13 +73,13 @@ export function generateBaseDOM()
         </div>
     </div> 
     <div class="base_management__buildings">
-        <div class="terminal_title">Economy and Infrastructure</div>
+        ${generateBuildingsPanel()}
     </div> 
     <div class="base_management__villagers">
-        <div class="terminal_title">Villager Profiles</div>    
+        ${generateOperatorProfile(Character.get(NpcID.Hina))}    
     </div>
     <div class="base_management__navigation"> 
-        <div class="hide_base grunge_nav_button">Cognitive ReSequencing</div>    
+        <div class="cog_reseq grunge_nav_button">Cognitive ReSequencing</div>    
         <div class="hide_base grunge_nav_button">Back to map</div>    
     </div>
 </div>`;

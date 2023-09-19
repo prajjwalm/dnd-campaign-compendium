@@ -1,4 +1,5 @@
 import {
+    CSkill,
     DSkill,
     ProficiencyLevel, Shown,
     StatForSkill,
@@ -126,7 +127,7 @@ export class DSkillsAspect
         this.setupSentinel(AspectFactoryFlag.DSkillsSkillsFinalized);
     }
 
-    public get upgradedSKills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
+    public get upgradedSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
     {
         const upgradedSkills: Map<DSkill, [number, VisibilityLevel]> = new Map();
         if (this.skills.has(DSkill._ALL)) {
@@ -167,6 +168,16 @@ export class DSkillsAspect
         return upgradedSkills;
     }
 
+    public get dSkillRatings(): ReadonlyMap<DSkill, Rating>
+    {
+        this.ensure(AspectFactoryFlag.DSkillsSkillsFinalized, true);
+        const ratings: Map<DSkill, Rating> = new Map();
+        for (const [skill, [value, _]] of this.upgradedSkills.entries()) {
+            ratings.set(skill, DSkillsAspect.getRatingForSkillModifier(value));
+        }
+        return ratings;
+    }
+
     private static getRatingForSkillModifier(mod: number): Rating
     {
         if (mod < 0) {
@@ -178,19 +189,19 @@ export class DSkillsAspect
         if (mod <= 3) {
             return Rating.D;
         }
-        if (mod <= 5) {
+        if (mod <= 6) {
             return Rating.C;
         }
-        if (mod <= 8) {
+        if (mod <= 10) {
             return Rating.B;
         }
-        if (mod <= 12) {
+        if (mod <= 15) {
             return Rating.A;
         }
-        if (mod <= 16) {
+        if (mod <= 20) {
             return Rating.S;
         }
-        if (mod <= 20) {
+        if (mod <= 26) {
             return Rating.SS;
         }
         return Rating.SSS;

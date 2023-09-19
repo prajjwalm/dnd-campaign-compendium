@@ -369,6 +369,18 @@ export enum CSkill
     Zoology,
 }
 
+export enum Era {
+    Future,
+    Information,
+    Atomic,
+    Modern,
+    Industrial,
+    Renaissance,
+    Medieval,
+    Classical,
+    Ancient,
+}
+
 
 /**
  * How much the PCs know about a NPC's certain characteristic, be it a combat

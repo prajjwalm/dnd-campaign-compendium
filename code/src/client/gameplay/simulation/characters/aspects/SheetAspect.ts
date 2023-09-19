@@ -130,7 +130,7 @@ export class SheetAspect
         }
 
         const skillList = [];
-        for (const [skill, [mod, _]] of this.skillAspect.upgradedSKills.entries()) {
+        for (const [skill, [mod, _]] of this.skillAspect.upgradedSkills.entries()) {
             skillList.push(`<span style="display: inline-block;">${wrapDSkill(skill)} ${wrapRoll(mod)}</span>`);
         }
 

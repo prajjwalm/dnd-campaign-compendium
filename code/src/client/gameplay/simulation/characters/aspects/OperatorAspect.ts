@@ -1,24 +1,25 @@
 import {
     CSkill,
-    DSkill,
+    DSkill, Era,
     Prof,
     ProficiencyLevel, StatForSkill,
     VisibilityLevel
-} from "../../../data/constants";
+}                                                from "../../../data/constants";
 import {
-    Rarity
-}                      from "../../../data/Rarity";
-import {NpcID}         from "../../../data/npcIndex";
-import {IDOMGenerator} from "../../../IDomGenerator";
-import {Character}                               from "../Character";
+    Rarity, Rating
+}                                                from "../../../data/Rarity";
+import {NpcID}                                   from "../../../data/npcIndex";
+import {IDOMGenerator}          from "../../../IDomGenerator";
+import {wrapCSkill, wrapDSkill} from "../../action/Wrap";
+import {Character}              from "../Character";
 import {Morale, MoraleEffects, NpcMoraleEffects} from "../Morale";
 import {BaseAspect}                              from "./BaseAspect";
-import {ICore}                                from "./ICore";
-import {ICSkills}                             from "./ICSkills";
-import {IDSkills}                             from "./IDSkills";
-import {IDStats}                              from "./IDStats";
-import {IOperator}                            from "./IOperator";
-import {CombatRatingMetric, IOperatorFactory} from "./IOperatorFactory";
+import {ICore}                                   from "./ICore";
+import {ICSkills}                                from "./ICSkills";
+import {IDSkills}                                from "./IDSkills";
+import {IDStats}                                 from "./IDStats";
+import {IOperator}                               from "./IOperator";
+import {CombatRatingMetric, IOperatorFactory}    from "./IOperatorFactory";
 
 
 export class OperatorAspect
@@ -94,11 +95,70 @@ export class OperatorAspect
                             `<span class="npc_chemistry__desc">${desc}</span>`;
             chemistry.push(`
                 <span class="npc_chemistry">
-                    <span class="npc_chemistry__npc">${Character.get(npc).name}</span>
-                    <span class="npc_chemistry__value">${value}</span>
-                    ${descStr}
+                    <div class="npc_chemistry__npc">
+                        <img src="${Character.get(npc).imgPath}" alt="">
+                        <div class="npc_chemistry__value">${value}</div>
+                    </div>
+                    <div class="npc_chemistry__desc">${descStr}</div>
                 </span>
             `);
+        }
+
+        const dSkillsByRating: Map<Rating, DSkill[]> = new Map();
+        const cSkillsByRating: Map<Rating, CSkill[]> = new Map();
+
+        for (const [skill, rating] of this.dSkills.dSkillRatings.entries()) {
+            if (!dSkillsByRating.has(rating)) {
+                dSkillsByRating.set(rating, []);
+            }
+            dSkillsByRating.get(rating).push(skill);
+        }
+        for (const [skill, rating] of this.cSkills.cSkillRatings.entries()) {
+            if (!cSkillsByRating.has(rating)) {
+                cSkillsByRating.set(rating, []);
+            }
+            cSkillsByRating.get(rating).push(skill);
+        }
+
+        const ratingToStrings = new Map([
+            [Rating.F, "Useless"],
+            [Rating.E, "Novice"],
+            [Rating.D, "Hobbyist"],
+            [Rating.C, "Professional"],
+            [Rating.B, "Expertise"],
+            [Rating.A, "Mastery"],
+            [Rating.S, "Legendary"],
+            [Rating.SS, "Mythic"],
+            [Rating.SSS, "Titanic"],
+        ]);
+
+        const skillBlockDOMs = [];
+        for (const rating of [Rating.D,
+                              Rating.C,
+                              Rating.B,
+                              Rating.A,
+                              Rating.S,
+                              Rating.SS,
+                              Rating.SSS])
+        {
+            if ((dSkillsByRating.has(rating) && dSkillsByRating.get(rating).length > 0) ||
+                (cSkillsByRating.has(rating) && cSkillsByRating.get(rating).length > 0))
+            {
+                skillBlockDOMs.push(`
+                <div class="skill_block dictionary__row">
+                    <div class="dictionary__row__key">${ratingToStrings.get(rating)}</div>
+                    <div class="dictionary__row__value">
+                        ${dSkillsByRating.has(rating) ?
+                          dSkillsByRating.get(rating)
+                                         .map(x => wrapDSkill(x))
+                                         .join("") : ""}
+                        ${cSkillsByRating.has(rating) ?
+                          cSkillsByRating.get(rating)
+                                         .map(x => wrapCSkill(x))
+                                         .join("") : ""}                    
+                    </div>
+                </div>`);
+            }
         }
 
         const items = [];
@@ -108,45 +168,57 @@ export class OperatorAspect
 
         return `
             <div class="operator_screen">
-                <div class="operator_screen__title">${this.core.name}</div>
+                <div class="operator_screen__title">Villager Profile: ${this.core.name}</div>
                 <div class="operator_screen__icon"><img src="${this.core.imgPath}" alt=""/></div>
                 <div class="operator_screen__ratings icon_table">
                     <div class="icon_table__slot">
                         <div class="icon_table__slot__icon"><i class="fa-solid fa-swords"></i></div>
-                        <div class="icon_table__slot__label">
-                            Destruction ${this.ratings.damage}
-                        </div>
+                        <div class="icon_table__slot__value">${this.ratings.damage}</div>
+                        <div class="icon_table__slot__label">Damage Rating</div>
                     </div>
                     <div class="icon_table__slot">
                         <div class="icon_table__slot__icon"><i class="fa-sharp fa-solid fa-gears"></i></div>
-                        <div class="icon_table__slot__label">
-                            Control ${this.ratings.control}
-                        </div>
+                        <div class="icon_table__slot__value">${this.ratings.control}</div>
+                        <div class="icon_table__slot__label">Control Rating</div>
                     </div>
                     <div class="icon_table__slot">
                         <div class="icon_table__slot__icon"><i class="fa-solid fa-shield-cross"></i></div>
-                        <div class="icon_table__slot__label">
-                            Defense ${this.ratings.control}
-                        </div>
+                        <div class="icon_table__slot__value">${this.ratings.survival}</div>
+                        <div class="icon_table__slot__label">Survival Rating</div>
+                    </div>
+                    <div class="icon_table__slot">
+                        <div class="icon_table__slot__icon"><i class="fa-solid fa-user-tie"></i></div>
+                        <div class="icon_table__slot__value">${this.ratings.pro}</div>
+                        <div class="icon_table__slot__label">Professional Skills</div>
                     </div>
                 </div>
-                <div class="operator_screen__status">
-                    ${statuses.join("")}
-                </div>
+                <div class="operator_screen__subtitle">Notable Information</div>
                 <div class="operator_screen__details dictionary">
+                    <div class="dictionary__row">
+                        <span class="dictionary__row__key">From Era</span>
+                        <span class="dictionary__row__value">${Era[this.era]}</span>
+                    </div>
+                    <div class="dictionary__row">
+                        <span class="dictionary__row__key">Old Profession</span>
+                        <span class="dictionary__row__value">${this.professions[0]}</span>
+                    </div>
+                    <div class="dictionary__row">
+                        <span class="dictionary__row__key">Current Profession</span>
+                        <span class="dictionary__row__value">${this.professions[1]}</span>
+                    </div>
                     ${tableEntries.join("")}
+                    <div class="dictionary__row">
+                        <span class="dictionary__row__key">Morale</span>
+                        <span class="dictionary__row__value">${Morale[this.morale]}</span>
+                    </div>
                 </div>
-                <div class="operator_screen__d_skills">
-                    
+                <div class="operator_screen__subtitle">Specializing skills</div>
+                <div class="operator_screen__skills">
+                    ${skillBlockDOMs.join("")}
                 </div>
-                <div class="operator_screen__c_skills">
-                    ${this.character.generateCSkillsDOM()}
-                </div>
+                <div class="operator_screen__subtitle">Chemistry with other villagers</div>
                 <div class="operator_screen__chemistry">
                     ${chemistry.join("")}
-                </div>
-                <div class="operator_screen__inventory">
-                    ${items.join("")}                
                 </div>
             </div>
         `;
@@ -204,7 +276,7 @@ export class OperatorAspect
                 Prof.get(this.dStats.pb.mod() + effects.get(NpcMoraleEffects.ProficiencyBonusModifier));
         }
         if (effects.has(NpcMoraleEffects.SkillModifier)) {
-            for (let [skill, [num, vis]] of this.dSkills.upgradedSKills) {
+            for (let [skill, [num, vis]] of this.dSkills.upgradedSkills) {
                 num -= this.dStats.mod(StatForSkill.get(skill));
                 this.character.dSKills.setSkillProficiency(
                     skill,
@@ -221,7 +293,7 @@ export class OperatorAspect
      */
     public get notableCSkills(): ReadonlyMap<CSkill, [number, VisibilityLevel]>
     {
-        return this.cSkills.upgradedSkills;
+        throw new Error("Not implemented");
     }
 
     /**
@@ -229,6 +301,10 @@ export class OperatorAspect
      */
     public get notableDSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
     {
-        return this.dSkills.upgradedSKills;
+        return this.dSkills.upgradedSkills;
     }
+
+    public era: Era;
+
+    public professions: [string, string];
 }

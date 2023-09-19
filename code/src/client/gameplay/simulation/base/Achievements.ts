@@ -138,7 +138,7 @@ class NestedAchievement
 
 const Achievements: Map<string, IAchievement[]> = new Map([
     ["The Candles", [
-        new StdAchievement("That's a familiar scent",
+        new StdAchievement("That's a familiar scent?",
                            "Understand the nature of the unusual candles and trace their past.",
                            500,
                            false),
@@ -227,7 +227,7 @@ const Achievements: Map<string, IAchievement[]> = new Map([
                       "Have the Sand Soldier join your cause.",
                       800,
                       false),
-        new NestedAchievement("... is for the timid",
+        new NestedAchievement("... is for the weak",
                               "Prevent the sand soldier from leaving with the blade.",
                               1000,
                               false)
@@ -268,6 +268,10 @@ const Achievements: Map<string, IAchievement[]> = new Map([
         new StdAchievement("Pacifist's creed",
                            "Do not kill a single resident of the shelter.",
                            1200,
+                           true),
+        new StdAchievement("It was luxuries like air conditioning",
+                           "While on the way out, enter the bio research room",
+                           800,
                            true),
         new NestedAchievement("Unbreakable from the outside",
                               "Extract the Amethyst from the wall of force enclosing it.",

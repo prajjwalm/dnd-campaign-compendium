@@ -101,6 +101,7 @@ export class SidePanel
     public reset()
     {
         this.hide(() => this.empty());
+        this.$panel.removeClass(SidePanel.FULL_SPAN);
     }
 
     /**

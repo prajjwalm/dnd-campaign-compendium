@@ -14,7 +14,7 @@ import {
     Speed,
     VisibilityLevel,
     Hidden,
-    Shown
+    Shown, CSkill
 } from "../../../../../data/constants";
 import {
     NpcID
@@ -56,6 +56,59 @@ export function setupJaye()
     jaye.card.addCardTag(`Race | Ursine <span class='verbose'>(Polar)</span>`);
     jaye.card.addCardTag("CR | 5");
     jaye.card.summary = "???";
+
+    jaye.cSkills.setSkillValues([
+        [CSkill.Accounting,              5,  Hidden],
+        [CSkill.Anthropology,            0,  Hidden],
+        [CSkill.Appraise,                0,  Hidden],
+        [CSkill.Archaeology,             0,  Hidden],
+        [CSkill.Artillery,               0,  Hidden],
+        [CSkill.Charm,                  15,  Hidden],
+        [CSkill.ComputerUse,             5,  Hidden],
+        [CSkill.Demolitions,             0,  Hidden],
+        [CSkill.Disguise,                5,  Hidden],
+        [CSkill.Diving,                  0,  Hidden],
+        [CSkill.DriveAuto,              20,  Hidden],
+        [CSkill.ElectricalRepair,       10,  Hidden],
+        [CSkill.Electronics,             0,  Hidden],
+        [CSkill.FirstAid,               30,  Hidden],
+        [CSkill.Hypnosis,                0,  Hidden],
+        [CSkill.Law,                     5,  Hidden],
+        [CSkill.LibraryUse,             20,  Hidden],
+        [CSkill.Locksmith,               0,  Hidden],
+        [CSkill.MechanicalRepair,       10,  Hidden],
+        [CSkill.Medicine,                0,  Hidden],
+        [CSkill.NaturalWorld,           85,  Hidden],
+        [CSkill.Navigate,               10,  Hidden],
+        [CSkill.Occult,                  5,  Hidden],
+        [CSkill.OperateHeavyMachinery,   0,  Hidden],
+        [CSkill.Psychoanalysis,          0,  Hidden],
+        [CSkill.ReadLips,                0,  Hidden],
+        [CSkill.Ride,                   15,  Hidden],
+        [CSkill.Throw,                  80,  Hidden],
+        [CSkill.Acting,                  5,  Hidden],
+        [CSkill.Calligraphy,             0,  Hidden],
+        [CSkill.Carpentry,              10,  Hidden],
+        [CSkill.Cooking,                95,  Hidden],
+        [CSkill.Dancing,                 5,  Hidden],
+        [CSkill.FineArt,                 5,  Hidden],
+        [CSkill.Forgery,                 0,  Hidden],
+        [CSkill.Writing,                 5,  Hidden],
+        [CSkill.Singing,                 5,  Hidden],
+        [CSkill.Painting,                5,  Hidden],
+        [CSkill.Photography,             0,  Hidden],
+        [CSkill.Sculpting,               0,  Hidden],
+        [CSkill.Chainsaw,               10,  Hidden],
+        [CSkill.HeavyWeapons,           10,  Hidden],
+        [CSkill.Flamethrower,           10,  Hidden],
+        [CSkill.MachineGun,             10,  Hidden],
+        [CSkill.SubmachineGun,          10,  Hidden],
+        [CSkill.Aircraft,                0,  Hidden],
+        [CSkill.Boat,                    5,  Hidden],
+        [CSkill.Astronomy,               0,  Hidden],
+        [CSkill.Biology,                30,  Hidden],
+        [CSkill.Botany,                 20,  Hidden],
+    ]);
 
     jaye.combat.addClassLevels(AdventurerClass.Rogue, 5);
     jaye.combat.bonusHP = 5; // Medium sized creature.
