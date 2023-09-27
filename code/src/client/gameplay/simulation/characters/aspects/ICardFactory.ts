@@ -22,13 +22,13 @@ export interface ICardFactory
      *
      * This is mandatory for creating a card.
      */
-    set summary(s: string);
+    set summary(s: () => string);
 
     /**
      * Set a full page length HTML story around a character, intended to be read
      * at leisure. This need be set only for very important NPCs.
      */
-    set story(s: string);
+    set story(s: () => string);
 
     /**
      * Set a title for the primary image. Particularly relevant if we have

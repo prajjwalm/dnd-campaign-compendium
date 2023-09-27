@@ -225,6 +225,8 @@ $attitude_circle_border: 8px;
 }
 
 .effect_tag {
+  @include tag.tag(colors.$true_grey);
+
   &[data-emo="Affection"] {
    @include tag.tag(colors.$prussian);
   }
@@ -307,16 +309,20 @@ $attitude_circle_border: 8px;
     font-size: 12px;
     line-height: 1.4;
     flex-grow: 1;
+    text-align: justify;
   }
 
   .effect_tags {
     display: flex;
     align-self: stretch;
     align-items: center;
-    flex-flow: row-reverse nowrap;
+    justify-content: flex-start;
+    align-content: center;
+    flex-flow: row-reverse wrap;
     padding-left: 8px;
     margin-left: 8px;
     flex-grow: 0;
+    max-width: 240px;
   }
 
   .insight_lock {

@@ -9,9 +9,10 @@ import {
     Rarity, Rating
 }                                                from "../../../data/Rarity";
 import {NpcID}                                   from "../../../data/npcIndex";
-import {IDOMGenerator}          from "../../../IDomGenerator";
-import {wrapCSkill, wrapDSkill} from "../../action/Wrap";
-import {Character}              from "../Character";
+import {IDOMGenerator}                           from "../../../IDomGenerator";
+import {wrapCSkill, wrapDSkill}                  from "../../action/Wrap";
+import {OperatorProfiles}                        from "../../base/Operator";
+import {Character}                               from "../Character";
 import {Morale, MoraleEffects, NpcMoraleEffects} from "../Morale";
 import {BaseAspect}                              from "./BaseAspect";
 import {ICore}                                   from "./ICore";
@@ -168,7 +169,9 @@ export class OperatorAspect
 
         return `
             <div class="operator_screen">
-                <div class="operator_screen__title">Villager Profile: ${this.core.name}</div>
+                <div class="operator_screen__title">Villager Profile: ${this.core.name} 
+                    <span class="operator_screen__back"><i class="fa-solid fa-arrow-left"></i></span>
+                </div>
                 <div class="operator_screen__icon"><img src="${this.core.imgPath}" alt=""/></div>
                 <div class="operator_screen__ratings icon_table">
                     <div class="icon_table__slot">
@@ -254,6 +257,11 @@ export class OperatorAspect
     public addInventoryItem(item: string, rarity: Rarity)
     {
         this._items.push([item, rarity]);
+    }
+
+    public finalize(): void
+    {
+        OperatorProfiles.set(this.id, this.generateDOMString());
     }
 
     /**

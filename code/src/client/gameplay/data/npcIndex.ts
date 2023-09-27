@@ -63,6 +63,11 @@ export enum NpcID {
     Vitacia,
     Yuki,
     Ezell,
+    Ruzaki,
+    Elliot,
+    Yoeric,
+    Teiai,
+    Shuo,
     __MOBS__,
     Ephremis,
 }

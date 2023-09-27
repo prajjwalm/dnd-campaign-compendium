@@ -1,6 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
-import {Character} from "../../../Character";
+import {NpcID}        from "../../../../../data/npcIndex";
+import {Character}    from "../../../Character";
+import {setupAndoain} from "./andoain";
+import {setupAndri}   from "./andri";
 import {setupAthlon}  from "./athlon";
+import {setupBjron}   from "./bjorn";
 import {setupCecilia} from "./cecilia";
 import {setupCoroto}  from "./coroto";
 import {setupDawn}    from "./dawn";
@@ -8,17 +11,28 @@ import {setupDusk}    from "./dusk";
 import {setupElysium} from "./elysium";
 import {setupErica}   from "./erica";
 import {setupEzell}   from "./ezell";
+import {setupGenefe}  from "./genefe";
+import {setupHav}     from "./hav";
 import {setupHina}    from "./hina";
+import {setupIngrid}  from "./ingrid";
 import {setupIona}    from "./iona";
 import {setupJaye}    from "./jaye";
+import {setupJordi}   from "./jordi";
 import {setupKastor}  from "./kastor";
 import {setupRoberta} from "./roberta";
+import {setupSasha}   from "./sasha";
+import {setupSybilla} from "./sybilla";
+import {setupTomasa}  from "./tomasa";
 import {setupVerna}   from "./verna";
+import {setupVitacia} from "./vitacia";
 import {setupYuki}    from "./yuki";
 
 export function setupC2A1()
 {
+    setupAndoain();
+    setupAndri();
     setupAthlon();
+    setupBjron();
     setupCecilia();
     setupCoroto();
     setupDawn();
@@ -26,33 +40,19 @@ export function setupC2A1()
     setupElysium();
     setupErica();
     setupEzell();
+    setupGenefe();
+    setupHav();
     setupHina();
+    setupIngrid();
     setupIona();
     setupJaye();
+    setupJordi();
     setupKastor();
     setupRoberta();
+    setupSasha();
+    setupSybilla();
+    setupTomasa();
     setupVerna();
+    setupVitacia();
     setupYuki();
-
-    $(function () {
-        let npc: NpcID;
-        for (npc of [NpcID.Athlon,
-                     NpcID.Cecelia,
-                     NpcID.Coroto,
-                     NpcID.Dawn,
-                     NpcID.Dusk,
-                     NpcID.Elysium,
-                     NpcID.Erica,
-                     NpcID.Ezell,
-                     NpcID.Hina,
-                     NpcID.Iona,
-                     NpcID.Jaye,
-                     NpcID.Kastor,
-                     NpcID.Roberta,
-                     NpcID.Verna,
-                     NpcID.Yuki,])
-        {
-            Character.get(npc).finalize();
-        }
-    })
 }

@@ -27,18 +27,20 @@ export function setupLucian()
     lucian.card.primaryImageTitle = "Phantom";
     lucian.card.addAlternateImage("Solitaire", "character_tokens/C1/Arc1/lucian_mad.png");
 
-    lucian.card.summary = `
+    lucian.card.summary = () =>`
     "This darkness is a refuge, a throne, and paradise. The spirits of the dead have never left, and I’ve cursed 
      the world from atop their bones... Seeing me as I am now, do you still want to hear my song? Do you still
      dare... to stand before me?"<br/>
      Calamity of The Troupe - an unfinished masterpiece of their leader. Was once raised as their rising star in
-     response to the threat that was ${'Character.get(Npc.Ebenezar).createLink("the Lich")'}. But turned against them only 
+     response to the threat that was ${Character.get(NpcID.Ebenezar).createLink("the Lich")}. But turned against them only 
      as he slaughtered all the troupe's senior members in one night and escaped into Materia - sealing his
      memories and powers. He returned to the outer planes by accident and sought out the troupe when he did. 
-     Descended into insanity after killing ${'Character.get(Npc.Mouthpiece).createLink("The Mouthpiece")'} and inheriting 
-     his curse. Following which he stealthily assassinated ${'Character.get(Npc.TraitorOthello).createLink("The Traitor")'}, who was 
+     Descended into insanity after killing ${Character.get(NpcID.Mouthpiece).createLink("The Mouthpiece")} and inheriting 
+     his curse. Following which he stealthily assassinated ${Character.get(NpcID.TraitorOthello).createLink("The Traitor")}, who was 
      preoccupied in fighting 'Agents of the Fifth', thus freeing the Primordial nightmares.
     `;
 
     lucian.opinions.isOpinionated = false;
+
+
 }

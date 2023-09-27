@@ -17,10 +17,12 @@ export function setupDave()
     dave.card.addCardTag("<span class='verbose'>Samurai</span> Fighter");
     dave.card.addCardTag("Faction: Defenders");
 
-    dave.card.summary = `A warforged automaton that was purchased by ${Character.get(NpcID.Caelynn).createLink("Caelynn")}'s 
+    dave.card.summary = () =>`A warforged automaton that was purchased by ${Character.get(NpcID.Caelynn).createLink("Caelynn")}'s 
       batch-mates at a heavy price upon her graduation, to serve and protect her. His modules were heavily operated 
       upon by Lesley who practiced her coding skills on him. Failed to defend Caelynn at one point long ago, and 
       gave his life holding out against a deep-sea aberration to atone for it.`;
 
     dave.opinions.isOpinionated = false;
+
+    
 }

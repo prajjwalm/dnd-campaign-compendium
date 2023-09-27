@@ -313,8 +313,10 @@ export function sessionOpinionEvents05()
         NpcID.Hina,
         [PcIndex.ID_AURELIA],
         originalTimestamp,
-        "Hmm... a spellcaster... they always find their throats to be " +
-        "the first to be slit. But fireballs are cool anyway.",
+        "Hmm... a spellcaster... they're typically the first to be targeted, " +
+        "and for good reason. Fights are always safer with their throats slit... " +
+        "<span style='font-size: 11px;'>of course, that's not possible with the really dangerous ones...</span>" +
+        "<br/><i>Damn, those fireballs are cool.</i>",
         new Map([[PositiveEmotion.Respect, 4]]));
 
     // npcInteractionEvents.get(NpcIndex.ID_HINA).get(PcIndex.ID_QUINN).addEvent(

@@ -28,5 +28,16 @@ export function setupCoroto()
     coroto.dSKills.setSkillProficiency(DSkill.Persuasion, Hidden, ProficiencyLevel.Expert);
     coroto.dSKills.finalizeSkills();
 
+    coroto.card.setCampaignArc(2, 1);
+
+    coroto.card.addCardTag("M54");
+    // [NpcPersonalityTag.Paranoid, 3],
+    // [NpcPersonalityTag.Industrious, 3],
+    // [NpcPersonalityTag.Stern, 2],
+    // [NpcPersonalityTag.Confrontational, 2],
+    // [NpcPersonalityTag.Insecure, 1],
+    // [NpcPersonalityTag.Abusive, 1],
+    // [NpcPersonalityTag.Vain, 1],
+
     coroto.opinions.isOpinionated = true;
 }

@@ -18,9 +18,9 @@ export function setupIrene()
     irene.card.addCardTag("Faction: Inquisitor");
     irene.card.addCardTag("Inquisitor of ???");
 
-    irene.card.summary = `
+    irene.card.summary = () =>`
     An air genasi who was a junior member of the inquisition of the gardens. All her bunker-mates were killed in 
-    an attack by The Troupe around 300 years ago, but the ${'Character.get(Npc.Kjerra).createLink("Guardian of Magic")'}
+    an attack by The Troupe around 300 years ago, but the ${Character.get(NpcID.Kjerra).createLink("Guardian of Magic")}
     took pity on her and replaced them all with physically intractable and sentient illusions. Despite them being 
     near-perfect replicas, Irene eventually figured out their true nature, but being grateful for the concern, she 
     kept the pretense of believing in them. Even so, ${Character.get(NpcID.Lesley).createLink("Lesley")} took a personal 
@@ -30,4 +30,6 @@ export function setupIrene()
     the fight.`;
 
     irene.opinions.isOpinionated = false;
+
+
 }

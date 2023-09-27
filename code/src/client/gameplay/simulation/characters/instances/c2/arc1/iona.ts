@@ -30,4 +30,14 @@ export function setupIona()
     iona.dSKills.finalizeSkills();
 
     iona.opinions.isOpinionated = true;
+
+    iona.card.setCampaignArc(2, 1);
+    iona.card.addCardTag("F13");
+
+    // [NpcPersonalityTag.Sanguine, 2],
+    // [NpcPersonalityTag.Optimist, 2],
+    // [NpcPersonalityTag.Trusting, 1],
+    // [NpcPersonalityTag.Social, 1],
+    // [NpcPersonalityTag.Psychopath, 1],
+    // [NpcPersonalityTag.Modest, 1],
 }

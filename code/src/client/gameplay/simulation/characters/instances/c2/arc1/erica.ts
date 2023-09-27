@@ -26,5 +26,9 @@ export function setupErica()
     erica.dSKills.setSkillProficiency(DSkill._ALL, Hidden, ProficiencyLevel.Half);
     erica.dSKills.finalizeSkills();
 
+    erica.card.setCampaignArc(2, 1);
+
+    erica.card.addCardTag("F50");
+
     erica.opinions.isOpinionated = true;
 }

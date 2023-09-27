@@ -17,7 +17,7 @@ export function setupLia()
     lia.card.addCardTag("<span class='verbose'>Samurai</span> Fighter");
     lia.card.addCardTag("Faction: Watchers");
 
-    lia.card.summary = `An elven archer who roamed freely the Feywild until by cruel circumstance she fell prey to the second 
+    lia.card.summary = () =>`An elven archer who roamed freely the Feywild until by cruel circumstance she fell prey to the second 
       nightmare. Survived the encounter thanks to ${Character.get(NpcID.Caelynn).createLink("Caelynn")}'s 
       intervention, who remained on the lookout for primordial incursions. Caelynn then offered her asylum with 
       herself promising to keep her safe from the primordial as far as possible, an offer she readily took. 
@@ -25,4 +25,5 @@ export function setupLia()
       married him on his insistence. While not the ideal marriage, the two manage fine nowadays.`;
 
     lia.opinions.isOpinionated = false;
+    
 }

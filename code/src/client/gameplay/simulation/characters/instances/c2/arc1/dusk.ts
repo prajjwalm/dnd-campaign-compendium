@@ -40,5 +40,5 @@ export function setupDusk()
     dusk.card.addCardTag(`Race | Titan <span class='verbose'>&times; Jade Dragon</span>`);
     dusk.card.addCardTag(`<span>Primordial | Outsider <span class='verbose'>(11<sup>th</sup> Fragment of Sui)</span></span>`);
     dusk.card.addCardTag("CR | 26");
-    dusk.card.summary = "???";
+    dusk.card.summary = () =>"???";
 }

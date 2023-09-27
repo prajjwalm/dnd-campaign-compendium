@@ -170,7 +170,7 @@ export function sessionOpinionEvents07()
         new Map([
                     [PositiveEmotion.Trust, 4]
                 ]),
-        Character.get(NpcID.Hina).passiveDeception + 10
+        Character.get(NpcID.Hina).passiveDeception + 5
     );
 
     // npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_PANZER).addEvent(
@@ -192,7 +192,7 @@ export function sessionOpinionEvents07()
         new Map([
                     [PositiveEmotion.Trust, -3],
                 ]),
-        Character.get(NpcID.Hina).passiveDeception + 10
+        Character.get(NpcID.Hina).passiveDeception + 5
     );
 
     addInteractionEvent(
@@ -207,7 +207,7 @@ export function sessionOpinionEvents07()
                     [PositiveEmotion.Trust, 2],
                     [PositiveEmotion.Respect, 2]
                 ]),
-        Character.get(NpcID.Hina).passiveDeception + 10
+        Character.get(NpcID.Hina).passiveDeception + 5
     );
 
     // npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_QUINN).addEvent(
@@ -413,7 +413,7 @@ export function sessionOpinionEvents07()
         new Map([
                     [PositiveEmotion.Trust, 1]
                 ]),
-        Character.get(NpcID.Hina).passiveDeception + 10
+        Character.get(NpcID.Hina).passiveDeception + 5
     );
 
     for (const pc of [

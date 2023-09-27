@@ -1,7 +1,7 @@
 import {
     Prof,
     DSkill,
-    VisibilityLevel, Hidden
+    Hidden
 }                  from "../../../../../data/constants";
 import {NpcID}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
@@ -26,4 +26,17 @@ export function setupYuki()
     yuki.dSKills.finalizeSkills();
 
     yuki.opinions.isOpinionated = true;
+
+    // [NpcPersonalityTag.Recluse, 2],
+    // [NpcPersonalityTag.Judging, 2],
+    // [NpcPersonalityTag.Distant, 2],
+    // [NpcPersonalityTag["Guilt-ridden"], 1],
+    // [NpcPersonalityTag.Kind, 1],
+    // [NpcPersonalityTag.Quiet, 1],
+    // [NpcPersonalityTag.Pessimist, 1],
+    // [NpcPersonalityTag["Night owl"], 1],
+
+
+    yuki.card.setCampaignArc(2, 1);
+    yuki.card.addCardTag("M27");
 }

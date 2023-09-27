@@ -1,13 +1,15 @@
-import {waitForFinalEvent} from "../../../common/common";
-import {ICard}             from "../../simulation/characters/aspects/ICard";
+import {waitForFinalEvent} from "../common/common";
+import {ICard}             from "./simulation/characters/aspects/ICard";
 
 
 /**
  * Defines an object that can be indexed. Hovering on it will display a snippet
  * in card style and clicking on it will navigate to some section of the page.
+ *
+ * The actual usage is now deprecated and this just acts as a placeholder for
+ * card related logic.
  */
 export abstract class Card
-    implements ICard
 {
     public static $commonCentralView: JQuery = null;
 
@@ -26,9 +28,6 @@ export abstract class Card
     private static viewportWidthInPx: number;
 
     private static viewportHeightInPx: number;
-
-    protected constructor()
-    { }
 
     public static loadFromDOM(): void
     {
@@ -167,24 +166,6 @@ export abstract class Card
         Card.Index.set(card.getCardIndex(), card);
     }
 
-    public getCardIndex(): string
-    {
-        return this.indexKey;
-    }
-
-    protected abstract get indexKey(): string;
-
-    public generatePrimaryToken(): string
-    {
-        throw new Error("Not implemented");
-    }
-
-    public createLink(displayText?: string): string
-    {
-        throw new Error("Not implemented");
-    }
-
-    public abstract generateCard(floating: boolean): string;
 }
 
 

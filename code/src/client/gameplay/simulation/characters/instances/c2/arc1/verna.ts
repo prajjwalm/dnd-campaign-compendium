@@ -1,7 +1,7 @@
 import {
     Prof,
     DSkill,
-    VisibilityLevel, Hidden
+    Hidden
 }                  from "../../../../../data/constants";
 import {NpcID}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
@@ -22,4 +22,13 @@ export function setupVerna()
     verna.dSKills.finalizeSkills();
 
     verna.opinions.isOpinionated = true;
+
+    // [NpcPersonalityTag.Confident, 2],
+    // [NpcPersonalityTag.Abrasive, 2],
+    // [NpcPersonalityTag.Stern, 2],
+    // [NpcPersonalityTag.Optimist, 1],
+    // [NpcPersonalityTag.Judging, 1],
+
+    verna.card.setCampaignArc(2, 1);
+    verna.card.addCardTag("F24");
 }

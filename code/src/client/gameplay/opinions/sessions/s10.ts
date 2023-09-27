@@ -31,9 +31,8 @@ export function sessionOpinionEvents10()
             PcIndex.ID_CYRION
         ],
         new GameTimestamp(0, 6, 14, 30),
-        `So many people waiting outside my door? OH! Got it. I'm popular now.`,
+        `So many people waiting outside my door? Ah, I see. I'm popular now it seems.`,
         new Map([
-                    [PositiveEmotion.Gratitude, 1],
                 ]),
     );
 
@@ -272,16 +271,16 @@ export function sessionOpinionEvents10()
         [PcIndex.ID_CYRION],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
-        `Hmm... it was pretty fun interacting with a good ol' backwaters hippy druid 
-         (real druid). Makes quite a difference from my usual clientele. Sigh,
+        `Hmm... it was pretty fun interacting with a good ol' backwaters hippy (100% real) druid 
+         . Makes quite a difference from my usual clientele. Sigh,
          though he refused to become my client after all - but that's all right 
          - people are usually shy before they get a taste of my services. Not to
          mention he also managed to pick up bits of my 100% organic natural 
          herbal recipe... <br/>`,
         new Map([
-                    [PositiveEmotion.Respect, 0.7],
-                    [PositiveEmotion.Trust, 0.2],
-                    [PositiveEmotion.Gratitude, 0.3],
+                    [PositiveEmotion.Respect, 0.8],
+                    [PositiveEmotion.Trust, 0.3],
+                    [PositiveEmotion.Gratitude, 0.4],
                 ])
     );
 
@@ -290,7 +289,7 @@ export function sessionOpinionEvents10()
         [PcIndex.ID_AURELIA],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
-        `She's putting in so much effort (a penance?), yet these kids... sigh. With them 
+        `She's putting in so much effort (it it a penance?), yet these kids... sigh. With them 
         being useless like that, I suppose I can't do my usual of utilizing class hours for catching up 
         on jet lag. While I hate to be the responsible student,
         I must admit... something about this classroom is... different...
@@ -298,9 +297,9 @@ export function sessionOpinionEvents10()
         ...<br/>
         Fuck. I think I'm actually enjoying this.`,
         new Map([
-                    [PositiveEmotion.Respect, 0.5],
-                    [PositiveEmotion.Trust, 0.2],
-                    [PositiveEmotion.Affection, 0.1]
+                    [PositiveEmotion.Respect, 0.7],
+                    [PositiveEmotion.Trust, 0.4],
+                    [PositiveEmotion.Affection, 0.3]
                 ])
     );
 
@@ -328,8 +327,8 @@ export function sessionOpinionEvents10()
         `Her classes for the kids are actually pretty decent, and God knows this
          is something Iona needed for proper growth.`,
         new Map([
-                    [PositiveEmotion.Gratitude, 0.4],
-                    [PositiveEmotion.Respect, 0.2],
+                    [PositiveEmotion.Gratitude, 0.45],
+                    [PositiveEmotion.Respect, 0.25],
                 ])
     );
 
@@ -346,7 +345,7 @@ export function sessionOpinionEvents10()
          But of course you won't. And I suppose this classroom does have its 
          cool moments. Sigh... it does help to take my mind of ig...`,
         new Map([
-                    [PositiveEmotion.Gratitude, 0.5],
+                    [PositiveEmotion.Gratitude, 0.6],
                     [PositiveEmotion.Affection, -0.1],
                 ])
     );
@@ -385,7 +384,7 @@ export function sessionOpinionEvents10()
         GameTimestamp.fromDays(27),
         ``,
         new Map([
-                    [PositiveEmotion.Respect, 0.1],
+                    [PositiveEmotion.Respect, 0.2],
                 ])
     );
 
@@ -398,7 +397,7 @@ export function sessionOpinionEvents10()
         Strange tho, never would've guessed him as a seafood lover...`,
         new Map([
                     [PositiveEmotion.Respect, 0.1],
-                    [PositiveEmotion.Gratitude, 0.1],
+                    [PositiveEmotion.Gratitude, 0.2],
                 ])
     );
 
@@ -433,7 +432,7 @@ export function sessionOpinionEvents10()
 
     addTimeSkipEvent(
         NpcID.Dusk,
-        [PcIndex.ID_CYRION, PcIndex.ID_JULIUS],
+        [PcIndex.ID_CYRION],
         GameTimestamp.fromDays(2),
         GameTimestamp.fromDays(27),
         "",
@@ -447,7 +446,7 @@ export function sessionOpinionEvents10()
         GameTimestamp.fromDays(27),
         "",
         new Map([
-                    [PositiveEmotion.Trust, 0.1]
+                    [PositiveEmotion.Trust, 0.2]
                 ])
     );
 
@@ -458,8 +457,8 @@ export function sessionOpinionEvents10()
         GameTimestamp.fromDays(27),
         "",
         new Map([
-                    [PositiveEmotion.Trust, 0.35],
-                    [PositiveEmotion.Gratitude, 0.2],
+                    [PositiveEmotion.Trust, 0.4],
+                    [PositiveEmotion.Gratitude, 0.3],
                 ])
     );
 
@@ -477,173 +476,6 @@ export function sessionOpinionEvents10()
         // All those part of the timeskip, except dusk and hina, would have
         // something to say about the clash between Helios and Julius. Whose
         // side they take would mainly depend on how they feel about Helios
-        //
-        // Todo: it should also depend on their personal nature, I really need
-        //  to get npc quirks lined up...
     }
 
-    const conflictTime = new GameTimestamp(0, 27, 21, 0);
-
-    addInteractionEvent(
-        NpcID.Dusk,
-        [PcIndex.ID_HELIOS, PcIndex.ID_JULIUS],
-        conflictTime,
-        "Amusing.<br/>But let me interject-",
-        new Map([
-                    [PositiveEmotion.Gratitude, 1]
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Dawn,
-        [PcIndex.ID_HELIOS, PcIndex.ID_JULIUS],
-        conflictTime,
-        "I don't think I like this tension.... <br/>" +
-        "Oh Shi- They've started fighting. Please sto-<br/>" +
-        "Hold on. Ms. Dusk has something to say.",
-        new Map([
-                    [PositiveEmotion.Respect, -1],
-                    [PositiveEmotion.Trust, -1],
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Dawn,
-        [PcIndex.ID_JULIUS],
-        conflictTime,
-        "Huh? What did Ms. Dusk mean when she said you're on her side? She has " +
-        "a side??",
-        new Map([
-                    [PositiveEmotion.Respect, 3],
-                    [PositiveEmotion.Respect, 2],
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Dawn,
-        [PcIndex.ID_HELIOS, PcIndex.ID_JULIUS],
-        conflictTime,
-        "Wow, they're really brothers-in-arms now? Yeah, adventurers do be " +
-        "strange.",
-        new Map([
-                    [PositiveEmotion.Respect, 3],
-                    [PositiveEmotion.Trust, 2],
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Hina,
-        [PcIndex.ID_JULIUS],
-        conflictTime,
-        "You really need to get better at lying, old man. Won't get anywhere in " +
-        "the world of adults this way (smug).",
-        new Map([
-                    [PositiveEmotion.Respect, -1],
-                    [PositiveEmotion.Trust, 3],
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Elysium,
-        [PcIndex.ID_JULIUS],
-        conflictTime,
-        "Wow-ho-ho, relax guys, this one's a fraudster yea, but not dangerous. But " +
-        "the card Hina had-? Hmm... I think the database might be incomplete " +
-        "on this one. But the Goddess vouched for him - Wait is that signature " +
-        "Atium??<br/> Need to tread carefully here.",
-        new Map([
-                    [PositiveEmotion.Respect, 5],
-                    [PositiveEmotion.Trust, -3],
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Ezell,
-        [PcIndex.ID_JULIUS],
-        conflictTime,
-        "Elysium looks anxious, but he's not asked me to shoot... Not often he " +
-        "looks shaken.",
-        new Map([
-                    [PositiveEmotion.Respect, 3],
-                    [PositiveEmotion.Trust, -1],
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Cecelia,
-        [PcIndex.ID_JULIUS],
-        conflictTime,
-        "Oh no! The way Helios reacted, and Mr. Elysium and Sir Enforcer are " +
-        "tense too. Is he a bad man?",
-        new Map([
-                    [PositiveEmotion.Trust, -2],
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Cecelia,
-        [PcIndex.ID_JULIUS],
-        conflictTime,
-        "But they're friends now, so there must've been a confusion. Thank God.",
-        new Map([
-                    [PositiveEmotion.Gratitude, 1],
-                    [PositiveEmotion.Trust, 3],
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Coroto,
-        [PcIndex.ID_JULIUS, PcIndex.ID_HELIOS],
-        conflictTime,
-        "Yes this politicking is what nobility does best. And that sharp retort " +
-        "with the elegant handling by the elderly gentleman? Yes very good.",
-        new Map([
-                    [PositiveEmotion.Respect, 2],
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Irene,
-        [PcIndex.ID_JULIUS, PcIndex.ID_HELIOS],
-        conflictTime,
-        "Oh dear-",
-        new Map([
-                    [PositiveEmotion.Respect, 1]
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Verna,
-        [PcIndex.ID_JULIUS],
-        conflictTime,
-        "Do we have trouble? Wait... that scent... Dangerous",
-        new Map([
-                    [PositiveEmotion.Respect, 1],
-                    [PositiveEmotion.Trust, -4],
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Verna,
-        [PcIndex.ID_JULIUS, PcIndex.ID_HELIOS],
-        conflictTime,
-        "I suppose if they're fighting side-by-side..." +
-        " I should take it easy... the scent wasn't that strong anyway.",
-        new Map([
-                    [PositiveEmotion.Respect, 1],
-                    [PositiveEmotion.Trust, 3],
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Roberta,
-        [PcIndex.ID_JULIUS],
-        conflictTime,
-        "Well that appearance is carefully managed... But he could use the " +
-        "services of a pro anyway.",
-        new Map([
-                    [PositiveEmotion.Respect, 2],
-                    [PositiveEmotion.Trust, -1],
-                ])
-    );
 }

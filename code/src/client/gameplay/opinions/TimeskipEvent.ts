@@ -29,8 +29,8 @@ export class TimeskipEvent
                 continue;
             }
             const emotionString =
-                val < -0.05 ? NegativeEmotion.get(emotion) : PositiveEmotion[emotion];
-            if (val < -0.05) {
+                val < -0.1 ? NegativeEmotion.get(emotion) : PositiveEmotion[emotion];
+            if (val < -0.1) {
                 val = -val;
             }
             if (val < 0) {
@@ -39,13 +39,13 @@ export class TimeskipEvent
                         <span class="emotion_string--${emotionString.toLowerCase()}--neg">${emotionString}</span> eroded slightly.
                     </li>`
                 );
-            } else if (val < 0.35) {
+            } else if (val <= 0.4) {
                 $interactions.push(
                     `<li class="timeskip__emotion_desc">
                         <span class="emotion_string--${emotionString.toLowerCase()}">${emotionString}</span> increased slightly.
                     </li>`
                 );
-            } else if (val < 0.75) {
+            } else if (val <= 0.9) {
                 $interactions.push(
                     `<li class="timeskip__emotion_desc">
                         <span class="emotion_string--${emotionString.toLowerCase()}">${emotionString}</span> increased moderately.

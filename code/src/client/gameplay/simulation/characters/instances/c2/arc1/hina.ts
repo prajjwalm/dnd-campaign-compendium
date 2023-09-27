@@ -46,8 +46,9 @@ export function setupHina()
     hina.dSKills.setSkillProficiency(DSkill.Stealth,       Hidden, ProficiencyLevel.Expert);
     hina.dSKills.setSkillProficiency(DSkill.Survival,      Hidden, ProficiencyLevel.Expert);
 
-
     hina.operator.morale = Morale.Dismal;
+    hina.dSKills.finalizeSkills();
+
     hina.operator.fatigue = 20;
     hina.operator.ratings = {
         damage  : "S",
@@ -65,20 +66,29 @@ export function setupHina()
     hina.operator.setChemistryWith(NpcID.Dawn, 21, "Although they don't interact that much, in her mind, Hina virtually sees Dawn as a mother.");
     hina.operator.setChemistryWith(NpcID.Elysium, 17, "The only one in the village who truly knows her - identity, past, nature, everything...");
     hina.operator.setChemistryWith(NpcID.Iona, 12, "For some reason, Hina treats her as though she were her little sister.");
-    hina.operator.addInventoryItem("Rusted blade", Rarity.Artefact);
+    // hina.operator.addInventoryItem("Rusted blade", Rarity.Artefact);
 
     hina.operator.era = Era.Future;
-    hina.operator.professions = ["Bionic Tank", "Student / Laborer"]
-
-    hina.dSKills.finalizeSkills();
+    hina.operator.professions = ["Bionic Tank", "Student / Laborer"];
 
     // Can have opinions.
     hina.opinions.isOpinionated = true;
 
     // Card information.
     hina.card.setCampaignArc(2, 1);
-    hina.card.addCardTag("F14");
-    hina.card.summary = "???";
+    hina.card.addCardTag("F21 (14)");
+    hina.card.addCardTag("From | Innovation / Ruin / Materia / Devotion");
+    hina.card.addCardTag("Race | Human <span class='verbose'>(Cyberpunk)</span>");
+    hina.card.addCardTag("OS | Berserk MK5");
+    hina.card.addCardTag("Mutation | Greater Green");
+    hina.card.addCardTag("<span class='verbose'>Project Diablo |</span> #41");
+    hina.card.addCardTag("Edgedancer <span class='verbose'>(Cultivation)</span>");
+    hina.card.addCardTag("Bondsmith <span class='verbose'>(Preservation)</span>");
+    hina.card.addCardTag("Champion of Ruin");
+    hina.card.addCardTag("Chamber of Guilt");
+    hina.card.addCardTag("Class | Barbarian &times; Rogue");
+    hina.card.addCardTag("CR | 23");
+    hina.card.summary = () =>"???";
 
     // CoC Skills information
     hina.cSkills.setSkillValues([
@@ -101,7 +111,7 @@ export function setupHina()
         [CSkill.LibraryUse,             20,   Vague],
         [CSkill.Locksmith,               0,   Vague],
         [CSkill.MechanicalRepair,       35,   Vague],
-        [CSkill.Medicine,                0,   Vague],
+        [CSkill.ModernMedicine, 0, Vague],
         [CSkill.NaturalWorld,           10,   Vague],
         [CSkill.Navigate,               10,   Vague],
         [CSkill.Occult,                  5,   Vague],

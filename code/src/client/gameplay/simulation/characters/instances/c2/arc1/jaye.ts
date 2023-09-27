@@ -55,7 +55,7 @@ export function setupJaye()
     jaye.card.addCardTag("M26");
     jaye.card.addCardTag(`Race | Ursine <span class='verbose'>(Polar)</span>`);
     jaye.card.addCardTag("CR | 5");
-    jaye.card.summary = "???";
+    jaye.card.summary = () =>"???";
 
     jaye.cSkills.setSkillValues([
         [CSkill.Accounting,              5,  Hidden],
@@ -77,7 +77,7 @@ export function setupJaye()
         [CSkill.LibraryUse,             20,  Hidden],
         [CSkill.Locksmith,               0,  Hidden],
         [CSkill.MechanicalRepair,       10,  Hidden],
-        [CSkill.Medicine,                0,  Hidden],
+        [CSkill.ModernMedicine, 0, Hidden],
         [CSkill.NaturalWorld,           85,  Hidden],
         [CSkill.Navigate,               10,  Hidden],
         [CSkill.Occult,                  5,  Hidden],

@@ -16,10 +16,12 @@ export function setupUlrich()
     ulr.card.addCardTag("<span class='verbose'>Forge</span> Cleric");
     ulr.card.addCardTag("Faction: Scholars");
 
-    ulr.card.summary = `A human that lived in the last years of the Archaic era and had shown remarkable skill in making heavy armors 
+    ulr.card.summary = () =>`A human that lived in the last years of the Archaic era and had shown remarkable skill in making heavy armors 
       for those of his clerical order. Upon his death in war, Preservation gave him a second chance at sentient life
       in the Gardens, as a reward for saving the lives of so many thanks to his meticulous work at their armors. 
       Since then he's been honing his skills and is now regarded as one of the finest smiths in the multiverse.`;
 
     ulr.opinions.isOpinionated = false;
+
+    
 }

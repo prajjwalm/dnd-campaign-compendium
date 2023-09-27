@@ -73,13 +73,16 @@ $token_icon_diameter: 64px
       margin-top: 8px
       margin-bottom: 8px
       flex-shrink: 1
-      font-size: 14px
+      font-size: 12px
+      font-family: "RobotoCondensed", sans-serif
 
     .details
       color: colors.$black
       flex-grow: 1
       text-align: justify
       font-size: 12px
+      max-height: 400px
+      overflow-y: auto
 
   .content
     min-width: 300px
@@ -116,3 +119,4 @@ $token_icon_diameter: 64px
 
 .token_selector
   @include tag.tag(colors.$primary, $compressed: true)
+  cursor: pointer

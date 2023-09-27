@@ -21,11 +21,12 @@ export function setupLing()
     ling.card.primaryImageTitle = "Lighthouse Keeper";
     ling.card.addAlternateImage("Shrine Maiden", "character_tokens/C1/Arc1/ling_sui.png");
 
-    ling.card.summary = `One of the fragments of an outer primordial. Moved into the Gardens long ago along with 
-     ${'Character.get(Npc.Kjerra).createLink("Kjera")'} and worked as a lighthouse keeper there so as to be best placed to
+    ling.card.summary = () =>`One of the fragments of an outer primordial. Moved into the Gardens long ago along with 
+     ${Character.get(NpcID.Kjerra).createLink("Kjera")} and worked as a lighthouse keeper there so as to be best placed to
       respond to the revival of her 'parent' or any other outsiders. Was chosen to be the Guardian of Diplomacy after
       the inquisitors' betrayal. Agreed but went missing during the expedition inside the Castle of the Night 
       following Preservation's death and the Survivor's Ascension.`;
 
     ling.opinions.isOpinionated = false;
+
 }

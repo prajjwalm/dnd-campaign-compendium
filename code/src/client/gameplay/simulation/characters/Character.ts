@@ -240,6 +240,7 @@ export class Character
             this._combatAspect,
             this._sheetAspect,
             this._cSkillsAspect,
+            this._operatorAspect,
         ])
         {
             if (aspect == null) {

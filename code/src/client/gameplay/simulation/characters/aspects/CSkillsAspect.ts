@@ -36,7 +36,7 @@ export class CSkillsAspect
         [CSkill.LibraryUse,            20],
         [CSkill.Locksmith,             0],
         [CSkill.MechanicalRepair,      10],
-        [CSkill.Medicine,              0],
+        [CSkill.ModernMedicine, 0],
         [CSkill.NaturalWorld,          10],
         [CSkill.Navigate,              10],
         [CSkill.Occult,                5],

@@ -17,10 +17,10 @@ export function setupEbenezar()
     ben.card.addCardTag("<span class='verbose'>Divination</span> Wizard");
     ben.card.addCardTag("Lich");
 
-    ben.card.summary = `
+    ben.card.summary = () =>`
      A human kid born in the the classical era. Accidentally entered a perpendicularity inside a 
      subterranean lake into the Gardens. Lived there for a few centuries and trained fanatically as a mage under his
-     then-girlfriend ${'Character.get(Npc.Lesley).createLink("Lesley")'}'s tutelage and soon surpassed her. Became a Lich
+     then-girlfriend ${Character.get(NpcID.Lesley).createLink()}'s tutelage and soon surpassed her. Became a Lich
      and would often roam in shady alleys of Materia, appearing helpless - then feeding on the souls of any who 
      assaulted him. Stabilized the perpendicularity between the lake he once drowned in - making it his 'lair' - and 
      the Mistflame in the Gardens near Bunker#371. Went to the castle to 'fight death', but failed and died, his 
@@ -28,4 +28,6 @@ export function setupEbenezar()
     `;
 
     ben.opinions.isOpinionated = false;
+
+
 }

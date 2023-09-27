@@ -21,5 +21,15 @@ export function setupCecilia()
     //todo
     cecilia.dSKills.finalizeSkills();
 
+    cecilia.card.setCampaignArc(2, 1);
+
+    cecilia.card.addCardTag("F11");
+
+    // [NpcPersonalityTag.Conciliatory, 3],
+    // [NpcPersonalityTag.Naive, 3],
+    // [NpcPersonalityTag.Ascetic, 1],
+    // [NpcPersonalityTag.Kind, 1],
+    // [NpcPersonalityTag.Depressive, 1],
+    // [NpcPersonalityTag["Abhors Violence"], 1],
     cecilia.opinions.isOpinionated = true;
 }

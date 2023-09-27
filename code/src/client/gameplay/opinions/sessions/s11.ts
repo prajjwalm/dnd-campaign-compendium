@@ -9,17 +9,6 @@ import {addInteractionEvent} from "./s9";
 
 export function sessionOpinionEvents11()
 {
-    addInteractionEvent(
-        NpcID.Jaye,
-        [PcIndex.ID_HELIOS, PcIndex.ID_JULIUS],
-        new GameTimestamp(0, 27, 21, 0),
-        "What was that about? You both looked like you'd skin each other and " +
-        "now you're sharing soup? Ok. And you want me to help you in this fight " +
-        "against these fearsome beasts of... ink? Ok.",
-        new Map([
-                    [PositiveEmotion.Trust, -1],
-                ])
-    );
 
     addInteractionEvent(
         NpcID.Jaye,
@@ -377,7 +366,6 @@ export function sessionOpinionEvents11()
                 PcIndex.ID_HELIOS,
                 PcIndex.ID_AURELIA,
                 PcIndex.ID_CYRION,
-                PcIndex.ID_JULIUS
             ],
             aftermathTime,
             "<em>(On Dawn explaining the entire situation and the combat.)</em>",
@@ -391,7 +379,6 @@ export function sessionOpinionEvents11()
             PcIndex.ID_HELIOS,
             PcIndex.ID_AURELIA,
             PcIndex.ID_CYRION,
-            PcIndex.ID_JULIUS
         ],
         aftermathTime,
         "Well, despite everything, I gotta say - didn't experience this " +
@@ -413,7 +400,6 @@ export function sessionOpinionEvents11()
             PcIndex.ID_HELIOS,
             PcIndex.ID_AURELIA,
             PcIndex.ID_CYRION,
-            PcIndex.ID_JULIUS
         ],
         aftermathTime,
         "I suppose... it is over? 400 years. But I don't want to -",
@@ -464,19 +450,6 @@ export function sessionOpinionEvents11()
         new Map([
                     [PositiveEmotion.Respect, 3],
                     [PositiveEmotion.Trust, 3],
-                ])
-    );
-
-    addInteractionEvent(
-        NpcID.Dusk,
-        [PcIndex.ID_JULIUS],
-        new GameTimestamp(0, 28, 9, 0),
-        "Ah the quintessential fraudster. Even in combat he retains his " +
-        "style... Those proses could qualify as works of art. Hmm makes for an " +
-        "interesting contrast with the others. Where is your place on the " +
-        "canvas, though, I wonder?",
-        new Map([
-                    [PositiveEmotion.Respect, 5],
                 ])
     );
 }

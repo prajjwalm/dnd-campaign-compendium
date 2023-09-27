@@ -326,7 +326,7 @@ export enum CSkill
     LibraryUse,
     Locksmith,
     MechanicalRepair,
-    Medicine,
+    ModernMedicine,
     NaturalWorld,
     Navigate,
     Occult,

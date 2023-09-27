@@ -1,17 +1,18 @@
-import {GameTimestamp}       from "../../../GameTimestamp";
-import {NpcInteractionEvent} from "../../../opinions/NpcInteractionEvent";
-import {NpcOpinion}          from "../../../opinions/NpcOpinions";
-import {PositiveEmotion}     from "../../../opinions/PositiveEmotion";
+import {GameTimestamp}         from "../../../GameTimestamp";
+import {NpcInteractionEvent}   from "../../../opinions/NpcInteractionEvent";
+import {NpcOpinion}            from "../../../opinions/NpcOpinions";
+import {PositiveEmotion}       from "../../../opinions/PositiveEmotion";
+import {arc21OpinionEvents}    from "../../../opinions/sessions/arc_21";
 import {TimeskipEvent}         from "../../../opinions/TimeskipEvent";
 import {getEnumIterator}       from "../../../../common/common";
 import {PcIndex, PcTokenNames} from "../../../data/pcIndex";
 import {DSkill}                from "../../../data/constants";
 import {NpcID}                 from "../../../data/npcIndex";
 import {IDOMGenerator}         from "../../../IDomGenerator";
-import {Character}                from "../Character";
-import {BaseAspect}               from "./BaseAspect";
-import {ICore}                    from "./ICore";
-import {IDSkills}                 from "./IDSkills";
+import {Character}             from "../Character";
+import {BaseAspect}            from "./BaseAspect";
+import {ICore}                 from "./ICore";
+import {IDSkills}              from "./IDSkills";
 import {IOpinionated}             from "./IOpinionated";
 import {IOpinionatedFactory}    from "./IOpinionatedFactory";
 import {sessionOpinionEvents02} from "../../../opinions/sessions/s2";
@@ -51,6 +52,7 @@ export class OpinionAspect
         sessionOpinionEvents09();
         sessionOpinionEvents10();
         sessionOpinionEvents11();
+        arc21OpinionEvents();
 
         const $individualAst = $("#individual_ast");
         const $table_area = $("#attitude_summary_table_area");

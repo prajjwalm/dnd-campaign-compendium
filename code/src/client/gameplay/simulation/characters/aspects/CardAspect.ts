@@ -1,5 +1,5 @@
-import {Card}      from "../../../data/cards/card";
-import {NpcID}     from "../../../data/npcIndex";
+import {Card}  from "../../../card";
+import {NpcID} from "../../../data/npcIndex";
 import {Character} from "../Character";
 import {AspectFactoryFlag} from "./AspectFactoryFlag";
 import {BaseAspect}        from "./BaseAspect";
@@ -43,12 +43,12 @@ export class CardAspect
     /**
      * Backing field to store the value of the {@link summary} set.
      */
-    private _summary: string;
+    private _summary: () => string;
 
     /**
      * Backing field to store the value of the {@link story} set.
      */
-    private _story: string;
+    private _story: () => string;
 
     private campaign: number;
 
@@ -62,7 +62,8 @@ export class CardAspect
         super(c);
         this.characterCore = c;
         this.tags = [];
-        this._story = "";
+        this._summary = () => "???";
+        this._story = () => "";
 
         this.images = new Map();
         this.primaryImageName = CardAspect.defaultPrimaryImageName;
@@ -92,7 +93,7 @@ export class CardAspect
             let firstImage = true;
             for (const [tag, imgPath] of this.images.entries()) {
                 tokenImagesHTML.push(
-                    `<img src="./assets/images/${imgPath}" 
+                    `<img src="${imgPath}" 
                           alt="[NULL]" 
                           class="token"
                           data-token="${tag}" 
@@ -128,8 +129,8 @@ export class CardAspect
                     <div class="content">
                         <h5  class="name">${this.characterCore.name}</h5>
                         <div class="tags">${metaTagsHTML}</div>
-                        <div class="details">${this._story}</div>
-                        <div class="summary">${this._summary}</div>
+                        <div class="details">${this._story()}</div>
+                        <div class="summary">${this._summary()}</div>
                     </div>
                 </div>`;
     }
@@ -137,7 +138,7 @@ export class CardAspect
     /**
      * @inheritDoc
      */
-    public set summary(s: string)
+    public set summary(s: () => string)
     {
         this._summary = s;
     }
@@ -145,7 +146,7 @@ export class CardAspect
     /**
      * @inheritDoc
      */
-    public set story(s: string)
+    public set story(s: () => string)
     {
         this._story = s;
     }
@@ -169,7 +170,7 @@ export class CardAspect
         if (this.images.has(title)) {
             console.warn(`Image override for ${title}`);
         }
-        this.images.set(title, imgPath);
+        this.images.set(title, `./assets/images/${imgPath}`);
     }
 
     /**
@@ -186,9 +187,7 @@ export class CardAspect
     public createLink(displayText?: string): string
     {
         return `<span class="card_link" 
-                      data-index-key="${this.getCardIndex()}">
-                    ${displayText ? displayText : this.characterCore.name}
-                </span>`;
+                      data-index-key="${this.getCardIndex()}">${displayText ? displayText : this.characterCore.name}</span>`;
     }
 
     /**

@@ -1,5 +1,3 @@
-import {NpcID}     from "../../../../../data/npcIndex";
-import {Character} from "../../../Character";
 import {setupCaelynn}  from "./caelynn";
 import {setupDave}     from "./dave";
 import {setupEbenezar} from "./ebenezar";
@@ -25,22 +23,4 @@ export function setupC1A1()
     setupLia();
     setupVahareth();
     setupMaster();
-
-    $(function () {
-        for (const npc of [NpcID.Lucian,
-                           NpcID.Ebenezar,
-                           NpcID.Caelynn,
-                           NpcID.Lesley,
-                           NpcID.Irene,
-                           NpcID.Ling,
-                           NpcID.DaveRuhl,
-                           NpcID.Ulrich,
-                           NpcID.Lia,
-                           NpcID.Vahareth,
-                           NpcID.TheMaster,
-                           ])
-        {
-            Character.get(npc).finalize();
-        }
-    })
 }

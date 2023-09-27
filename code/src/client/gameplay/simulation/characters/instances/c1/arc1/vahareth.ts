@@ -19,10 +19,11 @@ export function setupVahareth()
     vah.card.addCardTag("Faction: Inspector");
     vah.card.addCardTag("Ex-Guardian of Life");
 
-    vah.card.summary = `${Character.get(NpcID.Caelynn).createLink("Caelynn")}'s predecessor as the Guardian of Life as well as a 
+    vah.card.summary = () =>`${Character.get(NpcID.Caelynn).createLink("Caelynn")}'s predecessor as the Guardian of Life as well as a 
       father figure to her. Scouted her out in Materia, then got her to the gardens and personally trained her. 
       Known and feared throughout all the outer planes for his unbreakable will and eyes that could delve into the 
       deepest nature of a person's soul with just a glance. 'Retired' after Leras' death.`;
 
     vah.opinions.isOpinionated = false;
+    
 }

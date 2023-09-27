@@ -17,7 +17,7 @@ export function sessionOpinionEvents08()
         " but... I'll probably need to keep a vigil for incoming bits of " +
         "wisdom... sigh.",
         new Map([
-                    [PositiveEmotion.Trust, 12],
+                    [PositiveEmotion.Trust, 10],
                     [PositiveEmotion.Respect, -1],
                 ]));
     // for (const pc of [PcIndex.ID_HELIOS, PcIndex.ID_QUINN]) { }

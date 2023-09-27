@@ -1,10 +1,10 @@
 import {
-    CSkill,
     DSkill,
-    ProficiencyLevel, Shown,
+    ProficiencyLevel,
+    Shown,
     StatForSkill,
     VisibilityLevel
-} from "../../../data/constants";
+}                          from "../../../data/constants";
 import {Rating}            from "../../../data/Rarity";
 import {Character}         from "../Character";
 import {AspectFactoryFlag} from "./AspectFactoryFlag";
@@ -161,6 +161,9 @@ export class DSkillsAspect
         }
 
         for (const [skill, [pb, mod, vis]] of this.skills.entries()) {
+            if (skill == DSkill._ALL) {
+                continue;
+            }
             upgradedSkills.set(skill,
                                [this.dStats.mod(StatForSkill.get(skill)) +
                                 this.dStats.pb.mod(pb) + mod, vis]);
@@ -183,13 +186,13 @@ export class DSkillsAspect
         if (mod < 0) {
             return Rating.F;
         }
-        if (mod <= 1) {
+        if (mod <= 2) {
             return Rating.E;
         }
-        if (mod <= 3) {
+        if (mod <= 4) {
             return Rating.D;
         }
-        if (mod <= 6) {
+        if (mod <= 7) {
             return Rating.C;
         }
         if (mod <= 10) {

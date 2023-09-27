@@ -36,16 +36,24 @@ export function setupDawn()
 
     // Card information.
     dawn.card.setCampaignArc(2, 1);
-    dawn.card.addCardTag("F32 (405)");
+    dawn.card.addCardTag("F405 (32)");
     dawn.card.addCardTag("From | Materia<span class='verbose'>(Naiyumi)</span> / Devotion");
     dawn.card.addCardTag("Race | Human");
 
-    dawn.card.summary = `
+    dawn.card.summary = () =>`
     The gentle and reserved pawn shop owner and the de facto caretaker of the small mountainous village of Po'shan. 
     Appears to hide quite a bit of pain underneath a sad smile. Was born in the hinterlands of Naiyumi around 
     1200 AR. Kept witnessing the residents of her village constantly get slaughtered again and again, and lose 
     quite a bit of the memories of their times spent together again and again.<br/>
     <div class="effect_tag">Incomplete</div>`;
+
+    //         // [NpcPersonalityTag["Nature Lover"], 3],
+    //         // [NpcPersonalityTag.Industrious, 2],
+    //         // [NpcPersonalityTag.Ascetic, 2],
+    //         // [NpcPersonalityTag["Abhors Violence"], 2],
+    //         // [NpcPersonalityTag.Homosexual, 1],
+    //         // [NpcPersonalityTag.Accepting, 1],
+    //         // [NpcPersonalityTag.Depressive, 1],
 
     dawn.cSkills.setSkillValues([
         [CSkill.Accounting,             35,  Hidden],
@@ -67,7 +75,7 @@ export function setupDawn()
         [CSkill.LibraryUse,             20,  Hidden],
         [CSkill.Locksmith,               0,  Hidden],
         [CSkill.MechanicalRepair,       10,  Hidden],
-        [CSkill.Medicine,                0,  Hidden],
+        [CSkill.ModernMedicine, 0, Hidden],
         [CSkill.NaturalWorld,           35,  Hidden],
         [CSkill.Navigate,               10,  Hidden],
         [CSkill.Occult,                  5,  Hidden],

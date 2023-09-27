@@ -1,8 +1,9 @@
-import {NpcID}                     from "../../data/npcIndex";
-import {Character}                 from "../characters/Character";
-import {generateAchievementsPanel} from "./Achievements";
-import {generateBuildingsPanel}    from "./buildingInstances";
-import {generateOperatorProfile}   from "./Operator";
+import {generateAchievementsPanel}        from "./Achievements";
+import {generateBuildingsPanel} from "./buildingInstances";
+import {
+    generateOperatorProfileSelection,
+    setupBaseOperatorLogic
+}                               from "./Operator";
 
 export function generateBaseDOM()
 {
@@ -76,11 +77,16 @@ export function generateBaseDOM()
         ${generateBuildingsPanel()}
     </div> 
     <div class="base_management__villagers">
-        ${generateOperatorProfile(Character.get(NpcID.Hina))}    
+        ${generateOperatorProfileSelection()}    
     </div>
     <div class="base_management__navigation"> 
         <div class="cog_reseq grunge_nav_button">Cognitive ReSequencing</div>    
         <div class="hide_base grunge_nav_button">Back to map</div>    
     </div>
 </div>`;
+}
+
+export function setupBaseLogic()
+{
+    setupBaseOperatorLogic();
 }

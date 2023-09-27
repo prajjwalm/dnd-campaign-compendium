@@ -14,4 +14,16 @@ export function setupEzell()
     ezell.dStats.pb = Prof.get(4);
 
     ezell.opinions.isOpinionated = true;
+
+    // [NpcPersonalityTag.Recluse, 2],
+    // [NpcPersonalityTag.Judging, 2],
+    // [NpcPersonalityTag.Distant, 2],
+    // [NpcPersonalityTag["Guilt-ridden"], 1],
+    // [NpcPersonalityTag.Kind, 1],
+    // [NpcPersonalityTag.Quiet, 1],
+    // [NpcPersonalityTag.Pessimist, 1],
+    // [NpcPersonalityTag["Night owl"], 1],
+
+    ezell.card.setCampaignArc(2, 1);
+    ezell.card.addCardTag("M32");
 }

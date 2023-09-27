@@ -14,4 +14,13 @@ export function setupKastor()
     kastor.dStats.pb = Prof.get(3);
 
     kastor.opinions.isOpinionated = true;
+
+    kastor.card.setCampaignArc(2, 1);
+    kastor.card.addCardTag("M26");
+    // [NpcPersonalityTag.Arrogant, 3],
+    // [NpcPersonalityTag.Judging, 2],
+    // [NpcPersonalityTag.Insecure, 2],
+    // [NpcPersonalityTag.Abrasive, 2],
+    // [NpcPersonalityTag.Vain, 1],
+    // [NpcPersonalityTag.Confrontational, 1],
 }
