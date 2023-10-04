@@ -69,6 +69,14 @@ export enum NpcID {
     Teiai,
     Shuo,
     __MOBS__,
+    NSBrand,
+    Slider,
+    SliderN,
+    Urchin,
+    UrchinN,
+    Harpooner,
+    Shrieker,
+    ShriekerN,
     Ephremis,
 }
 

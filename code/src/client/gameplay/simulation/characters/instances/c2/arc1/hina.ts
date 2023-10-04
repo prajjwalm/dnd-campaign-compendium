@@ -56,9 +56,6 @@ export function setupHina()
         survival: "S",
         pro     : "SS",
     };
-    // hina.operator.addAffliction("Existential crisis.");
-    // hina.operator.addAffliction("Survivor's guilt.");
-    // hina.operator.addAffliction("Battle-shock");
     hina.operator.addNotableStuff("Major Damage Type", "Magical Bludgeoning");
     hina.operator.addNotableStuff("Strong against", "Aberrations, Machines, Huge creatures");
     hina.operator.addNotableStuff("Weak against", "Humanoids");
@@ -66,7 +63,6 @@ export function setupHina()
     hina.operator.setChemistryWith(NpcID.Dawn, 21, "Although they don't interact that much, in her mind, Hina virtually sees Dawn as a mother.");
     hina.operator.setChemistryWith(NpcID.Elysium, 17, "The only one in the village who truly knows her - identity, past, nature, everything...");
     hina.operator.setChemistryWith(NpcID.Iona, 12, "For some reason, Hina treats her as though she were her little sister.");
-    // hina.operator.addInventoryItem("Rusted blade", Rarity.Artefact);
 
     hina.operator.era = Era.Future;
     hina.operator.professions = ["Bionic Tank", "Student / Laborer"];

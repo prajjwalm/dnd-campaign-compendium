@@ -30,7 +30,7 @@ export function setupEphremis(stats?: Map<string, number>)
 {
     const Ephremis = new Character(NpcID.Ephremis);
 
-    Ephremis.core.name = "Ephremis";
+    Ephremis.core.name = "Ephremis (<i>Beta</i>)";
     Ephremis.core.imgPath = "mob_tokens/seaborn/Ephremis.png";
 
     if (stats) {
@@ -233,8 +233,7 @@ export function setupEphremis(stats?: Map<string, number>)
 
     Ephremis.sheet.subtitle = " Seaborn, Neutral Evil";
     Ephremis.sheet.acDesc = " (Con/Dex)";
-    Ephremis.sheet.category = "seaborn";
+    // Ephremis.sheet.category = "seaborn";
 
-    console.log("FE", Ephremis.CON);
-    Ephremis.finalize();
+    // Ephremis.finalize();
 }

@@ -47,8 +47,8 @@ export function setupRoberta()
 
     roberta.operator.addNotableStuff("Major Damage Type", "Acid / Poison / Lightning");
     roberta.operator.addNotableStuff("Strong against", "Insectoids, Plants, Cyberpunks");
-    roberta.operator.addNotableStuff("Terrible against", "Undead, Aberrations");
     roberta.operator.addNotableStuff("Weak against", "Monsters of almost any sort");
+    roberta.operator.addNotableStuff("Terrible against", "Undead, Aberrations");
     roberta.operator.addNotableStuff("Combat Experience", "D Grade (None)");
     roberta.operator.addNotableStuff("Challenge Rating", "5");
 
@@ -58,7 +58,7 @@ export function setupRoberta()
                                       "much closer after moving into the village of Po'Shan.");
     roberta.operator.setChemistryWith(NpcID.Dawn, 16,
                                       "Trusts Dawn quite a bit and so often treats her as a personal therapist. Greatly " +
-                                      "respects her for always lending a ear, despite superficial attempts to wriggle out.");
+                                      "respects her for always lending a ear, despite any superficial attempts to wriggle out.");
     roberta.operator.setChemistryWith(NpcID.Tomasa, 14,
                                       "Pretty much considers her a 'best friend'.");
     roberta.operator.setChemistryWith(NpcID.Jaye, 10,

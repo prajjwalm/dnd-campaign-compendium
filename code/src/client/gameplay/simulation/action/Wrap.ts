@@ -111,7 +111,7 @@ export function wrapRoll(arg: number |
     // here.
     const rollStringContent = rollParts.join("");
 
-    return ` <span class="rollable" data-rollable-uid="${uid}">${rollStringContent}</span> `;
+    return `<span class="rollable" data-rollable-uid="${uid}">${rollStringContent}</span>`;
 }
 
 /**

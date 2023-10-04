@@ -207,7 +207,7 @@ export class SheetAspect
                     <table>
                         <tr><td>Armor Class</td><td>${this.combatAspect.ac} ${this._acDesc}</td></tr>
                         <tr><td>Hit Points</td><td>${this.combatAspect.hp } ${wrapRoll(this.combatAspect.hpDice)}</td></tr>
-                        <tr><td>Speed</td><td>${speedList.join(", ")}</td></tr>
+                        <tr><td>Speed</td><td>${speedList.length == 0 ? "None" : speedList.join(", ")}</td></tr>
                     </table>
                 </div>
                 <div class="header_zone">
@@ -218,9 +218,9 @@ export class SheetAspect
                 </div>
                 <div class="header_zone">
                     <table>
-                        <tr><td>Senses</td><td>${senseList.join(" ")}</td></tr>
-                        <tr><td>Saving Throws</td><td>${saveList.join(" ")}</td></tr>
-                        <tr><td>Skills</td><td>${skillList.join(" ")}</td></tr>
+                        ${senseList.length > 0 ? `<tr><td>Senses</td><td>${senseList.join(" ")}</td></tr>` : ""} 
+                        ${saveList .length > 0 ? `<tr><td>Saving Throws</td><td>${saveList.join(" ")}</td></tr>` : ""} 
+                        ${skillList.length > 0 ? `<tr><td>Skills</td><td>${skillList.join(" ")}</td></tr>` : ""}
                         <tr><td>Challenge Rating</td><td>${this._cr.cr}</td></tr>
                         <tr><td>Proficiency Bonus</td><td>${this.combatAspect.pb.mod()}</td></tr>
                         ${vulStr}${resStr}${immStr}${ciStr}

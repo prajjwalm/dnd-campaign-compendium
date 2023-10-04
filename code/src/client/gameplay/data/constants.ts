@@ -145,6 +145,7 @@ export enum DamageType {
     Slashing,
     Thunder,
     Physical,
+    All,
     _NonStandard,
     Biochemical,
     Corrosion,
@@ -379,6 +380,7 @@ export enum Era {
     Medieval,
     Classical,
     Ancient,
+    Timeless,
 }
 
 

@@ -382,11 +382,9 @@ export function sessionOpinionEvents11()
         ],
         aftermathTime,
         "Well, despite everything, I gotta say - didn't experience this " +
-        "adrenaline in a long time, Boss(es?). You fight like polar bears. " +
-        "Also, I daresay I'll get more customers now. Gotta, get back to the " +
-        "chopping board asap!<br/>" +
-        "Oh also knighthood's cool, I don't know much 'bout it, but should make the" +
-        " stallboard more inviting. (Sir Jaye's Sandwitches?)",
+        "adrenaline in a long time, Boss(es?). You fight like real polar bears. " +
+        "Also, I daresay I'll get more customers now. Right, gotta get back to the " +
+        "chopping board!<br/>",
         new Map([
                     [PositiveEmotion.Respect, 8],
                     [PositiveEmotion.Gratitude, 9],

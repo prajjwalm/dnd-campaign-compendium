@@ -39,7 +39,6 @@ export function setupStatSheet(category: string,
             </div>`
         );
     }
-    console.log("PAS", `#stat_sheet_${id}`);
 
     // Three cases - active sheet, has sheet, doesn't have sheet.
     const $sheet = $(`#stat_sheet_${id}`);
@@ -50,7 +49,6 @@ export function setupStatSheet(category: string,
     if ($sheet.length == 0) {
         // Do nothing. When the sheet is lazily created, it'll be as per the new
         // generator method.
-        console.log("PAS2")
         return;
     }
 
@@ -61,10 +59,8 @@ export function setupStatSheet(category: string,
         // regenerated.
         GENERATED_IDS.delete(id);
         $sheet.remove();
-        console.log("PAS3")
     }
     else {
-        console.log("CHANGING ACTIVE SHEET");
         // We have to update the sheet now, so remove the old and generate
         // a new.
         $sheet.remove();
