@@ -134,6 +134,10 @@
     color: colors.$node_unknown;
   }
 
+  i {
+    color: colors.$node_unknown;
+  }
+
   //noinspection CssOverwrittenProperties
   .theme_box {
     border-image-source: url(content.$root + "images/gui/unknown/Stroke500x500.png");
@@ -161,6 +165,10 @@
   }
 
   .theme_subheader {
+    color: colors.$node_friendly;
+  }
+
+  i {
     color: colors.$node_friendly;
   }
 
@@ -194,6 +202,10 @@
     color: colors.$node_safe;
   }
 
+  i {
+    color: colors.$node_safe;
+  }
+
   //noinspection CssOverwrittenProperties
   .theme_box {
     border-image-source: url(content.$root + "images/gui/safe/Stroke500x500.png");
@@ -224,6 +236,10 @@
     color: colors.$node_combat_light;
   }
 
+  i {
+    color: colors.$node_combat;
+  }
+
   //noinspection CssOverwrittenProperties
   .theme_box {
     border-image-source: url(content.$root + "images/gui/combat/Stroke500x500.png");
@@ -251,6 +267,10 @@
   }
 
   .theme_subheader {
+    color: colors.$node_emergency;
+  }
+
+  i {
     color: colors.$node_emergency;
   }
 
@@ -284,6 +304,10 @@
     color: colors.$node_neutral;
   }
 
+  i {
+    color: colors.$node_neutral;
+  }
+
   //noinspection CssOverwrittenProperties
   .theme_box {
     border-image-source: url(content.$root + "images/gui/neutral/Stroke500x500.png");
@@ -314,6 +338,11 @@
     color: colors.$node_deadly;
   }
 
+  i {
+    color: colors.$node_deadly;
+  }
+
+
   //noinspection CssOverwrittenProperties
   .theme_box {
     border-image-source: url(content.$root + "images/gui/deadly/Stroke500x500.png");
@@ -342,6 +371,10 @@
   }
 
   .theme_subheader {
+    color: colors.$node_deadly;
+  }
+
+  i {
     color: colors.$node_deadly;
   }
 

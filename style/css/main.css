@@ -170,7 +170,7 @@
   background-color: #2f2f3c;
 }
 
-.effect_tag, .effect_tag[data-emo=Affection], .effect_tag[data-emo=Gratitude], .effect_tag[data-emo=Trust], .effect_tag[data-emo=Respect], .effect_tag[data-emo=Hatred], .effect_tag[data-emo=Envy], .effect_tag[data-emo=Paranoia], .effect_tag[data-emo=Contempt], .event_li .insight_lock, .token_selector, .log_tag--info, .log_level--info .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--critical, .log_level--critical .log_tag, #history_left_tags .history_event, #history_right_tags .history_event, .tag {
+.effect_tag, .effect_tag[data-emo=Affection], .effect_tag[data-emo=Gratitude], .effect_tag[data-emo=Trust], .effect_tag[data-emo=Respect], .effect_tag[data-emo=Hatred], .effect_tag[data-emo=Envy], .effect_tag[data-emo=Paranoia], .effect_tag[data-emo=Contempt], .event_li .insight_lock, .token_selector, #material_plane .country_space .country_desc .country .country_card .tags .t6, #material_plane .country_space .country_desc .country .country_card .tags .t5, #material_plane .country_space .country_desc .country .country_card .tags .t4, #material_plane .country_space .country_desc .country .country_card .tags .t3, #material_plane .country_space .country_desc .country .country_card .tags .t2, #material_plane .country_space .country_desc .country .country_card .tags .t1, .log_tag--info, .log_level--info .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--critical, .log_level--critical .log_tag, #history_left_tags .history_event, #history_right_tags .history_event, .tag {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -1461,6 +1461,9 @@ table.simple_table {
 .theme--unknown .theme_subheader {
   color: #EAE6E5;
 }
+.theme--unknown i {
+  color: #EAE6E5;
+}
 .theme--unknown .theme_box {
   border-image-source: url("../../assets/images/gui/unknown/Stroke500x500.png");
   border-image-slice: 5;
@@ -1481,6 +1484,9 @@ table.simple_table {
   background-color: #205017;
 }
 .theme--friendly .theme_subheader {
+  color: #059729;
+}
+.theme--friendly i {
   color: #059729;
 }
 .theme--friendly .theme_box {
@@ -1505,6 +1511,9 @@ table.simple_table {
 .theme--safe .theme_subheader {
   color: #157FE3;
 }
+.theme--safe i {
+  color: #157FE3;
+}
 .theme--safe .theme_box {
   border-image-source: url("../../assets/images/gui/safe/Stroke500x500.png");
   border-image-slice: 5;
@@ -1527,6 +1536,9 @@ table.simple_table {
 .theme--combat .theme_subheader {
   color: #9947EA;
 }
+.theme--combat i {
+  color: #760BD4;
+}
 .theme--combat .theme_box {
   border-image-source: url("../../assets/images/gui/combat/Stroke500x500.png");
   border-image-slice: 5;
@@ -1547,6 +1559,9 @@ table.simple_table {
   background-color: #381D2A;
 }
 .theme--emergency .theme_subheader {
+  color: #E04D75;
+}
+.theme--emergency i {
   color: #E04D75;
 }
 .theme--emergency .theme_box {
@@ -1571,6 +1586,9 @@ table.simple_table {
 .theme--neutral .theme_subheader {
   color: #EC7005;
 }
+.theme--neutral i {
+  color: #EC7005;
+}
 .theme--neutral .theme_box {
   border-image-source: url("../../assets/images/gui/neutral/Stroke500x500.png");
   border-image-slice: 5;
@@ -1591,6 +1609,9 @@ table.simple_table {
   background-color: #420039;
 }
 .theme--deadly .theme_subheader {
+  color: #CA1412;
+}
+.theme--deadly i {
   color: #CA1412;
 }
 .theme--deadly .theme_box {
@@ -1614,6 +1635,9 @@ table.simple_table {
   border: solid 2px #822000;
 }
 .theme--black .theme_subheader {
+  color: #CA1412;
+}
+.theme--black i {
   color: #CA1412;
 }
 .theme--black .theme_box {
@@ -2165,7 +2189,7 @@ img {
   color: #576CA8;
 }
 
-.log_tag--critical, .log_level--critical .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--info, .log_level--info .log_tag, .token_selector, .tag {
+.log_tag--critical, .log_level--critical .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--info, .log_level--info .log_tag, #material_plane .country_space .country_desc .country .country_card .tags .t1, #material_plane .country_space .country_desc .country .country_card .tags .t2, #material_plane .country_space .country_desc .country .country_card .tags .t3, #material_plane .country_space .country_desc .country .country_card .tags .t4, #material_plane .country_space .country_desc .country .country_card .tags .t5, #material_plane .country_space .country_desc .country .country_card .tags .t6, .token_selector, .tag {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -2473,6 +2497,31 @@ img {
  * *
  * * Also note: https://m3.material.io/styles/elevation/tokens
  * */
+.log_tag--critical, .log_level--critical .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--info, .log_level--info .log_tag, .token_selector, #material_plane .country_space .country_desc .country .country_card .tags .t6, #material_plane .country_space .country_desc .country .country_card .tags .t5, #material_plane .country_space .country_desc .country .country_card .tags .t4, #material_plane .country_space .country_desc .country .country_card .tags .t3, #material_plane .country_space .country_desc .country .country_card .tags .t2, #material_plane .country_space .country_desc .country .country_card .tags .t1, .tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  min-height: 24px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  margin: 2px;
+  font-size: 12px;
+}
+
+.tag {
+  color: #fff;
+  font-family: "RobotoCondensed", sans-serif;
+}
+
+.tag:not(.disabled) {
+  background-color: #822000;
+}
+
+.tag.disabled {
+  background-color: #555;
+}
+
 /**
  * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
  * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
@@ -2608,6 +2657,7 @@ img {
   padding: 8px;
   border-radius: 4px;
   background-color: rgba(36, 11, 54, 0.03);
+  cursor: pointer;
   font-size: 16px;
 }
 #material_plane .country_space .country_names .country_name.active {
@@ -2655,6 +2705,66 @@ img {
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t6 {
+  color: #fff;
+  font-family: "RobotoCondensed", sans-serif;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t6:not(.disabled) {
+  background-color: #7a4c37;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t6.disabled {
+  background-color: #555;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t5 {
+  color: #fff;
+  font-family: "RobotoCondensed", sans-serif;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t5:not(.disabled) {
+  background-color: #cf7b00;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t5.disabled {
+  background-color: #555;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t4 {
+  color: #fff;
+  font-family: "RobotoCondensed", sans-serif;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t4:not(.disabled) {
+  background-color: #7400be;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t4.disabled {
+  background-color: #555;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t3 {
+  color: #fff;
+  font-family: "RobotoCondensed", sans-serif;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t3:not(.disabled) {
+  background-color: #003b81;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t3.disabled {
+  background-color: #555;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t2 {
+  color: #fff;
+  font-family: "RobotoCondensed", sans-serif;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t2:not(.disabled) {
+  background-color: #0F720C;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t2.disabled {
+  background-color: #555;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t1 {
+  color: #fff;
+  font-family: "RobotoCondensed", sans-serif;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t1:not(.disabled) {
+  background-color: #444548;
+}
+#material_plane .country_space .country_desc .country .country_card .tags .t1.disabled {
+  background-color: #555;
 }
 #material_plane .country_space .country_desc .country .country_card .card_info {
   font-style: italic;
@@ -3370,6 +3480,15 @@ img {
   font-family: "Montserrat", sans-serif;
   font-size: 11px;
 }
+.site_of_interest__subheader {
+  font-size: 14px;
+  font-variant-caps: small-caps;
+}
+.site_of_interest__desc {
+  font-size: 11px;
+  text-align: justify;
+  margin-bottom: 8px;
+}
 .site_of_interest__details {
   margin-bottom: 8px;
 }
@@ -3916,6 +4035,15 @@ img {
   font-family: "Montserrat", sans-serif;
   font-size: 11px;
 }
+.site_of_interest__subheader {
+  font-size: 14px;
+  font-variant-caps: small-caps;
+}
+.site_of_interest__desc {
+  font-size: 11px;
+  text-align: justify;
+  margin-bottom: 8px;
+}
 .site_of_interest__details {
   margin-bottom: 8px;
 }
@@ -4074,12 +4202,12 @@ img {
 }
 
 .token_s {
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
 }
 
-.token_selector, .log_tag--info, .log_level--info .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--critical, .log_level--critical .log_tag, .tag {
+.token_selector, #material_plane .country_space .country_desc .country .country_card .tags .t6, #material_plane .country_space .country_desc .country .country_card .tags .t5, #material_plane .country_space .country_desc .country .country_card .tags .t4, #material_plane .country_space .country_desc .country .country_card .tags .t3, #material_plane .country_space .country_desc .country .country_card .tags .t2, #material_plane .country_space .country_desc .country .country_card .tags .t1, .log_tag--info, .log_level--info .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--critical, .log_level--critical .log_tag, .tag {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -4746,6 +4874,7 @@ img {
   align-items: center;
   justify-content: space-evenly;
   margin-bottom: 4px;
+  margin-top: 4px;
 }
 .icon_table__slot {
   display: flex;
@@ -4756,32 +4885,15 @@ img {
 }
 .icon_table__slot__icon {
   font-size: 20px;
-  color: #157FE3;
 }
 .icon_table__slot__value {
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
 }
 .icon_table__slot__label {
-  background-color: #19297C;
   font-family: "RobotoCondensed", sans-serif;
   font-size: 13px;
   padding: 8px 4px;
-  border-radius: 4px;
-  position: absolute;
-  top: 45px;
-  left: auto;
-  right: auto;
-  width: 120px;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.2s;
-  z-index: 1;
-  box-shadow: 0 0 2px #fff inset, 0 0 4px #157FE3 inset, 0 0 6px #173FB3 inset, 0 0 8px #173FB3 inset;
-}
-.icon_table__slot:hover .icon_table__slot__label {
-  visibility: visible;
-  opacity: 1;
 }
 
 .npc_chemistry {

@@ -1,8 +1,10 @@
-import {MapEdge}         from "../MapEdge";
-import {MapGraph}        from "../MapGraph";
-import {MapVertex}       from "../MapVertex";
-import {MapVertexStatus} from "../MapVertexStatus";
-import {MapVertexType}   from "../MapVertexType";
+import {NpcID}             from "../../data/npcIndex";
+import {MapEdge}           from "../MapEdge";
+import {MapGraph}          from "../MapGraph";
+import {MapTransportation} from "../MapTransportation";
+import {MapVertex}         from "../MapVertex";
+import {MapVertexStatus}   from "../MapVertexStatus";
+import {MapVertexType}     from "../MapVertexType";
 
 const g = new MapGraph("Dvo");
 
@@ -132,7 +134,7 @@ v00.intel = `<p>An apology, by an eldritch monstrosity on behalf of a mankind wh
              upon her, she wished, choked by wrath and tears. She wished that 
              she could spend just one more day in her childhood village, amidst
              warm company with whom she belonged, in a time and place that just 
-             felt <i>right</i>.</p>
+             felt <em>right</em>.</p>
              <p>And the Goddess, a Fragment that Should Not Be, listened. And so
              She took her home. And then She painted. Fueled by ferventness and 
              disdain, She painted. And painted. Thus creating a work of art that
@@ -150,6 +152,48 @@ v00.intel = `<p>An apology, by an eldritch monstrosity on behalf of a mankind wh
              <p>But now freed, it forms the key to your survival. With its fate 
              intricately tangled with your own, the path you tread remains to be 
              seen...</p>`
+
+
+v31.intel = `<p>The territory of Nix (named after the only known 'civilized' 
+            town in that area) covers a <em>huge</em> expanse of frigid tundra /
+            vast barren glacier-fields, with only coastal areas (barely) 
+            suitable for sustaining life. The rest of it is populated by various primitive, 
+            loosely-bound chiefdoms having only a handful of families. These still 
+            retain their ancient ways of life, isolationism and shamanic cultures while the 
+            rest of this universe continues to modernize. Each of these tribes 
+            is lead by revered 'SnowPriests' leading to their renowned (yet 
+            elusive) culture of mystic animism.</p>
+            <p>A land that time forgot. A land that is still deeply invested and
+            filled with mysteries and ancient primordials, this infinite 
+            icefield has always inspired mixed feelings of fear and reverence,
+            and occasionally mockery. Yet of late, a new feeling has begun to 
+            surface... A feeling of pure horror. An infection that few know, 
+            and fewer yet understand, has begun to creep upon this land - and 
+            the wholesale slaughter of the town of Nix doesn't help with its reputation...</p>`
+
+v31.addSiteOfInterest("The town of Nix",
+                      "Coastal Town",
+                      "The little town of Nix. 'Twas almost yesterday that this " +
+                      "was a humble and friendly refuge for many a traveller, and crafts " +
+                      "from here adorn many a place in Devotion and even beyond. Unfortunately, " +
+                      "the recent bloodbath has gripped this place in a heavy mood of despair " +
+                      "and paranoia, and <em>fear</em>.",
+                      [
+                          ["Leader",     "Sir Gnosis Edelweiss"],
+                          ["Population", "1.3K"],
+                          ["Geography",  "Cliff-side"],
+                          ["Economy",    "Shambles"],
+                      ],
+                      2288,
+                      new Map([
+                          [MapTransportation.Foot,       "~57 days"],
+                          [MapTransportation.Horse,      "~22 days"],
+                          [MapTransportation.Automobile, "~2  days"],
+                          [MapTransportation.Jet,        "~1  hour"],
+                      ]))
+
+v31.addCharacterToken(NpcID.Gnosis);
+
 
 function edge(v00: MapVertex, v01: MapVertex, distMul: number = 1.0): void
 {

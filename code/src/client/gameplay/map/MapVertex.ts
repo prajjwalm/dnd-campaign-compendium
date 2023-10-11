@@ -1,3 +1,7 @@
+import {NpcID}                                        from "../data/npcIndex";
+import {
+    Character
+}                                                     from "../simulation/characters/Character";
 import {MapGraph}                                     from "./MapGraph";
 import {MapTransportation, TransportationToDOMString} from "./MapTransportation";
 import {
@@ -50,7 +54,7 @@ export class MapVertex
      * here. The logic of mapping a {@link Character} to its location doesn't
      * come under the scope of this class.
      */
-    private readonly _characterPaths: string[];
+    private readonly _characterPaths: NpcID[];
 
     /**
      * If this vertex is the home base.
@@ -133,8 +137,10 @@ export class MapVertex
      */
     public addSiteOfInterest(name: string,
                              type: string,
+                             desc: string,
                              info: [string, string][],
-                             connections: Map<MapTransportation, [number, number]>)
+                             distance: number,
+                             connections: Map<MapTransportation, string>)
         : void
     {
         const tableEntries = [];
@@ -148,13 +154,12 @@ export class MapVertex
         }
 
         const navigationEntries = [];
-        for (const [transportation, [nDays, safety]] of connections.entries()) {
+        for (const [transportation, time] of connections.entries()) {
             navigationEntries.push(`
                 <div class="navigation__type icon_table__slot">
                     <div class="navigation__type__means icon_table__slot__icon">${TransportationToDOMString.get(transportation)}</div>
                     <div class="icon_table__slot__label">
-                        <div class="navigation__type__time">${nDays} days</div>
-                        <div class="navigation__type__safety">${safety}%</div>
+                        ${time}
                     </div>
                 </div>
             `);
@@ -166,9 +171,11 @@ export class MapVertex
                     <div class="site_of_interest__category">${type}</div>
                     <div class="site_of_interest__name">${name}</div>
                 </div>
+                <div class="site_of_interest__desc">${desc}</div>
                 <div class="site_of_interest__details dictionary">
                     ${tableEntries.join("")}
                 </div>
+                <span class="site_of_interest__subheader theme_subheader">Connectivity</span>
                 <div class="site_of_interest__navigation navigation icon_table">
                     ${navigationEntries.join("")}
                 </div>
@@ -180,9 +187,9 @@ export class MapVertex
      * Add a token image to be displayed as a character token. It needn't
      * specifically belong to a character.
      */
-    public addCharacterToken(path: string)
+    public addCharacterToken(character: NpcID)
     {
-        this._characterPaths.push(path);
+        this._characterPaths.push(character);
     }
 
     /**
@@ -202,7 +209,7 @@ export class MapVertex
         else if (this._characterPaths.length == 0) {
             tokenDOM = `
             <div class="map_vertex_details__subheader theme_subheader">
-                NPCs here
+                NPCs in this area
             </div>
             <div class="map_vertex_details__desc">
                 No known NPCs are wandering out here.
@@ -211,7 +218,7 @@ export class MapVertex
         else {
             const tokenDOMs = [];
             for (const path of this._characterPaths) {
-                tokenDOMs.push(`<img class="token_s" src="${path}" alt="">`);
+                tokenDOMs.push(`<img class="token_s" src="${Character.get(path).imgPath}" alt="">`);
             }
             tokenDOM = `
             <div class="map_vertex_details__subheader theme_subheader">

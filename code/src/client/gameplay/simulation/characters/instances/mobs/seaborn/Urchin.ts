@@ -82,7 +82,7 @@ export function setupUrchin()
         Activation.Special,
         `<p><em><strong>Fossilized Existence.</strong></em> The sea urchin will 
         never take damage due to water pressure and moves exceedingly slowly on
-        hundreds of tiny tube feet. The sea urchin may never dash, and it's 
+        hundreds of tiny tube feet. The sea urchin may never dash, and its 
         movement speed only increases by 5ft on the Nethersea brand, instead of the usual 15ft.</p>`
     ));
 

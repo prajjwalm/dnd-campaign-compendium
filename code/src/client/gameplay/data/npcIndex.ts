@@ -68,6 +68,7 @@ export enum NpcID {
     Yoeric,
     Teiai,
     Shuo,
+    Gnosis,
     __MOBS__,
     NSBrand,
     Slider,

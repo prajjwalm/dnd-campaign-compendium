@@ -1,4 +1,5 @@
 import {setupElliot} from "./elliot";
+import {setupGnosis} from "./gnosis";
 import {setupRuzaki} from "./ruzaki";
 import {setupShuo}   from "./shuo";
 import {setupTeiai}  from "./teiai";
@@ -11,4 +12,5 @@ export function setupC2A2()
     setupYoeric();
     setupTeiai();
     setupShuo();
+    setupGnosis();
 }

@@ -66,7 +66,7 @@ export function setupShriekerN()
         `<p><em><strong>Frenzied Shrieking.</strong></em> The shrieker dashes 
         (apparantly) randomly (but with a tendancy to move towards the highest 
         concentration of non-seaborn it can detect). While in 
-        this state it deals ${wrapRoll([[7, D12], [shriekerN.CON, D1]])} 
+        this state it deals ${wrapRoll([[2 * shriekerN.CON, D12], [shriekerN.CON, D1]])} 
         ${wrapDamageType(DamageType.Neural)} damage per round (halved on a DC 
         ${shriekerN.dc(DStat.Cha) + shriekerN.Prof} WIS save) to all non-seaborn
         that get within 60 ft of it at any point of time. At the end of each of 

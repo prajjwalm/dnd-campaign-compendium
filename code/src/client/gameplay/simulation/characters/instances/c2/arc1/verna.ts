@@ -14,7 +14,7 @@ export function setupVerna()
     verna.core.imgPath = "character_tokens/C2/Arc1/Verna.png";
 
     // Setup D&D stats.
-    verna.dStats.initializeStats(18, 10, 16,  8, 10, 14);
+    verna.dStats.initializeStats(18, 12, 18,  8, 10, 14);
     verna.dStats.pb = Prof.get(4);
 
     //todo
@@ -31,4 +31,7 @@ export function setupVerna()
 
     verna.card.setCampaignArc(2, 1);
     verna.card.addCardTag("F24");
+    verna.card.addCardTag("Race | Leonin");
+    verna.card.addCardTag("Class | <span class='verbose'>Battlemaster </span>Fighter");
+    verna.card.addCardTag("CR | 10");
 }

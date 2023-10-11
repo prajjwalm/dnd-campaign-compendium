@@ -211,7 +211,7 @@ UpgradeIcons.set(
 
 export const UpgradeRarityLevels: Map<UpgradeVertexType, Map<Rarity, number>> = new Map([
     [UpgradeVertexType.Sync,                 new Map([[Rarity.Artefact, 1]])],
-    [UpgradeVertexType.LandMovement,         new Map([[Rarity.Black, -30],
+    [UpgradeVertexType.LandMovement,         new Map([[Rarity.Black, -20],
                                                       [Rarity.Common, 10],
                                                       [Rarity.Uncommon, 20]])],
     [UpgradeVertexType.SeaMovement,          new Map([[Rarity.Rare, 20]])],

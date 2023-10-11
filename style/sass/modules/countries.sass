@@ -1,5 +1,6 @@
 @use "../definitions/colors"
 @use "../definitions/shadows"
+@use "../element_modules/tag"
 
 @import "common_elements"
 
@@ -31,6 +32,7 @@
         padding: 8px
         border-radius: 4px
         background-color: rgba(colors.$secondary_dark, 0.03)
+        cursor: pointer
 
         font-size: 16px
 
@@ -80,6 +82,19 @@
             flex-flow: row wrap
             align-items: center
             justify-content: center
+
+            .t6
+              @include tag.tag(colors.$dnd_artefact_dark, $compressed: true)
+            .t5
+              @include tag.tag(colors.$dnd_legendary_dark, $compressed: true)
+            .t4
+              @include tag.tag(colors.$dnd_epic_dark, $compressed: true)
+            .t3
+              @include tag.tag(colors.$dnd_rare_dark, $compressed: true)
+            .t2
+              @include tag.tag(colors.$dnd_uncommon_dark, $compressed: true)
+            .t1
+              @include tag.tag(colors.$dnd_common_dark, $compressed: true)
 
           .card_info
             font-style: italic

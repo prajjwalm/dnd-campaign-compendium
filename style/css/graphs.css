@@ -217,6 +217,9 @@
 .theme--unknown .theme_subheader {
   color: #EAE6E5;
 }
+.theme--unknown i {
+  color: #EAE6E5;
+}
 .theme--unknown .theme_box {
   border-image-source: url("../../assets/images/gui/unknown/Stroke500x500.png");
   border-image-slice: 5;
@@ -237,6 +240,9 @@
   background-color: #205017;
 }
 .theme--friendly .theme_subheader {
+  color: #059729;
+}
+.theme--friendly i {
   color: #059729;
 }
 .theme--friendly .theme_box {
@@ -261,6 +267,9 @@
 .theme--safe .theme_subheader {
   color: #157FE3;
 }
+.theme--safe i {
+  color: #157FE3;
+}
 .theme--safe .theme_box {
   border-image-source: url("../../assets/images/gui/safe/Stroke500x500.png");
   border-image-slice: 5;
@@ -283,6 +292,9 @@
 .theme--combat .theme_subheader {
   color: #9947EA;
 }
+.theme--combat i {
+  color: #760BD4;
+}
 .theme--combat .theme_box {
   border-image-source: url("../../assets/images/gui/combat/Stroke500x500.png");
   border-image-slice: 5;
@@ -303,6 +315,9 @@
   background-color: #381D2A;
 }
 .theme--emergency .theme_subheader {
+  color: #E04D75;
+}
+.theme--emergency i {
   color: #E04D75;
 }
 .theme--emergency .theme_box {
@@ -327,6 +342,9 @@
 .theme--neutral .theme_subheader {
   color: #EC7005;
 }
+.theme--neutral i {
+  color: #EC7005;
+}
 .theme--neutral .theme_box {
   border-image-source: url("../../assets/images/gui/neutral/Stroke500x500.png");
   border-image-slice: 5;
@@ -347,6 +365,9 @@
   background-color: #420039;
 }
 .theme--deadly .theme_subheader {
+  color: #CA1412;
+}
+.theme--deadly i {
   color: #CA1412;
 }
 .theme--deadly .theme_box {
@@ -370,6 +391,9 @@
   border: solid 2px #822000;
 }
 .theme--black .theme_subheader {
+  color: #CA1412;
+}
+.theme--black i {
   color: #CA1412;
 }
 .theme--black .theme_box {
@@ -1379,6 +1403,7 @@ img {
   align-items: center;
   justify-content: space-evenly;
   margin-bottom: 4px;
+  margin-top: 4px;
 }
 .icon_table__slot {
   display: flex;
@@ -1389,32 +1414,15 @@ img {
 }
 .icon_table__slot__icon {
   font-size: 20px;
-  color: #157FE3;
 }
 .icon_table__slot__value {
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
 }
 .icon_table__slot__label {
-  background-color: #19297C;
   font-family: "RobotoCondensed", sans-serif;
   font-size: 13px;
   padding: 8px 4px;
-  border-radius: 4px;
-  position: absolute;
-  top: 45px;
-  left: auto;
-  right: auto;
-  width: 120px;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.2s;
-  z-index: 1;
-  box-shadow: 0 0 2px #fff inset, 0 0 4px #157FE3 inset, 0 0 6px #173FB3 inset, 0 0 8px #173FB3 inset;
-}
-.icon_table__slot:hover .icon_table__slot__label {
-  visibility: visible;
-  opacity: 1;
 }
 
 .npc_chemistry {
@@ -2018,6 +2026,15 @@ img {
   font-family: "Montserrat", sans-serif;
   font-size: 11px;
 }
+.site_of_interest__subheader {
+  font-size: 14px;
+  font-variant-caps: small-caps;
+}
+.site_of_interest__desc {
+  font-size: 11px;
+  text-align: justify;
+  margin-bottom: 8px;
+}
 .site_of_interest__details {
   margin-bottom: 8px;
 }
@@ -2176,8 +2193,8 @@ img {
 }
 
 .token_s {
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
 }
 

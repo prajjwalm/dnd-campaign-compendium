@@ -4,11 +4,10 @@
 export enum MapTransportation
 {
     Foot,
-    Bike,
-    Car,
+    Horse,
+    Automobile,
     Train,
     Helicopter,
-    Plane,
     Jet,
     Space,
     Cognition,
@@ -19,7 +18,10 @@ export enum MapTransportation
  */
 export const TransportationToDOMString: Map<MapTransportation, string> =
     new Map([
-        [MapTransportation.Jet,       `<i class="fa-solid fa-jet-fighter"></i>`],
-        [MapTransportation.Space,     `<i class="fa-solid fa-shuttle-space"></i>`],
-        [MapTransportation.Cognition, `<i class="fa-solid fa-brain"></i>`],
+        [MapTransportation.Foot,        `<i class="fa-solid fa-shoe-prints"></i>`],
+        [MapTransportation.Horse,       `<i class="fa-duotone fa-horse-saddle"></i>`],
+        [MapTransportation.Automobile,  `<i class="fa-solid fa-truck-field"></i>`],
+        [MapTransportation.Jet,         `<i class="fa-solid fa-jet-fighter"></i>`],
+        [MapTransportation.Space,       `<i class="fa-solid fa-shuttle-space"></i>`],
+        [MapTransportation.Cognition,   `<i class="fa-solid fa-brain"></i>`],
     ]);

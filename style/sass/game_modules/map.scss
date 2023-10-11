@@ -145,6 +145,17 @@
     font-size: 11px;
   }
 
+  &__subheader {
+    font-size: 14px;
+    font-variant-caps: small-caps;
+  }
+
+  &__desc {
+    font-size: 11px;
+    text-align: justify;
+    margin-bottom: 8px;
+  }
+
   &__details {
     margin-bottom: 8px;
 
