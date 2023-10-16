@@ -12,13 +12,14 @@ export function setupMostima()
 
     c.card.addCardTag('F152');
     c.card.addCardTag('Plane-hopper');
-    c.card.addCardTag(`From | Ruin`);
+    c.card.addCardTag(`From | Devotion | Materia | Ruin | ALL`);
     c.card.addCardTag(`Race | Aasimar &times; Tiefling`);
     c.card.addCardTag(`Class | <span class='verbose'>Clockwork Soul</span> Sor-lock`);
     c.card.addCardTag(`Class | <span class='verbose'>Chronurgy</span> Wizard`);
     c.card.addCardTag(`Class | Fighter`);
     c.card.addCardTag(`Nightblood | Shattered Time`);
     c.card.addCardTag(`'Fallen Saintess'`);
+    c.card.addCardTag(`Keeper of the Lock and Key`);
     c.card.addCardTag(`CR | 25`);
 
     c.card.primaryImageTitle = "Messenger";
@@ -31,5 +32,5 @@ export function setupMostima()
     an ancient, or rather timeless, soul.`;
 
     c.opinions.isOpinionated = false;
-    
+
 }

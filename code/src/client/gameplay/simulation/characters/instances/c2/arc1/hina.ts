@@ -86,6 +86,8 @@ export function setupHina()
     hina.card.addCardTag("CR | 23");
     hina.card.summary = () =>"???";
 
+    hina.card.primaryImageTitle = "Urchin";
+
     // CoC Skills information
     hina.cSkills.setSkillValues([
         [CSkill.Accounting,             80,   Vague],

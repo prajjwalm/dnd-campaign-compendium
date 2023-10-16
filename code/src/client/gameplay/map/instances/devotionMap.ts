@@ -4,7 +4,6 @@ import {MapGraph}          from "../MapGraph";
 import {MapTransportation} from "../MapTransportation";
 import {MapVertex}         from "../MapVertex";
 import {MapVertexStatus}   from "../MapVertexStatus";
-import {MapVertexType}     from "../MapVertexType";
 
 const g = new MapGraph("Dvo");
 
@@ -15,17 +14,17 @@ function vertex(x: number,
                 ref: MapVertex,
                 radial: boolean,
                 status: MapVertexStatus = null,
-                type: MapVertexType = null,
+                interest: string = null,
                 text: string = null)
 {
     if (status == null) {
         status = MapVertexStatus.Unknown;
     }
-    if (type == null) {
-        type = MapVertexType.Unknown;
+    if (interest == null) {
+        interest = "???";
     }
 
-    let vertex: MapVertex = new MapVertex(status, type, g);
+    let vertex: MapVertex = new MapVertex(status, interest, g);
 
     if (ref == null) {
         if (!radial) {
@@ -51,22 +50,22 @@ function vertex(x: number,
     return vertex;
 }
 
-const v00 = vertex(    0,   0,  null, false, MapVertexStatus.Safe,      MapVertexType.Base,             "The village of Po'Shan");
+const v00 = vertex(    0,   0,  null, false, MapVertexStatus.Safe,      "Base",                         "The village of Po'Shan");
 const v01 = vertex(  -40,  -15,  v00, false, null,                      null,                           null);
-const v02 = vertex(  -50,  -60,  v01, false, null,                      null,                           null);
+const v02 = vertex(  -50,  -60,  v01, false, MapVertexStatus.Deadly,    "Stronghold",                   null);
 const v03 = vertex(   40,   40,  v00, false, null,                      null,                           null);
 const v04 = vertex(   60,  -45,  v00, false, null,                      null,                           null);
-const v05 = vertex(  500,    0,  v00, false, MapVertexStatus.Safe,      MapVertexType.Perpendicularity, "<span>Devotion's Perpendicularity</span>");
+const v05 = vertex(  500,    0,  v00, false, MapVertexStatus.Safe,      "Perpendicularity",             "<span>Devotion's Perpendicularity</span>");
 const v06 = vertex(   80,   25,  v03, false, null,                      null,                           null);
 const v07 = vertex(  -15,  100,  v00, false, null,                      null,                           null);
 const v08 = vertex(  -50, -135,  v00, false, null,                      null,                           null);
 const v09 = vertex(  -60,  130,  v07, false, null,                      null,                           null);
 const v10 = vertex(  130,   40,  v09, false, null,                      null,                           null);
 const v11 = vertex(  170,  -50,  v10, false, null,                      null,                           null);
-const v12 = vertex(   25,  -90,  v05, false, MapVertexStatus.Friendly,  MapVertexType.Deity,            "Mount Hui-ch'i");
+const v12 = vertex(   25,  -90,  v05, false, MapVertexStatus.Friendly,  "Deity's Abode",                "Mount Hui-ch'i");
 const v13 = vertex(  140,   10,  v08, false, null,                      null,                           null);
 const v14 = vertex(   40,   45,  v13, false, null,                      null,                           null);
-const v15 = vertex(  150,  -95,  v08,  true, MapVertexStatus.Friendly,  MapVertexType.Town,             "Alvarium");
+const v15 = vertex(  150,  -95,  v08,  true, MapVertexStatus.Friendly,  "Town",                         "Alvarium");
 const v16 = vertex(  140, -140,  v15,  true, null,                      null,                           null);
 const v17 = vertex(   50,  -15,  v15,  true, null,                      null,                           null);
 const v18 = vertex(   70, -120,  v13, false, null,                      null,                           null);
@@ -75,21 +74,21 @@ const v20 = vertex(  200,   60,  v11,  true, null,                      null,   
 const v21 = vertex(  160,  115,  v11,  true, null,                      null,                           null);
 const v22 = vertex(  240,  105,  v10,  true, null,                      null,                           null);
 const v23 = vertex(  140,  100,  v22,  true, null,                      null,                           null);
-const v24 = vertex(  128,   65,  v22,  true, MapVertexStatus.Neutral,   MapVertexType.Capital,          "Sarausa");
+const v24 = vertex(  128,   65,  v22,  true, MapVertexStatus.Neutral,   "State Capital",                "Sarausa");
 const v25 = vertex(  216,   30,  v22,  true, null,                      null,                           null);
 const v26 = vertex(  150,   30,  v21,  true, null,                      null,                           null);
-const v27 = vertex(  120,   75,  v26,  true, MapVertexStatus.Friendly,  MapVertexType.City,             "Aetna");
+const v27 = vertex(  120,   75,  v26,  true, MapVertexStatus.Friendly,  "City",                         "Aetna");
 const v28 = vertex(   60,   30,  v27,  true, null,                      null,                           null);
 const v29 = vertex(  120,  -25,  v17,  true, null,                      null,                           null);
 const v30 = vertex(  100, -110,  v17,  true, null,                      null,                           null);
-const v31 = vertex(  150, -150,  v30,  true, MapVertexStatus.Combat,    MapVertexType.Town,             "Nix");
+const v31 = vertex(  150, -150,  v30,  true, MapVertexStatus.Combat,    "Target",                       "Nix");
 const v32 = vertex(  150, -130,  v31,  true, null,                      null,                           null);
 const v33 = vertex(  180,  -75,  v31,  true, null,                      null,                           null);
 const v34 = vertex(  250,  -75,  v30,  true, null,                      null,                           null);
 const v35 = vertex(   40,   55,  v34,  true, null,                      null,                           null);
 const v36 = vertex(   40,  -15,  v34,  true, null,                      null,                           null);
 const v37 = vertex(   40,  -15,  v35,  true, null,                      null,                           null);
-const v38 = vertex(  120,  -30,  v30,  true, MapVertexStatus.Friendly,  MapVertexType.Capital,          "Sanctabella");
+const v38 = vertex(  120,  -30,  v30,  true, MapVertexStatus.Friendly,  "State Capital",                "Sanctabella");
 const v39 = vertex(  100,  -15,  v38,  true, null,                      null,                           null);
 const v40 = vertex(  140,   30,  v24,  true, null,                      null,                           null);
 const v41 = vertex(  140,   85,  v24,  true, null,                      null,                           null);
@@ -98,7 +97,7 @@ const v43 = vertex(  250,  115,  v42,  true, null,                      null,   
 const v44 = vertex(  150,   95,  v41,  true, null,                      null,                           null);
 const v45 = vertex(  150,   85,  v40,  true, null,                      null,                           null);
 const v46 = vertex(   70,   60,  v45,  true, null,                      null,                           null);
-const v47 = vertex(  135,  130,  v44,  true, MapVertexStatus.Black,     MapVertexType.Death,            "The 2nd Nightmare");
+const v47 = vertex(  135,  130,  v44,  true, MapVertexStatus.Black,     "Death",                        "The 2nd Nightmare");
 const v48 = vertex(  150,  115,  v28,  true, null,                      null,                           null);
 const v49 = vertex(  100,  120,  v01,  true, null,                      null,                           null);
 const v50 = vertex(  140,  135,  v28,  true, null,                      null,                           null);
@@ -109,7 +108,7 @@ const v54 = vertex(  125,  -80,  v39,  true, null,                      null,   
 const v55 = vertex(   80, -100,  v54,  true, null,                      null,                           null);
 const v56 = vertex(  120,  140,  v15,  true, null,                      null,                           null);
 const v57 = vertex(   60,   90,  v48,  true, null,                      null,                           null);
-const v58 = vertex(   70,  120,  v21,  true, MapVertexStatus.Neutral,   MapVertexType.ResearchHub,      "RyneTech Labs");
+const v58 = vertex(   70,  120,  v21,  true, MapVertexStatus.Emergency, "Civilian Crisis",              "RyneTech Labs Outpost");
 const v59 = vertex(  240,  -40,  v33,  true, null,                      null,                           null);
 const v60 = vertex(   80,  -60,  v33,  true, null,                      null,                           null);
 const v61 = vertex(  180,   85,  v43,  true, null,                      null,                           null);
@@ -180,7 +179,7 @@ v31.addSiteOfInterest("The town of Nix",
                       "and paranoia, and <em>fear</em>.",
                       [
                           ["Leader",     "Sir Gnosis Edelweiss"],
-                          ["Population", "1.3K"],
+                          ["Population", "~1.3K"],
                           ["Geography",  "Cliff-side"],
                           ["Economy",    "Shambles"],
                       ],
@@ -193,6 +192,97 @@ v31.addSiteOfInterest("The town of Nix",
                       ]))
 
 v31.addCharacterToken(NpcID.Gnosis);
+
+v58.intel = `Outpost #4d37335c of RyneTech Labs, Devotion Sector. Responsible 
+             for low latency front line research concerning phenomenon observed in this
+             sector of Devotion. Like most 
+             other outposts outside the plane of innovation, this area only 
+             maintains comms with the 'fringes' of Innovation, and its 
+             existence is classified to most inhabitants of the plane it swears 
+             allegiance to.<br/>
+             Several campuses have popped up here after the executives of the 
+             Labs decided to choose this region to spearhead their research. Other
+             than the central campus, The Kernel, where sensitive and military 
+             research occurs, security is fairly lax. But then, the suburbs 
+             built on reinforced steel, aluminium and polymers are confident 
+             that they needn't fear obsolete arms, magic, siege weapons or 
+             even myths and deities.<br/>
+             Most civilians here, while not so 
+             oblivious to the multiverse as those within the inner reaches of 
+             Innovation are, have never seen an invested being or application of
+             magic in their lives. That's in part due to the extensive 
+             surveillance of this area. Scores of satellites patrolling the 
+             skies detect signs of life anywhere in this region - and intruders,
+             particularly invested intruders are quarantined or eliminated with 
+             extreme professionalism.
+             <div class="map_vertex_details__subheader theme_subheader">
+                 Crisis Details
+             </div>
+             ???
+             `
+
+v58.addSiteOfInterest("The Kernel",
+                      "Military Research Hub",
+                      `The central research center of the Outpost. All studies 
+                       performed here are classified to the most severe degree. 
+                       Highest grade security and fusion-powered defenses
+                       plus a framework made almost entirely upon Aluminium 
+                       means this has been impenetrable by man or God, or 
+                       anything in between, so far at least.`,
+                      [
+                          ["Manager", "Yasin Natael"],
+                          ["Population", "~1.0K"],
+                          ["Geography", "High Altitude Plains"],
+                          ["Defenses", "SS Grade"],
+                          ["Research Focus", "???"],
+                      ],
+                      25600,
+                      new Map([
+                          [MapTransportation.Automobile, "~9   days"],
+                          [MapTransportation.Jet,        "~5   hours"],
+                          [MapTransportation.Space,      "75   minutes"],
+                      ]));
+
+v58.addSiteOfInterest("Park District",
+                      "Neighbourhood",
+                      `The civilian research area of the Outpost. 4 hours rail 
+                      from the Kernel. Most of the civilization needed to support 
+                      The Kernel resides here. Also notably, a high population 
+                      of Graduate students engage in non-military studies, 
+                      enjoying a relaxed sub-urb life subsidised by the labs.`,
+                      [
+                          ["Population", "~12K"],
+                          ["Geography", "Fertile Plains"],
+                          ["Defenses", "None"],
+                      ],
+                      22400,
+                      new Map([
+                          [MapTransportation.Horse,      "~96  days"],
+                          [MapTransportation.Automobile, "~8   days"],
+                          [MapTransportation.Jet,        "~4.5 hours"],
+                          [MapTransportation.Space,      "70   minutes"],
+                      ]));
+
+v58.addSiteOfInterest("Sand Ridge",
+                      "Badlands Camp",
+                      `Home to a corporate funded task force and local militia.
+                       Mainly self-sufficient and independent, the growth of 
+                       this 'Camp' has been encouraged by the authorities in 
+                       Innovation so that they could provide (at a price) goods
+                       and services, and protection, needed by the research areas
+                       in case of emergencies....`,
+                      [
+                          ["Manager", "Saito San"],
+                          ["Population", "~4.2K"],
+                          ["Geography", "Semi-barren Plateaus"],
+                          ["Defenses", "B Grade"],
+                      ],
+                      18400,
+                      new Map([
+                          [MapTransportation.Horse,      "~72 days"],
+                          [MapTransportation.Automobile, "~7   days"],
+                          [MapTransportation.Jet,        "~4   hours"],
+                      ]));
 
 
 function edge(v00: MapVertex, v01: MapVertex, distMul: number = 1.0): void

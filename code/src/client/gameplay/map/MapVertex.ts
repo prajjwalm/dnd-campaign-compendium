@@ -9,7 +9,6 @@ import {
     MapVertexStatusDescriptions,
     MapVertexStatusIcons
 }                                                     from "./MapVertexStatus";
-import {MapVertexType, MapVertexTypeDescriptions}     from "./MapVertexType";
 import {Vertex}                                       from "./Vertex";
 
 
@@ -28,11 +27,6 @@ export class MapVertex
      * Optional override to the textual description of the status.
      */
     public statusDescOverride: string;
-
-    /**
-     * Optional override to the textual description of the type.
-     */
-    public typeDescOverride: string;
 
     /**
      * A 'z-coordinate' of this vertex, used to affect world distance.
@@ -65,14 +59,13 @@ export class MapVertex
      * CTOR.
      */
     public constructor(private readonly status: MapVertexStatus,
-                       private readonly type: MapVertexType,
+                       private readonly interest: string,
                        public readonly graph: MapGraph)
     {
         super(graph.id, graph.vertexCount);
 
         this.name = "???";
         this.statusDescOverride = null;
-        this.typeDescOverride = null;
         this.z = 0;
         this.intel = "<div>No intel available.</div>";
         this._sitesOfInterest = [];
@@ -91,9 +84,6 @@ export class MapVertex
         const statusDesc = this.statusDescOverride == null
                            ? MapVertexStatusDescriptions.get(this.status)
                            : this.statusDescOverride;
-        const typeDesc = this.typeDescOverride == null
-                         ? MapVertexTypeDescriptions.get(this.type)
-                         : this.typeDescOverride;
 
         const [x, y]: [number, number] =
             this.graph.mapLocalCoordinatesToScreenPosition([this.x, this.y]);
@@ -114,7 +104,7 @@ export class MapVertex
                 <div class="grunge_label">
                     <div class="grunge_label__title">
                         <div class="grunge_label__title__left">${statusDesc}</div>
-                        <div class="grunge_label__title__right">${typeDesc}</div>
+                        <div class="grunge_label__title__right">${this.interest}</div>
                     </div>
                     <div class="grunge_label__desc"><span class="vertex_id">(${this.id})</span>${this.name}</div>                
                 </div>
@@ -168,8 +158,8 @@ export class MapVertex
         this._sitesOfInterest.push(`
             <div class="theme_box site_of_interest">
                 <div class="site_of_interest__header">
-                    <div class="site_of_interest__category">${type}</div>
-                    <div class="site_of_interest__name">${name}</div>
+                    <div class="site_of_interest__category">${name}</div>
+                    <div class="site_of_interest__name">${type}</div>
                 </div>
                 <div class="site_of_interest__desc">${desc}</div>
                 <div class="site_of_interest__details dictionary">

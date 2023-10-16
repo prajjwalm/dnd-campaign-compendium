@@ -18,8 +18,8 @@ export function setupGnosis()
     c.opinions.isOpinionated = false;
 
     c.card.setCampaignArc(2, 2);
-    c.card.addCardTag("M41");
-    c.card.addCardTag("Race | Human");
+    c.card.addCardTag("M41")
+    c.card.addCardTag("Race | Human(?)");
     c.card.addCardTag("From | Devotion (Nix)");
     c.card.addCardTag("CR | 13");
 }

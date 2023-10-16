@@ -56,7 +56,7 @@ export function setupSlider()
     slider.combat.addAction(new Action(
         Activation.Action,
         `<p><em><strong>Tentacle wrap.</strong></em> The slider attempts to wrap
-        one of its appendages around a target upto two times. The target must 
+        one of its appendages around a target upto two times. For each time, the target must 
         make a DC ${slider.dc(DStat.Dex)} DEX save. If all rolls succeed,
         the slider has missed and nothing happens. If any fails, the target 
         must then make a DC ${slider.dc(DStat.Con)} CON save to attempt to 
