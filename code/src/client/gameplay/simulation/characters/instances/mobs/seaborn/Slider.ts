@@ -56,11 +56,11 @@ export function setupSlider()
     slider.combat.addAction(new Action(
         Activation.Action,
         `<p><em><strong>Tentacle wrap.</strong></em> The slider attempts to wrap
-        one of its appendages around a target upto two times. For each time, the target must 
-        make a DC ${slider.dc(DStat.Dex)} DEX save. If all rolls succeed,
-        the slider has missed and nothing happens. If any fails, the target 
-        must then make a DC ${slider.dc(DStat.Con)} CON save to attempt to 
-        resist the neurotoxin it injects. On failure, the target takes ${wrapRoll([8, D6])} 
+        one of its appendages around a target upto two times. For each time, it 
+        rolls a melee attack as ${wrapRoll(slider.DEX + slider.Prof)}. If all attacks miss,
+        nothing happens. If any fails, the target must then make a DC 
+        ${slider.dc(DStat.Con)} CON save to attempt to resist the neurotoxin it 
+        injects. On failure, the target takes ${wrapRoll([8, D6])} 
         ${wrapDamageType(DamageType.Neural)} damage. On success, they take half damage.</p>`
     ));
 

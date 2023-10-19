@@ -549,34 +549,19 @@
                 </p>
                 <p>
                     So I came up with the concept of escalated damage types. These are very rare, and only found against deadly
-                    enemies or enemies from very dangerous environments. At their core they deal double damage and apply
-                    a negative effect, but the way they do that makes them particularly unique and deadly.
+                    enemies or enemies from very dangerous environments.
                 </p>
                 <ol>
                     <li>If a target is immune to the base damage type, they may or may not be immune to the escalated damage
                         type. For instance a construct without a brain that is immune to psychic damage is also immune to neural
                         damage. But a demon form the abyss may take hellfire damage even if they are immune to fire damage.
-                        Resistance means nothing against escalated damage types while vulnerabilities extend.
+                        <i>Resistance means nothing against escalated damage types</i> while vulnerabilities extend.
                     </li>
-                    <li>Base damage is always applied as normal first. So if an attack deals 27 neural damage, the affected
-                        target would immediately take 27 psychic damage. This is affected by vulnerability / resistance. Let's
-                        say the target was resistant, so they would 13 psychic damage now.</li>
-                    <li>Concentration-like checks are then made against total escalated damage since the last failed check.
-                        Such checks must only be made when the total damage exceeds 20, but the target can willingly choose
-                        to fail a save whenever they wish to. In the above example, the total damage is 27, so a DC 14 Int
-                        saving throw is attempted.</li>
-                    <li>If a concentration-like check is successful, nothing happens, but the damage is tracked. So in the
-                        above example let's say the target succeeds the save, then takes another 25 neural damage. On the
-                        second instance, they must make a DC 26 Int save (since the total damage is now 52).</li>
-                    <li>Should they fail, the total damage stacked up is immediately applied and so is an adverse effect.
-                        In this case since let's assume the failed the save. So as a result of that attack the damage taken
-                        is 52 + 25/2 = 64. This abrupt application of damage is what makes escalated damage so deadly,
-                        since it may easily one-shot rather tanky characters too. Since the damage proc'd was neural,
-                        the target suffering the damage would also be stunned for 1 round.</li>
-                    <li>Let's say the victim didn't want this landfall damage, so they could've chosen to fail the save
-                        immediately when they took the first 27 psychic damage. They'd then have taken 40 psychic damage
-                        and been stunned. So the tradeoff is that while the damage taken is more gradual (giving allies a chance
-                        to heal), the negative effect becomes more frequently applied.</li>
+                    <li>Everytime an instance of escalated damage is taken a DC 20 Save must be attempted to resist the negative
+                        effects of this damage type. Depending on how much total damage has been so far this save can either be
+                        at advantage (<25), regular (<50) or at disadvantage (<100). After a total of 100 damage since the last
+                        failed save has been taken, the save is considered an auto fail.</li>
+                    <li>Upon a failed save, 10 true damage is taken and a negative side effect is applied.</li>
                 </ol>
                 <p>Some escalated damage types encountered so far are -</p>
                 <table class="simple_table">

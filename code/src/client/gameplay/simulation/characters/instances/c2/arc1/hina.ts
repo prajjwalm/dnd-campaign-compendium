@@ -16,7 +16,6 @@ import {
     Speed, Vague
 } from "../../../../../data/constants";
 import {NpcID}                    from "../../../../../data/npcIndex";
-import {Rarity}                   from "../../../../../data/Rarity";
 import {D1, D12, D6}              from "../../../../../rolling/Dice";
 import {Action}                   from "../../../../action/Action";
 import {wrapDamageType, wrapRoll} from "../../../../action/Wrap";
