@@ -92,9 +92,10 @@ export function setupUrchin()
         outer shell exposing its viscera and a dense body filled with impurities
         that they release in self-defense. Whenever the urchin's HP falls below
         a multiple of 50, it releases toxins that deals 
-        ${wrapRoll([urchin.CON, D20])} ${wrapDamageType(DamageType.Corrosion)} damage to all
-        non-seaborn creatures within 20 ft. If it's HP falls through more 
-        than one multiple in a single hit the damage does not compound. 
+        ${wrapRoll([urchin.CON, D20])} ${wrapDamageType(DamageType.Corrosion)} 
+        damage to all non-seaborn creatures within 20 ft. If it's HP falls 
+        through more than one multiple in a single hit the damage does not
+        compound. 
          </p>`
     ));
 

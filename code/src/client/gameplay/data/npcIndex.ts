@@ -76,8 +76,10 @@ export enum NpcID {
     Urchin,
     UrchinN,
     Harpooner,
+    HarpoonerN,
     Shrieker,
     ShriekerN,
+    SwarmCaller,
     Ephremis,
 }
 

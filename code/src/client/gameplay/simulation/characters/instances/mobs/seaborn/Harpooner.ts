@@ -67,11 +67,15 @@ export function setupHarpooner()
     harpooner.combat.addAction(new Action(
         Activation.Action,
         `<p><em><strong>Harpoon!!.</strong></em> The harpooner launches its 
-        harpoon in a straight line towards the target with great force. All 
-        creatures in a 300 ft line must make a DC ${harpooner.dc(DStat.Str)} DEX 
-        save. On failure, they take ${wrapRoll([[5, D12], [harpooner.STR, D1]])} 
+        harpoon in a straight line towards the target with significant force. It 
+        attempts an ${wrapRoll(harpooner.STR + harpooner.Prof)} attack roll 
+        against the primary target and another at disadvantage for all other 
+        creatures in a 300 ft line behind the target. 
+        Targets who are hit take ${wrapRoll([[5, D12], [harpooner.STR, D1]])} 
         ${wrapDamageType(DamageType.Piercing)} damage. The harpoon is blocked if
-        it encounters an obstacle immune to piercing damage. 
+        it encounters an obstacle immune to piercing damage (which <u>might</u> 
+        be a creature whose armor blocked the shot, in such a case the creature 
+        must make a DC ${harpooner.dc(DStat.Str)} save to avoid falling prone)). 
          </p>`
     ));
 
@@ -79,11 +83,15 @@ export function setupHarpooner()
     harpooner.combat.addAction(new Action(
         Activation.BonusAction,
         `<p><em><strong>Harpoon...</strong></em> The harpooner launches its 
-        harpoon in a straight line towards the target with moderate force. All 
-        creatures in a 120 ft line must make a DC ${harpooner.dc(DStat.Str) - 2} DEX 
-        save. On failure, they take ${wrapRoll([[5, D8], [harpooner.STR, D1]])} 
+        harpoon in a straight line towards the target with moderate force. It 
+        attempts an ${wrapRoll(harpooner.STR + harpooner.Prof - 2)} attack roll 
+        against the primary target and another at disadvantage for all other 
+        creatures in a 300 ft line behind the target. 
+        Targets who are hit take ${wrapRoll([[5, D12]])} 
         ${wrapDamageType(DamageType.Piercing)} damage. The harpoon is blocked if
-        it encounters an obstacle immune to piercing damage. 
+        it encounters an obstacle immune to piercing damage (which <u>might</u> 
+        be a creature whose armor blocked the shot, in such a case the creature 
+        must make a DC ${harpooner.dc(DStat.Str) - 2} save to avoid falling prone)).
          </p>`
     ));
 
