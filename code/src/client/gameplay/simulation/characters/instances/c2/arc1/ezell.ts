@@ -26,4 +26,5 @@ export function setupEzell()
 
     ezell.card.setCampaignArc(2, 1);
     ezell.card.addCardTag("M32");
+    ezell.card.addCardTag("CR 12");
 }

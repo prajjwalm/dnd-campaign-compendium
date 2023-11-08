@@ -31,6 +31,7 @@ export function setupCoroto()
     coroto.card.setCampaignArc(2, 1);
 
     coroto.card.addCardTag("M54");
+    coroto.card.addCardTag("CR 2");
     // [NpcPersonalityTag.Paranoid, 3],
     // [NpcPersonalityTag.Industrious, 3],
     // [NpcPersonalityTag.Stern, 2],

@@ -11,6 +11,7 @@ export function setupGenefe()
     c.card.setCampaignArc(2, 1);
 
     c.card.addCardTag("F28");
+    c.card.addCardTag("CR 3");
 
     c.card.summary = () => `???`;
 

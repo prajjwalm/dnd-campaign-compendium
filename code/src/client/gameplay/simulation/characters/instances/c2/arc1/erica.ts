@@ -29,6 +29,7 @@ export function setupErica()
     erica.card.setCampaignArc(2, 1);
 
     erica.card.addCardTag("F50");
+    erica.card.addCardTag("CR 2");
 
     erica.opinions.isOpinionated = true;
 }

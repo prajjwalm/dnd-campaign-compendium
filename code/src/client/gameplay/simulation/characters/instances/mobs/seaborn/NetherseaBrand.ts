@@ -82,7 +82,7 @@ export function setupNetherseaBrand()
     nsBrand.sheet.size = CreatureSize.Cosmic;
     nsBrand.sheet.subtitle = " Seaborn, Unaligned";
     nsBrand.sheet.acDesc = "";
-    nsBrand.sheet.category = "seaborn";
+    // nsBrand.sheet.category = "seaborn";
 
     nsBrand.finalize();
 }

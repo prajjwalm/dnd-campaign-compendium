@@ -24,6 +24,7 @@ export function setupCecilia()
     cecilia.card.setCampaignArc(2, 1);
 
     cecilia.card.addCardTag("F11");
+    cecilia.card.addCardTag("CR 3");
 
     // [NpcPersonalityTag.Conciliatory, 3],
     // [NpcPersonalityTag.Naive, 3],

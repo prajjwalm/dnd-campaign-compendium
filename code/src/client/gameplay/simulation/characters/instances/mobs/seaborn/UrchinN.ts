@@ -112,7 +112,7 @@ export function setupUrchinN()
 
     urchinN.sheet.subtitle = " Seaborn, Neutral";
     urchinN.sheet.acDesc = " (Natural Armor)";
-    urchinN.sheet.category = "seaborn";
+    // urchinN.sheet.category = "seaborn";
 
     urchinN.finalize();
 }

@@ -28,5 +28,6 @@ export function setupTomasa()
 
     tomasa.card.setCampaignArc(2, 1);
     tomasa.card.addCardTag("F27");
+    tomasa.card.addCardTag("CR 1");
 
 }

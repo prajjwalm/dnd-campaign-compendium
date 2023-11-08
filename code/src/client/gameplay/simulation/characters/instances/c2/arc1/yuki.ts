@@ -27,7 +27,7 @@ export function setupYuki()
 
     // Setup D&D stats.
     yuki.dStats.initializeStats(11, 12, 14,  8, 12, 20);
-    yuki.dStats.pb = Prof.get(4);
+    yuki.dStats.pb = Prof.get(5);
 
     // Setup D&D skills.
     yuki.dSKills.setSkillProficiency(DSkill.Stealth, Hidden);
@@ -123,7 +123,7 @@ export function setupYuki()
         </p>`
     ));
 
-    yuki.sheet.cr = new CRValue(10);
+    yuki.sheet.cr = new CRValue(12);
     yuki.sheet.size = CreatureSize.Medium;
     yuki.sheet.subtitle = " Humanoid, Neutral";
     yuki.sheet.acDesc = "(Natural Dex)";

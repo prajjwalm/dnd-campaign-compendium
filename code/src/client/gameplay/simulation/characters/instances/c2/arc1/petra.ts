@@ -11,6 +11,7 @@ export function setupPetra()
     c.card.setCampaignArc(2, 1);
 
     c.card.addCardTag("F84");
+    c.card.addCardTag("CR 1");
 
     c.card.summary = () => `???`;
 

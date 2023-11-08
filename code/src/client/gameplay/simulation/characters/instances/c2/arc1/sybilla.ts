@@ -11,6 +11,7 @@ export function setupSybilla()
     c.card.setCampaignArc(2, 1);
 
     c.card.addCardTag("F34");
+    c.card.addCardTag("CR 1");
 
     c.card.summary = () => `???`;
 

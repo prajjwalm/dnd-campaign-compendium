@@ -11,6 +11,7 @@ export function setupIngrid()
     c.card.setCampaignArc(2, 1);
 
     c.card.addCardTag("F24");
+    c.card.addCardTag("CR 1");
 
     c.card.summary = () => `???`;
 

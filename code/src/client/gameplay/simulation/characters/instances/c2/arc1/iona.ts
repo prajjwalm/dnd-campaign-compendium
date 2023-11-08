@@ -33,6 +33,7 @@ export function setupIona()
 
     iona.card.setCampaignArc(2, 1);
     iona.card.addCardTag("F13");
+    iona.card.addCardTag("CR 2");
 
     // [NpcPersonalityTag.Sanguine, 2],
     // [NpcPersonalityTag.Optimist, 2],

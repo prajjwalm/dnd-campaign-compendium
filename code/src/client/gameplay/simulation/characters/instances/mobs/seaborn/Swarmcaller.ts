@@ -133,7 +133,7 @@ export function setupSwarmCaller()
 
     swarmC.sheet.subtitle = " Seaborn, Lawful Evil";
     swarmC.sheet.acDesc = " (Natural Dex)";
-    swarmC.sheet.category = "seaborn";
+    // swarmC.sheet.category = "seaborn";
 
     swarmC.finalize();
 }

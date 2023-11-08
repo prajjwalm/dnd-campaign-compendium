@@ -39,6 +39,7 @@ export function setupDawn()
     dawn.card.addCardTag("F405 (32)");
     dawn.card.addCardTag("From | Materia<span class='verbose'>(Naiyumi)</span> / Devotion");
     dawn.card.addCardTag("Race | Human");
+    dawn.card.addCardTag("CR 8");
 
     dawn.card.summary = () =>`
     The gentle and reserved pawn shop owner and the de facto caretaker of the small mountainous village of Po'shan. 

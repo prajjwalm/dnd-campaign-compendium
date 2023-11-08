@@ -133,4 +133,5 @@ export function setupRoberta()
 
     roberta.card.setCampaignArc(2, 1);
     roberta.card.addCardTag("F25");
+    roberta.card.addCardTag("CR 5");
 }

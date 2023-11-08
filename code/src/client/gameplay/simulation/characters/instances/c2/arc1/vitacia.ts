@@ -30,5 +30,6 @@ export function setupVitacia()
 
     vitacia.card.setCampaignArc(2, 1);
     vitacia.card.addCardTag("F25");
+    vitacia.card.addCardTag("CR 1");
 
 }

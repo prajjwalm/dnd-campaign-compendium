@@ -100,7 +100,7 @@ export function setupHarpoonerN()
 
     harpoonerN.sheet.subtitle = " Seaborn, Neutral Evil";
     harpoonerN.sheet.acDesc = " (Natural Armor)";
-    harpoonerN.sheet.category = "seaborn";
+    // harpoonerN.sheet.category = "seaborn";
 
     harpoonerN.finalize();
 }

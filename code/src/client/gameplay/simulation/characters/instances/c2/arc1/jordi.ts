@@ -18,4 +18,5 @@ export function setupJordi()
 
     jordi.card.setCampaignArc(2, 1);
     jordi.card.addCardTag("M23");
+    jordi.card.addCardTag("CR 4");
 }

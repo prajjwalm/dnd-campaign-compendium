@@ -11,6 +11,7 @@ export function setupSasha()
     c.card.setCampaignArc(2, 1);
 
     c.card.addCardTag("M13");
+    c.card.addCardTag("CR 3");
 
     c.card.summary = () => `???`;
 

@@ -1,0 +1,38 @@
+export enum EConventionalPlanes
+{
+    MtCelestia,
+    Bytopia,
+    Elysium,
+    Beastlands,
+    Arborea,
+    Ysgard,
+    Limbo,
+    Pandemoneium,
+    Abyss,
+    Carceri,
+    Hades,
+    Gehenna,
+    Baator,
+    Acheron,
+    Mechanus,
+    Arcadia,
+}
+
+// export const ConventionalTitles = new Map<EConventionalPlanes, string>([
+//     [EConventionalPlanes.MtCelestia,   "The Seven Heavens of"],
+//     [EConventionalPlanes.Bytopia,      "The Twin Paradises of"],
+//     [EConventionalPlanes.Elysium,      "The Blessed Fields of"],
+//     [EConventionalPlanes.Beastlands,   "The Wilderness of"],
+//     [EConventionalPlanes.Arborea,      "The Olympian Glades of"],
+//     [EConventionalPlanes.Ysgard,       "The Heroic Domains of"],
+//     [EConventionalPlanes.Limbo,        "The Ever-Changing Chaos of"],
+//     [EConventionalPlanes.Pandemoneium, "The Windswept Depths of"],
+//     [EConventionalPlanes.Abyss,        "The Infinite Layers of"],
+//     [EConventionalPlanes.Carceri,      "The Tartarian Depths of"],
+//     [EConventionalPlanes.Hades,        "The Grey Wastes of"],
+//     [EConventionalPlanes.Gehenna,      "The Bleak Eternity of"],
+//     [EConventionalPlanes.Baator,       "The Nine Hells of"],
+//     [EConventionalPlanes.Acheron,      "The Infinite Battlefield of"],
+//     [EConventionalPlanes.Mechanus,     "The Clockwork Nirvana of"],
+//     [EConventionalPlanes.Arcadia,      "The Peaceable Kingdoms of"],
+// ])

@@ -79,7 +79,7 @@ export function setupShriekerN()
 
     shriekerN.sheet.subtitle = " Seaborn, Chaotic Evil";
     shriekerN.sheet.acDesc = " (Natural Armor)";
-    shriekerN.sheet.category = "seaborn";
+    // shriekerN.sheet.category = "seaborn";
 
     shriekerN.finalize();
 }

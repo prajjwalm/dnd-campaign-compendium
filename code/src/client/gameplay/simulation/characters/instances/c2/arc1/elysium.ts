@@ -133,4 +133,5 @@ export function setupElysium()
     elysium.card.setCampaignArc(2, 1);
 
     elysium.card.addCardTag("M33");
+    elysium.card.addCardTag("CR 9");
 }

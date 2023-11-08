@@ -11,6 +11,7 @@ export function setupHav()
     c.card.setCampaignArc(2, 1);
 
     c.card.addCardTag("M47");
+    c.card.addCardTag("CR 2");
 
     c.card.summary = () => `???`;
 

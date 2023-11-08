@@ -16,6 +16,7 @@ export function setupAthlon()
     athlon.card.setCampaignArc(2, 1);
 
     athlon.card.addCardTag("M58");
+    athlon.card.addCardTag("CR 7")
 
     athlon.card.summary = () => `???`;
 

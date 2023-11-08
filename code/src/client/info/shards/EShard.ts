@@ -1,0 +1,20 @@
+export enum EShard
+{
+    Devotion,
+    Dominion,
+    Preservation,
+    Ruin,
+    Odium,
+    Cultivation,
+    Honor,
+    Endowment,
+    Autonomy,
+    Ambition,
+    Innovation,
+    Mercy,
+    Valor,
+    Whimsy,
+    Virtuousity,
+    Prudence,
+    Freedom
+}

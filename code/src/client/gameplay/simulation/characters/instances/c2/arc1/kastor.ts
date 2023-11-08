@@ -17,6 +17,7 @@ export function setupKastor()
 
     kastor.card.setCampaignArc(2, 1);
     kastor.card.addCardTag("M26");
+    kastor.card.addCardTag("CR 6");
     // [NpcPersonalityTag.Arrogant, 3],
     // [NpcPersonalityTag.Judging, 2],
     // [NpcPersonalityTag.Insecure, 2],

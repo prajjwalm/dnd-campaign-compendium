@@ -11,6 +11,7 @@ export function setupAndri()
     c.card.setCampaignArc(2, 1);
 
     c.card.addCardTag("M37");
+    c.card.addCardTag("CR 1")
 
     c.card.summary = () => `???`;
 
