@@ -30,6 +30,7 @@ export function setupCoroto()
 
     coroto.card.setCampaignArc(2, 1);
 
+    coroto.card.addCardTag("Deceased");
     coroto.card.addCardTag("M54");
     coroto.card.addCardTag("CR 2");
     // [NpcPersonalityTag.Paranoid, 3],
@@ -40,5 +41,5 @@ export function setupCoroto()
     // [NpcPersonalityTag.Abusive, 1],
     // [NpcPersonalityTag.Vain, 1],
 
-    coroto.opinions.isOpinionated = true;
+    coroto.opinions.isOpinionated = false;
 }

@@ -152,6 +152,16 @@ v00.intel = `<p>An apology, by an eldritch monstrosity on behalf of a mankind wh
              intricately tangled with your own, the path you tread remains to be 
              seen...</p>`
 
+v02.addSiteOfInterest("Utopia of the Faithful",
+                      "Sacrosanct Cave",
+                      `While the Sea Terrors prey upon humans on land, some humans worship
+                and protect them in the ocean's depths. It certainly reflects one 
+                aspect of the human race – whether you call it diversity 
+                or inferiority is up to you`,
+                      [
+                      ],
+                      0,
+                      new Map())
 
 v31.intel = `<p>The territory of Nix (named after the only known 'civilized' 
             town in that area) covers a <em>huge</em> expanse of frigid tundra /

@@ -78,6 +78,12 @@ export function setupYuki()
     ));
 
     yuki.combat.addAction(new Action(
+        Activation.Special,
+        `<p><strong><em>Spellcasting.</em></strong> Yuki has access to Oathbreaker spells of upto the second level.
+        </p>`
+    ));
+
+    yuki.combat.addAction(new Action(
         Activation.Action,
         `<p><strong><em>Multiattack.</em></strong> Yuki makes two DeadBlade attacks.
         </p>`
@@ -93,17 +99,17 @@ export function setupYuki()
         If the target does not have such protection, they must make a DEX save of DC ${yuki.dc(DStat.Cha) + 5 + 3 + 4}. Upon failure, they take 
         ${wrapRoll([[2, D6], [2 * yuki.CHA + 3 + yuki.Prof + 2, D1]])} ${wrapDamageType(DamageType.Slashing)} damage
         plus ${wrapRoll(D8)} ${wrapDamageType(DamageType.Necrotic)} damage and suffer an adverse effect of the Shardblade based on how badly they failed
-        (DC 16 for severe effects; DC 9 for death).
+        (DC 16 for severe effects).
         </p>`
     ));
 
     yuki.combat.addAction(new Action(
         Activation.BonusAction,
         `<p><strong><em>Deathly Laments.</em></strong> <em> Several fallen comrades of Yuki's escaped the clutches of death when the 
-        Gates of Ruin were kept open. They still keep an eye out for him. In times of great peril, he can channel his guilt of 
-        failing them into a cry to call them to his aid.</em> <br/>
+        Gates of Ruin were kept open. They still keep an eye out for him. In times of great peril, his soul cries out to call them
+        to his aid.</em> <br/>
         As a bonus action Yuki can summon a Wraith to his aid. This wraith appears anywhere within 30 ft of him but looses 
-        ${wrapRoll([[1, D8], [3, D1]])} HP at the end of its each turn as Ruin drags it back into his domain. 
+        ${wrapRoll([[1, D8], [3, D1]])} HP at the end of each of its turns as Ruin drags it back into His domain. 
         </p>`
     ));
 
@@ -126,8 +132,9 @@ export function setupYuki()
     yuki.sheet.cr = new CRValue(12);
     yuki.sheet.size = CreatureSize.Medium;
     yuki.sheet.subtitle = " Humanoid, Neutral";
+    yuki.sheet.altName = "Yuki (Oathbreaker)";
     yuki.sheet.acDesc = "(Natural Dex)";
-    // yuki.sheet.category = "human";
+    yuki.sheet.category = "human";
 
 
 

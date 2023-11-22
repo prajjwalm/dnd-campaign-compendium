@@ -33,7 +33,7 @@ export function setupShriekerN()
 
     shriekerN.opinions.isOpinionated = false;
 
-    shriekerN.combat.addBioHpDice(D8.countHavingE(250, shriekerN.CON), D8);
+    shriekerN.combat.addBioHpDice(D8.countHavingE(300, shriekerN.CON), D8);
     shriekerN.combat.computeHP();
 
     shriekerN.combat.setSave(DStat.Wis);
@@ -43,7 +43,6 @@ export function setupShriekerN()
     shriekerN.combat.setSpeed(Speed.Swimming, 60);
 
     shriekerN.combat.setRes(DamageType.Hellfire,    -100);
-    shriekerN.combat.setRes(DamageType.Lightning,   -100);
     shriekerN.combat.setRes(DamageType.Psychic,      50);
     shriekerN.combat.setRes(DamageType.Cold,         50);
     shriekerN.combat.setRes(DamageType.Physical,     50);
@@ -79,7 +78,7 @@ export function setupShriekerN()
 
     shriekerN.sheet.subtitle = " Seaborn, Chaotic Evil";
     shriekerN.sheet.acDesc = " (Natural Armor)";
-    // shriekerN.sheet.category = "seaborn";
+    shriekerN.sheet.category = "seaborn";
 
     shriekerN.finalize();
 }

@@ -2,6 +2,7 @@
 
 @use "game_modules/_grunge_modules";
 @use "game_modules/_skills";
+@use "game_modules/languages";
 
 @use "definitions/shadows";
 @use "game_modules/base";
@@ -32,7 +33,7 @@ body {
   @include shadows.Elevation(3);
 }
 
-#map_graph_area, #skill_graph_area {
+.graph_area {
   position: fixed;
   top: 0;
   left: 0;

@@ -197,13 +197,17 @@
     }
   }
 
-  &__list {
+  &__scroller {
     overflow-y: scroll;
 
     &::-webkit-scrollbar {
       display: none;
     }
     @include shadows.SoftInset();
+  }
+
+  &__list {
+    margin-bottom: 16px;
   }
 }
 

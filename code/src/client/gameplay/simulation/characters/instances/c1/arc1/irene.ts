@@ -205,7 +205,7 @@ export function setupIrene()
         Activation.Special,
         `<p><strong><em>Blade of the winds.</em></strong> Creatures levitated by Irene 
         without a flying speed are considered restrained. She gains an additional
-        +5 to attack rolls against such creatures and deals double damage on all 
+        +5 to attack rolls against such creatures and deals +50% damage on all 
         her attacks against those creatures.
         If the levitating creatures are seaborn, she additionally rolls with super-advantage.</p>`
     ));
@@ -269,20 +269,21 @@ export function setupIrene()
 
     irene.combat.addAction(new Action(
         Activation.Action,
-        `<p><strong><em>Judgement of the Storms. </em>(1/SR)</strong>
+        `<p><strong><em>Judgement of the Storms. </em>(1/LR)</strong>
         Irene unleashes The Primal Winds form the Inner Plane of Air to force all creatures
         of her choice within 30 ft to make a DC ${irene.dc(DStat.Cha) + 3} CON 
         save. All creatures who fail take ${wrapRoll([[6, D8], [(irene.CHA + 3), D1]])} 
         ${wrapDamageType(DamageType.Force)} damage and levitate 20 ft
         in the air until the start of her next turn. Creatures who succeed the 
         save take half damage and don't levitate. Immediately after unleashing the winds, she shoots 
-        12 times with her revolver, each shot dealing <span class="rollable">${(11 + irene.DEX)}</span> 
-        ${wrapDamageType(DamageType.Piercing)} damage to the target and <span class="rollable">${(8)}</span> 
+        8 times with her revolver, each shot dealing <span class="rollable">${(11 + irene.DEX)}</span> 
+        ${wrapDamageType(DamageType.Piercing)} damage to the target and ${wrapRoll(D8)} 
         ${wrapDamageType(DamageType.Lightning)} damage to all creatures within 
         5 ft of the target (including the target).<br/>
         If performed underwater, The Primal Winds first form a bubble of torrential winds of 
         60 ft radius centered on her. In this case every enemy without a flying speed
-        automatically is considered to have failed the CON save.</p>`
+        automatically is considered to have failed the CON save.<br/>
+        <em>After making this attack Irene is stunned until the end of her next turn.</em></p>`
     ));
 
     irene.combat.addAction(new Action(

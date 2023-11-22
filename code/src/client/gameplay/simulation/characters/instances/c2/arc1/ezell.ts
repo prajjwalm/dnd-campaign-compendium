@@ -25,6 +25,8 @@ export function setupEzell()
     // [NpcPersonalityTag["Night owl"], 1],
 
     ezell.card.setCampaignArc(2, 1);
-    ezell.card.addCardTag("M32");
+    ezell.card.addCardTag("M144 (32)");
     ezell.card.addCardTag("CR 12");
+    ezell.card.addCardTag("Race | Aasimar");
+    ezell.card.addCardTag("'Saint'");
 }

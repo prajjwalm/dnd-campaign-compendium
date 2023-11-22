@@ -1,10 +1,10 @@
-import {getEnumIterator} from "../../../common/common";
-import {PcIndex}         from "../../data/pcIndex";
+import {getEnumIterator}                       from "../../../common/common";
+import {NpcID}                                 from "../../data/npcIndex";
+import {PcIndex}                               from "../../data/pcIndex";
+import {GameTimestamp}                         from "../../GameTimestamp";
 import {
     Character
-}                        from "../../simulation/characters/Character";
-import {NpcID}           from "../../data/npcIndex";
-import {GameTimestamp}   from "../../GameTimestamp";
+}                                              from "../../simulation/characters/Character";
 import {PositiveEmotion}                       from "../PositiveEmotion";
 import {addInteractionEvent, addTimeSkipEvent} from "./s9";
 
@@ -382,6 +382,8 @@ export function combatMemories(memoriesErased, applicableTimestamp)
     // Well, I'm not going to copy and paste similar stuff and write
     // sentences for each of the twenty-something people, but some do merit
     // a unique interaction.
+
+    // todo: please make this shit better.
     const exclusionListH: NpcID[] = [
         NpcID.Elysium,
         NpcID.Bjorn,
@@ -392,7 +394,8 @@ export function combatMemories(memoriesErased, applicableTimestamp)
         NpcID.Dusk,
         NpcID.Dawn,
         NpcID.Hina,
-        NpcID.Ezell
+        NpcID.Ezell,
+        NpcID.Cellinia
     ];
 
     const exclusionListC: NpcID[] = [
@@ -405,7 +408,8 @@ export function combatMemories(memoriesErased, applicableTimestamp)
         NpcID.Dusk,
         NpcID.Dawn,
         NpcID.Hina,
-        NpcID.Ezell
+        NpcID.Ezell,
+        NpcID.Cellinia
     ];
 
     const exclusionListA: NpcID[] = [
@@ -418,7 +422,8 @@ export function combatMemories(memoriesErased, applicableTimestamp)
         NpcID.Dusk,
         NpcID.Dawn,
         NpcID.Hina,
-        NpcID.Ezell
+        NpcID.Ezell,
+        NpcID.Cellinia
     ];
 
     // const exclusionListP: NpcId[] = [

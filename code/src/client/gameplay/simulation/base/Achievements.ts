@@ -136,7 +136,7 @@ class NestedAchievement
     }
 }
 
-const Achievements: Map<string, IAchievement[]> = new Map([
+const SprenQuestAchievements: Map<string, IAchievement[]> = new Map([
     ["The Candles", [
         new StdAchievement("That's a familiar scent?",
                            "Understand the nature of the unusual candles and trace their past.",
@@ -199,18 +199,17 @@ const Achievements: Map<string, IAchievement[]> = new Map([
         new StdAchievement("Meeting the deadline",
                            "Return from the expedition before Dusk's magic fades away.",
                            1000,
-                           false),
+                           true),
         new StdAchievement("ez",
                            "Return from the expedition within 1 day in devotion's time.",
                            1500,
-                           false),
+                           true),
         new StdAchievement("No need for suspense",
                            "Return from the expedition within 1 hour in devotion's time.",
                            2500,
                            false),
         new StdAchievement("You're not dead yet",
-                           "???",
-                           // "Return from the expedition in the last hour to midnight on the last day.",
+                           "Return from the expedition in the last hour to midnight on the last day.",
                            2500,
                            false),
     ]],
@@ -224,7 +223,7 @@ const Achievements: Map<string, IAchievement[]> = new Map([
                       1400,
                       false)
             .addRoute("A passenger onboard",
-                      "Have the Sand Soldier join your cause.",
+                      "Have the Sand Soldier join your village.",
                       800,
                       false),
         new NestedAchievement("... is for the weak",
@@ -236,7 +235,7 @@ const Achievements: Map<string, IAchievement[]> = new Map([
                       3000,
                       false),
         new StdAchievement("In a moment's dream",
-                           "Recruit the sand soldier's sister.",
+                           "Recruit the sand soldier's sister into your village.",
                            1200,
                            false)
     ]],
@@ -323,25 +322,137 @@ const Achievements: Map<string, IAchievement[]> = new Map([
 ]);
 
 
-export function generateAchievementsPanel() {
+const baseAchievements1: Map<string, IAchievement[]> = new Map([
+    ["", [
+        new StdAchievement("Fallen from grace",
+                           "Figure out the identity of the silver tree and " +
+                           "isolate it from the seaborn.",
+                           700,
+                           true),
+        new StdAchievement("Don't starve together",
+                           "Find enough food to survive the week.",
+                           500,
+                           true),
+    ]],["Who stole the food?", [
+        new NestedAchievement("Merely a scouting party",
+                              "Face the first wave of assault by the seaborn -",
+                              1200,
+                              true)
+            .addRoute("A sense of Deja Vu",
+                      "With Roberta surviving the first harpoon.",
+                      500,
+                      true)
+            .addRoute("Safeguarding innocence",
+                      "With all the children alive after the raid.",
+                      600,
+                      true)
+            .addRoute("No need for heroes",
+                      "Without Elysium dying in the attack.",
+                      2100,
+                      false)
+            .addRoute("Fewer mouths to feed",
+                      "With over 12 villagers dying in the attack.",
+                      1000,
+                      false)
+            .addRoute("No screaming in the cave",
+                      "With no more than 3 villagers other than Elysium dead " +
+                      "after the attack.",
+                      1200,
+                      true)
+            .addRoute("Before the high tides",
+                      "Before the Nethersea Brand reaches " +
+                      "either the Creeping Branch or the Cave.",
+                      700,
+                      true),
+        new StdAchievement("???" // "Taking no chances"
+                      , "???" // "Don't attempt to stop Irene from executing Jordi"
+                      , 500,
+                      false),
+        new StdAchievement("???" // "You don't want to do this"
+                      , "???" // "Protect Jordi from Irene"
+                      , 500,
+                      false),
+        new StdAchievement("Just shut up and die!",
+                          "Deal over 150 damage to the shrieker.",
+                          800,
+                          true),
+        new StdAchievement("Seaweed Salad",
+                      "Don't take any damage from any seaborn other than the " +
+                      "shrieker or the Brand. (+ 200 bonus for exploiting weakness)",
+                      700,
+                      true),
+    ]],["Most dangerous of them all", [
+        new NestedAchievement("In the service of Odium",
+                              "Take the liquidation contract from Yuki",
+                              300,
+                              true)
+            .addRoute("Of envy and ambition",
+                      "Without being manipulated by Yuki to utter treasonous " +
+                      "words.",
+                      900,
+                      true)
+            .addRoute("You're not needed anymore",
+                      "Kill Yuki after Odium reaches out but before the " +
+                      "seaborn raid.",
+                      500,
+                      false)
+            .addRoute("Hell is This",
+                      "Be subjected to Odium's own pain.",
+                      300,
+                      true)
+            .addRoute("Emergency Response",
+                      "Successfully follow all directions given by ??? until " +
+                      "Mostima arrives.",
+                      500,
+                      true)
+            .addRoute("Believer",
+                      "Break free of the pain Odium unleashes using His aid.",
+                      500,
+                      true)
+            .addRoute("Disappointments and broken oaths",
+                      "Witness Hina liberate Yuki's spren.",
+                      300,
+                      true)
+    ]],
+]);
+
+export function generateAchievementsPanel()
+{
     const elements = [];
-    let cXP = 0;
-    for (const [title, achievements] of Achievements.entries()) {
+    let cXP = 34000;
+    for (const [title, achievements] of SprenQuestAchievements.entries()) {
         elements.push(`<div class="achievement_category">${title}</div>`);
         for (const achievement of achievements) {
             elements.push(achievement.generateDOMString());
             cXP += achievement.curExp;
         }
     }
+    const elements2 = [];
+    for (const [title, achievements] of baseAchievements1.entries()) {
+        elements2.push(`<div class="achievement_category">${title}</div>`);
+        for (const achievement of achievements) {
+            elements2.push(achievement.generateDOMString());
+            cXP += achievement.curExp;
+        }
+    }
     return `
         <div class="achievements">
-            <div class="achievements__header">
-                <div class="terminal_title">Current Quest Achievements</div>
-                <div class="xp_summary"><span class="gained">${cXP}</span> xp obtained so far</div>
-            </div>
-            
-            <div class="achievements__list">
-                ${elements.join("")}            
+            <div class="achievements__scroller">
+                <div class="achievements__header">
+                    <div class="terminal_title">Achievements: After the sun sets...</div>
+                    <div class="xp_summary">Current XP: <span class="gained">${cXP}</span></div>
+                </div>
+                
+                <div class="achievements__list">
+                    ${elements2.join("")}            
+                </div>
+                <div class="achievements__header">
+                    <div class="terminal_title">Achievements: For a piece of Honor</div>
+                </div>
+                
+                <div class="achievements__list">
+                    ${elements.join("")}            
+                </div>
             </div>
         </div>
     `;

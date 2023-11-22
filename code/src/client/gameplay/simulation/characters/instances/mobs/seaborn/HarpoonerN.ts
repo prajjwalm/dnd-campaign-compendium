@@ -41,7 +41,6 @@ export function setupHarpoonerN()
     harpoonerN.combat.setSpeed(Speed.Swimming, 35);
 
     harpoonerN.combat.setRes(DamageType.Hellfire,    -100);
-    harpoonerN.combat.setRes(DamageType.Lightning,   -100);
     harpoonerN.combat.setRes(DamageType.Fire,        -100);
     harpoonerN.combat.setRes(DamageType.Psychic,      50);
     harpoonerN.combat.setRes(DamageType.Physical,     50);

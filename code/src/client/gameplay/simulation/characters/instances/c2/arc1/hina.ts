@@ -13,14 +13,32 @@ import {
     Prof,
     ProficiencyLevel,
     Sense,
-    Speed, Vague
+    Speed,
+    Vague
 } from "../../../../../data/constants";
-import {NpcID}                    from "../../../../../data/npcIndex";
-import {D1, D12, D6}              from "../../../../../rolling/Dice";
-import {Action}                   from "../../../../action/Action";
-import {wrapDamageType, wrapRoll} from "../../../../action/Wrap";
-import {Character}                from "../../../Character";
-import {Morale}                   from "../../../Morale";
+import {
+    NpcID
+} from "../../../../../data/npcIndex";
+import {
+    D1,
+    D12,
+    D6
+} from "../../../../../rolling/Dice";
+import {
+    Action
+} from "../../../../action/Action";
+import {
+    wrapCondition,
+    wrapDamageType,
+    wrapRoll,
+    wrapSense
+} from "../../../../action/Wrap";
+import {
+    Character
+} from "../../../Character";
+import {
+    Morale
+} from "../../../Morale";
 
 export function setupHina()
 {
@@ -32,7 +50,7 @@ export function setupHina()
     hina.core.imgPath = "character_tokens/C2/Arc1/Hina.png";
 
     // Setup D&D stats.
-    hina.dStats.initializeStats(13, 20, 24, 18, 14, 20);
+    hina.dStats.initializeStats(13, 20, 24, 18, 14, 17);
     hina.dStats.pb = Prof.get(6);
 
     // Setup D&D skills.
@@ -45,10 +63,10 @@ export function setupHina()
     hina.dSKills.setSkillProficiency(DSkill.Stealth,       Hidden, ProficiencyLevel.Expert);
     hina.dSKills.setSkillProficiency(DSkill.Survival,      Hidden, ProficiencyLevel.Expert);
 
-    hina.operator.morale = Morale.Dismal;
+    hina.operator.morale = Morale.Low;
     hina.dSKills.finalizeSkills();
 
-    hina.operator.fatigue = 20;
+    hina.operator.fatigue = 10;
     hina.operator.ratings = {
         damage  : "S",
         control : "S+",
@@ -196,15 +214,15 @@ export function setupHina()
         `<p><strong><em>Bondsmith &times; Edgedancer Hybrid.</em></strong> Hina 
         is bonded to a Cultivation Spren elevated to a God Spren by the splinter
         of Preservation. Notably, as such she can draw investiture from life light 
-        (respiration) and is a full-born in the presense of Preservation's mists.  
+        (respiration) and is a full-born in the presence of Preservation's mists.  
         </p>`
     ));
 
+    // Morale improved after talking to Aurelia before leaving for labs.
     hina.combat.addAction(new Action(
         Activation.Special,
-        `<p><strong><em>Morale: Dismal.</em></strong> Due to her low morale, 
-        Hina's proficiency bonus decreases by 1 and she gains a -1 to all her 
-        skill modifiers (included in the sheet). 
+        `<p><strong><em>Morale: Low.</em></strong> Due to her morale,
+        Hina's gains a -1 to all her skill modifiers (included in the sheet).
         </p>`
     ))
 
@@ -232,7 +250,7 @@ export function setupHina()
         `<p><strong><em>Telekinetic slam.</em></strong> Ranged Attack: Hina targets
         a point on the ground within 600 ft of her and slams a heavy object 
         telekinetically on that spot. Targets within 5 ft of the point must make
-        a DC ${hina.dc(DStat.Con)} DEX save or take ${wrapRoll([[10, D12], [hina.CON + 3, D1]])} 
+        a DC ${hina.dc(DStat.Con) + hina.Prof} DEX save or take ${wrapRoll([[10, D12], [hina.CON + 3, D1]])} 
         ${wrapDamageType(DamageType.Bludgeoning)} (magical) damage. On a successful save they take half damage.
         This attack deals triple damage to structures.</p>`
     ));
@@ -241,12 +259,12 @@ export function setupHina()
         Activation.Action,
         `<p><strong><em>Overwhelming Regrets.</em></strong> Hina infuses a creature's 
         soul with an intense focused onslaught of guilt. The target makes a DC 
-        ${hina.getSkillMod(DSkill.Persuasion, ProficiencyLevel.Expert)[0] + 13} CHA save.
+        ${hina.dc(DStat.Cha) + 10} CHA save.
         On failure a non-hostile creature is charmed by her while a hostile creature
         has disadvantage on attack rolls. Also, they can't take opportunity attacks against 
         targets other than her. Any other effects charming or freightening the 
         target end immediately and concentration is broken. If the failure is by 
-        a margin of 15 or more, they are also paralyzed by guilt. These effects last 
+        a margin of 10 or more, they are also paralyzed by guilt. These effects last 
         until a minute, or until Hina lifts the effect. This effect can only 
         target creatures aware of her.</p>`
     ));
@@ -265,7 +283,7 @@ export function setupHina()
         Hina drastically increases her defensive capabilities. For the duration 
         of 1 minute, she has resistance to all damage, advantage on STR checks
         and saving throws and her ${wrapDamageType(DamageType.Physical)} damage 
-        per attack is increased by 3.</p>`
+        per attack is increased by 3 (included in the sheet).</p>`
     ));
 
     hina.combat.addAction(new Action(
@@ -296,6 +314,24 @@ export function setupHina()
         ${wrapDamageType(DamageType.Psychic)} damage and condition immunities) 
         and her max HP drops to 22. She can no longer be targeted by spells and
         doesn't suffer any effects from any magic items.</p>`
+    ));
+
+    hina.combat.addAction(new Action(
+        Activation.Reaction,
+        `<p><strong><em>Telekinetic Prison.</em></strong> In response to a 
+        creature's movement (or taking any action or reaction that requires 
+        movement), Hina can attempt a telekinetic grapple on the creature.
+        The target must make a DC ${hina.dc(DStat.Con) + hina.Prof} DEX save 
+        (disadvantage if they don't possess ${wrapSense(Sense.TrueSight)}), 
+        on failure they must attempt a DC ${hina.dc(DStat.Con)+hina.Prof+10} (${hina.dc(DStat.Con)+hina.Prof}
+        if Hina isn't trying to be lethal) STR save or be ${wrapCondition(Condition.Restrained)}. If they 
+        fail by 10 or more, they are ${wrapCondition(Condition.Paralyzed)} 
+        instead, though they can take actions requiring no physical movement - 
+        like subtle spell casting. If the grapple attempt was intended to be 
+        lethal, and they were ${wrapCondition(Condition.Paralyzed)}, they take 
+        ${wrapRoll([[3, D12], [hina.CON + hina.Prof, D1]])}
+        magical bludgeoning damage at the end of each of their turns - 
+        instantly being crushed to pulp should they fall below 0 hp.</p>`
     ));
 
     hina.combat.addAction(new Action(
@@ -331,12 +367,22 @@ export function setupHina()
 
     hina.combat.addAction(new Action(
         Activation.LegendaryAction,
-        `<p><p><strong><em>Telekinetic lashing.</em></strong> (Cost: 2) Hina uses her telekinetic lashing as a legendary action.</p>`
+        `<p><strong><em>Telekinetic slam.</em></strong> (Cost: 1) Hina uses her telekinetic slam ability as a legendary action.</p>`
     ));
 
     hina.combat.addAction(new Action(
         Activation.LegendaryAction,
-        `<p><strong><em>Telekinetic slam.</em></strong> (Cost: 1) Hina uses her telekinetic slam as a legendary action.</p>`
+        `<p><p><strong><em>Telekinetic lashing.</em></strong> (Cost: 2) Hina uses her telekinetic lashing ability as a legendary action.</p>`
+    ));
+
+    hina.combat.addAction(new Action(
+        Activation.LegendaryAction,
+        `<p><p><strong><em>Telekinetic prison.</em></strong> (Cost: 3) Hina uses her telekinetic prison ability as a legendary action.</p>`
+    ));
+
+    hina.combat.addAction(new Action(
+        Activation.LegendaryAction,
+        `<p><strong><em>Overwhelming Regrets.</em></strong> (Cost: 3) Hina uses her overwhelming regrets ability as a legendary action.</p>`
     ));
 
     hina.sheet.cr = new CRValue(23);

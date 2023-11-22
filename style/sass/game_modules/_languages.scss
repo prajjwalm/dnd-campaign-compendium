@@ -1,0 +1,92 @@
+@use "../definitions/colors";
+@use "../element_modules/_dictionary";
+@use "../definitions/shadows";
+@use "../definitions/content";
+
+@import "graph";
+
+.graph--language {
+  @extend .graph;
+}
+
+.language_vertex {
+  font-family: "RobotoCondensed", sans-serif;
+  position: absolute;
+
+  &--null {
+    width: 4px;
+    height: 4px;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background-color: white;
+  }
+
+  &:not(.language_vertex--null) {
+    //width: 240px;
+    //height: 40px;
+    //display: flex;
+    //flex-flow: column nowrap;
+    //align-items: flex-start;
+    //justify-content: flex-start;
+  }
+
+  &__name {
+    padding: 20px 32px;
+    font-size: 14px;
+    border-radius: 4px;
+    white-space: nowrap;
+    translate: 2px -50%;
+    //transform: skew(-45deg);
+
+    .anti_skew {
+      //transform: skew(45deg);
+    }
+
+    @include shadows.Elevation(2);
+  }
+
+  &__subtitle {
+    flex-grow: 3;
+  }
+
+  &__difficulty {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: colors.$true_grey;
+    border: solid 2px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: colors.$white;
+    z-index: 1;
+    translate: -50% -50%;
+    @include shadows.Elevation(2);
+  }
+
+  &__icons {
+    position: absolute;
+  }
+
+
+  @extend %label_info;
+  &--common    { @extend %info_unknown;  .language_vertex__difficulty { border-color: colors.$node_safe_black;      color: colors.$node_safe_black;      } }
+  &--uncommon  { @extend %info_friendly; .language_vertex__difficulty { border-color: colors.$node_friendly_dark;   color: colors.$node_friendly_dark;   } }
+  &--rare      { @extend %info_safe;     .language_vertex__difficulty { border-color: colors.$node_safe_dark;       color: colors.$node_safe_dark;       } }
+  &--epic      { @extend %info_combat;   .language_vertex__difficulty { border-color: colors.$node_combat;          color: colors.$node_combat;          } }
+  &--legendary { @extend %info_neutral;  .language_vertex__difficulty { border-color: colors.$node_neutral_40;      color: colors.$node_neutral_40;      } }
+  &--artefact  { @extend %info_deadly;   .language_vertex__difficulty { border-color: colors.$node_deadly;          color: colors.$node_deadly;          } }
+  &--black     { @extend %info_black;    .language_vertex__difficulty { border-color: colors.$node_emergency_black; color: colors.$node_emergency_black; } }
+}
+
+.language_edge {
+  position: absolute;
+  translate: -50% -50%;
+  height: 4px;
+  background: #fff;
+}

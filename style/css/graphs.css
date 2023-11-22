@@ -528,16 +528,17 @@
   text-align: right;
   font-size: 11px;
 }
-.graph_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title, .skill_vertex__info .grunge_label__title {
+
+.map_vertex__info .grunge_label__title, .graph_vertex__info .grunge_label__title, .skill_vertex__info .grunge_label__title {
   height: 24px;
   font-size: 14px;
 }
-.graph_vertex__info .grunge_label__desc, .map_vertex__info .grunge_label__desc, .skill_vertex__info .grunge_label__desc {
+.map_vertex__info .grunge_label__desc, .graph_vertex__info .grunge_label__desc, .skill_vertex__info .grunge_label__desc {
   min-height: 40px;
   padding: 4px;
   font-size: 15px;
 }
-.graph_vertex__info .grunge_label__desc .vertex_id, .map_vertex__info .grunge_label__desc .vertex_id, .skill_vertex__info .grunge_label__desc .vertex_id {
+.map_vertex__info .grunge_label__desc .vertex_id, .graph_vertex__info .grunge_label__desc .vertex_id, .skill_vertex__info .grunge_label__desc .vertex_id {
   font-family: "RobotoCondensed", sans-serif;
   font-weight: bold;
   font-variant-caps: petite-caps;
@@ -596,7 +597,7 @@
 }
 
 .map_vertex--black .map_vertex__info .grunge_label__title, .skill_vertex.rarity--black .skill_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
+  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #777);
 }
 .map_vertex--black .map_vertex__info .grunge_label__desc, .skill_vertex.rarity--black .skill_vertex__info .grunge_label__desc {
   background: #00031D;
@@ -834,6 +835,277 @@
   top: 0;
   left: calc(50% - 2px);
   background-color: #000;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto/Roboto-Bold.ttf");
+}
+@font-face {
+  font-family: "Roboto-thin";
+  src: url("../../assets/fonts/Roboto/Roboto-Thin.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Regular.ttf");
+}
+@font-face {
+  font-family: "RobotoCondensed";
+  font-weight: bold;
+  src: url("../../assets/fonts/Roboto_Condensed/RobotoCondensed-Bold.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../../assets/fonts/Montserrat/Montserrat-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  font-weight: 500;
+  src: url("../../assets/fonts/Montserrat/Montserrat-SemiBold.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 200;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Light.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: 400;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Regular.ttf");
+}
+@font-face {
+  font-family: "LondrinaSolid";
+  font-weight: bold;
+  src: url("../../assets/fonts/LondrinaSolid/LondrinaSolid-Black.ttf");
+}
+/**
+ * * A mixin which helps you to add depth to elements according to the Google Material Design spec:
+ * * http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality
+ * *
+ * * Please note that the values given in the specification cannot be used as is. To create the same visual experience
+ * * the blur parameter has to be doubled.
+ * *
+ * * Author: Florian Kutschera ($gefangenimnetz), Conceptboard GmbH ($conceptboardapp)
+ * *
+ * * Example usage:
+ * *
+ * * .card {
+ * *     width: 95px;
+ * *     height: 95px;
+ * *     background: #f4f4f4;
+ * *     -webkit-transition: all 250ms;
+ * *     -moz-transition: all 250ms;
+ * *     transition: all 250ms;
+ * *     @include BoxShadowHelper(1);
+ * *     &:hover {
+ * *         @include BoxShadowHelper(3);
+ * *         -webkit-transform: translateY(-5px);
+ * *         -moz-transform: translateY(-5px);
+ * *         transform: translateY(-5px);
+ * *     }
+ * * }
+ * *
+ * * Also note: https://m3.material.io/styles/elevation/tokens
+ * */
+.graph, .graph--map, .graph--language {
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+  z-index: 0;
+}
+.graph__edges {
+  z-index: -1;
+}
+
+.null_vertex {
+  display: none;
+}
+
+.graph_vertex, .map_vertex {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+.graph_vertex__info, .map_vertex__info {
+  position: absolute;
+  width: 240px;
+  left: 40px;
+  visibility: hidden;
+  transition: opacity 0.3s;
+  opacity: 0;
+  z-index: 2;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.graph_vertex__info .overhead_text, .map_vertex__info .overhead_text {
+  font-family: "Montserrat", sans-serif;
+  color: #EAE6E5;
+  font-style: italic;
+  font-weight: bold;
+  width: 100%;
+  text-align: right;
+  font-size: 11px;
+}
+
+.map_vertex__info .grunge_label__title, .language_vertex .grunge_label__title, .graph_vertex__info .grunge_label__title {
+  height: 24px;
+  font-size: 14px;
+}
+.map_vertex__info .grunge_label__desc, .language_vertex .grunge_label__desc, .graph_vertex__info .grunge_label__desc {
+  min-height: 40px;
+  padding: 4px;
+  font-size: 15px;
+}
+.map_vertex__info .grunge_label__desc .vertex_id, .language_vertex .grunge_label__desc .vertex_id, .graph_vertex__info .grunge_label__desc .vertex_id {
+  font-family: "RobotoCondensed", sans-serif;
+  font-weight: bold;
+  font-variant-caps: petite-caps;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.map_vertex--unknown .map_vertex__info .grunge_label__title, .language_vertex--common .grunge_label__title {
+  background-image: url("../../assets/images/gui/unknown/Panel450x100.png"), linear-gradient(#EAE6E5, #EAE6E5);
+  color: #00031D;
+}
+.map_vertex--unknown .map_vertex__info .grunge_label__desc, .language_vertex--common .grunge_label__desc {
+  background: #00031D;
+}
+
+.map_vertex--friendly .map_vertex__info .grunge_label__title, .language_vertex--uncommon .grunge_label__title {
+  background-image: url("../../assets/images/gui/friendly/Panel450x100.png"), linear-gradient(#205017 50%, #059729);
+}
+.map_vertex--friendly .map_vertex__info .grunge_label__desc, .language_vertex--uncommon .grunge_label__desc {
+  background: #160407;
+}
+
+.map_vertex--safe .map_vertex__info .grunge_label__title, .language_vertex--rare .grunge_label__title {
+  background-image: url("../../assets/images/gui/safe/Panel450x100.png"), linear-gradient(#19297C 50%, #173FB3);
+}
+.map_vertex--safe .map_vertex__info .grunge_label__desc, .language_vertex--rare .grunge_label__desc {
+  background: #0D160B;
+}
+
+.map_vertex--combat .map_vertex__info .grunge_label__title, .language_vertex--epic .grunge_label__title {
+  background-image: url("../../assets/images/gui/combat/Panel450x100.png"), linear-gradient(#760BD4 50%, #9947EA);
+}
+.map_vertex--combat .map_vertex__info .grunge_label__desc, .language_vertex--epic .grunge_label__desc {
+  background: #091E05;
+}
+
+.map_vertex--emergency .map_vertex__info .grunge_label__title {
+  background-image: url("../../assets/images/gui/emergency/Panel450x100.png"), linear-gradient(#381D2A, #E04D75 20%);
+}
+.map_vertex--emergency .map_vertex__info .grunge_label__desc {
+  background: #091E05;
+}
+
+.map_vertex--neutral .map_vertex__info .grunge_label__title, .language_vertex--legendary .grunge_label__title {
+  background-image: url("../../assets/images/gui/neutral/Panel450x100.png"), linear-gradient(#CC5505, #EC7005);
+}
+.map_vertex--neutral .map_vertex__info .grunge_label__desc, .language_vertex--legendary .grunge_label__desc {
+  background: #0D160B;
+}
+
+.map_vertex--deadly .map_vertex__info .grunge_label__title, .language_vertex--artefact .grunge_label__title {
+  background-image: url("../../assets/images/gui/deadly/Panel450x100.png"), linear-gradient(#420039, #CA1412 30%);
+}
+.map_vertex--deadly .map_vertex__info .grunge_label__desc, .language_vertex--artefact .grunge_label__desc {
+  background: #000B1E;
+}
+
+.map_vertex--black .map_vertex__info .grunge_label__title, .language_vertex--black .grunge_label__title {
+  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #777);
+}
+.map_vertex--black .map_vertex__info .grunge_label__desc, .language_vertex--black .grunge_label__desc {
+  background: #00031D;
+  color: #EAE6E5;
+}
+
+.language_vertex {
+  font-family: "RobotoCondensed", sans-serif;
+  position: absolute;
+}
+.language_vertex--null {
+  width: 4px;
+  height: 4px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background-color: white;
+}
+.language_vertex__name {
+  padding: 20px 32px;
+  font-size: 14px;
+  border-radius: 4px;
+  white-space: nowrap;
+  translate: 2px -50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.language_vertex__subtitle {
+  flex-grow: 3;
+}
+.language_vertex__difficulty {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #aaa;
+  border: solid 2px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FAFCFF;
+  z-index: 1;
+  translate: -50% -50%;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.language_vertex__icons {
+  position: absolute;
+}
+.language_vertex--common .language_vertex__difficulty {
+  border-color: #0D160B;
+  color: #0D160B;
+}
+.language_vertex--uncommon .language_vertex__difficulty {
+  border-color: #205017;
+  color: #205017;
+}
+.language_vertex--rare .language_vertex__difficulty {
+  border-color: #19297C;
+  color: #19297C;
+}
+.language_vertex--epic .language_vertex__difficulty {
+  border-color: #760BD4;
+  color: #760BD4;
+}
+.language_vertex--legendary .language_vertex__difficulty {
+  border-color: #CC5505;
+  color: #CC5505;
+}
+.language_vertex--artefact .language_vertex__difficulty {
+  border-color: #CA1412;
+  color: #CA1412;
+}
+.language_vertex--black .language_vertex__difficulty {
+  border-color: #091E05;
+  color: #091E05;
+}
+
+.language_edge {
+  position: absolute;
+  translate: -50% -50%;
+  height: 4px;
+  background: #fff;
 }
 
 .log_tag--info, .log_level--info .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--critical, .log_level--critical .log_tag, .tag {
@@ -1171,12 +1443,15 @@ img {
   font-style: italic;
   font-family: "RobotoCondensed", sans-serif;
 }
-.achievements__list {
+.achievements__scroller {
   overflow-y: scroll;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) inset;
 }
-.achievements__list::-webkit-scrollbar {
+.achievements__scroller::-webkit-scrollbar {
   display: none;
+}
+.achievements__list {
+  margin-bottom: 16px;
 }
 
 .achievement, .achievement--inner {
@@ -1613,6 +1888,7 @@ img {
   text-align: right;
   font-size: 11px;
 }
+
 .graph_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title {
   height: 24px;
   font-size: 14px;
@@ -1681,7 +1957,7 @@ img {
 }
 
 .map_vertex--black .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
+  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #777);
 }
 .map_vertex--black .map_vertex__info .grunge_label__desc {
   background: #00031D;
@@ -1889,6 +2165,7 @@ img {
   text-align: right;
   font-size: 11px;
 }
+
 .graph_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title {
   height: 24px;
   font-size: 14px;
@@ -1957,7 +2234,7 @@ img {
 }
 
 .map_vertex--black .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
+  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #777);
 }
 .map_vertex--black .map_vertex__info .grunge_label__desc {
   background: #00031D;
@@ -2218,7 +2495,7 @@ body {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
-#map_graph_area, #skill_graph_area {
+.graph_area {
   position: fixed;
   top: 0;
   left: 0;

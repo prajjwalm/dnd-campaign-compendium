@@ -69,6 +69,7 @@ export enum NpcID {
     Teiai,
     Shuo,
     Gnosis,
+    Cellinia,
     __MOBS__,
     NSBrand,
     Slider,

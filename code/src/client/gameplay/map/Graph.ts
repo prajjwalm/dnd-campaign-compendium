@@ -11,8 +11,6 @@ export abstract class Graph<V extends Vertex, E extends Edge<V>>
     extends BaseUniqueDOMGenerator
     implements IUniqueDOMGenerator
 {
-    private static readonly PADDING = [50, 50];
-
     protected readonly vertices: Map<string, V>;
 
     protected readonly edges: Map<number, Map<number, E>>;
@@ -236,7 +234,7 @@ export abstract class Graph<V extends Vertex, E extends Edge<V>>
     {
         // This relies on the 1:1 ratio.
         // See docstring on mapLocalCoordinatesToScreenPosition.
-        return Math.max(0, this.xMax - this.xMin) + 2 * Graph.PADDING[0];
+        return Math.max(0, this.xMax - this.xMin) + 2 * this.xPadding;
     }
 
     /**
@@ -244,7 +242,15 @@ export abstract class Graph<V extends Vertex, E extends Edge<V>>
      */
     protected get ySpan(): number
     {
-        return Math.max(0, this.yMax - this.yMin) + 2 * Graph.PADDING[1];
+        return Math.max(0, this.yMax - this.yMin) + 2 * this.yPadding;
+    }
+
+    protected get xPadding(): number {
+        return 50;
+    }
+
+    protected get yPadding(): number {
+        return 50;
     }
 
     /**

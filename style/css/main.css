@@ -1772,16 +1772,17 @@ table.simple_table {
   text-align: right;
   font-size: 11px;
 }
-.graph_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title, .skill_vertex__info .grunge_label__title {
+
+.map_vertex__info .grunge_label__title, .graph_vertex__info .grunge_label__title, .skill_vertex__info .grunge_label__title {
   height: 24px;
   font-size: 14px;
 }
-.graph_vertex__info .grunge_label__desc, .map_vertex__info .grunge_label__desc, .skill_vertex__info .grunge_label__desc {
+.map_vertex__info .grunge_label__desc, .graph_vertex__info .grunge_label__desc, .skill_vertex__info .grunge_label__desc {
   min-height: 40px;
   padding: 4px;
   font-size: 15px;
 }
-.graph_vertex__info .grunge_label__desc .vertex_id, .map_vertex__info .grunge_label__desc .vertex_id, .skill_vertex__info .grunge_label__desc .vertex_id {
+.map_vertex__info .grunge_label__desc .vertex_id, .graph_vertex__info .grunge_label__desc .vertex_id, .skill_vertex__info .grunge_label__desc .vertex_id {
   font-family: "RobotoCondensed", sans-serif;
   font-weight: bold;
   font-variant-caps: petite-caps;
@@ -1840,7 +1841,7 @@ table.simple_table {
 }
 
 .map_vertex--black .map_vertex__info .grunge_label__title, .skill_vertex.rarity--black .skill_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
+  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #777);
 }
 .map_vertex--black .map_vertex__info .grunge_label__desc, .skill_vertex.rarity--black .skill_vertex__info .grunge_label__desc {
   background: #00031D;
@@ -3343,6 +3344,7 @@ img {
   text-align: right;
   font-size: 11px;
 }
+
 .graph_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title {
   height: 24px;
   font-size: 14px;
@@ -3411,7 +3413,7 @@ img {
 }
 
 .map_vertex--black .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
+  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #777);
 }
 .map_vertex--black .map_vertex__info .grunge_label__desc {
   background: #00031D;
@@ -3622,6 +3624,7 @@ img {
   text-align: right;
   font-size: 11px;
 }
+
 .graph_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title {
   height: 24px;
   font-size: 14px;
@@ -3690,7 +3693,7 @@ img {
 }
 
 .map_vertex--black .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
+  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #777);
 }
 .map_vertex--black .map_vertex__info .grunge_label__desc {
   background: #00031D;
@@ -3898,6 +3901,7 @@ img {
   text-align: right;
   font-size: 11px;
 }
+
 .graph_vertex__info .grunge_label__title, .map_vertex__info .grunge_label__title {
   height: 24px;
   font-size: 14px;
@@ -3966,7 +3970,7 @@ img {
 }
 
 .map_vertex--black .map_vertex__info .grunge_label__title {
-  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #aaa);
+  background-image: url("../../assets/images/gui/black/Panel450x100.png"), linear-gradient(#00031D 50%, #777);
 }
 .map_vertex--black .map_vertex__info .grunge_label__desc {
   background: #00031D;
@@ -4642,12 +4646,15 @@ img {
   font-style: italic;
   font-family: "RobotoCondensed", sans-serif;
 }
-.achievements__list {
+.achievements__scroller {
   overflow-y: scroll;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16) inset;
 }
-.achievements__list::-webkit-scrollbar {
+.achievements__scroller::-webkit-scrollbar {
   display: none;
+}
+.achievements__list {
+  margin-bottom: 16px;
 }
 
 .achievement, .achievement--inner {

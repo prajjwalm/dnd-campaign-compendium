@@ -1,5 +1,4 @@
 import {Rarity}      from "../data/Rarity";
-import {UpgradeEdge} from "./UpgradeEdge";
 import {UpgradeGraph}      from "./UpgradeGraph";
 import {UpgradeDescGenerators,
         UpgradeIcons,

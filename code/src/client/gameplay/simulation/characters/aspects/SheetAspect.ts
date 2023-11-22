@@ -80,6 +80,8 @@ export class SheetAspect
 
     public category: string;
 
+    public altName: string;
+
     /**
      * CTOR.
      */
@@ -92,6 +94,7 @@ export class SheetAspect
         this.statsAspect = c;
 
         this._subtitle = "";
+        this.altName = null;
         this._acDesc = "";
         this._cr = null;
     }
@@ -200,7 +203,7 @@ export class SheetAspect
         <div class="stat_sheet" id="stat_sheet_${this.category}_${this.id}">
             <div class="sheet_header">
                 <div class="header_zone">
-                <h3 class="sheet_title">${this.coreAspect.name}</h3>
+                <h3 class="sheet_title">${this.altName == null ? this.coreAspect.name : this.altName}</h3>
                 <div class="sheet_subtitle">${wrapCreatureSize(this._size)} ${this._subtitle}</div>
                 </div>
                 <div class="header_zone">

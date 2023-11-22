@@ -47,24 +47,28 @@
       font-size: 11px;
     }
 
-    .grunge_label {
-      &__title {
-        height: 24px;
+    @extend %label_info
+  }
+}
+
+%label_info {
+  .grunge_label {
+    &__title {
+      height: 24px;
+      font-size: 14px;
+    }
+
+    &__desc {
+      min-height: 40px;
+      padding: 4px;
+      font-size: 15px;
+
+      .vertex_id {
+        font-family: "RobotoCondensed", sans-serif;
+        font-weight: bold;
+        font-variant-caps: petite-caps;
+        margin-right: 8px;
         font-size: 14px;
-      }
-
-      &__desc {
-        min-height: 40px;
-        padding: 4px;
-        font-size: 15px;
-
-        .vertex_id {
-          font-family: "RobotoCondensed", sans-serif;
-          font-weight: bold;
-          font-variant-caps: petite-caps;
-          margin-right: 8px;
-          font-size: 14px;
-        }
       }
     }
   }
@@ -139,7 +143,7 @@
 %info_black {
   .grunge_label__title {
     background-image: url(content.$root + "images/gui/black/Panel450x100.png"),
-    linear-gradient(colors.$black 50%, colors.$true_grey);
+    linear-gradient(colors.$black 50%, #777);
   }
   .grunge_label__desc {
     background: colors.$black;

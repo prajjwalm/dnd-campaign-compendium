@@ -155,6 +155,11 @@ export class MapVertex
             `);
         }
 
+        const navSection = navigationEntries.length > 0 ? `
+                <span class="site_of_interest__subheader theme_subheader">Connectivity</span>
+                <div class="site_of_interest__navigation navigation icon_table">
+                    ${navigationEntries.join("")}
+                </div>` : "";
         this._sitesOfInterest.push(`
             <div class="theme_box site_of_interest">
                 <div class="site_of_interest__header">
@@ -165,10 +170,7 @@ export class MapVertex
                 <div class="site_of_interest__details dictionary">
                     ${tableEntries.join("")}
                 </div>
-                <span class="site_of_interest__subheader theme_subheader">Connectivity</span>
-                <div class="site_of_interest__navigation navigation icon_table">
-                    ${navigationEntries.join("")}
-                </div>
+                ${navSection}
             </div>
         `);
     }

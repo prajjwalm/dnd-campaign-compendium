@@ -32,7 +32,75 @@ export const PlaneDevotion = new OuterPlane(
     "Intertwining Helices",
     EShard.Devotion,
     EConventionalPlanes.Bytopia,
+    // Dawnchant
 );
+
+export const PlaneHonor = new OuterPlane(
+    "Invariant Storm",
+    EShard.Honor,
+    EConventionalPlanes.Mechanus,
+    // Dawnchant
+);
+
+export const PlaneInnovation = new OuterPlane(
+    "Dead Wastes",
+    EShard.Innovation,
+    EConventionalPlanes.Hades,
+);
+
+export const PlaneMercy = new OuterPlane(
+    "Unblemished Heights",
+    EShard.Mercy,
+    EConventionalPlanes.MtCelestia
+    // Dawnchant
+);
+
+export const PlaneOdium = new OuterPlane(
+    "Eternal Desolation",
+    EShard.Odium,
+    EConventionalPlanes.Acheron
+);
+
+export const PlanePreservation = new OuterPlane(
+    "Infinite Gardens",
+    EShard.Preservation,
+    EConventionalPlanes.Elysium,
+    // Old Primordial
+);
+
+export const PlanePrudence = new OuterPlane(
+    "Quiet Perfection",
+    EShard.Prudence,
+    EConventionalPlanes.Arcadia,
+    // Dawnchant
+);
+
+export const PlaneRuin = new OuterPlane(
+    "Fractal Corridors",
+    EShard.Ruin,
+    EConventionalPlanes.Abyss,
+);
+
+export const PlaneValor = new OuterPlane(
+    "Spear",
+    EShard.Valor,
+    EConventionalPlanes.Ysgard,
+);
+
+export const PlaneVirtuosity = new OuterPlane(
+    "Vibrant Lines",
+    EShard.Virtuousity,
+    EConventionalPlanes.Arborea,
+    // DreamSpeak
+);
+
+export const PlaneWhimsy = new OuterPlane(
+    "Uncharted Dreamscapes",
+    EShard.Whimsy,
+    EConventionalPlanes.Limbo,
+    // DreamSpeak
+);
+
 
 PlaneDevotion.attributes.planarEffects = `
 <p><b>Final Emotions.</b> Travel via the cognitive realm is extremely
@@ -83,65 +151,3 @@ defending which countless lives have been sacrificed.</p>
 `;
 
 PlaneDevotion.attributes.economy = ``;
-
-export const PlaneHonor = new OuterPlane(
-    "Invariant Storm",
-    EShard.Honor,
-    EConventionalPlanes.Mechanus,
-);
-
-export const PlaneInnovation = new OuterPlane(
-    "Dead Wastes",
-    EShard.Innovation,
-    EConventionalPlanes.Hades,
-);
-
-export const PlaneMercy = new OuterPlane(
-    "Unblemished Heights",
-    EShard.Mercy,
-    EConventionalPlanes.MtCelestia
-);
-
-export const PlaneOdium = new OuterPlane(
-    "Eternal Desolation",
-    EShard.Odium,
-    EConventionalPlanes.Acheron
-);
-
-export const PlanePreservation = new OuterPlane(
-    "Infinite Gardens",
-    EShard.Preservation,
-    EConventionalPlanes.Elysium,
-);
-
-export const PlanePrudence = new OuterPlane(
-    "Quiet Perfection",
-    EShard.Prudence,
-    EConventionalPlanes.Arcadia,
-);
-
-export const PlaneRuin = new OuterPlane(
-    "Fractal Corridors",
-    EShard.Ruin,
-    EConventionalPlanes.Abyss,
-);
-
-export const PlaneValor = new OuterPlane(
-    "Spear",
-    EShard.Valor,
-    EConventionalPlanes.Ysgard,
-);
-
-export const PlaneVirtuosity = new OuterPlane(
-    "Vibrant Lines",
-    EShard.Virtuousity,
-    EConventionalPlanes.Arborea,
-);
-
-export const PlaneWhimsy = new OuterPlane(
-    "Uncharted Dreamscapes",
-    EShard.Whimsy,
-    EConventionalPlanes.Limbo,
-);
-
-
