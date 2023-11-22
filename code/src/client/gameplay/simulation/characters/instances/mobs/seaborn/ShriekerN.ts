@@ -72,6 +72,12 @@ export function setupShriekerN()
         its turns it takes 50 true damage.</p>`
     ));
 
+    shriekerN.combat.addAction(new Action(
+        Activation.LegendaryAction,
+        `<p>The nourished shrieker has 1 legendary action and can use it to 
+        dash.</p>`
+    ));
+
     shriekerN.sheet.cr = new CRValue(13);
 
     shriekerN.sheet.size = CreatureSize.Medium;
