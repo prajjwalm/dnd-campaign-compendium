@@ -428,9 +428,9 @@ export function sessionOpinionEvents11()
         "Oh? He's hot.<br/>" +
         "<p style='font-size: 11px'>And could be called cool too, now that I think of it... hmm, Sun and wind...<br/>" +
         "And just like that, an artist, slumbering for way too long, gets " +
-        "inspiration again. And going all in? in that state? Huh, coming from " +
+        "inspiration again. <br/> And going all in? in that state? Huh, coming from " +
         "a champion of Ruin, that's... dangerous.<br/>" +
-        "Logically, I should draw the sword, but whimsy compels me to the " +
+        "Logically, I should draw the sword, but Whimsy compels me to the " +
         "brush instead.</p>",
         new Map([
                     [PositiveEmotion.Respect, 4],

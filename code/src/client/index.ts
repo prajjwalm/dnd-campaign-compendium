@@ -50,7 +50,7 @@ $(() => {
 
     setupMapGraph($("#map_graph_area"), devotionMap);
     setupUpgradeGraph($("#skill_graph_area"), skillMap);
-    // setupLanguageGraph($("#language_graph_area"), languageMap);
+    setupLanguageGraph($("#language_graph_area"), languageMap);
     setupGraphNav();
 
     setupBaseLogic();

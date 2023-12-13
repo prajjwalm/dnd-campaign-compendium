@@ -4,6 +4,7 @@ import {NpcOpinion}            from "../../../opinions/NpcOpinions";
 import {PositiveEmotion}       from "../../../opinions/PositiveEmotion";
 import {arc21OpinionEvents}    from "../../../opinions/sessions/arc_21";
 import {arc22OpinionEvents}    from "../../../opinions/sessions/arc_22";
+import {arc23OpinionEvents}    from "../../../opinions/sessions/arc_23";
 import {TimeskipEvent}         from "../../../opinions/TimeskipEvent";
 import {getEnumIterator}       from "../../../../common/common";
 import {PcIndex, PcTokenNames} from "../../../data/pcIndex";
@@ -55,6 +56,7 @@ export class OpinionAspect
         sessionOpinionEvents11();
         arc21OpinionEvents();
         arc22OpinionEvents();
+        arc23OpinionEvents();
 
         const $individualAst = $("#individual_ast");
         const $table_area = $("#attitude_summary_table_area");

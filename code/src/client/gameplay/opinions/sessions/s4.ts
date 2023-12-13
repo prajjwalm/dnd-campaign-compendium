@@ -197,8 +197,8 @@ export function sessionOpinionEvents04()
             PcIndex.ID_CYRION
         ],
         new GameTimestamp(0, 5, 15, 45),
-        "Was concerned about the disaster that struck our land and my " +
-        "harsh experience in it.",
+        "The seemed to be concerned about the disaster that struck our land and my " +
+        "harsh experience in it. If only I could remember-",
         new Map([
                     [PositiveEmotion.Gratitude, 2],
                     [PositiveEmotion.Trust, 1]
@@ -208,7 +208,7 @@ export function sessionOpinionEvents04()
     addInteractionEvent(
         NpcID.Jordi,
         [
-            PcIndex.ID_HELIOS,
+            // PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
         ],
         new GameTimestamp(0, 5, 15, 45),
@@ -224,7 +224,8 @@ export function sessionOpinionEvents04()
         NpcID.Jordi,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 16, 0),
-        "Noted the value of fishing in enriching the local diet.",
+        "He realizes the value of fishing in enriching the local diet. (The " +
+        "others all just consider Hav useless).",
         new Map([[PositiveEmotion.Respect, 1]]));
 
     // At Petra's meal.

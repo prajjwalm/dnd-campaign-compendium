@@ -14,7 +14,7 @@ export function setupJordi()
     jordi.dStats.pb = Prof.get(3);
 
     //todo
-    jordi.opinions.isOpinionated = false;
+    jordi.opinions.isOpinionated = true;
 
     jordi.card.setCampaignArc(2, 1);
     jordi.card.addCardTag("M23");

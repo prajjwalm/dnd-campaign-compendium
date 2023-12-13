@@ -81,6 +81,10 @@ export enum NpcID {
     Shrieker,
     ShriekerN,
     SwarmCaller,
+    Drifter,
+    Sucker,
+    StoneCutter,
+    Predator,
     Ephremis,
 }
 

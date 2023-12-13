@@ -408,6 +408,7 @@ export function combatMemories(memoriesErased, applicableTimestamp)
         NpcID.Dusk,
         NpcID.Dawn,
         NpcID.Hina,
+        NpcID.Kastor,
         NpcID.Ezell,
         NpcID.Cellinia
     ];
@@ -423,6 +424,8 @@ export function combatMemories(memoriesErased, applicableTimestamp)
         NpcID.Dawn,
         NpcID.Hina,
         NpcID.Ezell,
+        NpcID.Yuki,
+        NpcID.Kastor,
         NpcID.Cellinia
     ];
 
