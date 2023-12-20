@@ -18,13 +18,13 @@ export function setupMobs()
     setupEphremis();
     setupSlider();
     setupDrifter();
-    // setupSucker();
-    // setupStoneCutter();
+    setupSucker();
+    setupStoneCutter();
     setupUrchin();
     setupUrchinN();
-    // setupPredator();
+    setupPredator();
     setupHarpooner();
-    // setupHarpoonerN();
+    setupHarpoonerN();
     setupShriekerN();
     setupSwarmCaller();
 }

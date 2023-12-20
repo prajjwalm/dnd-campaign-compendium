@@ -10,6 +10,7 @@ export function setupHav()
 
     c.card.setCampaignArc(2, 1);
 
+    c.card.addCardTag("Deceased");
     c.card.addCardTag("M47");
     c.card.addCardTag("CR 2");
 
