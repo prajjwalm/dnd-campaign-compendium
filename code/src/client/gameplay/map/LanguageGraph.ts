@@ -15,16 +15,6 @@ export class LanguageGraph
     {
         return "language";
     }
-
-    protected get xPadding(): number
-    {
-        return 80;
-    }
-
-    protected get yPadding(): number
-    {
-        return 80;
-    }
 }
 
 

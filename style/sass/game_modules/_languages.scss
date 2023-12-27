@@ -21,6 +21,11 @@
     background-color: white;
   }
 
+  &--weak {
+    background-color: #777;
+    z-index: -1;
+  }
+
   &:not(.language_vertex--null) {
     //width: 240px;
     //height: 40px;
@@ -89,4 +94,9 @@
   translate: -50% -50%;
   height: 4px;
   background: #fff;
+
+  &--weak {
+    background: #777;
+    z-index: -1;
+  }
 }

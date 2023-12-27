@@ -1039,6 +1039,10 @@
   border-radius: 50%;
   background-color: white;
 }
+.language_vertex--weak {
+  background-color: #777;
+  z-index: -1;
+}
 .language_vertex__name {
   padding: 20px 32px;
   font-size: 14px;
@@ -1106,6 +1110,10 @@
   translate: -50% -50%;
   height: 4px;
   background: #fff;
+}
+.language_edge--weak {
+  background: #777;
+  z-index: -1;
 }
 
 .log_tag--info, .log_level--info .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--critical, .log_level--critical .log_tag, .tag {

@@ -8,7 +8,8 @@ export class LanguageEdge
 {
     constructor(public readonly graph: LanguageGraph,
                 start: LanguageVertex,
-                end: LanguageVertex)
+                end: LanguageVertex,
+                private readonly weak: boolean)
     {
         super(start, end);
         this.graph.addEdge(this);
@@ -19,11 +20,13 @@ export class LanguageEdge
         const [x, y]: [number, number] =
             this.graph.mapLocalCoordinatesToScreenPosition(this.center);
 
+        const isWeakStr = this.weak ? " language_edge--weak" : "";
+
         return `
-        <div class="language_edge" style="width: ${this.length}px;
-                                     top: ${y}px;
-                                     left: ${x}px;
-                                     rotate: ${this.rotation}rad;">
+        <div class="language_edge${isWeakStr}" style="width: ${this.length}px;
+                                                      top: ${y}px;
+                                                      left: ${x}px;
+                                                      rotate: ${this.rotation}rad;">
         </div>
         `;
     }

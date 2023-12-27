@@ -8,7 +8,8 @@ export class LanguageVertex
     extends Vertex
 {
     public constructor(public readonly graph: LanguageGraph,
-                       public readonly language: Language | null)
+                       public readonly language: Language | null,
+                       private readonly weak: boolean)
     {
         super(graph.id, graph.vertexCount);
         graph.addVertex(this);
@@ -22,7 +23,8 @@ export class LanguageVertex
         const locationCSS = `left: ${x}px; top: ${y}px;`;
 
         if (this.language == null) {
-            return `<div class="language_vertex language_vertex--null"
+            const isWeakStr = this.weak ? " language_vertex--weak" : "";
+            return `<div class="language_vertex language_vertex--null${isWeakStr}"
                          id="${this.id}"
                          style="${locationCSS}"></div>
             `;
