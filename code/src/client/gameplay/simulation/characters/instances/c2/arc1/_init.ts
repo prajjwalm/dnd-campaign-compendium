@@ -19,6 +19,7 @@ import {setupIona}    from "./iona";
 import {setupJaye}    from "./jaye";
 import {setupJordi}   from "./jordi";
 import {setupKastor}  from "./kastor";
+import {setupPetra}   from "./petra";
 import {setupRoberta} from "./roberta";
 import {setupSasha}   from "./sasha";
 import {setupSybilla} from "./sybilla";
@@ -48,6 +49,7 @@ export function setupC2A1()
     setupJaye();
     setupJordi();
     setupKastor();
+    setupPetra();
     setupRoberta();
     setupSasha();
     setupSybilla();

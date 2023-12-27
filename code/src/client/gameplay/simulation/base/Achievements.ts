@@ -364,14 +364,14 @@ const baseAchievements1: Map<string, IAchievement[]> = new Map([
                       "either the Creeping Branch or the Cave.",
                       700,
                       true),
-        new StdAchievement("???" // "Taking no chances"
-                      , "???" // "Don't attempt to stop Irene from executing Jordi"
+        new StdAchievement("Taking no chances"
+                      , "Don't attempt to stop Irene from executing Jordi"
                       , 500,
                       false),
-        new StdAchievement("???" // "You don't want to do this"
-                      , "???" // "Protect Jordi from Irene"
+        new StdAchievement("You don't want to do this"
+                      , "Protect Jordi from Irene"
                       , 500,
-                      false),
+                      true),
         new StdAchievement("Just shut up and die!",
                           "Deal over 150 damage to the shrieker.",
                           800,
@@ -416,6 +416,136 @@ const baseAchievements1: Map<string, IAchievement[]> = new Map([
     ]],
 ]);
 
+
+const seabornDiveAchievements: Map<string, IAchievement[]> = new Map([
+    ["The Eye, Lifeless", [
+        new NestedAchievement("A rest for weary sailors",
+                              "Arrive within 30 ft of the lifeberg.",
+                              1000,
+                              true)
+            .addRoute("Neptune's chosen",
+                      "Leave the 'berg with the boat intact.",
+                      1200,
+                      false)
+            .addRoute("Not today",
+                      "Leave the 'berg with Hav alive.",
+                      2000,
+                      false)
+            .addRoute("They're not running away?",
+                      "Get a glimpse of the lifeberg and its related ecosystem's" +
+                      "food cycle.",
+                      800,
+                      true),
+        new NestedAchievement("Too convenient to be true",
+                              "Steer clear of the lifeberg and reach the lighthouse directly.",
+                              800,
+                              false)
+            .addRoute("Swat the flies",
+                      "Kill at least 12 drifters before reaching the lighthouse.",
+                      1500,
+                      false)
+            .addRoute("Outrun the buzzing",
+                      "Reach the lighthouse with no more than 12 drifters " +
+                      "killed and the boat intact.",
+                      1500,
+                      false),
+        new NestedAchievement("Eye into the past",
+                              "Find High Inquisitor Dario's lantern before " +
+                              "entering the lighthouse.",
+                              500,
+                              false)
+            .addRoute("A rage inherited",
+                      "Find out who Dario was using the lantern on the shore.",
+                      1000,
+                      false),
+        new StdAchievement("Shady dealings",
+                           "Make a trade with Cannot before entering the lighthouse.",
+                           700,
+                           false),
+        new NestedAchievement("Overseas exports",
+                              "Find the boat and the stash of beer on the " +
+                              "opposite shore.",
+                              400,
+                              true)
+            .addRoute("I'm outta here",
+                      "Escape the place via the boat and reach Po'Shan alive.",
+                      4000,
+                      false)
+            .addRoute("Good stuff... Uhh.. <em>the fuck's that??</em>",
+                      "Sample one of the bottles after it's been touched by " +
+                      "Cannot before entering the lighthouse.",
+                      1500,
+                      false),
+        new StdAchievement("Virus in the brain",
+                           "Have a strange dream in a sleep induced by the " +
+                           "fumes released by the lifeberg.",
+                           800,
+                           true),
+        new NestedAchievement("Tracing footsteps",
+                              "Destroy the boulder and enter the lighthouse",
+                              1200,
+                              true)
+            .addRoute("Offense is the best defense",
+                      "Destroy the first wave of enemies before dealing 200 " +
+                      "damage to the door.",
+                      1800,
+                      false)
+            .addRoute("Prioritization",
+                      "Destroy the boulder before killing even a single enemy.",
+                      1800,
+                      true)
+            .addRoute("Demolitions 101",
+                      "While targeting its structural weakness at least once " +
+                      "(+500 bonus for Mold Earth at the base).",
+                      1300,
+                      true),
+        new NestedAchievement("Technologies Ancient?",
+                              "Witness the lighthouse's internal systems power " +
+                              "up as you enter.",
+                              300,
+                              true)
+            .addRoute("Empirical observations",
+                      "Figure out a pattern in the switches and reach the other " +
+                      "end.",
+                      300,
+                      true)
+            .addRoute("Electrostatic Analysis",
+                      "Figure out the physics behind the switches and why they " +
+                      "work as they do.",
+                      400,
+                      false)
+            .addRoute("Flames of Castigation",
+                      "Aim, charge up and fire the cannon. (+500 bonus for " +
+                      "targeting over 7 enemies together)",
+                      1200,
+                      true)
+            .addRoute("Cranking the levers",
+                      "Restore the mechanism and descend as low as possible via " +
+                      "the chains... before plummeting the rest of the way.",
+                      1000,
+                      false),
+        new StdAchievement("Shut up and fight",
+                           "Do not engage the possessed shrieker in a conversation",
+                           800,
+                           true),
+        new NestedAchievement("Buying time",
+                              "Stall the shrieker by talking through it.",
+                              500,
+                              false)
+            .addRoute("Tongue of pure silver",
+                      "Conclude the conversation without putting Irene in " +
+                      "mortal danger or surrendering Jordi.",
+                      1500,
+                      false)
+    ]],
+    ["The Coast, Sunless", [
+        new StdAchievement("Buckle up",
+                           "Survive the landing into the nethersea cave.",
+                           1500,
+                           true)
+    ]],
+]);
+
 export function generateAchievementsPanel()
 {
     const elements = [];
@@ -435,17 +565,34 @@ export function generateAchievementsPanel()
             cXP += achievement.curExp;
         }
     }
+    const elements3 = [];
+    for (const [title, achievements] of seabornDiveAchievements.entries()) {
+        elements3.push(`<div class="achievement_category">${title}</div>`);
+        for (const achievement of achievements) {
+            elements3.push(achievement.generateDOMString());
+            cXP += achievement.curExp;
+        }
+    }
     return `
         <div class="achievements">
             <div class="achievements__scroller">
                 <div class="achievements__header">
-                    <div class="terminal_title">Achievements: After the sun sets...</div>
+                    <div class="terminal_title">Achievements: Surging Tides</div>
                     <div class="xp_summary">Current XP: <span class="gained">${cXP}</span></div>
+                </div>
+                
+                <div class="achievements__list">
+                    ${elements3.join("")}            
+                </div>
+                
+                <div class="achievements__header">
+                    <div class="terminal_title">Achievements: After the sun sets...</div>
                 </div>
                 
                 <div class="achievements__list">
                     ${elements2.join("")}            
                 </div>
+                
                 <div class="achievements__header">
                     <div class="terminal_title">Achievements: For a piece of Honor</div>
                 </div>
