@@ -1,6 +1,6 @@
-import {Card}  from "../../../card";
-import {NpcID} from "../../../data/npcIndex";
-import {Character} from "../Character";
+import {Card}              from "../../../card";
+import {NpcID}             from "../../../data/npcIndex";
+import {Character}         from "../Character";
 import {AspectFactoryFlag} from "./AspectFactoryFlag";
 import {BaseAspect}        from "./BaseAspect";
 import {ICard}             from "./ICard";
@@ -26,6 +26,30 @@ export class CardAspect
 {
     private static readonly defaultPrimaryImageName = "default";
 
+    /**
+     * Setup runtime handling common to all cards.
+     */
+    public static setupCardLogic()
+    {
+        $(".central_view").on("click", ".tag", function () {
+            $(this).siblings(".tag").removeClass("tag--selected");
+            $(this).addClass("tag--selected");
+
+            const token = $(this).data("token");
+            const $tokens = $(this).parent().siblings(".tokens");
+
+            console.log($tokens.find(`.token[data-token="${token}"]`));
+            console.log(token);
+
+            $tokens.find(".token").hide();
+            $tokens.find(`.token[data-token="${token}"]`).show();
+        });
+    }
+
+    /**
+     * An object providing core features of the character which this aspect is
+     * being built for.
+     */
     private readonly characterCore: ICore;
 
     /**
@@ -33,12 +57,15 @@ export class CardAspect
      */
     private readonly images: Map<string, string>;
 
-    private primaryImageName: string;
-
     /**
      * A list of the various meta tags this character can be associated with.
      */
     private readonly tags: string[];
+
+    /**
+     * The title of the primary image of this character.
+     */
+    private primaryImageName: string;
 
     /**
      * Backing field to store the value of the {@link summary} set.
@@ -50,8 +77,14 @@ export class CardAspect
      */
     private _story: () => string;
 
+    /**
+     * The campaign number in which this character first appears.
+     */
     private campaign: number;
 
+    /**
+     * The arc number in which this character first appears.
+     */
     private arc: number;
 
     /**
@@ -70,6 +103,18 @@ export class CardAspect
         this.images.set(this.primaryImageName, this.characterCore.imgPath);
     }
 
+    public duplicate(other: Character): this
+    {
+        const aspect = new CardAspect(other);
+        aspect._story   = null;
+        aspect._summary = null;
+        aspect.primaryImageName = this.primaryImageName;
+        for (const [name, path] of this.images.entries()) {
+            aspect.images.set(name, path);
+        }
+        return aspect as this;
+    }
+
     /**
      * @inheritDoc
      */
@@ -86,7 +131,7 @@ export class CardAspect
         let tokensHTML;
         if (!floating &&
             (this.images.size > 1 ||
-            !this.images.has(CardAspect.defaultPrimaryImageName)))
+             !this.images.has(CardAspect.defaultPrimaryImageName)))
         {
             const tokenImagesHTML = [];
             const tokenTagsHTML = [];
@@ -100,7 +145,7 @@ export class CardAspect
                           style=${firstImage ? '""' : '"display: none;"'}>`
                 );
                 tokenTagsHTML.push(
-                    `<span class="token_selector tag ${firstImage ? "tag--selected": ""}" 
+                    `<span class="token_selector tag ${firstImage ? "tag--selected" : ""}" 
                            data-token="${tag}">${tag}</span>`
                 );
 
@@ -108,8 +153,7 @@ export class CardAspect
             }
             tokensHTML = `<div class='tokens'>${tokenImagesHTML.join("")}</div>
                           <div>${tokenTagsHTML.join("")}</div>`;
-        }
-        else {
+        } else {
             tokensHTML = `<img src="${this.images.get(this.primaryImageName)}" 
                                class="token" 
                                alt="[NULL]">`;
@@ -121,7 +165,8 @@ export class CardAspect
                                  .map(x => `<span class="tag">${x}</span>`)
                                  .join("");
 
-        // [FutureScope] Update the classes used here to more organized variants.
+        // [FutureScope] Update the classes used here to more organized
+        // variants.
         return `<div class="character_card"
                      data-index-key="${this.getCardIndex()}"
                      >
@@ -133,33 +178,6 @@ export class CardAspect
                         <div class="summary">${this._summary()}</div>
                     </div>
                 </div>`;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public set summary(s: () => string)
-    {
-        this._summary = s;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public set story(s: () => string)
-    {
-        this._story = s;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public set primaryImageTitle(s: string)
-    {
-        // Who knows, we may someday add support to change the primary image.
-        this.images.set(s, this.images.get(CardAspect.defaultPrimaryImageName));
-        this.primaryImageName = s;
-        this.images.delete(CardAspect.defaultPrimaryImageName);
     }
 
     /**
@@ -210,9 +228,10 @@ export class CardAspect
 
         super.finalize();
         console.log("Registering card for", NpcID[this.id]);
-        $(`#tokens .token_space[data-campaign='${this.campaign}'][data-arc='${this.arc}']`).append(
-            $(this.generatePrimaryToken())
-        );
+        $(`#tokens .token_space[data-campaign='${this.campaign}'][data-arc='${this.arc}']`)
+            .append(
+                $(this.generatePrimaryToken())
+            );
         Card.register(this);
     }
 
@@ -228,22 +247,29 @@ export class CardAspect
     }
 
     /**
-     * Setup runtime handling common to all cards.
+     * @inheritDoc
      */
-    public static setupCardLogic()
+    public set summary(s: () => string)
     {
-        $(".central_view").on("click", ".tag", function () {
-            $(this).siblings(".tag").removeClass("tag--selected");
-            $(this).addClass("tag--selected");
+        this._summary = s;
+    }
 
-            const token   = $(this).data("token");
-            const $tokens = $(this).parent().siblings(".tokens");
+    /**
+     * @inheritDoc
+     */
+    public set story(s: () => string)
+    {
+        this._story = s;
+    }
 
-            console.log($tokens.find(`.token[data-token="${token}"]`));
-            console.log(token);
-
-            $tokens.find(".token").hide();
-            $tokens.find(`.token[data-token="${token}"]`).show();
-        });
+    /**
+     * @inheritDoc
+     */
+    public set primaryImageTitle(s: string)
+    {
+        // Who knows, we may someday add support to change the primary image.
+        this.images.set(s, this.images.get(CardAspect.defaultPrimaryImageName));
+        this.primaryImageName = s;
+        this.images.delete(CardAspect.defaultPrimaryImageName);
     }
 }

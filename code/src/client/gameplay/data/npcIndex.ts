@@ -85,7 +85,13 @@ export enum NpcID {
     Sucker,
     StoneCutter,
     Predator,
+    PredatorN,
+    Spewer,
+    SpewerN,
+    BrandGuider,
+    BrandGuiderN,
     Ephremis,
+    Cluster,
 }
 
 // [FutureScope] Reconcile this with StatBlock params someday.

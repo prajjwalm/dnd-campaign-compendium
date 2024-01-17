@@ -82,6 +82,8 @@ export class SheetAspect
 
     public altName: string;
 
+    public theme: string;
+
     /**
      * CTOR.
      */
@@ -97,6 +99,19 @@ export class SheetAspect
         this.altName = null;
         this._acDesc = "";
         this._cr = null;
+        this.theme = "";
+    }
+
+    public duplicate(other: Character): this
+    {
+        const aspect = new SheetAspect(other);
+        aspect._subtitle = this._subtitle;
+        aspect._acDesc   = this._acDesc;
+        aspect._cr       = this._cr;
+        aspect._size     = this._size;
+        aspect.category  = this.category;
+        aspect.altName   = this.altName;
+        return aspect as this;
     }
 
     /**
@@ -132,6 +147,7 @@ export class SheetAspect
             saveList.push(`${DStat[stat]} ${wrapRoll(save)}`);
         }
 
+        console.log(`Skills for ${this.coreAspect.name}`);
         const skillList = [];
         for (const [skill, [mod, _]] of this.skillAspect.upgradedSkills.entries()) {
             skillList.push(`<span style="display: inline-block;">${wrapDSkill(skill)} ${wrapRoll(mod)}</span>`);
@@ -179,7 +195,8 @@ export class SheetAspect
 
         const contentList: Map<Activation, string[]> = new Map();
 
-        for (const action of this.combatAspect.actions) {
+        for (const action of this.combatAspect.actions.values()) {
+            action.c = this.character;
             const activation = action.activation;
             if (!contentList.has(activation)) {
                 contentList.set(activation, []);
@@ -277,6 +294,7 @@ export class SheetAspect
                        this.coreAspect.name,
                        this.coreAspect.imgPath,
                        () => this,
-                       true);
+                       true,
+                       this.theme);
     }
 }

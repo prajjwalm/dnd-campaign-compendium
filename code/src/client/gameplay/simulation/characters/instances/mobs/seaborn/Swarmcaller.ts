@@ -1,40 +1,9 @@
-import {
-    Activation,
-    Condition,
-    CreatureSize,
-    CRValue,
-    DamageType,
-    DSkill,
-    DStat,
-    Hidden,
-    Prof,
-    ProficiencyLevel,
-    Sense,
-    Speed,
-    StatValue
-} from "../../../../../data/constants";
-import {
-    NpcID
-} from "../../../../../data/npcIndex";
-import {
-    D1, D10,
-    D12, D20,
-    D4,
-    D6,
-    D8
-} from "../../../../../rolling/Dice";
-import {
-    Action
-} from "../../../../action/Action";
-import {
-    wrapCondition,
-    wrapDamageType,
-    wrapRoll,
-    wrapSense
-} from "../../../../action/Wrap";
-import {
-    Character
-} from "../../../Character";
+import {Activation, Condition, CreatureSize, CRValue, DamageType, DSkill, DStat, Hidden, Prof, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {NpcID}                                                                                                                 from "../../../../../data/npcIndex";
+import {D1, D10, D12}                                                                                                          from "../../../../../rolling/Dice";
+import {Action}                                                                                                                from "../../../../action/Action";
+import {wrapDamageType, wrapRoll}                                                                                              from "../../../../action/Wrap";
+import {Character}                                                                                                             from "../../../Character";
 
 export function setupSwarmCaller()
 {
@@ -80,50 +49,49 @@ export function setupSwarmCaller()
 
     swarmC.combat.addAction(new Action(
         Activation.Special,
-        `<p><em><strong>LifeSoup Orbs.</strong></em> The SwarmCaller is 
-         surrounded by two orbs apparently made of essence of one of the 
-         Firstborn. All its abilities involve manipulation of these orbs. Each 
-         orb has 30 HP, 15 AC and ${wrapRoll(swarmC.DEX + 2)} to DEX saves - 
-         other saves mirror those of the SwarmCaller. Each orb can be in the 
-         dormant, active or broken state. While dormant, the orbs take 10% damage 
-         (rounded down) from any source, but can't use any abilities. A 
-         destroyed orb re-forms after 24 hours. Until both orbs are broken, the 
-         SwarmCaller takes 10% damage from any source and regenerates 
-         ${wrapRoll([[1, D10], [swarmC.Prof, D1]])} HP at turn start.</p>`
+        `<p><em><strong>LifeSoup Orbs.</strong></em> The SwarmCaller controls 
+         two orbs apparently made of pure essence of one of the Firstborn. All 
+         its abilities involve manipulation of these orbs. Each orb has 20 HP, 
+         15 AC and ${wrapRoll(swarmC.DEX + 5)} to DEX saves - other saves mirror
+         those of the SwarmCaller. Each orb can be in the dormant, active or 
+         broken state. While dormant, the orbs take 10% damage (rounded down) 
+         from any source, but can't use any abilities. A destroyed orb re-forms 
+         after 24 hours. Until both orbs are broken, the SwarmCaller takes 10% 
+         damage from any source and regenerates 
+         ${wrapRoll([[3, D10], [2*swarmC.Prof, D1]])} HP at turn start.</p>`
     ));
 
     swarmC.combat.addAction(new Action(
         Activation.Special,
-        `<p><em><strong>NetherSea Echoes.</strong></em> The SwarmCaller deals 
-        ${wrapRoll([2, D12])} to each creature within 20 ft of it for each of 
-        its orbs which are active. A creature can only take this damage once per 
-        round.</p>`
+        `<p><em><strong>Brand Catalyst.</strong></em> The brand grows twice as 
+        fast while the swarmcaller stands on it.</p>`
+    ));
+
+    swarmC.combat.addAction(new Action(
+        Activation.Special,
+         c => `<p><em><strong>NetherSea Echoes.</strong></em> If any orb is active, 
+         the SwarmCaller and each of its active orbs become sources of nethersea 
+         echoes, each dealing ${wrapRoll([[3, D12], [c.CHA, D1]])}
+         ${wrapDamageType(DamageType.Psychic)} damage (once per round) to each
+         creature that comes within 20 ft of them at any point of time.</p>`
     ));
 
     swarmC.combat.addAction(new Action(
         Activation.Action,
-        `<p><em><strong>Bio Shield.</strong></em> The SwarmCaller summons a few 
-        cells from the primordial LifeSoup and makes it corrupt the microbial 
-        cells near itself to form a biological shield. Until the shield is 
-        broken, it takes damage instead of the SwarmCaller and its orbs. For each 
-        orb used in creating the shield, it gains 20 HP, ${wrapRoll([2, D10])} 
-        HP regen at turn start and +2 AC / saves (over a base 10 AC, 
-        ${wrapRoll(2)} to all saves).</p>`
-    ));
-
-    swarmC.combat.addAction(new Action(
-        Activation.Action,
-        `<p><em><strong>Summon Brand.</strong></em><strong> (1 / Day)</strong> 
-         The SwarmCaller summons the NetherSea brand on the ground on which it 
-         is standing. This ability can only be used if it stands on a ground not 
-         made of Silver, Aluminium or any other nullifying material.
-         </p>`
+        c => `<p><strong><em>Calling We Many.</em> (1/Day)</strong> The SwarmCaller
+        opens a portal summoning the Nethersea Brand underneath itself and seaborn
+        it has previously branded to itself. The seaborn are summoned at 
+        ${c.Prof} per round for upto 1 minute and must have a combined CR less 
+        than ${10 * c.Prof}. This ability can only be used if it stands on a 
+        ground not made of Silver, Aluminium or any other nullifying material.</p>`
     ));
 
     swarmC.combat.addAction(new Action(
         Activation.BonusAction,
         `<p><em><strong>Stirring the Soup.</strong></em> The SwarmCaller 
-         activates or deactivates any of its LifeSoup orbs.
+         activates or deactivates any of its LifeSoup orbs close to it and then 
+         moves any number of active orbs upto 30ft in a way that none move more
+         than 120ft from itself.
          </p>`
     ));
 
@@ -133,7 +101,7 @@ export function setupSwarmCaller()
 
     swarmC.sheet.subtitle = " Seaborn, Lawful Evil";
     swarmC.sheet.acDesc = " (Natural Dex)";
-    // swarmC.sheet.category = "seaborn";
+    swarmC.sheet.category = "seaborn";
 
     swarmC.finalize();
 }

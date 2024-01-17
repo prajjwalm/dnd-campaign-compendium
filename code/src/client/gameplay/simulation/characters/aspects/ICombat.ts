@@ -45,5 +45,5 @@ export interface ICombat
     get damageRes(): ReadonlyMap<DamageType, number>;
     get conditionImmunities(): ReadonlySet<Condition>;
 
-    get actions(): Action[];
+    get actions(): Map<string, Action>;
 }

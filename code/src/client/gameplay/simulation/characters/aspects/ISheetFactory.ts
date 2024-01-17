@@ -16,4 +16,6 @@ export interface ISheetFactory
     set size(s: CreatureSize);
 
     set category(s: string);
+
+    set theme(s: string);
 }

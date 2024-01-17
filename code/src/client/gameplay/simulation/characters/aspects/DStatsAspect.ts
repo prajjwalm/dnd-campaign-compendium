@@ -40,6 +40,19 @@ export class DStatsAspect
         this._pb = null;
     }
 
+    public duplicate(other: Character): this
+    {
+        const aspect = new DStatsAspect(other);
+        for (const [stat, val] of this._stats.entries()) {
+            aspect._stats.set(stat, val);
+        }
+        for (const [stat, vis] of this._statVisibilities.entries()) {
+            aspect._statVisibilities.set(stat, vis);
+        }
+        aspect._pb = this._pb;
+        return aspect as this;
+    }
+
     /**
      * @inheritDoc
      */

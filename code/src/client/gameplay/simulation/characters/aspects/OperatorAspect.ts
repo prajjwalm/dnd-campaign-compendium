@@ -69,6 +69,13 @@ export class OperatorAspect
         this._chemistry = new Map();
     }
 
+    public duplicate(other: Character): this
+    {
+        // todo: Is this the right way? also consider doing this in cards or
+        //  that here.
+        return null;
+    }
+
     /**
      * @inheritDoc
      */

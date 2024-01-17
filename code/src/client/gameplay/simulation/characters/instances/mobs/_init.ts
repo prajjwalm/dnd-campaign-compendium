@@ -1,16 +1,16 @@
+import {setupBrandGuiders}   from "./seaborn/BrandGuider";
 import {setupDrifter}        from "./seaborn/Drifter";
 import {setupEphremis}       from "./seaborn/Ephremis";
-import {setupHarpooner}      from "./seaborn/Harpooner";
-import {setupHarpoonerN}     from "./seaborn/HarpoonerN";
+import {setupHarpooners}     from "./seaborn/Harpooner";
 import {setupNetherseaBrand} from "./seaborn/NetherseaBrand";
-import {setupPredator}       from "./seaborn/Predator";
-import {setupShriekerN}      from "./seaborn/ShriekerN";
+import {setupPredators}      from "./seaborn/Predator";
+import {setupShriekers}      from "./seaborn/Shrieker";
 import {setupSlider}         from "./seaborn/Slider";
+import {setupSpewers}        from "./seaborn/Spewer";
 import {setupStoneCutter}    from "./seaborn/StoneCutter";
 import {setupSucker}         from "./seaborn/Sucker";
 import {setupSwarmCaller}    from "./seaborn/Swarmcaller";
-import {setupUrchin}         from "./seaborn/Urchin";
-import {setupUrchinN}        from "./seaborn/UrchinN";
+import {setupUrchins}        from "./seaborn/Urchin";
 
 export function setupMobs()
 {
@@ -20,11 +20,11 @@ export function setupMobs()
     setupDrifter();
     setupSucker();
     setupStoneCutter();
-    setupUrchin();
-    setupUrchinN();
-    setupPredator();
-    setupHarpooner();
-    setupHarpoonerN();
-    setupShriekerN();
+    setupUrchins();
+    setupPredators();
+    setupHarpooners();
+    setupSpewers();
+    setupShriekers();
+    setupBrandGuiders();
     setupSwarmCaller();
 }

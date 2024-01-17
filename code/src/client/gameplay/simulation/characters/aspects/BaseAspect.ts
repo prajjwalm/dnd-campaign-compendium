@@ -10,7 +10,7 @@ import {DuplicateSetupException} from "./DuplicateSetupException";
  * ensure factory methods are called as needed - only once, at least once, not
  * after being marked as final etc.
  */
-export class BaseAspect
+export abstract class BaseAspect
 {
     /**
      * The set of flags marking this elements state.
@@ -20,7 +20,7 @@ export class BaseAspect
     /**
      * CTOR.
      */
-    constructor(protected readonly character: Character)
+    protected constructor(protected readonly character: Character)
     {
         this.flags = new Set<AspectFactoryFlag>();
     }
@@ -89,6 +89,11 @@ export class BaseAspect
      */
     public finalize(): void
     {}
+
+    /**
+     * Deep-copy this aspect to be used for another character.
+     */
+    public abstract duplicate(other: Character): this;
 
     /**
      * It's ok for all aspects to know the id.

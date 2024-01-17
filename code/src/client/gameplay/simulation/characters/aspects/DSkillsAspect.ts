@@ -19,10 +19,39 @@ import {IDStats}           from "./IDStats";
  * Proficiency aspects to work.
  */
 export class DSkillsAspect
-    extends    BaseAspect
+    extends BaseAspect
     implements IDSkills,
                IDSkillsFactory
 {
+    private static getRatingForSkillModifier(mod: number): Rating
+    {
+        if (mod < 0) {
+            return Rating.F;
+        }
+        if (mod <= 2) {
+            return Rating.E;
+        }
+        if (mod <= 4) {
+            return Rating.D;
+        }
+        if (mod <= 7) {
+            return Rating.C;
+        }
+        if (mod <= 10) {
+            return Rating.B;
+        }
+        if (mod <= 15) {
+            return Rating.A;
+        }
+        if (mod <= 20) {
+            return Rating.S;
+        }
+        if (mod <= 26) {
+            return Rating.SS;
+        }
+        return Rating.SSS;
+    }
+
     /**
      * The skills this character is notable in.
      */
@@ -47,13 +76,25 @@ export class DSkillsAspect
     /**
      * @inheritDoc
      */
+    public duplicate(other: Character): this
+    {
+        const aspect = new DSkillsAspect(other);
+        for (const [skill, [prof, mod, vis]] of this.skills.entries()) {
+            aspect.skills.set(skill, [prof, mod, vis]);
+        }
+        return aspect as this;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public setSkillProficiency(skill: DSkill,
                                visibility: VisibilityLevel,
                                proficiency: ProficiencyLevel = ProficiencyLevel.Prof,
                                mod: number = 0)
     {
         this.buildSentinel(AspectFactoryFlag.DSkillsSkillsDeclared,
-                           AspectFactoryFlag.DSkillsSkillsFinalized);
+            AspectFactoryFlag.DSkillsSkillsFinalized);
         this.skills.set(skill, [proficiency, mod, visibility]);
     }
 
@@ -61,8 +102,8 @@ export class DSkillsAspect
      * @inheritDoc
      */
     public getSkillMod(skill: DSkill,
-                       profOverride: ProficiencyLevel=null,
-                       tentative: boolean=false):
+                       profOverride: ProficiencyLevel = null,
+                       tentative: boolean = false):
         [number, VisibilityLevel]
     {
         if (!tentative) {
@@ -78,11 +119,9 @@ export class DSkillsAspect
         let vis: VisibilityLevel;
         if (this.skills.has(skill)) {
             [prof, mod, vis] = this.skills.get(skill);
-        }
-        else if (this.skills.has(DSkill._ALL)) {
+        } else if (this.skills.has(DSkill._ALL)) {
             [prof, mod, vis] = this.skills.get(DSkill._ALL);
-        }
-        else {
+        } else {
             [prof, mod, vis] = [ProficiencyLevel.None, 0, Shown];
         }
 
@@ -132,41 +171,49 @@ export class DSkillsAspect
         const upgradedSkills: Map<DSkill, [number, VisibilityLevel]> = new Map();
         if (this.skills.has(DSkill._ALL)) {
             const [minProf, minMod, allVis] = this.skills.get(DSkill._ALL);
-            for (const skill of [DSkill.Acrobatics,
-                                 DSkill.AnimalHandling,
-                                 DSkill.Arcana,
-                                 DSkill.Athletics,
-                                 DSkill.Deception,
-                                 DSkill.History,
-                                 DSkill.Insight,
-                                 DSkill.Intimidation,
-                                 DSkill.Investigation,
-                                 DSkill.Medicine,
-                                 DSkill.Nature,
-                                 DSkill.Perception,
-                                 DSkill.Performance,
-                                 DSkill.Persuasion,
-                                 DSkill.Religion,
-                                 DSkill.SlightOfHand,
-                                 DSkill.Stealth,
-                                 DSkill.Survival])
+            for (const skill of [
+                DSkill.Acrobatics,
+                DSkill.AnimalHandling,
+                DSkill.Arcana,
+                DSkill.Athletics,
+                DSkill.Deception,
+                DSkill.History,
+                DSkill.Insight,
+                DSkill.Intimidation,
+                DSkill.Investigation,
+                DSkill.Medicine,
+                DSkill.Nature,
+                DSkill.Perception,
+                DSkill.Performance,
+                DSkill.Persuasion,
+                DSkill.Religion,
+                DSkill.SlightOfHand,
+                DSkill.Stealth,
+                DSkill.Survival
+            ])
             {
                 upgradedSkills.set(
                     skill,
-                    [this.dStats.mod(StatForSkill.get(skill)) +
-                     this.dStats.pb.mod(minProf) + minMod,
-                     allVis]
+                    [
+                        this.dStats.mod(StatForSkill.get(skill)) +
+                        this.dStats.pb.mod(minProf) + minMod,
+                        allVis
+                    ]
                 );
             }
         }
 
+        console.log("Iterating skills...")
         for (const [skill, [pb, mod, vis]] of this.skills.entries()) {
             if (skill == DSkill._ALL) {
                 continue;
             }
+            console.log(`Setting ${DSkill[skill]}: ${this.dStats.mod(StatForSkill.get(skill))} + ${this.dStats.pb.mod(pb)} + ${mod}`);
             upgradedSkills.set(skill,
-                               [this.dStats.mod(StatForSkill.get(skill)) +
-                                this.dStats.pb.mod(pb) + mod, vis]);
+                [
+                    this.dStats.mod(StatForSkill.get(skill)) +
+                    this.dStats.pb.mod(pb) + mod, vis
+                ]);
         }
         return upgradedSkills;
     }
@@ -179,34 +226,5 @@ export class DSkillsAspect
             ratings.set(skill, DSkillsAspect.getRatingForSkillModifier(value));
         }
         return ratings;
-    }
-
-    private static getRatingForSkillModifier(mod: number): Rating
-    {
-        if (mod < 0) {
-            return Rating.F;
-        }
-        if (mod <= 2) {
-            return Rating.E;
-        }
-        if (mod <= 4) {
-            return Rating.D;
-        }
-        if (mod <= 7) {
-            return Rating.C;
-        }
-        if (mod <= 10) {
-            return Rating.B;
-        }
-        if (mod <= 15) {
-            return Rating.A;
-        }
-        if (mod <= 20) {
-            return Rating.S;
-        }
-        if (mod <= 26) {
-            return Rating.SS;
-        }
-        return Rating.SSS;
     }
 }

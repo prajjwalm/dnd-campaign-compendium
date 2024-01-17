@@ -46,7 +46,7 @@ export class CombatAspect
 
     private readonly _conditionImmunities: Set<Condition>;
 
-    private readonly _actions: Action[];
+    private readonly _actions: Map<string, Action>;
 
     private _bonusHP: number;
 
@@ -57,26 +57,60 @@ export class CombatAspect
     constructor(c: Character)
     {
         super(c);
-        this.statsAspect = c;
+        this.statsAspect  = c;
         this.skillsAspect = c;
 
-        this.baseACSources = [];
-        this.acBonuses = [];
-        this.classes = new Map();
-        this._hpDice = new Map();
-        this._bonusHP = 0;
-
-        this._speeds = new Map();
-        this._senses = new Map();
-
-        this._res = new Map();
-
-        this._saves = new Map();
-
-        this._conditionImmunities = new Set();
-
-        this._actions = [];
+        this._hpDice   = new Map();
+        this._bonusHP  = 0;
         this.bioHpDice = [];
+
+        this.baseACSources        = [];
+        this.acBonuses            = [];
+        this.classes              = new Map();
+        this._speeds              = new Map();
+        this._senses              = new Map();
+        this._res                 = new Map();
+        this._saves               = new Map();
+        this._conditionImmunities = new Set();
+        this._actions             = new Map();
+    }
+
+    public duplicate(other: Character): this
+    {
+        const aspect = new CombatAspect(other);
+
+        aspect.baseACSources.push(...this.baseACSources);
+        aspect.acBonuses    .push(...this.acBonuses);
+
+        for (const [cls, level] of this.classes.entries()) {
+            aspect.classes.set(cls, level);
+        }
+
+        for (const [speedType, speed] of this._speeds.entries()) {
+            aspect._speeds.set(speedType, speed);
+        }
+
+        for (const [sense, senseVal] of this._senses.entries()) {
+            aspect._senses.set(sense, senseVal);
+        }
+
+        for (const [dType, res] of this._res.entries()) {
+            aspect._res.set(dType, res);
+        }
+
+        for (const [save, bonus] of this._saves.entries()) {
+            aspect._saves.set(save, bonus);
+        }
+
+        for (const conditionImmunity of this._conditionImmunities) {
+            aspect._conditionImmunities.add(conditionImmunity);
+        }
+
+        for (const [key, action] of this._actions.entries()) {
+            aspect._actions.set(key, action);
+        }
+
+        return aspect as this;
     }
 
     addBioHpDice(count: number, dice: Dice) {
@@ -235,9 +269,12 @@ export class CombatAspect
         this._conditionImmunities.add(c);
     }
 
-    public addAction(a: Action)
+    public addAction(a: Action, key: string | null = null)
     {
-        this._actions.push(a);
+        if (key == null) {
+            key = Math.random().toString();
+        }
+        this._actions.set(key, a);
     }
 
     public get ac(): number
@@ -309,7 +346,7 @@ export class CombatAspect
         return this._conditionImmunities;
     }
 
-    public get actions(): Action[]
+    public get actions(): Map<string, Action>
     {
         return this._actions;
     }

@@ -99,6 +99,7 @@ export class OpinionAspect
             $individualAst.show();
         });
     }
+
     /**
      * Reference to the {@link ICore} aspect of the character.
      */
@@ -112,7 +113,7 @@ export class OpinionAspect
     /**
      * The opinions that this NPC holds towards the various pcs.
      */
-    private readonly opinions: Map<PcIndex, NpcOpinion>;
+    private opinions: Map<PcIndex, NpcOpinion>;
 
     /**
      * Whether this NPC has opinions.
@@ -125,13 +126,26 @@ export class OpinionAspect
     constructor(c: Character)
     {
         super(c);
-        this.core = c;
-        this.dSkills = c;
 
-        this.opinions = new Map();
-        for (const pc of getEnumIterator(PcIndex) as Generator<PcIndex>) {
-            this.opinions.set(pc, new NpcOpinion(this.id, pc));
+        this.core         = c;
+        this.dSkills      = c;
+        this._opinionated = false;
+        this.opinions     = null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public duplicate(other: Character): this
+    {
+        const aspect = new OpinionAspect(other);
+        aspect._opinionated = this._opinionated;
+
+        if (aspect._opinionated) {
+            throw new Error("Are you sure you should be duplicating the " +
+                            "opinions of a character?")
         }
+        return aspect as this;
     }
 
     /**
@@ -222,6 +236,12 @@ export class OpinionAspect
     public set isOpinionated(val: boolean)
     {
         this._opinionated = val;
+        if (val) {
+            this.opinions = new Map();
+            for (const pc of getEnumIterator(PcIndex) as Generator<PcIndex>) {
+                this.opinions.set(pc, new NpcOpinion(this.id, pc));
+            }
+        }
     }
 
     /**

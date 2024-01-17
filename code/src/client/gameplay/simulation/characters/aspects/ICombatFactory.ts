@@ -37,5 +37,5 @@ export interface ICombatFactory
 
     addConditionImmunity(c: Condition);
 
-    addAction(a: Action);
+    addAction(a: Action, key?: string | null);
 }

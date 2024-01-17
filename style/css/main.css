@@ -1037,6 +1037,20 @@ table.simple_table {
 #beastiary .selectable_radio_container.translational_flags .selectable.selected {
   width: 256px;
 }
+#beastiary .selectable_radio_container.translational_flags .selectable.danger_1 {
+  background: #3d2525;
+  background: linear-gradient(90deg, #3d2525 0%, #2c1919 30%, #271313 45%, #110909 100%);
+  border: solid 1px #402424;
+  box-shadow: 0 0 14px 5px rgba(204, 13, 13, 0.25);
+}
+#beastiary .selectable_radio_container.translational_flags .selectable.danger_1.disabled {
+  background: linear-gradient(90deg, rgba(61, 37, 37, 0.3) 0%, rgba(44, 25, 25, 0.3) 30%, rgba(39, 19, 19, 0.3) 45%, rgba(17, 9, 9, 0.3) 100%);
+  border: solid 1px rgba(64, 36, 36, 0.3);
+}
+#beastiary .selectable_radio_container.translational_flags .selectable.danger_1.selected {
+  background: #2e4983;
+  background: linear-gradient(90deg, #cc0d0d 0%, #871a1a 12%, #320e0e 45%, #110909 100%);
+}
 
 /**
  * * A mixin which helps you to add depth to elements according to the Google Material Design spec:

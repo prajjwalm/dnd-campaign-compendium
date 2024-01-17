@@ -31,6 +31,12 @@ export class CoreAspect
         super(c);
     }
 
+    public duplicate(other: Character): this
+    {
+        // We prob. don't want to duplicate either name or image.
+        return new CoreAspect(other) as this;
+    }
+
     /**
      * @inheritDoc
      */

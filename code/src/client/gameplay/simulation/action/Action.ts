@@ -1,14 +1,18 @@
-import {Activation} from "../../data/constants";
-import {IDStats}    from "../characters/aspects/IDStats";
+import {Activation}        from "../../data/constants";
+import {IDStats}           from "../characters/aspects/IDStats";
+import {Character}         from "../characters/Character";
 import {IMeasurableAction} from "./IMeasurableAction";
 
 
 export class Action
     implements IMeasurableAction
 {
+    public c: Character;
+
     constructor(private _activation: Activation,
-                private _content: string)
+                private _content: string | ((c: Character) => string))
     {
+        this.c = null;
     }
 
     public measureImpact(given?: ReadonlyMap<ActionMeasureInput, number>):
@@ -27,6 +31,9 @@ export class Action
 
     public createContent(): string
     {
+        if (typeof this._content === 'function') {
+            return this._content(this.c);
+        }
         return this._content;
     }
 }

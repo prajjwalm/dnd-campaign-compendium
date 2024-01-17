@@ -16,7 +16,8 @@ export function setupStatSheet(category: string,
                                title: string,
                                imageFileName: string,
                                sheetObjectGetter: () => IStatSheet,
-                               fullImgPath: boolean = false)
+                               fullImgPath: boolean = false,
+                               theme: string = "")
 {
     // Is created on the first call, ID_TO_SHEET_GENERATOR is set only here.
     const iconCreated = ID_TO_SHEET_GENERATOR.has(id);
@@ -30,7 +31,7 @@ export function setupStatSheet(category: string,
                    `<img class="icon_img" src="assets/images/mob_tokens/${category}/${imageFileName}" alt="[NULL]">`;
 
         $("#beastiary .selectable_radio_container").append(`
-            <div class="selectable radio creature" 
+            <div class="selectable radio creature ${theme}" 
                  data-creature-id="${id}"
                  data-mob-group="${category}"
                  style="display: none;">

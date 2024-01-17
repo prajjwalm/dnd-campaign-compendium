@@ -88,47 +88,47 @@ export class Character
     /**
      * The aspect handling the core 'fields'.
      */
-    private _coreAspect: CoreAspect;
+    protected _coreAspect: CoreAspect;
 
     /**
      * The aspect handling the D&D stats.
      */
-    private _dStatsAspect: DStatsAspect;
+    protected _dStatsAspect: DStatsAspect;
 
     /**
      * The aspect handling the D&D skills.
      */
-    private _dSkillsAspect: DSkillsAspect;
+    protected _dSkillsAspect: DSkillsAspect;
 
     /**
      * The aspect handling the interface to the opinion table.
      */
-    private _opinionAspect: OpinionAspect;
+    protected _opinionAspect: OpinionAspect;
 
     /**
      * The aspect handling the creation of the character card.
      */
-    private _cardAspect: CardAspect;
+    protected _cardAspect: CardAspect;
 
     /**
      * The aspect handling the backend of combat.
      */
-    private _combatAspect: CombatAspect;
+    protected _combatAspect: CombatAspect;
 
     /**
      * The aspect handling stat sheet creation.
      */
-    private _sheetAspect: SheetAspect
+    protected _sheetAspect: SheetAspect
 
     /**
      * The aspect handling CoC skills.
      */
-    private _cSkillsAspect: CSkillsAspect;
+    protected _cSkillsAspect: CSkillsAspect;
 
     /**
      * The aspect handling the operator.
      */
-    private _operatorAspect: OperatorAspect;
+    protected _operatorAspect: OperatorAspect;
 
     /**
      * CTOR.
@@ -189,6 +189,9 @@ export class Character
         return this.cardAspect.generateCard(floating);
     }
 
+    /**
+     * @inheritDoc
+     */
     public render(): string
     {
         return "";
@@ -210,6 +213,9 @@ export class Character
         return this._combatAspect.dc(stat);
     }
 
+    /**
+     * @inheritDoc
+     */
     public getSkillVal(skill: CSkill): [number, VisibilityLevel]
     {
         return this.cSkillsAspect.getSkillVal(skill);
@@ -374,7 +380,7 @@ export class Character
     /**
      * @inheritDoc
      */
-    get actions(): Action[]
+    get actions(): Map<string, Action>
     {
         return this.combatAspect.actions;
     }
@@ -387,6 +393,9 @@ export class Character
         return this.dStatsAspect.actionContentAPI;
     }
 
+    /**
+     * @inheritDoc
+     */
     get isOpinionated(): boolean
     {
         return this.opinionAspect.isOpinionated;
@@ -416,6 +425,9 @@ export class Character
         return this.coreAspect.imgPath;
     }
 
+    /**
+     * @inheritDoc
+     */
     public get cSkillRatings(): ReadonlyMap<CSkill, Rating>
     {
         return this.cSkillsAspect.cSkillRatings;
@@ -643,7 +655,14 @@ export class Character
         return this.dSkillsAspect.dSkillRatings;
     }
 
-    private get cardAspect(): CardAspect
+    // The following methods have been made public only so that the subclass
+    // CharacterVariant can access these for another Character.
+
+    /**
+     * Retrieve the aspect storing the card related information.
+     * Not expected to be invoked externally.
+     */
+    public get cardAspect(): CardAspect
     {
         if (this._cardAspect == null) {
             throw new AspectNotSetupException("cardAspect");
@@ -651,7 +670,11 @@ export class Character
         return this._cardAspect;
     }
 
-    private get opinionAspect(): OpinionAspect
+    /**
+     * Retrieve the aspect storing the opinion related information.
+     * Not expected to be invoked externally.
+     */
+    public get opinionAspect(): OpinionAspect
     {
         if (this._opinionAspect == null) {
             throw new AspectNotSetupException("opinionAspect");
@@ -659,7 +682,11 @@ export class Character
         return this._opinionAspect;
     }
 
-    private get dSkillsAspect(): DSkillsAspect
+    /**
+     * Retrieve the aspect storing the D&D skills related information.
+     * Not expected to be invoked externally.
+     */
+    public get dSkillsAspect(): DSkillsAspect
     {
         if (this._dSkillsAspect == null) {
             throw new AspectNotSetupException("dSkillsAspect");
@@ -667,7 +694,11 @@ export class Character
         return this._dSkillsAspect;
     }
 
-    private get dStatsAspect(): DStatsAspect
+    /**
+     * Retrieve the aspect storing the D&D stats related information.
+     * Not expected to be invoked externally.
+     */
+    public get dStatsAspect(): DStatsAspect
     {
         if (this._dStatsAspect == null) {
             throw new AspectNotSetupException("dStatsAspect");
@@ -675,7 +706,11 @@ export class Character
         return this._dStatsAspect;
     }
 
-    private get coreAspect(): CoreAspect
+    /**
+     * Retrieve the aspect storing the core related information.
+     * Not expected to be invoked externally.
+     */
+    public get coreAspect(): CoreAspect
     {
         if (this._coreAspect == null) {
             throw new AspectNotSetupException("coreAspect");
@@ -683,7 +718,11 @@ export class Character
         return this._coreAspect;
     }
 
-    private get combatAspect(): CombatAspect
+    /**
+     * Retrieve the aspect storing the combat related information.
+     * Not expected to be invoked externally.
+     */
+    public get combatAspect(): CombatAspect
     {
         if (this._combatAspect == null) {
             throw new AspectNotSetupException("combatAspect");
@@ -691,7 +730,11 @@ export class Character
         return this._combatAspect;
     }
 
-    private get sheetAspect(): SheetAspect
+    /**
+     * Retrieve the aspect storing the sheet related information.
+     * Not expected to be invoked externally.
+     */
+    public get sheetAspect(): SheetAspect
     {
         if (this._sheetAspect == null) {
             throw new AspectNotSetupException("sheetAspect");
@@ -699,7 +742,11 @@ export class Character
         return this._sheetAspect;
     }
 
-    private get cSkillsAspect(): CSkillsAspect
+    /**
+     * Retrieve the aspect storing the CoC skills related information.
+     * Not expected to be invoked externally.
+     */
+    public get cSkillsAspect(): CSkillsAspect
     {
         if (this._cSkillsAspect == null) {
             throw new AspectNotSetupException("sheetAspect");
@@ -707,7 +754,11 @@ export class Character
         return this._cSkillsAspect;
     }
 
-    private get operatorAspect(): OperatorAspect
+    /**
+     * Retrieve the aspect storing the operator related information.
+     * Not expected to be invoked externally.
+     */
+    public get operatorAspect(): OperatorAspect
     {
         if (this._operatorAspect == null) {
             throw new AspectNotSetupException("sheetAspect");

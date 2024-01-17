@@ -11,12 +11,26 @@
 //
 
 $theme_ocean_blue: "ocean_blue";
+$theme_blood_red:  "blood_red";
 $default_theme: $theme_ocean_blue;
 
 @mixin translational_selectable_colors($direction: "up",
                                        $color_theme: $default_theme,
                                        $base_color: #151515,
                                        $base_shadow: colors.$white)
+{
+  .translation_base {
+    background-color: $base_color;
+    @include shadows.Uniform(3, $base_shadow);
+  }
+
+  .selectable {
+    @include translational_selectable_colors_selector_only($direction, $color_theme);
+  }
+}
+
+@mixin translational_selectable_colors_selector_only($direction: "up",
+                                                     $color_theme: $default_theme)
 {
   //
   // Since the card lights up from the direction from with it is drawn, when the
@@ -46,43 +60,71 @@ $default_theme: $theme_ocean_blue;
            "direction (up/down/left/right).";
   }
 
-  @if ($color_theme != $theme_ocean_blue) {
+  $color_dark_1:  #000;
+  $color_dark_2:  #000;
+  $color_dark_3:  #000;
+  $color_dark_4:  #000;
+  $color_border:  #333;
+  $color_shadow:  #777;
+  $color_light_1: $color_shadow;
+  $color_light_2: #555;
+  $color_light_3: #222;
+  $color_light_4: $color_dark_4;
+
+  @if ($color_theme == $theme_ocean_blue) {
+    $color_dark_1: #252d3d;
+    $color_dark_2: #191f2c;
+    $color_dark_3: #131b27;
+    $color_dark_4: #090911;
+    $color_border: #242d40;
+    $color_shadow: #2e4983;
+    $color_light_1: $color_shadow;
+    $color_light_2: #293d68;
+    $color_light_3: #141c25;
+    $color_light_4: $color_dark_4;
+  }
+  @else if ($color_theme == $theme_blood_red) {
+    $color_dark_1: #3d2525;
+    $color_dark_2: #2c1919;
+    $color_dark_3: #271313;
+    $color_dark_4: #110909;
+    $color_border: #402424;
+    $color_shadow: #cc0d0d;
+    $color_light_1: $color_shadow;
+    $color_light_2: #871a1a;
+    $color_light_3: #320e0e;
+    $color_light_4: $color_dark_4;
+  }
+  @else {
     @error "Unsupported color scheme #{$color_theme} for translational " +
            "selectable.";
   }
 
-  .translation_base {
-    background-color: $base_color;
-    @include shadows.Uniform(3, $base_shadow);
+  background: $color_dark_1;
+  background: linear-gradient($angle,
+          $color_dark_1 0%,
+          $color_dark_2 30%,
+          $color_dark_3 45%,
+          $color_dark_4 100%);
+  border: solid 1px $color_border;
+  @include shadows.Uniform(4, $color_shadow);
+
+  &.disabled  {
+    background: linear-gradient($angle,
+            rgba($color_dark_1, 0.3) 0%,
+            rgba($color_dark_2, 0.3) 30%,
+            rgba($color_dark_3, 0.3) 45%,
+            rgba($color_dark_4, 0.3) 100%);
+    border: solid 1px rgba($color_border, 0.3);
   }
 
-    .selectable {
-    background: #252d3d;
+  &.selected {
+    background: #2e4983;
     background: linear-gradient($angle,
-                                #252d3d 0%,
-                                #191f2c 30%,
-                                #131b27 45%,
-                                #090911 100%);
-    border: solid 1px #242d40;
-    @include shadows.Uniform(4, #2e4983);
-
-    &.disabled  {
-      background: linear-gradient($angle,
-              rgba(#252d3d, 0.3) 0%,
-              rgba(#191f2c, 0.3) 30%,
-              rgba(#131b27, 0.3) 45%,
-              rgba(#090911, 0.3) 100%);
-      border: solid 1px rgba(#242d40, 0.3);
-    }
-
-    &.selected {
-      background: #2e4983;
-      background: linear-gradient($angle,
-                                  #2e4983 0%,
-                                  #293d68 12%,
-                                  #141c25 45%,
-                                  #090911 100%);
-    }
+            $color_light_1 0%,
+            $color_light_2 12%,
+            $color_light_3 45%,
+            $color_light_4 100%);
   }
 }
 
@@ -323,5 +365,9 @@ $default_theme: $theme_ocean_blue;
                                                  $base_width: 76px,
                                                  $card_gap: 8px,
                                                  $align_start: true);
+
+    .selectable.danger_1 {
+      @include translational_selectable_colors_selector_only("right", $theme_blood_red);
+    }
   }
 }
