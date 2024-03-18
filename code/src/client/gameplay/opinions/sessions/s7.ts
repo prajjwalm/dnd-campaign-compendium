@@ -1,9 +1,7 @@
-import {PcIndex}       from "../../data/pcIndex";
-import {
-    Character
-}                      from "../../simulation/characters/Character";
-import {NpcID}         from "../../data/npcIndex";
-import {GameTimestamp} from "../../GameTimestamp";
+import {NpcID}               from "../../data/npcIndex";
+import {PcIndex}             from "../../data/pcIndex";
+import {GameTimestamp}       from "../../GameTimestamp";
+import {Character}           from "../../simulation/characters/Character";
 import {PositiveEmotion}     from "../PositiveEmotion";
 import {addInteractionEvent} from "./s9";
 
@@ -25,7 +23,6 @@ export function sessionOpinionEvents07()
         NpcID.Dawn,
         [
             PcIndex.ID_HELIOS,
-            PcIndex.ID_AURELIA,
             PcIndex.ID_CYRION
         ],
 
@@ -56,7 +53,7 @@ export function sessionOpinionEvents07()
 
     addInteractionEvent(
         NpcID.Roberta,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 8, 0),
         "Seems to have some passing knowledge of alchemy.",
         new Map([
@@ -67,7 +64,6 @@ export function sessionOpinionEvents07()
     addInteractionEvent(
         NpcID.Vitacia,
         [
-            PcIndex.ID_AURELIA,
             PcIndex.ID_CYRION,
             PcIndex.ID_HELIOS
         ],
@@ -105,7 +101,7 @@ export function sessionOpinionEvents07()
     for (const pc of [
         PcIndex.ID_HELIOS,
         PcIndex.ID_CYRION,
-        PcIndex.ID_AURELIA
+
     ])
     {
         addInteractionEvent(
@@ -182,7 +178,7 @@ export function sessionOpinionEvents07()
 
     addInteractionEvent(
         NpcID.Hina,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 8, 30),
         "Heh, decently suppressed, and I was distracted by the starry guy overreacting... " +
         "but it's clear. You're the killer, aren't you? That's some fresh guilt quashed in " +
@@ -235,7 +231,7 @@ export function sessionOpinionEvents07()
 
     addInteractionEvent(
         NpcID.Erica,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 9, 30),
         "So it was spying after all... sigh. I'd hoped I was wrong. " +
         "Apologizing after being caught still leaves a bad aftertaste, but " +
@@ -383,7 +379,7 @@ export function sessionOpinionEvents07()
 
     addInteractionEvent(
         NpcID.Dawn,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 11, 30),
         "Made a superficial attempt to console me, changing to her topics " +
         "of interest real quick at the slightest word from me. But then " +
@@ -395,7 +391,7 @@ export function sessionOpinionEvents07()
 
     addInteractionEvent(
         NpcID.Dawn,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 11, 45),
         "Took the initiative to teach the kids! I... that's... Thank you! " +
         "Thank you so much! With this, there may be some future for them yet.",
@@ -419,7 +415,7 @@ export function sessionOpinionEvents07()
     for (const pc of [
         PcIndex.ID_HELIOS,
         PcIndex.ID_CYRION,
-        PcIndex.ID_AURELIA
+
     ])
     {
         addInteractionEvent(

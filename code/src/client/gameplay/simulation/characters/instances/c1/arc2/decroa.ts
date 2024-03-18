@@ -7,9 +7,9 @@ export function setupDecroa()
 
     c.core.name = "Decroa Sal";
     c.core.imgPath = "character_tokens/C1/Arc2/decroa.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
-
     c.card.addCardTag('F2620');
     c.card.addCardTag('From | Shadowfell');
     c.card.addCardTag('Race | Higher Vampire');
@@ -23,6 +23,6 @@ export function setupDecroa()
       ${Character.get(NpcID.Sanguinarch).createLink("The SanguineArch")} until she could escape the 
       castle. Revealed herself to be a childhood friend of ${Character.get(NpcID.Lesley).createLink("Lesley")}'s.`;
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
+
 }

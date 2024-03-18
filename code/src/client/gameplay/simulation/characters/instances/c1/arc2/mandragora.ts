@@ -7,9 +7,9 @@ export function setupMandragora()
 
     c.core.name = "Mandragora";
     c.core.imgPath = "character_tokens/C1/Arc2/mandy.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
-
     c.card.addCardTag('F76 (16)');
     c.card.addCardTag('From | Materia / Ruin');
     c.card.addCardTag(`Race | Ursine`);
@@ -24,6 +24,5 @@ export function setupMandragora()
       ${Character.get(NpcID.Ebenezar).createLink("particularly adept spellcaster")} had left behind but was thwarted by a 
       group of adventurers who handed her research to ${Character.get(NpcID.Verrader).createLink("Verrader")}.`;
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
 }

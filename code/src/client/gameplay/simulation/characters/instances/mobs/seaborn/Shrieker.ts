@@ -1,48 +1,48 @@
-import {Activation, CreatureSize, CRValue, DamageType, DSkill, DStat, Hidden, Prof, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                      from "../../../../../data/npcIndex";
-import {D1, D12, D6, D8}                                                                                            from "../../../../../rolling/Dice";
-import {Action}                                                                                                     from "../../../../action/Action";
-import {wrapDamageType, wrapRoll}                                                                                   from "../../../../action/Wrap";
-import {Character}                                                                                                  from "../../../Character";
-import {CharacterVariant}                                                                                           from "../../../CharacterVariant";
+import {Activation, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {NpcID}                                                                                       from "../../../../../data/npcIndex";
+import {D1, D12, D6, D8}                                                                             from "../../../../../rolling/Dice";
+import {Action}                                                                                      from "../../../../action/Action";
+import {wrapDamageType, wrapRoll}                                                                    from "../../../../action/Wrap";
+import {Character}                                                                                   from "../../../Character";
+import {CharacterVariant}                                                                            from "../../../CharacterVariant";
 
 export function setupShriekers()
 {
-    const shrieker = new Character(NpcID.Shrieker);
+    const c = new Character(NpcID.Shrieker);
 
-    shrieker.core.name = "Shrieker";
-    shrieker.core.imgPath = "mob_tokens/seaborn/Shrieker.png";
+    c.core.name = "Shrieker";
+    c.core.imgPath = "mob_tokens/seaborn/Shrieker.png";
+    c.core.finalize();
 
-    shrieker.dStats.initializeStats(14, 14, 18, 7, 11, 15);
-    shrieker.dStats.pb = Prof.get(3);
+    c.dStats.initializeStats(14, 14, 18, 7, 11, 15);
+    c.dStats.pb = 3;
+    c.dStats.finalize();
 
-    shrieker.dSKills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Expert);
-    shrieker.dSKills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Expert);
-    shrieker.dSKills.finalizeSkills();
+    c.dSkills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.finalize();
 
-    shrieker.opinions.isOpinionated = false;
+    c.combat.addBioHpDice(D6.countHavingE(120, c.CON), D6);
+    c.combat.computeHP();
 
-    shrieker.combat.addBioHpDice(D6.countHavingE(120, shrieker.CON), D6);
-    shrieker.combat.computeHP();
+    c.combat.setSave(DStat.Wis);
+    c.combat.setSave(DStat.Cha);
 
-    shrieker.combat.setSave(DStat.Wis);
-    shrieker.combat.setSave(DStat.Cha);
+    c.combat.setSpeed(Speed.Walking,  30);
+    c.combat.setSpeed(Speed.Swimming, 40);
 
-    shrieker.combat.setSpeed(Speed.Walking,  30);
-    shrieker.combat.setSpeed(Speed.Swimming, 40);
+    c.combat.setRes(DamageType.Hellfire,    -100);
+    c.combat.setRes(DamageType.Psychic,      50);
+    c.combat.setRes(DamageType.Cold,         50);
+    c.combat.setRes(DamageType.Lightning,    50);
+    c.combat.setRes(DamageType.Physical,     50);
+    c.combat.setRes(DamageType.Thunder,      50);
+    c.combat.setRes(DamageType.Acid,         100);
+    c.combat.setRes(DamageType.Poison,       100);
 
-    shrieker.combat.setRes(DamageType.Hellfire,    -100);
-    shrieker.combat.setRes(DamageType.Psychic,      50);
-    shrieker.combat.setRes(DamageType.Cold,         50);
-    shrieker.combat.setRes(DamageType.Lightning,    50);
-    shrieker.combat.setRes(DamageType.Physical,     50);
-    shrieker.combat.setRes(DamageType.Thunder,      50);
-    shrieker.combat.setRes(DamageType.Acid,         100);
-    shrieker.combat.setRes(DamageType.Poison,       100);
+    c.combat.setSense(Sense.TrueSight, 300);
 
-    shrieker.combat.setSense(Sense.TrueSight, 300);
-
-    shrieker.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         (c) => `<p><em><strong>Sated Humming.</strong></em> The shrieker roams around, 
         apparently aimless (but with a tendency to move towards other seaborn), 
@@ -51,7 +51,7 @@ export function setupShriekers()
         round to all seaborn that get within 20 ft of it at any point of time.</p>`
     ));
 
-    shrieker.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         (c) => `<p><em><strong>Frenzied Shrieking.</strong></em> The shrieker dashes 
         (apparantly) randomly (but with a tendancy to move towards the highest 
@@ -63,38 +63,42 @@ export function setupShriekers()
         its turns it takes 50 true damage.</p>`
     ));
 
-    shrieker.sheet.cr = new CRValue(8);
+    c.combat.cr = 8;
+    c.combat.finalize();
 
-    shrieker.sheet.size = CreatureSize.Medium;
+    c.sheet.size = CreatureSize.Medium;
 
-    shrieker.sheet.subtitle = " Seaborn, Chaotic Evil";
-    shrieker.sheet.acDesc = " (Natural Armor)";
-    shrieker.sheet.category = "seaborn";
+    c.sheet.subtitle = " Seaborn, Chaotic Evil";
+    c.sheet.acDesc = " (Natural Armor)";
+    c.sheet.category = "seaborn";
 
-    shrieker.finalize();
+    c.sheet.finalize();
 
-    const shriekerN = new CharacterVariant(NpcID.ShriekerN, NpcID.Shrieker);
+    const n = new CharacterVariant(NpcID.ShriekerN, NpcID.Shrieker);
 
-    shriekerN.core.name = "Nourished Shrieker";
-    shriekerN.core.imgPath = "mob_tokens/seaborn/ShriekerN.png";
+    n.core.name = "Nourished Shrieker";
+    n.core.imgPath = "mob_tokens/seaborn/ShriekerN.png";
+    n.core.finalize();
 
-    shriekerN.dStats.initializeStats(23, 16, 24, 11, 17, 21);
-    shriekerN.dStats.pb = Prof.get(5);
+    n.dStats.initializeStats(23, 16, 24, 11, 17, 21);
+    n.dStats.pb = 5;
+    n.dStats.finalize();
 
-    shriekerN.combat.addBioHpDice(D8.countHavingE(300, shriekerN.CON), D8);
-    shriekerN.combat.computeHP();
+    n.combat.addBioHpDice(D8.countHavingE(300, n.CON), D8);
+    n.combat.computeHP();
 
-    shriekerN.combat.setSpeed(Speed.Walking, 40);
-    shriekerN.combat.setSpeed(Speed.Swimming, 60);
+    n.combat.setSpeed(Speed.Walking, 40);
+    n.combat.setSpeed(Speed.Swimming, 60);
 
-    shriekerN.combat.addAction(new Action(
+    n.combat.addAction(new Action(
         Activation.LegendaryAction,
         `<p>The nourished shrieker has 1 legendary action and can use it to dash.</p>`
     ));
 
-    shriekerN.sheet.cr = new CRValue(13);
-    shriekerN.sheet.size = CreatureSize.Large;
-    shriekerN.sheet.theme = "danger_1";
+    n.combat.cr = 13;
+    n.combat.finalize();
 
-    shriekerN.finalize();
+    n.sheet.size = CreatureSize.Large;
+    n.sheet.theme = "danger_1";
+    n.sheet.finalize();
 }

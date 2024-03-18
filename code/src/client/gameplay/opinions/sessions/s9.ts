@@ -1,9 +1,7 @@
-import {PcIndex}       from "../../data/pcIndex";
-import {
-    Character
-}                      from "../../simulation/characters/Character";
-import {NpcID}         from "../../data/npcIndex";
-import {GameTimestamp} from "../../GameTimestamp";
+import {NpcID}           from "../../data/npcIndex";
+import {PcIndex}         from "../../data/pcIndex";
+import {GameTimestamp}   from "../../GameTimestamp";
+import {Character}       from "../../simulation/characters/Character";
 import {PositiveEmotion} from "../PositiveEmotion";
 
 export function addInteractionEvent(
@@ -47,7 +45,7 @@ export function sessionOpinionEvents09()
 
     addInteractionEvent(
         NpcID.Dawn,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 12, 20),
         `Ahh, so it was her tinkering that led to Taihe's death... Ms. Dusk says 
         it wasn't deliberate but... Who the fuck asked her to mess with things 
@@ -61,7 +59,7 @@ export function sessionOpinionEvents09()
 
     addInteractionEvent(
         NpcID.Dawn,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 12, 20),
         `STOP. She didn't know what she was doing, and it's a scholar's duty to 
         be inquisitive. Who am I kidding? This was happening sooner or later 
@@ -76,7 +74,7 @@ export function sessionOpinionEvents09()
 
     addInteractionEvent(
         NpcID.Dawn,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 12, 20),
         `I see, sent by Ruin, huh. Well, in that case nothing to do but to face
         the punishment that comes without inconveniencing the others. Sigh, I 
@@ -90,7 +88,7 @@ export function sessionOpinionEvents09()
 
     addInteractionEvent(
         NpcID.Dawn,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 12, 20),
         `Wait, she is coming. Stop thinking. Help her help the villagers, that's
          all that matters now. If the end is coming, might as well do it right. 
@@ -103,7 +101,7 @@ export function sessionOpinionEvents09()
 
     addInteractionEvent(
         NpcID.Dawn,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 12, 20),
         `Was concerned about how Ms Dusk treats us. Despite everything, it 
         feels... rather good, to have someone finally voice the apprehensions
@@ -166,7 +164,6 @@ export function sessionOpinionEvents09()
     addInteractionEvent(
         NpcID.Ezell,
         [
-            PcIndex.ID_AURELIA,
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
         ],
@@ -183,7 +180,6 @@ export function sessionOpinionEvents09()
     addInteractionEvent(
         NpcID.Elysium,
         [
-            PcIndex.ID_AURELIA,
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
         ],
@@ -199,7 +195,6 @@ export function sessionOpinionEvents09()
     addInteractionEvent(
         NpcID.Elysium,
         [
-            PcIndex.ID_AURELIA,
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
         ],
@@ -213,7 +208,7 @@ export function sessionOpinionEvents09()
     );
     addInteractionEvent(
         NpcID.Elysium,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 12, 35),
         `Not afraid to wade into the myriads of prosaic official journals I 
          keep.`,
@@ -224,12 +219,11 @@ export function sessionOpinionEvents09()
     addInteractionEvent(
         NpcID.Ezell,
         [
-            PcIndex.ID_AURELIA,
             PcIndex.ID_HELIOS
         ],
         new GameTimestamp(0, 6, 12, 35),
         `So they've heard of the Order of St. Lataranus. Oh? As a shady criminal 
-        cult? lmao.`,
+        cult?`,
         new Map([
                     [PositiveEmotion.Respect, 2],
                     [PositiveEmotion.Affection, 1],

@@ -1,18 +1,15 @@
-import {PcIndex}       from "../../data/pcIndex";
-import {
-    Character
-}                      from "../../simulation/characters/Character";
-import {NpcID}         from "../../data/npcIndex";
-import {GameTimestamp} from "../../GameTimestamp";
-import {PositiveEmotion}                       from "../PositiveEmotion";
-import {addInteractionEvent, addTimeSkipEvent} from "./s9";
+import {NpcID}               from "../../data/npcIndex";
+import {PcIndex}             from "../../data/pcIndex";
+import {GameTimestamp}       from "../../GameTimestamp";
+import {PositiveEmotion}     from "../PositiveEmotion";
+import {addInteractionEvent} from "./s9";
 
 
 export function sessionOpinionEvents02()
 {
     addInteractionEvent(
         NpcID.Dusk,
-        [PcIndex.ID_AURELIA, PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
+        [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 1, 12, 0),
         "Why are Champions of Ruin here? I do not remember doing " +
         "anything to provoke him. Anyway...",
@@ -27,7 +24,7 @@ export function sessionOpinionEvents02()
 
     addInteractionEvent(
         NpcID.Dusk,
-        [PcIndex.ID_AURELIA, PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
+        [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 1, 13, 0),
         "So these guys being here is probably not related to me too..",
         new Map([
@@ -48,7 +45,7 @@ export function sessionOpinionEvents02()
     for (const pc of [
         PcIndex.ID_HELIOS,
         PcIndex.ID_CYRION,
-        PcIndex.ID_AURELIA
+        
     ])
     {
         addInteractionEvent(

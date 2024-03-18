@@ -1,7 +1,6 @@
 import {CSkill, VisibilityLevel} from "../../../data/constants";
 import {Rating}                  from "../../../data/Rarity";
 import {Character}               from "../Character";
-import {AspectFactoryFlag}       from "./AspectFactoryFlag";
 import {BaseAspect}              from "./BaseAspect";
 import {ICSkills}                from "./ICSkills";
 import {ICSkillsFactory}         from "./ICSkillsFactory";
@@ -116,7 +115,7 @@ export class CSkillsAspect
     /**
      * CTOR.
      */
-    constructor(private readonly c: Character)
+    constructor(c: Character)
     {
         super(c);
         this.skills = new Map();
@@ -131,14 +130,8 @@ export class CSkillsAspect
         return aspect as this;
     }
 
-    public finalizeSkills()
-    {
-        this.setupSentinel(AspectFactoryFlag.CSkillsSkillsFinalized);
-    }
-
     public getSkillVal(skill: CSkill): [number, VisibilityLevel]
     {
-        this.ensure(AspectFactoryFlag.CSkillsSkillsFinalized, true);
         return this.skills.get(skill);
     }
 
@@ -149,15 +142,11 @@ export class CSkillsAspect
         if (value == CSkillsAspect.BASE_VALUES.get(skill)) {
             return;
         }
-
-        this.buildSentinel(AspectFactoryFlag.CSkillsSkillsDeclared,
-            AspectFactoryFlag.CSkillsSkillsFinalized);
         this.skills.set(skill, [value, visibility]);
     }
 
     public setSkillValues(data: [CSkill, number, VisibilityLevel][])
     {
-        this.finalizeSkills();
         for (const datum of data) {
             if (datum[1] == CSkillsAspect.BASE_VALUES.get(datum[0])) {
                 continue;
@@ -168,7 +157,6 @@ export class CSkillsAspect
 
     public get cSkillRatings(): ReadonlyMap<CSkill, Rating>
     {
-        this.ensure(AspectFactoryFlag.CSkillsSkillsFinalized, true);
         const ratings: Map<CSkill, Rating> = new Map();
         for (const [skill, [value, _]] of this.skills.entries()) {
             ratings.set(skill, CSkillsAspect.getRatingForSkillModifier(value));

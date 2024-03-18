@@ -1,8 +1,12 @@
+import {IBaseAspectFactory} from "./IBaseAspectFactory";
+
+
 /**
  * The factory interface needed to set up a {@link Character}'s {@link ICard}
  * aspect.
  */
 export interface ICardFactory
+    extends IBaseAspectFactory
 {
     // Note that we only add stuff here which would specifically be used to
     // create the card only, and nowhere else. Anything which could be used

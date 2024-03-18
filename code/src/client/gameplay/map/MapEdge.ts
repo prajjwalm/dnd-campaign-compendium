@@ -1,7 +1,7 @@
-import {Edge}                from "./Edge";
 import {IUniqueDOMGenerator} from "../IUniqueDOMGenerator";
+import {Edge}                from "./Edge";
 import {MapGraph}            from "./MapGraph";
-import {MapVertex}     from "./MapVertex";
+import {MapVertex}           from "./MapVertex";
 
 
 /**

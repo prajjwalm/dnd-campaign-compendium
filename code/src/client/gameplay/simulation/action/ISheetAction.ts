@@ -1,6 +1,6 @@
-import {IDStats}        from "../characters/aspects/IDStats";
-import {Activation}     from "../../data/constants";
-import {IActionContext} from "./IActionContext";
+import {Activation} from "../../data/constants";
+import {IDStats}    from "../characters/aspects/IDStats";
+
 
 /**
  * The absolute minimum needed to render an action onto a character sheet.

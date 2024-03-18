@@ -1,27 +1,26 @@
-import {
-    Prof,
-    DSkill,
-    Hidden
-}                  from "../../../../../data/constants";
-import {NpcID}     from "../../../../../data/npcIndex";
-import {Character} from "../../../Character";
+import {DSkill, Hidden} from "../../../../../data/constants";
+import {NpcID}          from "../../../../../data/npcIndex";
+import {Character}      from "../../../Character";
 
 export function setupVerna()
 {
-    const verna = new Character(NpcID.Verna);
+    const c = new Character(NpcID.Verna);
 
-    verna.core.name = "Verna";
-    verna.core.imgPath = "character_tokens/C2/Arc1/Verna.png";
+    c.core.name = "Verna";
+    c.core.imgPath = "character_tokens/C2/Arc1/Verna.png";
+    c.core.finalize();
 
     // Setup D&D stats.
-    verna.dStats.initializeStats(18, 12, 18,  8, 10, 14);
-    verna.dStats.pb = Prof.get(4);
+    c.dStats.initializeStats(18, 12, 18,  8, 10, 14);
+    c.dStats.pb = 4;
+    c.dStats.finalize();
 
     //todo
-    verna.dSKills.setSkillProficiency(DSkill.Athletics, Hidden);
-    verna.dSKills.finalizeSkills();
+    c.dSkills.setSkillProficiency(DSkill.Athletics, Hidden);
+    c.dSkills.finalize();
 
-    verna.opinions.isOpinionated = true;
+    c.opinions.isOpinionated = true;
+    c.opinions.finalize();
 
     // [NpcPersonalityTag.Confident, 2],
     // [NpcPersonalityTag.Abrasive, 2],
@@ -29,9 +28,10 @@ export function setupVerna()
     // [NpcPersonalityTag.Optimist, 1],
     // [NpcPersonalityTag.Judging, 1],
 
-    verna.card.setCampaignArc(2, 1);
-    verna.card.addCardTag("F24");
-    verna.card.addCardTag("Race | Leonin");
-    verna.card.addCardTag("Class | <span class='verbose'>Battlemaster </span>Fighter");
-    verna.card.addCardTag("CR | 10");
+    c.card.setCampaignArc(2, 1);
+    c.card.addCardTag("F24");
+    c.card.addCardTag("Race | Leonin");
+    c.card.addCardTag("Class | <span class='verbose'>Battlemaster </span>Fighter");
+    c.card.addCardTag("CR | 10");
+    c.card.finalize();
 }

@@ -1,15 +1,8 @@
-import {DStat, Prof, StatValue, VisibilityLevel} from "../../../data/constants";
-import {
-    ActionContext
-}                                                from "../../action/ActionContext";
-import {
-    IActionContext
-}                                                from "../../action/IActionContext";
-import {Character}                               from "../Character";
-import {AspectFactoryFlag}                       from "./AspectFactoryFlag";
-import {BaseAspect}                              from "./BaseAspect";
-import {IDStats}                                 from "./IDStats";
-import {IDStatsFactory}                          from "./IDStatsFactory";
+import {DStat, statMod, VisibilityLevel} from "../../../data/constants";
+import {Character}                       from "../Character";
+import {BaseAspect}                      from "./BaseAspect";
+import {IDStats}                         from "./IDStats";
+import {IDStatsFactory}                  from "./IDStatsFactory";
 
 
 /**
@@ -23,11 +16,11 @@ export class DStatsAspect
     /**
      * The core stats of this character.
      */
-    private readonly _stats: Map<DStat, StatValue>;
+    private readonly _stats: Map<DStat, number>;
 
     private readonly _statVisibilities: Map<DStat, VisibilityLevel>;
 
-    private _pb: Prof;
+    private _pb: number;
 
     /**
      * CTOR.
@@ -63,13 +56,12 @@ export class DStatsAspect
                            wis: number,
                            cha: number): void
     {
-        this.setupSentinel(AspectFactoryFlag.DStatsStatsSetup);
-        this._stats.set(DStat.Str, new StatValue(str));
-        this._stats.set(DStat.Dex, new StatValue(dex));
-        this._stats.set(DStat.Con, new StatValue(con));
-        this._stats.set(DStat.Int, new StatValue(int));
-        this._stats.set(DStat.Wis, new StatValue(wis));
-        this._stats.set(DStat.Cha, new StatValue(cha));
+        this._stats.set(DStat.Str, str);
+        this._stats.set(DStat.Dex, dex);
+        this._stats.set(DStat.Con, con);
+        this._stats.set(DStat.Int, int);
+        this._stats.set(DStat.Wis, wis);
+        this._stats.set(DStat.Cha, cha);
     }
 
     /**
@@ -96,7 +88,7 @@ export class DStatsAspect
     /**
      * @inheritDoc
      */
-    public get stats(): ReadonlyMap<DStat, StatValue>
+    public get stats(): ReadonlyMap<DStat, number>
     {
         return this._stats;
     }
@@ -104,28 +96,17 @@ export class DStatsAspect
     /**
      * @inheritDoc
      */
-    public get pb(): Prof
+    public get pb(): number
     {
-        this.ensure(AspectFactoryFlag.DStatsProficiencyDeclared);
         return this._pb;
     }
 
     /**
      * @inheritDoc
      */
-    public set pb(val: Prof)
+    public set pb(val: number)
     {
-        this.buildSentinel(AspectFactoryFlag.DStatsProficiencyDeclared,
-                           AspectFactoryFlag.DStatsProficiencyFinalized);
         this._pb = val;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public get actionContentAPI(): IActionContext
-    {
-        return new ActionContext(this);
     }
 
     /**
@@ -133,7 +114,7 @@ export class DStatsAspect
      */
     public mod(stat: DStat): number
     {
-        return this._stats.get(stat).mod;
+        return statMod(this._stats.get(stat));
     }
 
     /**

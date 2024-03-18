@@ -1,4 +1,5 @@
-import {DStat, Prof, VisibilityLevel} from "../../../data/constants";
+import {DStat, VisibilityLevel} from "../../../data/constants";
+import {IBaseAspectFactory}     from "./IBaseAspectFactory";
 
 
 /**
@@ -6,6 +7,7 @@ import {DStat, Prof, VisibilityLevel} from "../../../data/constants";
  * interface.
  */
 export interface IDStatsFactory
+    extends IBaseAspectFactory
 {
     /**
      * Sets up the stats.
@@ -25,5 +27,5 @@ export interface IDStatsFactory
     /**
      * Set the proficiency bonus.
      */
-    set pb(val: Prof);
+    set pb(val: number);
 }

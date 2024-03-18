@@ -1,10 +1,10 @@
-import {Activation, Condition, CreatureSize, CRValue, DamageType, DSkill, DStat, Hidden, Prof, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                                 from "../../../../../data/npcIndex";
-import {D10, D6, D8, Dice}                                                                                                     from "../../../../../rolling/Dice";
-import {Action}                                                                                                                from "../../../../action/Action";
-import {wrapDamageType, wrapRoll}                                                                                              from "../../../../action/Wrap";
-import {Character}                                                                                                             from "../../../Character";
-import {CharacterVariant}                                                                                                      from "../../../CharacterVariant";
+import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {NpcID}                                                                                                  from "../../../../../data/npcIndex";
+import {D10, D6, D8, Dice}                                                                                      from "../../../../../rolling/Dice";
+import {Action}                                                                                                 from "../../../../action/Action";
+import {wrapDamageType, wrapRoll}                                                                               from "../../../../action/Wrap";
+import {Character}                                                                                              from "../../../Character";
+import {CharacterVariant}                                                                                       from "../../../CharacterVariant";
 
 
 function denseToxinsAttackGenerator(hpThreshold: number,
@@ -25,47 +25,47 @@ function denseToxinsAttackGenerator(hpThreshold: number,
 
 export function setupUrchins()
 {
-    const urchin = new Character(NpcID.Urchin);
+    const c = new Character(NpcID.Urchin);
 
-    urchin.core.name = "Urchin";
-    urchin.core.imgPath = "mob_tokens/seaborn/Urchin.png";
+    c.core.name = "Urchin";
+    c.core.imgPath = "mob_tokens/seaborn/Urchin.png";
+    c.core.finalize();
 
-    urchin.dStats.initializeStats(20, 1, 24, 1, 1, 1);
-    urchin.dStats.pb = Prof.get(3);
+    c.dStats.initializeStats(20, 1, 24, 1, 1, 1);
+    c.dStats.pb = 3;
+    c.dStats.finalize();
 
-    urchin.dSKills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Expert);
-    urchin.dSKills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Prof);
-    urchin.dSKills.finalizeSkills();
+    c.dSkills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Prof);
+    c.dSkills.finalize();
 
-    urchin.opinions.isOpinionated = false;
+    c.combat.addBioHpDice(D8.countHavingE(250, c.CON), D8);
+    c.combat.computeHP();
 
-    urchin.combat.addBioHpDice(D8.countHavingE(250, urchin.CON), D8);
-    urchin.combat.computeHP();
+    c.combat.setSave(DStat.Str, ProficiencyLevel.Expert);
+    c.combat.setSave(DStat.Con, ProficiencyLevel.Expert);
 
-    urchin.combat.setSave(DStat.Str, ProficiencyLevel.Expert);
-    urchin.combat.setSave(DStat.Con, ProficiencyLevel.Expert);
+    c.combat.setSpeed(Speed.Walking, 5);
+    c.combat.setSpeed(Speed.Swimming, 10);
 
-    urchin.combat.setSpeed(Speed.Walking, 5);
-    urchin.combat.setSpeed(Speed.Swimming, 10);
+    c.combat.setRes(DamageType.Hellfire,    -100);
+    c.combat.setRes(DamageType.Lightning,   -100);
+    c.combat.setRes(DamageType.Thunder,     -100);
+    c.combat.setRes(DamageType.Piercing,    -100);
+    c.combat.setRes(DamageType.Fire,        -100);
+    c.combat.setRes(DamageType.Psychic,       50);
+    c.combat.setRes(DamageType.Slashing,     100);
+    c.combat.setRes(DamageType.Bludgeoning,  100);
+    c.combat.setRes(DamageType.Acid,         100);
+    c.combat.setRes(DamageType.Cold,         100);
+    c.combat.setRes(DamageType.Poison,       100);
 
-    urchin.combat.setRes(DamageType.Hellfire,    -100);
-    urchin.combat.setRes(DamageType.Lightning,   -100);
-    urchin.combat.setRes(DamageType.Thunder,     -100);
-    urchin.combat.setRes(DamageType.Piercing,    -100);
-    urchin.combat.setRes(DamageType.Fire,        -100);
-    urchin.combat.setRes(DamageType.Psychic,       50);
-    urchin.combat.setRes(DamageType.Slashing,     100);
-    urchin.combat.setRes(DamageType.Bludgeoning,  100);
-    urchin.combat.setRes(DamageType.Acid,         100);
-    urchin.combat.setRes(DamageType.Cold,         100);
-    urchin.combat.setRes(DamageType.Poison,       100);
+    c.combat.addConditionImmunity(Condition.Charmed);
+    c.combat.addConditionImmunity(Condition.Frightened);
 
-    urchin.combat.addConditionImmunity(Condition.Charmed);
-    urchin.combat.addConditionImmunity(Condition.Frightened);
+    c.combat.setSense(Sense.TremorSense, 120);
 
-    urchin.combat.setSense(Sense.TremorSense, 120);
-
-    urchin.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         `<p><em><strong>Fossilized Existence.</strong></em> The sea urchin will 
         never take damage due to water pressure and moves exceedingly slowly on
@@ -74,37 +74,41 @@ export function setupUrchins()
         the usual 15ft.</p>`
     ));
 
-    urchin.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         denseToxinsAttackGenerator(50, D10, 1, 20)
     ), "DenseToxins");
 
-    urchin.sheet.cr       = new CRValue(5);
-    urchin.sheet.size     = CreatureSize.Medium;
-    urchin.sheet.subtitle = " Seaborn, Neutral";
-    urchin.sheet.acDesc   = " (Natural Armor)";
-    urchin.sheet.category = "seaborn";
+    c.combat.cr = 5
+    c.combat.finalize();
 
-    urchin.finalize();
+    c.sheet.size     = CreatureSize.Medium;
+    c.sheet.subtitle = " Seaborn, Neutral";
+    c.sheet.acDesc   = " (Natural Armor)";
+    c.sheet.category = "seaborn";
+
+    c.sheet.finalize();
 
 
-    const urchinN = new CharacterVariant(NpcID.UrchinN, NpcID.Urchin);
+    const n = new CharacterVariant(NpcID.UrchinN, NpcID.Urchin);
 
-    urchinN.core.name    = "Nourished Urchin";
-    urchinN.core.imgPath = "mob_tokens/seaborn/UrchinN.png";
+    n.core.name    = "Nourished Urchin";
+    n.core.imgPath = "mob_tokens/seaborn/UrchinN.png";
+    n.core.finalize();
 
-    urchinN.dStats.initializeStats(25, 1, 30, 1, 1, 1);
-    urchinN.dStats.pb = Prof.get(5);
+    n.dStats.initializeStats(25, 1, 30, 1, 1, 1);
+    n.dStats.pb = 5;
+    n.dStats.finalize();
 
-    urchinN.combat.addBioHpDice(D8.countHavingE(400, urchinN.CON), D8);
-    urchinN.combat.computeHP();
+    n.combat.addBioHpDice(D8.countHavingE(400, n.CON), D8);
+    n.combat.computeHP();
 
-    urchinN.combat.addAction(new Action(
+    n.combat.addAction(new Action(
         Activation.Special,
         denseToxinsAttackGenerator(40, D6, 2, 60)
     ), "DenseToxins");
 
-    urchinN.combat.addAction(new Action(
+    n.combat.addAction(new Action(
         Activation.Special,
         `<p><em><strong>Spiky Caprice.</strong></em> A creature that attempts to 
         attack the urchin from a 5ft range takes ${wrapRoll(D10)} piercing damage.
@@ -112,9 +116,11 @@ export function setupUrchins()
          </p>`
     ));
 
-    urchinN.sheet.cr    = new CRValue(9);
-    urchinN.sheet.size  = CreatureSize.Large;
-    urchinN.sheet.theme = "danger_1";
+    n.combat.cr = 9;
+    n.combat.finalize();
 
-    urchinN.finalize();
+    n.sheet.size  = CreatureSize.Large;
+    n.sheet.theme = "danger_1";
+
+    n.sheet.finalize();
 }

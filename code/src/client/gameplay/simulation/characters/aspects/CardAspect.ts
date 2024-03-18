@@ -1,11 +1,9 @@
-import {Card}              from "../../../card";
-import {NpcID}             from "../../../data/npcIndex";
-import {Character}         from "../Character";
-import {AspectFactoryFlag} from "./AspectFactoryFlag";
-import {BaseAspect}        from "./BaseAspect";
-import {ICard}             from "./ICard";
-import {ICardFactory}      from "./ICardFactory";
-import {ICore}             from "./ICore";
+import {Card}         from "../../../card";
+import {Character}    from "../Character";
+import {BaseAspect}   from "./BaseAspect";
+import {ICard}        from "./ICard";
+import {ICardFactory} from "./ICardFactory";
+import {ICore}        from "./ICore";
 
 
 /**
@@ -45,12 +43,6 @@ export class CardAspect
             $tokens.find(`.token[data-token="${token}"]`).show();
         });
     }
-
-    /**
-     * An object providing core features of the character which this aspect is
-     * being built for.
-     */
-    private readonly characterCore: ICore;
 
     /**
      * A map from token name to token image path.
@@ -93,14 +85,13 @@ export class CardAspect
     constructor(c: Character)
     {
         super(c);
-        this.characterCore = c;
         this.tags = [];
         this._summary = () => "???";
         this._story = () => "";
 
         this.images = new Map();
         this.primaryImageName = CardAspect.defaultPrimaryImageName;
-        this.images.set(this.primaryImageName, this.characterCore.imgPath);
+        this.images.set(this.primaryImageName, this.c.imgPath);
     }
 
     public duplicate(other: Character): this
@@ -120,7 +111,7 @@ export class CardAspect
      */
     public getCardIndex(): string
     {
-        return `[character|${this.id}]`;
+        return `[character|${this.c.id}]`;
     }
 
     /**
@@ -172,7 +163,7 @@ export class CardAspect
                      >
                     <div class="token_space">${tokensHTML}</div>
                     <div class="content">
-                        <h5  class="name">${this.characterCore.name}</h5>
+                        <h5  class="name">${this.c.name}</h5>
                         <div class="tags">${metaTagsHTML}</div>
                         <div class="details">${this._story()}</div>
                         <div class="summary">${this._summary()}</div>
@@ -205,7 +196,7 @@ export class CardAspect
     public createLink(displayText?: string): string
     {
         return `<span class="card_link" 
-                      data-index-key="${this.getCardIndex()}">${displayText ? displayText : this.characterCore.name}</span>`;
+                      data-index-key="${this.getCardIndex()}">${displayText ? displayText : this.c.name}</span>`;
     }
 
     /**
@@ -213,7 +204,7 @@ export class CardAspect
      */
     public generatePrimaryToken(): string
     {
-        return `<img src="${this.characterCore.imgPath}" 
+        return `<img src="${this.c.imgPath}" 
                      class="token" 
                      alt="[NULL]" 
                      data-index-key="${this.getCardIndex()}">`;
@@ -224,10 +215,7 @@ export class CardAspect
      */
     public finalize(): void
     {
-        this.ensure(AspectFactoryFlag.CardCampaignSet);
-
         super.finalize();
-        console.log("Registering card for", NpcID[this.id]);
         $(`#tokens .token_space[data-campaign='${this.campaign}'][data-arc='${this.arc}']`)
             .append(
                 $(this.generatePrimaryToken())
@@ -240,7 +228,6 @@ export class CardAspect
      */
     public setCampaignArc(c: number, a: number)
     {
-        this.setupSentinel(AspectFactoryFlag.CardCampaignSet);
         this.campaign = c;
         this.arc = a;
         this.tags.push(`Campaign ${c} <span class='verbose'>Arc ${a}</span>`);

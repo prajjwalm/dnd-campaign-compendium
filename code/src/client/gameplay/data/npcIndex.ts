@@ -1,6 +1,3 @@
-import {DStat, Prof, ProficiencyLevel, DSkill, StatForSkill, StatValue} from "./constants";
-
-
 export enum NpcID {
     Lucian,
     Ebenezar,
@@ -70,6 +67,7 @@ export enum NpcID {
     Shuo,
     Gnosis,
     Cellinia,
+    Maaya,
     __MOBS__,
     NSBrand,
     Slider,
@@ -90,6 +88,7 @@ export enum NpcID {
     SpewerN,
     BrandGuider,
     BrandGuiderN,
+    PathShaper,
     Ephremis,
     Cluster,
 }

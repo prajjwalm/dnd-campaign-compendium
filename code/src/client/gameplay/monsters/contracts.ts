@@ -1,23 +1,7 @@
-import {D1, D12, D20, D4, D8, Dice} from "../rolling/Dice";
-import {
-    Activation,
-    DStat,
-    DamageType,
-    ProficiencyLevel
-}                                   from "../data/constants";
-import {
-    AttackContracts,
-    BuffedInternalAttack,
-    IAttack, IAttackContract
-}                                   from "./attack";
-import {
-    contractIndex,
-    IBuffedStatSheet,
-    ID_TO_SHEET_GENERATOR,
-    isContractSelected,
-    ISheetContract,
-    SheetContract
-}                                   from "./sheet";
+import {Activation, DamageType, DStat, ProficiencyLevel}                                                           from "../data/constants";
+import {D1, D12, D20, D4, D8, Dice}                                                                                from "../rolling/Dice";
+import {AttackContracts, BuffedInternalAttack, IAttack, IAttackContract}                                           from "./attack";
+import {contractIndex, IBuffedStatSheet, ID_TO_SHEET_GENERATOR, isContractSelected, ISheetContract, SheetContract} from "./sheet";
 
 
 const RiskCutoffs = new Map([

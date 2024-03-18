@@ -7,9 +7,9 @@ export function setupGDef()
 
     c.core.name = "The Guardian of Defense";
     c.core.imgPath = "character_tokens/C1/Arc2/g_def.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
-
     c.card.addCardTag('-40K+');
     c.card.addCardTag('From | Innovation / Preservation');
     c.card.addCardTag(`Allegiance | Preservation`);
@@ -23,6 +23,5 @@ export function setupGDef()
     c.card.summary = () =>`
     ???`;
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
 }

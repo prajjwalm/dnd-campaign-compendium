@@ -1,53 +1,53 @@
-import {Activation, CreatureSize, CRValue, DamageType, DSkill, DStat, Hidden, Prof, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                      from "../../../../../data/npcIndex";
-import {D10, D8}                                                                                                    from "../../../../../rolling/Dice";
-import {Action}                                                                                                     from "../../../../action/Action";
-import {wrapRoll}                                                                                                   from "../../../../action/Wrap";
-import {Character}                                                                                                  from "../../../Character";
-import {CharacterVariant}                                                                                           from "../../../CharacterVariant";
+import {Activation, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {NpcID}                                                                                       from "../../../../../data/npcIndex";
+import {D10, D8}                                                                                     from "../../../../../rolling/Dice";
+import {Action}                                                                                      from "../../../../action/Action";
+import {wrapRoll}                                                                                    from "../../../../action/Wrap";
+import {Character}                                                                                   from "../../../Character";
+import {CharacterVariant}                                                                            from "../../../CharacterVariant";
 
 
 export function setupBrandGuiders()
 {
-    const bg = new Character(NpcID.BrandGuider);
+    const c = new Character(NpcID.BrandGuider);
 
-    bg.core.name = "BrandGuider";
-    bg.core.imgPath = "mob_tokens/seaborn/BrandGuider.png";
+    c.core.name = "BrandGuider";
+    c.core.imgPath = "mob_tokens/seaborn/BrandGuider.png";
+    c.core.finalize();
 
-    bg.dStats.initializeStats(21, 12, 14, 19, 18, 16);
-    bg.dStats.pb = Prof.get(4);
+    c.dStats.initializeStats(21, 12, 14, 19, 18, 16);
+    c.dStats.pb = 4;
+    c.dStats.finalize();
 
-    bg.dSKills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Expert);
-    bg.dSKills.setSkillProficiency(DSkill.Religion, Hidden);
-    bg.dSKills.setSkillProficiency(DSkill.Arcana, Hidden, ProficiencyLevel.Expert);
-    bg.dSKills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Expert);
-    bg.dSKills.finalizeSkills();
+    c.dSkills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Religion, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Arcana, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.finalize();
 
-    bg.opinions.isOpinionated = false;
+    const hpDice = D8.countHavingE(190, c.CON);
+    c.combat.addBioHpDice(hpDice, D8);
+    c.combat.computeHP();
 
-    const hpDice = D8.countHavingE(190, bg.CON);
-    bg.combat.addBioHpDice(hpDice, D8);
-    bg.combat.computeHP();
+    c.combat.setMediumArmor(15);
 
-    bg.combat.setMediumArmor(15);
+    c.combat.setSave(DStat.Int, ProficiencyLevel.Prof);
+    c.combat.setSave(DStat.Wis, ProficiencyLevel.Prof);
+    c.combat.setSave(DStat.Cha, ProficiencyLevel.Prof);
 
-    bg.combat.setSave(DStat.Int, ProficiencyLevel.Prof);
-    bg.combat.setSave(DStat.Wis, ProficiencyLevel.Prof);
-    bg.combat.setSave(DStat.Cha, ProficiencyLevel.Prof);
+    c.combat.setSpeed(Speed.Walking, 30);
+    c.combat.setSpeed(Speed.Swimming, 30);
 
-    bg.combat.setSpeed(Speed.Walking, 30);
-    bg.combat.setSpeed(Speed.Swimming, 30);
+    c.combat.setRes(DamageType.Poison,         50);
+    c.combat.setRes(DamageType.Acid,          100);
+    c.combat.setRes(DamageType.Cold,          100);
+    c.combat.setRes(DamageType.Psychic,      -100);
+    c.combat.setRes(DamageType.Fire,         -100);
+    c.combat.setRes(DamageType.Lightning,    -100);
 
-    bg.combat.setRes(DamageType.Poison,         50);
-    bg.combat.setRes(DamageType.Acid,          100);
-    bg.combat.setRes(DamageType.Cold,          100);
-    bg.combat.setRes(DamageType.Psychic,      -100);
-    bg.combat.setRes(DamageType.Fire,         -100);
-    bg.combat.setRes(DamageType.Lightning,    -100);
+    c.combat.setSense(Sense.Darkvision, 120);
 
-    bg.combat.setSense(Sense.Darkvision, 120);
-
-    bg.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         c => `<p><strong><em>Beacon.</em></strong> 
         Upon falling below ${Math.floor(c.hp * 0.5)} HP, BrandGuiders gain +20ft
@@ -55,13 +55,13 @@ export function setupBrandGuiders()
         </p>`
     ));
 
-    bg.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         c => `<p><strong><em>Nethersea Armor.</em></strong> BrandGuiders gain a 
         +${(c.ac - 10)*2} bonus to AC when standing on the NetherseaBrand.</p>`
     ));
 
-    bg.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         c => `<p><strong><em>Spellcasting.</em></strong> While standing on the 
         Nethersea brand, brandguiders can cast the following spells as much as 
@@ -71,7 +71,7 @@ export function setupBrandGuiders()
         `
     ));
 
-    bg.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.BonusAction,
         c => `<p><strong><em>Hunger of We Many.</em></strong> The BrandGuider 
         chooses ${c.Prof} spots within 150 ft of itself. At each of those, ${10 * c.SemiProf}ft 
@@ -80,32 +80,37 @@ export function setupBrandGuiders()
     ));
 
 
-    bg.sheet.cr = new CRValue(7);
-    bg.sheet.size = CreatureSize.Medium;
-    bg.sheet.subtitle = " Seaborn, Lawful Neutral";
-    bg.sheet.acDesc   = " (Chitin)";
-    bg.sheet.category = "seaborn";
+    c.combat.cr = 7
+    c.combat.finalize();
 
-    bg.finalize();
+    c.sheet.size = CreatureSize.Medium;
+    c.sheet.subtitle = " Seaborn, Lawful Neutral";
+    c.sheet.acDesc   = " (Chitin)";
+    c.sheet.category = "seaborn";
+    c.sheet.finalize();
 
 
 
-    const bgN = new CharacterVariant(NpcID.BrandGuiderN, NpcID.BrandGuider);
+    const c2 = new CharacterVariant(NpcID.BrandGuiderN, NpcID.BrandGuider);
 
-    bgN.core.name = "Nourished BrandGuider";
-    bgN.core.imgPath = "mob_tokens/seaborn/BrandGuiderN.png";
+    c2.core.name = "Nourished BrandGuider";
+    c2.core.imgPath = "mob_tokens/seaborn/BrandGuiderN.png";
+    c2.core.finalize();
 
-    bgN.dStats.initializeStats(24, 12, 21, 24, 20, 19);
-    bgN.dStats.pb = Prof.get(6);
+    c2.dStats.initializeStats(24, 12, 21, 24, 20, 19);
+    c2.dStats.pb = 6;
+    c2.dStats.finalize();
 
-    bgN.combat.addBioHpDice(hpDice, D10);
-    bgN.combat.computeHP();
+    c2.combat.addBioHpDice(hpDice, D10);
+    c2.combat.computeHP();
 
-    bgN.combat.setHeavyArmor(22);
+    c2.combat.setHeavyArmor(22);
 
-    bgN.sheet.cr    = new CRValue(15);
-    bgN.sheet.size  = CreatureSize.Large;
-    bgN.sheet.theme = "danger_1";
+    c2.combat.cr = 15
+    c2.combat.finalize();
 
-    bgN.finalize();
+    c2.sheet.size  = CreatureSize.Large;
+    c2.sheet.theme = "danger_1";
+
+    c2.sheet.finalize();
 }

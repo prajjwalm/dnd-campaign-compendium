@@ -1,18 +1,7 @@
-import {D1, Dice, RollVariant} from "../../rolling/Dice";
-import {
-    DamageRollable, IRollable, NatRollable
-}               from "../../rolling/Rollable";
-import {
-    Activation,
-    Condition,
-    CreatureSize,
-    DamageType,
-    Sense,
-    DSkill,
-    Speed,
-    CSkill, senseStr
-} from "../../data/constants";
-import {Rating} from "../../data/Rarity";
+import {Activation, Condition, CreatureSize, CSkill, DamageType, DSkill, Sense, senseStr, Speed} from "../../data/constants";
+import {Rating}                                                                                  from "../../data/Rarity";
+import {D1, Dice, RollVariant}                                                                   from "../../rolling/Dice";
+import {DamageRollable, IRollable, NatRollable}                                                  from "../../rolling/Rollable";
 
 
 /**

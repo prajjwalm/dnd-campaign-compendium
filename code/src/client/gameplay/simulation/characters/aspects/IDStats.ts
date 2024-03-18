@@ -1,5 +1,4 @@
-import {DStat, Prof, StatValue, VisibilityLevel} from "../../../data/constants";
-import {IActionContext}                          from "../../action/IActionContext";
+import {DStat, VisibilityLevel} from "../../../data/constants";
 
 
 /**
@@ -8,9 +7,9 @@ import {IActionContext}                          from "../../action/IActionConte
 export interface IDStats
 {
     /**
-     * Return a map from each {@link DStat} to their {@link StatValue}.
+     * Return a map from each {@link DStat} to their value.
      */
-    get stats(): ReadonlyMap<DStat, StatValue>;
+    get stats(): ReadonlyMap<DStat, number>;
 
     /**
      * Returns this visibility level of the given stat.
@@ -27,10 +26,5 @@ export interface IDStats
      * Return the proficiency bonus to be associated with the stat modifiers
      * wherever applicable.
      */
-    get pb(): Prof;
-
-    /**
-     * The stats are all we need to generate content for various actions.
-     */
-    get actionContentAPI(): IActionContext;
+    get pb(): number;
 }

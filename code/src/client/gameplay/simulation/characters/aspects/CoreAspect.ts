@@ -1,8 +1,7 @@
-import {Character}         from "../Character";
-import {AspectFactoryFlag} from "./AspectFactoryFlag";
-import {BaseAspect}        from "./BaseAspect";
-import {ICore}             from "./ICore";
-import {ICoreFactory}      from "./ICoreFactory";
+import {Character}    from "../Character";
+import {BaseAspect}   from "./BaseAspect";
+import {ICore}        from "./ICore";
+import {ICoreFactory} from "./ICoreFactory";
 
 
 /**
@@ -42,7 +41,6 @@ export class CoreAspect
      */
     public set name(value)
     {
-        this.setupSentinel(AspectFactoryFlag.CoreNameSetup);
         this._name = value;
     }
 
@@ -51,7 +49,6 @@ export class CoreAspect
      */
     public get name(): string
     {
-        this.ensure(AspectFactoryFlag.CoreNameSetup);
         return this._name;
     }
 
@@ -60,7 +57,6 @@ export class CoreAspect
      */
     public set imgPath(value)
     {
-        this.setupSentinel(AspectFactoryFlag.CoreImgPathSetup);
         this._imgPath = value;
     }
 
@@ -69,7 +65,6 @@ export class CoreAspect
      */
     public get imgPath(): string
     {
-        this.ensure(AspectFactoryFlag.CoreImgPathSetup);
         return `./assets/images/${this._imgPath}`;
     }
 }

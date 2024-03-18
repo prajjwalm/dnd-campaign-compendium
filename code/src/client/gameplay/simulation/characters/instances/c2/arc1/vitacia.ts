@@ -1,25 +1,19 @@
-import {
-    Prof,
-    DSkill,
-    Hidden
-}                  from "../../../../../data/constants";
 import {NpcID}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupVitacia()
 {
     // Prepare the character object.
-    const vitacia = new Character(NpcID.Vitacia);
+    const c = new Character(NpcID.Vitacia);
 
-    vitacia.core.name = "Vitacia";
-    vitacia.core.imgPath = "character_tokens/C2/Arc1/Vitacia.png";
+    c.core.name = "Vitacia";
+    c.core.imgPath = "character_tokens/C2/Arc1/Vitacia.png";
+    c.core.finalize();
 
     // Setup D&D stats. todo
 
 
     // Setup D&D skills. todo
-
-    vitacia.opinions.isOpinionated = false;
 
     // [NpcPersonalityTag["Nature Lover"], 2],
     // [NpcPersonalityTag.Distant, 2],
@@ -28,8 +22,8 @@ export function setupVitacia()
     // [NpcPersonalityTag.Lazy, 1],
     // [NpcPersonalityTag.Vain, 1],
 
-    vitacia.card.setCampaignArc(2, 1);
-    vitacia.card.addCardTag("F25");
-    vitacia.card.addCardTag("CR 1");
-
+    c.card.setCampaignArc(2, 1);
+    c.card.addCardTag("F25");
+    c.card.addCardTag("CR 1");
+    c.card.finalize();
 }

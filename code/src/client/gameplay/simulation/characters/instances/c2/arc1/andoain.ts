@@ -7,9 +7,9 @@ export function setupAndoain()
 
     c.core.name = "Andoain";
     c.core.imgPath = "character_tokens/C2/Arc1/Andoain.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(2, 1);
-
     c.card.addCardTag("M221");
     c.card.addCardTag("From | ? / Materia");
     c.card.addCardTag("Race | Aasimar");
@@ -28,6 +28,5 @@ export function setupAndoain()
       coast of Aegir.<br/>
       <div class="effect_tag">Incomplete</div>`;
 
-    c.opinions.isOpinionated = false;
-
+    c.card.finalize();
 }

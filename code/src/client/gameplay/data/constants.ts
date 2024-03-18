@@ -2,12 +2,12 @@ import {D10, D100, D12, D20, D4, D6, D8, Dice} from "../rolling/Dice";
 
 
 export enum DStat {
-    Str = 0,
-    Dex = 1,
-    Con = 2,
-    Int = 3,
-    Wis = 4,
-    Cha = 5,
+    Str,
+    Dex,
+    Con,
+    Int,
+    Wis,
+    Cha,
 }
 
 // The order matters here.
@@ -151,6 +151,8 @@ export enum DamageType {
     Corrosion,
     Neural,
     Hellfire,
+    Void,
+    Almighty,
 }
 
 export enum Condition {
@@ -214,97 +216,22 @@ export function E(dice: Dice | Map<Dice, number>) {
     return (dice.sides + 1) / 2;
 }
 
-export class StatValue
+export function statMod(stat: number)
 {
-    private val: number;
+    return Math.floor(stat/ 2) - 5;
+}
 
-    constructor(val) {
-        this.val = Math.round(Math.min(30, Math.max(0, val)));
-    }
-
-    public adjustStat(by: number) {
-        this.val = Math.round(Math.min(30, Math.max(0, this.val + by)));
-    }
-
-    public get stat(): number {
-        return this.val;
-    }
-
-    public get mod(): number {
-        return StatValue.mod(this.val);
-    }
-
-    public static mod(number) {
-        return Math.floor(number/ 2) - 5;
+export function pbMod(pb: number, level: ProficiencyLevel): number
+{
+    switch (level) {
+        case ProficiencyLevel.None:   return 0;
+        case ProficiencyLevel.Half:   return Math.floor(pb / 2);
+        case ProficiencyLevel.Prof:   return pb;
+        case ProficiencyLevel.Expert: return pb * 2;
+        default: throw new Error("Prof level unknown");
     }
 }
 
-
-export class Prof
-{
-    private static readonly instances: Map<number, Prof> = new Map();
-
-    public static get(val: number) {
-        if (this.instances.has(val)) {
-            return this.instances.get(val);
-        }
-        if (val < 2 || val > 10) {
-            throw new Error("reasonable prof bonus levels crossed");
-        }
-        if (!Number.isInteger(val)) {
-            throw new Error("Can only have integral proficiencies");
-        }
-        const instance = new Prof(val);
-        this.instances.set(val, instance);
-        return instance;
-    }
-
-    private constructor(private readonly val)
-    { }
-
-    public mod(level: ProficiencyLevel = ProficiencyLevel.Prof): number
-    {
-        if (level == ProficiencyLevel.None) {
-            return 0;
-        } else if (level == ProficiencyLevel.Half) {
-            return Math.floor(this.val / 2);
-        } else if (level == ProficiencyLevel.Prof) {
-            return this.val;
-        } else if (level == ProficiencyLevel.Expert) {
-            return 2 * this.val;
-        }
-        throw new Error("Prof level unknown");
-    }
-}
-
-
-export class CRValue
-{
-    private readonly val: number;
-
-    constructor(val,
-                private readonly profOverride: Prof = null)
-    {
-        this.val = Math.round(Math.min(30, Math.max(0, val)));
-    }
-
-    public get cr(): number {
-        return this.val;
-    }
-
-    public get prof(): Prof {
-        if (this.profOverride != null) {
-            return this.profOverride;
-        }
-        return Prof.get(Math.ceil(Math.max(1, this.val) / 4) + 1);
-    }
-
-    public compareToStats(): number {
-        // todo: Compare to the offensive/defensive stats as per the DMG and
-        //  offset the difference between expected and true stats.
-        throw new Error("Not implemented.");
-    }
-}
 
 export enum CSkill
 {

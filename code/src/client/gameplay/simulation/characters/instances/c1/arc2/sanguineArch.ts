@@ -7,9 +7,9 @@ export function setupSArch()
 
     c.core.name = "The SanguineArch";
     c.core.imgPath = "character_tokens/C1/Arc2/sarch_m.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
-
     c.card.addCardTag('-');
     c.card.addCardTag('From | Shadowfell');
     c.card.addCardTag(`Race | Titan <span class='verbose'>&times; Vampire</span>`);
@@ -26,6 +26,5 @@ export function setupSArch()
       of the Shadowfell except that they are extremely dangerous to all but other higher vampires, most of whom regard 
       them with utmost respect. Fear, yes, but respect...`;
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
 }

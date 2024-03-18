@@ -1,47 +1,45 @@
-import {Activation, CreatureSize, CRValue, DamageType, DStat, Prof, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                      from "../../../../../data/npcIndex";
-import {D1, D4, D8}                                                                                 from "../../../../../rolling/Dice";
-import {Action}                                                                                     from "../../../../action/Action";
-import {wrapDamageType, wrapRoll}                                                                   from "../../../../action/Wrap";
-import {Character}                                                                                  from "../../../Character";
-import {CharacterVariant}                                                                           from "../../../CharacterVariant";
+import {Activation, CreatureSize, DamageType, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {NpcID}                                                                       from "../../../../../data/npcIndex";
+import {D1, D4, D8}                                                                  from "../../../../../rolling/Dice";
+import {Action}                                                                      from "../../../../action/Action";
+import {wrapDamageType, wrapRoll}                                                    from "../../../../action/Wrap";
+import {Character}                                                                   from "../../../Character";
+import {CharacterVariant}                                                            from "../../../CharacterVariant";
 
 
 export function setupSpewers()
 {
-    const spewer = new Character(NpcID.Spewer);
+    const c = new Character(NpcID.Spewer);
 
-    spewer.core.name = "Spewer";
-    spewer.core.imgPath = "mob_tokens/seaborn/Spewer.png";
+    c.core.name = "Spewer";
+    c.core.imgPath = "mob_tokens/seaborn/Spewer.png";
+    c.core.finalize();
 
-    spewer.dStats.initializeStats(17, 8, 21, 11, 9, 12);
-    spewer.dStats.pb = Prof.get(3);
+    c.dStats.initializeStats(17, 8, 21, 11, 9, 12);
+    c.dStats.pb = 3;
+    c.dStats.finalize();
 
-    spewer.dSKills.finalizeSkills();
+    const predHpDice = D8.countHavingE(40, c.CON);
+    c.combat.addBioHpDice(predHpDice, D8);
+    c.combat.computeHP();
 
-    spewer.opinions.isOpinionated = false;
+    c.combat.setHeavyArmor(17);
 
-    const predHpDice = D8.countHavingE(40, spewer.CON);
-    spewer.combat.addBioHpDice(predHpDice, D8);
-    spewer.combat.computeHP();
+    c.combat.setSave(DStat.Cha, ProficiencyLevel.Prof);
+    c.combat.setSave(DStat.Con, ProficiencyLevel.Prof);
 
-    spewer.combat.setHeavyArmor(17);
+    c.combat.setSpeed(Speed.Walking, 20);
+    c.combat.setSpeed(Speed.Swimming, 30);
 
-    spewer.combat.setSave(DStat.Cha, ProficiencyLevel.Prof);
-    spewer.combat.setSave(DStat.Con, ProficiencyLevel.Prof);
+    c.combat.setRes(DamageType.Poison,        100);
+    c.combat.setRes(DamageType.Acid,         -100);
+    c.combat.setRes(DamageType.Thunder,      -100);
+    c.combat.setRes(DamageType.Fire,         -100);
+    c.combat.setRes(DamageType.Lightning,    -100);
 
-    spewer.combat.setSpeed(Speed.Walking, 20);
-    spewer.combat.setSpeed(Speed.Swimming, 30);
+    c.combat.setSense(Sense.TremorSense, 5280);
 
-    spewer.combat.setRes(DamageType.Poison,        100);
-    spewer.combat.setRes(DamageType.Acid,         -100);
-    spewer.combat.setRes(DamageType.Thunder,      -100);
-    spewer.combat.setRes(DamageType.Fire,         -100);
-    spewer.combat.setRes(DamageType.Lightning,    -100);
-
-    spewer.combat.setSense(Sense.TremorSense, 5280);
-
-    spewer.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         c => `<p><strong><em>Spiked Shell.</em></strong> 
         The spewer resides inside a dangerously spiked shell which grants 
@@ -54,7 +52,7 @@ export function setupSpewers()
         damages, but it cannot move or take most of its actions.</p>`
     ));
 
-    spewer.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Action,
         c => `<strong><em>Nethersea Injection.</em></strong> The spewer deals 
         ${wrapRoll([[c.SemiProf, D8], [c.CON, D1]])}
@@ -67,43 +65,46 @@ export function setupSpewers()
         traits the target has.)`
     ));
 
-    spewer.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.BonusAction,
         _ => `<strong><em>Take Refuge.</em></strong> The spewer retreats into its shell.`
     ));
 
-    spewer.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.LegendaryAction,
         _ => `<strong><em>Emerge.</em></strong> The spewer has only one legendary action which it will always 
         take at the end of the turn of the creature preceding its own. It uses 
         this legendary action to emerge from its shell.`
     ));
 
-    spewer.sheet.cr = new CRValue(3);
-    spewer.sheet.size = CreatureSize.Medium;
-    spewer.sheet.subtitle = " Seaborn, True Neutral";
-    spewer.sheet.acDesc   = " (Shell)";
-    spewer.sheet.category = "seaborn";
+    c.combat.cr = 3
+    c.combat.finalize();
 
-    spewer.finalize();
+    c.sheet.size = CreatureSize.Medium;
+    c.sheet.subtitle = " Seaborn, True Neutral";
+    c.sheet.acDesc   = " (Shell)";
+    c.sheet.category = "seaborn";
 
+    c.sheet.finalize();
 
+    const n = new CharacterVariant(NpcID.SpewerN, NpcID.Spewer);
 
-    const spewerN = new CharacterVariant(NpcID.SpewerN, NpcID.Spewer);
+    n.core.name = "Nourished Spewer";
+    n.core.imgPath = "mob_tokens/seaborn/SpewerN.png";
+    n.core.finalize();
 
-    spewerN.core.name = "Nourished Spewer";
-    spewerN.core.imgPath = "mob_tokens/seaborn/SpewerN.png";
+    n.dStats.initializeStats(19, 6, 24, 14, 11, 16);
+    n.dStats.pb = 5;
+    n.dStats.finalize();
 
-    spewerN.dStats.initializeStats(19, 6, 24, 14, 11, 16);
-    spewerN.dStats.pb = Prof.get(5);
+    n.combat.addBioHpDice(predHpDice, D8);
+    n.combat.computeHP();
 
-    spewerN.combat.addBioHpDice(predHpDice, D8);
-    spewerN.combat.computeHP();
+    n.combat.setHeavyArmor(20);
 
-    spewerN.combat.setHeavyArmor(20);
+    n.combat.cr = 10
+    n.combat.finalize();
 
-    spewerN.sheet.cr    = new CRValue(10);
-    spewerN.sheet.theme = "danger_1";
-
-    spewerN.finalize();
+    n.sheet.theme = "danger_1";
+    n.sheet.finalize();
 }

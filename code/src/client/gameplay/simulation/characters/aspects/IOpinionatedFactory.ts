@@ -1,6 +1,7 @@
-import {GameTimestamp}   from "../../../GameTimestamp";
-import {PositiveEmotion} from "../../../opinions/PositiveEmotion";
-import {PcIndex}         from "../../../data/pcIndex";
+import {PcIndex}            from "../../../data/pcIndex";
+import {GameTimestamp}      from "../../../GameTimestamp";
+import {PositiveEmotion}    from "../../../opinions/PositiveEmotion";
+import {IBaseAspectFactory} from "./IBaseAspectFactory";
 
 
 /**
@@ -8,6 +9,7 @@ import {PcIndex}         from "../../../data/pcIndex";
  * aspect.
  */
 export interface IOpinionatedFactory
+    extends IBaseAspectFactory
 {
     /**
      * Set true to mark this character as opinionated.

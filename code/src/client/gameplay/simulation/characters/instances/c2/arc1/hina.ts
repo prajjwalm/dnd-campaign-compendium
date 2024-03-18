@@ -1,112 +1,39 @@
-import {
-    Activation,
-    AdventurerClass,
-    Condition,
-    CreatureSize,
-    CRValue,
-    CSkill,
-    DamageType,
-    DSkill,
-    DStat,
-    Era,
-    Hidden,
-    Prof,
-    ProficiencyLevel,
-    Sense,
-    Speed,
-    Vague
-} from "../../../../../data/constants";
-import {
-    NpcID
-} from "../../../../../data/npcIndex";
-import {
-    D1,
-    D12,
-    D6
-} from "../../../../../rolling/Dice";
-import {
-    Action
-} from "../../../../action/Action";
-import {
-    wrapCondition,
-    wrapDamageType,
-    wrapRoll,
-    wrapSense
-} from "../../../../action/Wrap";
-import {
-    Character
-} from "../../../Character";
-import {
-    Morale
-} from "../../../Morale";
+import {Activation, AdventurerClass, Condition, CreatureSize, CSkill, DamageType, DSkill, DStat, Era, Hidden, ProficiencyLevel, Sense, Speed, Vague} from "../../../../../data/constants";
+import {NpcID}                                                                                                                                       from "../../../../../data/npcIndex";
+import {D1, D12, D6}                                                                                                                                 from "../../../../../rolling/Dice";
+import {Action}                                                                                                                                      from "../../../../action/Action";
+import {wrapCondition, wrapDamageType, wrapRoll, wrapSense}                                                                                          from "../../../../action/Wrap";
+import {Character}                                                                                                                                   from "../../../Character";
+import {Morale}                                                                                                                                      from "../../../Morale";
 
 export function setupHina()
 {
     // Prepare the character object.
-    const hina = new Character(NpcID.Hina);
+    const c = new Character(NpcID.Hina);
 
     // Setup core info.
-    hina.core.name = "Hina";
-    hina.core.imgPath = "character_tokens/C2/Arc1/Hina.png";
+    c.core.name = "Hina";
+    c.core.imgPath = "character_tokens/C2/Arc1/Hina.png";
+    c.core.finalize();
 
     // Setup D&D stats.
-    hina.dStats.initializeStats(13, 20, 24, 18, 14, 17);
-    hina.dStats.pb = Prof.get(6);
+    c.dStats.initializeStats(13, 20, 24, 18, 14, 17);
+    c.dStats.pb = 6;
+    c.dStats.finalize();
 
     // Setup D&D skills.
-    hina.dSKills.setSkillProficiency(DSkill.Investigation, Hidden, ProficiencyLevel.Prof,   5);
-    hina.dSKills.setSkillProficiency(DSkill.Medicine,      Hidden);
-    hina.dSKills.setSkillProficiency(DSkill.Athletics,     Hidden, ProficiencyLevel.Expert);
-    hina.dSKills.setSkillProficiency(DSkill.History,       Hidden, ProficiencyLevel.Expert);
-    hina.dSKills.setSkillProficiency(DSkill.Perception,    Hidden, ProficiencyLevel.Expert, 5);
-    hina.dSKills.setSkillProficiency(DSkill.SlightOfHand,  Hidden);
-    hina.dSKills.setSkillProficiency(DSkill.Stealth,       Hidden, ProficiencyLevel.Expert);
-    hina.dSKills.setSkillProficiency(DSkill.Survival,      Hidden, ProficiencyLevel.Expert);
-
-    hina.operator.morale = Morale.Low;
-    hina.dSKills.finalizeSkills();
-
-    hina.operator.fatigue = 10;
-    hina.operator.ratings = {
-        damage  : "S",
-        control : "S+",
-        survival: "S",
-        pro     : "SS",
-    };
-    hina.operator.addNotableStuff("Major Damage Type", "Magical Bludgeoning");
-    hina.operator.addNotableStuff("Strong against", "Aberrations, Machines, Huge creatures");
-    hina.operator.addNotableStuff("Weak against", "Humanoids");
-    hina.operator.addNotableStuff("Combat Experience", "S Grade (7 years)");
-    hina.operator.setChemistryWith(NpcID.Dawn, 21, "Although they don't interact that much, in her mind, Hina virtually sees Dawn as a mother.");
-    hina.operator.setChemistryWith(NpcID.Elysium, 17, "The only one in the village who truly knows her - identity, past, nature, everything...");
-    hina.operator.setChemistryWith(NpcID.Iona, 12, "For some reason, Hina treats her as though she were her little sister.");
-
-    hina.operator.era = Era.Future;
-    hina.operator.professions = ["Bionic Tank", "Student / Laborer"];
-
-    // Can have opinions.
-    hina.opinions.isOpinionated = true;
-
-    // Card information.
-    hina.card.setCampaignArc(2, 1);
-    hina.card.addCardTag("F21 (14)");
-    hina.card.addCardTag("From | Innovation / Ruin / Materia / Devotion");
-    hina.card.addCardTag("Race | Human <span class='verbose'>(Cyberpunk)</span>");
-    hina.card.addCardTag("OS | Berserk MK5");
-    hina.card.addCardTag("Mutation | Greater Green");
-    hina.card.addCardTag("<span class='verbose'>Project Diablo |</span> #41");
-    hina.card.addCardTag("Edgedancer <span class='verbose'>(Cultivation)</span>");
-    hina.card.addCardTag("Bondsmith <span class='verbose'>(Preservation)</span>");
-    hina.card.addCardTag("Champion of Ruin");
-    hina.card.addCardTag("Chamber of Guilt");
-    hina.card.addCardTag("Class | Barbarian &times; Rogue");
-    hina.card.addCardTag("CR | 23");
-    hina.card.summary = () =>"???";
-
-    hina.card.primaryImageTitle = "Urchin";
+    c.dSkills.setSkillProficiency(DSkill.Investigation, Hidden, ProficiencyLevel.Prof,   5);
+    c.dSkills.setSkillProficiency(DSkill.Medicine,      Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Athletics,     Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.History,       Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Perception,    Hidden, ProficiencyLevel.Expert, 5);
+    c.dSkills.setSkillProficiency(DSkill.SlightOfHand,  Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Stealth,       Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Survival,      Hidden, ProficiencyLevel.Expert);
+    c.dSkills.finalize();
 
     // CoC Skills information
-    hina.cSkills.setSkillValues([
+    c.cSkills.setSkillValues([
         [CSkill.Accounting,             80,   Vague],
         [CSkill.Anthropology,            0,   Vague],
         [CSkill.Appraise,                0,   Vague],
@@ -168,29 +95,75 @@ export function setupHina()
         [CSkill.Physics,                60,   Vague],
         [CSkill.Zoology,                 0,   Vague],
     ]);
+    c.cSkills.finalize();
 
-    hina.combat.setSpeed(Speed.Walking, 40);
+    c.operator.morale = Morale.Low;
 
-    hina.combat.setSave(DStat.Str, ProficiencyLevel.Prof);
-    hina.combat.setSave(DStat.Dex, ProficiencyLevel.Prof);
-    hina.combat.setSave(DStat.Con, ProficiencyLevel.Expert);
+    c.operator.fatigue = 10;
+    c.operator.ratings = {
+        damage  : "S",
+        control : "S+",
+        survival: "S",
+        pro     : "SS",
+    };
+    c.operator.addNotableStuff("Major Damage Type", "Magical Bludgeoning");
+    c.operator.addNotableStuff("Strong against", "Aberrations, Machines, Huge creatures");
+    c.operator.addNotableStuff("Weak against", "Humanoids");
+    c.operator.addNotableStuff("Combat Experience", "S Grade (7 years)");
+    c.operator.setChemistryWith(NpcID.Dawn, 21, "Although they don't interact that much, in her mind, Hina virtually sees Dawn as a mother.");
+    c.operator.setChemistryWith(NpcID.Elysium, 17, "The only one in the village who truly knows her - identity, past, nature, everything...");
+    c.operator.setChemistryWith(NpcID.Iona, 12, "For some reason, Hina treats her as though she were her little sister.");
 
-    hina.combat.addClassLevels(AdventurerClass.Barbarian, 9);
-    hina.combat.addClassLevels(AdventurerClass.Rogue, 9);
-    hina.combat.addClassLevels(AdventurerClass.Warlock, 2);
+    c.operator.era = Era.Future;
+    c.operator.professions = ["Bionic Tank", "Student / Laborer"];
+    c.operator.addNotableStuff("Challenge Rating", "23");
+    c.operator.finalize();
 
-    hina.combat.addAcBonus(2);
+    // Can have opinions.
+    c.opinions.isOpinionated = true;
+    c.opinions.finalize();
 
-    hina.combat.bonusHP = 48;   // Cyborg / Tough.
-    hina.combat.computeHP();
+    // Card information.
+    c.card.setCampaignArc(2, 1);
+    c.card.addCardTag("F21 (14)");
+    c.card.addCardTag("From | Innovation / Ruin / Materia / Devotion");
+    c.card.addCardTag("Race | Human <span class='verbose'>(Cyberpunk)</span>");
+    c.card.addCardTag("OS | Berserk MK5");
+    c.card.addCardTag("Mutation | Greater Green");
+    c.card.addCardTag("<span class='verbose'>Project Diablo |</span> #41");
+    c.card.addCardTag("Edgedancer <span class='verbose'>(Cultivation)</span>");
+    c.card.addCardTag("Bondsmith <span class='verbose'>(Preservation)</span>");
+    c.card.addCardTag("Champion of Ruin");
+    c.card.addCardTag("Chamber of Guilt");
+    c.card.addCardTag("Class | Barbarian &times; Rogue");
+    c.card.addCardTag("CR | 23");
+    c.card.summary = () =>"???";
 
-    hina.combat.setSense(Sense.DevilSight, 120);
+    c.card.primaryImageTitle = "Urchin";
+    c.card.finalize();
 
-    hina.combat.setRes(DamageType.Psychic, 50);
-    hina.combat.addConditionImmunity(Condition.Charmed);
-    hina.combat.addConditionImmunity(Condition.Frightened);
+    c.combat.setSpeed(Speed.Walking, 40);
 
-    hina.combat.addAction(new Action(
+    c.combat.setSave(DStat.Str, ProficiencyLevel.Prof);
+    c.combat.setSave(DStat.Dex, ProficiencyLevel.Prof);
+    c.combat.setSave(DStat.Con, ProficiencyLevel.Expert);
+
+    c.combat.addClassLevels(AdventurerClass.Barbarian, 9);
+    c.combat.addClassLevels(AdventurerClass.Rogue, 9);
+    c.combat.addClassLevels(AdventurerClass.Warlock, 2);
+
+    c.combat.addAcBonus(2);
+
+    c.combat.bonusHP = 48;   // Cyborg / Tough.
+    c.combat.computeHP();
+
+    c.combat.setSense(Sense.DevilSight, 120);
+
+    c.combat.setRes(DamageType.Psychic, 50);
+    c.combat.addConditionImmunity(Condition.Charmed);
+    c.combat.addConditionImmunity(Condition.Frightened);
+
+    c.combat.addAction(new Action(
         Activation.Special,
         `<p><strong><em>Bionic Brain.</em></strong> Hina is always aware of her 
         directions and always remembers anything she's seen or heard, even when
@@ -199,7 +172,7 @@ export function setupHina()
         language is one she knows.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         `<p><strong><em>Chamber of Guilt.</em></strong> Being possessed by Penance,
         Hina can telepathically gauge and selectively influence a creature's
@@ -209,7 +182,7 @@ export function setupHina()
         throws.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         `<p><strong><em>Bondsmith &times; Edgedancer Hybrid.</em></strong> Hina 
         is bonded to a Cultivation Spren elevated to a God Spren by the splinter
@@ -219,47 +192,47 @@ export function setupHina()
     ));
 
     // Morale improved after talking to Aurelia before leaving for labs.
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         `<p><strong><em>Morale: Low.</em></strong> Due to her morale,
         Hina's gains a -1 to all her skill modifiers (included in the sheet).
         </p>`
     ))
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Action,
         `<p><strong><em>Multiattack.</em></strong> As an action Hina makes one black 
         knife attack and two telekinetic slams.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Action,
-        `<p><strong><em>Black Knife.</em></strong> Melee Weapon Attack: ${wrapRoll(hina.DEX + hina.Prof + 3)}, 
-        reach 5 ft., one target. Hit: ${wrapRoll([[6, D6], [hina.DEX + 6, D1]])} 
+        `<p><strong><em>Black Knife.</em></strong> Melee Weapon Attack: ${wrapRoll(c.DEX + c.Prof + 3)}, 
+        reach 5 ft., one target. Hit: ${wrapRoll([[6, D6], [c.DEX + 6, D1]])} 
         ${wrapDamageType(DamageType.Piercing)} damage. A target hit by this attack 
         can't regenerate HP till the end of their next turn and instantly breaks 
         concentration on a spell, causing the target of the spell to take necrotic
         (void) damage equal to 10 times the spell slot level. In Hina's hands, 
         this weapon also behaves as a vorpal blade. On a critical hit, it instantly kills targets 
-        without legendary resistances and deals ${wrapRoll([[18, D6], [hina.DEX + 6, D1]])}
+        without legendary resistances and deals ${wrapRoll([[18, D6], [c.DEX + 6, D1]])}
         to targets with legendary resistances.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Action,
         `<p><strong><em>Telekinetic slam.</em></strong> Ranged Attack: Hina targets
         a point on the ground within 600 ft of her and slams a heavy object 
         telekinetically on that spot. Targets within 5 ft of the point must make
-        a DC ${hina.dc(DStat.Con) + hina.Prof} DEX save or take ${wrapRoll([[10, D12], [hina.CON + 3, D1]])} 
+        a DC ${c.dc(DStat.Con) + c.Prof} DEX save or take ${wrapRoll([[10, D12], [c.CON + 3, D1]])} 
         ${wrapDamageType(DamageType.Bludgeoning)} (magical) damage. On a successful save they take half damage.
         This attack deals triple damage to structures.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Action,
         `<p><strong><em>Overwhelming Regrets.</em></strong> Hina infuses a creature's 
         soul with an intense focused onslaught of guilt. The target makes a DC 
-        ${hina.dc(DStat.Cha) + 10} CHA save.
+        ${c.dc(DStat.Cha) + 10} CHA save.
         On failure a non-hostile creature is charmed by her while a hostile creature
         has disadvantage on attack rolls. Also, they can't take opportunity attacks against 
         targets other than her. Any other effects charming or freightening the 
@@ -269,15 +242,15 @@ export function setupHina()
         target creatures aware of her.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Action,
-        `<p><strong><em>Edgedancer (Progression).</em></strong> (${hina.Prof} / LR) 
-        Hina heals a creature she touches by ${hina.CON * 10}. This effect ends 
+        `<p><strong><em>Edgedancer (Progression).</em></strong> (${c.Prof} / LR) 
+        Hina heals a creature she touches by ${c.CON * 10}. This effect ends 
         blindess, deafness and any diseases afflicting the target and restores 
         missing body parts.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.BonusAction,
         `<p><strong><em>Berserk MK5.</em></strong> (4 / LR) By activating her neural OS, 
         Hina drastically increases her defensive capabilities. For the duration 
@@ -286,7 +259,7 @@ export function setupHina()
         per attack is increased by 3 (included in the sheet).</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.BonusAction,
         `<p><strong><em>Edgedancer (Abrasion).</em></strong> Hina can use her bonus
         action to take the dodge, disengage or hide action. Until the start of her
@@ -294,19 +267,19 @@ export function setupHina()
         saving throws, is immune to being grappled and her movement speed increases by 15ft.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.BonusAction,
         `<p><strong><em>Telekinetic lashing.</em></strong> Hina attempts to 
         telekinetically move creatures around. She can either target upto 6 
         creatures, moving each 10ft in any direction (on collision they take 
         ${wrapRoll(D6)} ${wrapDamageType(DamageType.Bludgeoning)} damage) 
-        should they fail a DC ${hina.dc(DStat.Con) + hina.Prof} STR save, or target one
+        should they fail a DC ${c.dc(DStat.Con) + c.Prof} STR save, or target one
         creature and move it upto 100ft (${wrapRoll([10, D6])} 
         ${wrapDamageType(DamageType.Bludgeoning)} damage on collision) should it
-        fail a DC ${hina.dc(DStat.Con) + hina.Prof + 10} STR save.</p>`
+        fail a DC ${c.dc(DStat.Con) + c.Prof + 10} STR save.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.BonusAction,
         `<p><strong><em>Flare Aluminium.</em></strong> Hina hemallurgically burns 
         Aluminium to nullify all investiture in her system. She looses access 
@@ -316,79 +289,81 @@ export function setupHina()
         doesn't suffer any effects from any magic items.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Reaction,
         `<p><strong><em>Telekinetic Prison.</em></strong> In response to a 
         creature's movement (or taking any action or reaction that requires 
         movement), Hina can attempt a telekinetic grapple on the creature.
-        The target must make a DC ${hina.dc(DStat.Con) + hina.Prof} DEX save 
+        The target must make a DC ${c.dc(DStat.Con) + c.Prof} DEX save 
         (disadvantage if they don't possess ${wrapSense(Sense.TrueSight)}), 
-        on failure they must attempt a DC ${hina.dc(DStat.Con)+hina.Prof+10} (${hina.dc(DStat.Con)+hina.Prof}
+        on failure they must attempt a DC ${c.dc(DStat.Con)+c.Prof+10} (${c.dc(DStat.Con)+c.Prof}
         if Hina isn't trying to be lethal) STR save or be ${wrapCondition(Condition.Restrained)}. If they 
         fail by 10 or more, they are ${wrapCondition(Condition.Paralyzed)} 
         instead, though they can take actions requiring no physical movement - 
         like subtle spell casting. If the grapple attempt was intended to be 
         lethal, and they were ${wrapCondition(Condition.Paralyzed)}, they take 
-        ${wrapRoll([[3, D12], [hina.CON + hina.Prof, D1]])}
+        ${wrapRoll([[3, D12], [c.CON + c.Prof, D1]])}
         magical bludgeoning damage at the end of each of their turns - 
         instantly being crushed to pulp should they fall below 0 hp.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Reaction,
         `<p><strong><em>Sidestep.</em></strong> Hina can halve the damage she 
         takes on a hit from a source that she can see.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Reaction,
-        `<p><strong><em>Parry.</em></strong> Hina gains a +${hina.Prof} to her AC
+        `<p><strong><em>Parry.</em></strong> Hina gains a +${c.Prof} to her AC
         against a hit from a target she can see.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Reaction,
         `<p><strong><em>Riposte.</em></strong> Hina immediately makes one attack 
         with her knife against a target within 5 ft of her who attempts to hit 
         her with an attack and misses.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Reaction,
         `<p><strong><em>Mage slayer.</em></strong> Hina immediately makes one 
         attack with her knife against a target who casts a spell within 5 ft of 
         her.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.LegendaryAction,
         `<p>Hina has three legendary actions.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.LegendaryAction,
         `<p><strong><em>Telekinetic slam.</em></strong> (Cost: 1) Hina uses her telekinetic slam ability as a legendary action.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.LegendaryAction,
         `<p><p><strong><em>Telekinetic lashing.</em></strong> (Cost: 2) Hina uses her telekinetic lashing ability as a legendary action.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.LegendaryAction,
         `<p><p><strong><em>Telekinetic prison.</em></strong> (Cost: 3) Hina uses her telekinetic prison ability as a legendary action.</p>`
     ));
 
-    hina.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.LegendaryAction,
         `<p><strong><em>Overwhelming Regrets.</em></strong> (Cost: 3) Hina uses her overwhelming regrets ability as a legendary action.</p>`
     ));
 
-    hina.sheet.cr = new CRValue(23);
-    hina.operator.addNotableStuff("Challenge Rating", "23");
-    hina.sheet.size = CreatureSize.Medium;
-    hina.sheet.subtitle = " Humanoid (Cyberpunk), Chaotic Good";
-    hina.sheet.acDesc = "(Subdermal Armor MK4)";
-    hina.sheet.category = "human";
+    c.combat.cr = 23
+    c.combat.finalize();
+
+    c.sheet.size = CreatureSize.Medium;
+    c.sheet.subtitle = " Humanoid (Cyberpunk), Chaotic Good";
+    c.sheet.acDesc = "(Subdermal Armor MK4)";
+    c.sheet.category = "human";
+    c.sheet.finalize();
 }

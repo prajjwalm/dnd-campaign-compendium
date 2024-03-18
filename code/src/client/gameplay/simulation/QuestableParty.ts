@@ -1,7 +1,3 @@
-import {IQuestable}            from "./IQuestable";
-import {CharacterQuestableAPI} from "./CharacterQuestableAPI";
-
-
 // export class QuestableParty
 //     implements IQuestable
 // {

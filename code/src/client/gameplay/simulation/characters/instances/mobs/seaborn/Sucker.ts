@@ -1,54 +1,42 @@
-import {
-    Activation,
-    CreatureSize,
-    CRValue,
-    DamageType,
-    DSkill,
-    DStat,
-    Hidden,
-    Prof,
-    ProficiencyLevel,
-    Sense,
-    Speed
-}                                 from "../../../../../data/constants";
-import {NpcID}                    from "../../../../../data/npcIndex";
-import {D1, D12, D4, D6}          from "../../../../../rolling/Dice";
-import {Action}                   from "../../../../action/Action";
-import {wrapDamageType, wrapRoll} from "../../../../action/Wrap";
-import {Character}                from "../../../Character";
+import {Activation, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {NpcID}                                                                                       from "../../../../../data/npcIndex";
+import {D1, D6}                                                                                      from "../../../../../rolling/Dice";
+import {Action}                                                                                      from "../../../../action/Action";
+import {wrapDamageType, wrapRoll}                                                                    from "../../../../action/Wrap";
+import {Character}                                                                                   from "../../../Character";
 
 export function setupSucker()
 {
-    const sucker = new Character(NpcID.Sucker);
+    const c = new Character(NpcID.Sucker);
 
-    sucker.core.name = "Sucker";
-    sucker.core.imgPath = "mob_tokens/seaborn/Sucker.png";
+    c.core.name = "Sucker";
+    c.core.imgPath = "mob_tokens/seaborn/Sucker.png";
+    c.core.finalize();
 
-    sucker.dStats.initializeStats(12, 11, 18, 7, 13, 6);
-    sucker.dStats.pb = Prof.get(3);
+    c.dStats.initializeStats(12, 11, 18, 7, 13, 6);
+    c.dStats.pb = 3;
+    c.dStats.finalize();
 
-    sucker.dSKills.setSkillProficiency(DSkill.Stealth, Hidden, ProficiencyLevel.Expert);
-    sucker.dSKills.finalizeSkills();
+    c.dSkills.setSkillProficiency(DSkill.Stealth, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.finalize();
 
-    sucker.opinions.isOpinionated = false;
+    c.combat.addBioHpDice(D6.countHavingE(40, c.CON), D6);
+    c.combat.computeHP();
 
-    sucker.combat.addBioHpDice(D6.countHavingE(40, sucker.CON), D6);
-    sucker.combat.computeHP();
+    c.combat.setSave(DStat.Dex, ProficiencyLevel.Prof);
 
-    sucker.combat.setSave(DStat.Dex, ProficiencyLevel.Prof);
+    c.combat.setSpeed(Speed.Flying, 70);
+    c.combat.setSpeed(Speed.Swimming, 70);
 
-    sucker.combat.setSpeed(Speed.Flying, 70);
-    sucker.combat.setSpeed(Speed.Swimming, 70);
+    c.combat.setRes(DamageType.Piercing,    -100);
+    c.combat.setRes(DamageType.Bludgeoning, -100);
+    c.combat.setRes(DamageType.Thunder,     -100);
+    c.combat.setRes(DamageType.Lightning,   -100);
+    c.combat.setRes(DamageType.Cold,          50);
 
-    sucker.combat.setRes(DamageType.Piercing,    -100);
-    sucker.combat.setRes(DamageType.Bludgeoning, -100);
-    sucker.combat.setRes(DamageType.Thunder,     -100);
-    sucker.combat.setRes(DamageType.Lightning,   -100);
-    sucker.combat.setRes(DamageType.Cold,          50);
+    c.combat.setSense(Sense.Darkvision, 120);
 
-    sucker.combat.setSense(Sense.Darkvision, 120);
-
-    sucker.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         `<p><em><strong>Food Cycle.</strong></em> While they mainly feed on carcasses,
         suckers don't mind the occasional living prey either. It is their instinct and
@@ -63,16 +51,16 @@ export function setupSucker()
          </p>`
     ));
 
-    sucker.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Action,
         `<p><em><strong>Suck.</strong></em> Melee Attack.  
-        ${wrapRoll(sucker.CON + sucker.Prof)} to hit. ${wrapRoll([[3, D6], [sucker.CON, D1]])}
+        ${wrapRoll(c.CON + c.Prof)} to hit. ${wrapRoll([[3, D6], [c.CON, D1]])}
         ${wrapDamageType(DamageType.Necrotic)} damage. The Sucker gains HP equal 
         to the damage dealt.
          </p>`
     ));
 
-    sucker.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.BonusAction,
         `<p><em><strong>Evac.</strong></em> The sucker disengages, dashes and 
         hides, if possible (always possible if it's below double HP and not in 
@@ -80,13 +68,14 @@ export function setupSucker()
          </p>`
     ));
 
-    sucker.sheet.cr = new CRValue(5);
+    c.combat.cr = 5
+    c.combat.finalize();
 
-    sucker.sheet.size = CreatureSize.Small;
+    c.sheet.size = CreatureSize.Small;
 
-    sucker.sheet.subtitle = " Seaborn, Neutral Evil";
-    sucker.sheet.acDesc = " (Natural Armor)";
-    sucker.sheet.category = "seaborn";
+    c.sheet.subtitle = " Seaborn, Neutral Evil";
+    c.sheet.acDesc = " (Natural Armor)";
+    c.sheet.category = "seaborn";
 
-    sucker.finalize();
+    c.sheet.finalize();
 }

@@ -1,17 +1,15 @@
-import {
-    CreatureSize, CRValue
-} from "../../../data/constants";
+import {CreatureSize}       from "../../../data/constants";
+import {IBaseAspectFactory} from "./IBaseAspectFactory";
 
 
 export interface ISheetFactory
+    extends IBaseAspectFactory
 {
     set subtitle(s: string);
 
     set altName(s: string);
 
     set acDesc(s: string);
-
-    set cr(v: CRValue);
 
     set size(s: CreatureSize);
 

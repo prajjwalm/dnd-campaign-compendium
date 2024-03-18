@@ -7,6 +7,7 @@ export function setupAndri()
 
     c.core.name = "Andri";
     c.core.imgPath = "character_tokens/C2/Arc1/Andri.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(2, 1);
 
@@ -15,6 +16,5 @@ export function setupAndri()
 
     c.card.summary = () => `???`;
 
-    c.opinions.isOpinionated = false;
-
+    c.card.finalize();
 }

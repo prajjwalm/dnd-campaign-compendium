@@ -11,7 +11,7 @@ export function arc21OpinionEvents()
 
     addInteractionEvent(
         NpcID.Hina,
-        [PcIndex.ID_AURELIA, PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
+        [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 28, 12),
         `So literally the minute they found about my bondsmith powers, they 
         already found a use for it? Sigh, in the end all adults really are the 
@@ -29,7 +29,7 @@ export function arc21OpinionEvents()
 
     addInteractionEvent(
         NpcID.Hina,
-        [PcIndex.ID_AURELIA, PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
+        [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 28, 12, 5),
         `Wait a minute, Ruin has been talking to all of them too? All this time?`,
         new Map([
@@ -67,7 +67,7 @@ export function arc21OpinionEvents()
 
     addInteractionEvent(
         NpcID.Hina,
-        [PcIndex.ID_AURELIA, PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
+        [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 28, 12, 40),
         `...<br/>
         Yes, I think I'm certain. You are all good people. And possibly the best
@@ -114,7 +114,7 @@ export function arc21OpinionEvents()
 
     addInteractionEvent(
         NpcID.Hina,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 28, 12, 45),
         `Two very different professors, two very different lifetimes.<br/>
         This had to have been a horrormare - first that Shardic command, then that 

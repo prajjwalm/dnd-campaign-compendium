@@ -1,45 +1,34 @@
-import {
-    Activation,
-    CreatureSize,
-    CRValue,
-    DamageType,
-    DStat,
-    Prof,
-    ProficiencyLevel,
-    Speed
-}                                 from "../../../../../data/constants";
-import {NpcID}                    from "../../../../../data/npcIndex";
-import {D100, D12, D8}            from "../../../../../rolling/Dice";
-import {Action}                   from "../../../../action/Action";
-import {wrapDamageType, wrapRoll} from "../../../../action/Wrap";
-import {Character}                from "../../../Character";
+import {Activation, CreatureSize, DamageType, DStat, ProficiencyLevel} from "../../../../../data/constants";
+import {NpcID}                                                         from "../../../../../data/npcIndex";
+import {D100, D12, D8}                                                 from "../../../../../rolling/Dice";
+import {Action}                                                        from "../../../../action/Action";
+import {wrapDamageType, wrapRoll}                                      from "../../../../action/Wrap";
+import {Character}                                                     from "../../../Character";
 
 export function setupNetherseaBrand()
 {
-    const nsBrand = new Character(NpcID.NSBrand);
+    const c = new Character(NpcID.NSBrand);
 
-    nsBrand.core.name = "Nethersea Brand";
-    nsBrand.core.imgPath = "mob_tokens/seaborn/NetherseaBrand.png";
+    c.core.name = "Nethersea Brand";
+    c.core.imgPath = "mob_tokens/seaborn/NetherseaBrand.png";
+    c.core.finalize();
 
-    nsBrand.dStats.initializeStats(30, 1, 30, 30, 30, 30);
-    nsBrand.dStats.pb = Prof.get(10);
+    c.dStats.initializeStats(30, 1, 30, 30, 30, 30);
+    c.dStats.pb = 10;
+    c.dStats.finalize();
 
-    nsBrand.dSKills.finalizeSkills();
+    c.combat.addBioHpDice(D100.countHavingE(1_000_000, c.CON), D100);
+    c.combat.computeHP();
 
-    nsBrand.opinions.isOpinionated = false;
+    c.combat.setSave(DStat.Str, ProficiencyLevel.Expert);
+    c.combat.setSave(DStat.Con, ProficiencyLevel.Expert);
+    c.combat.setSave(DStat.Int, ProficiencyLevel.Expert);
+    c.combat.setSave(DStat.Wis, ProficiencyLevel.Expert);
+    c.combat.setSave(DStat.Cha, ProficiencyLevel.Expert);
 
-    nsBrand.combat.addBioHpDice(D100.countHavingE(1_000_000, nsBrand.CON), D100);
-    nsBrand.combat.computeHP();
+    c.combat.setRes(DamageType.All, 100);
 
-    nsBrand.combat.setSave(DStat.Str, ProficiencyLevel.Expert);
-    nsBrand.combat.setSave(DStat.Con, ProficiencyLevel.Expert);
-    nsBrand.combat.setSave(DStat.Int, ProficiencyLevel.Expert);
-    nsBrand.combat.setSave(DStat.Wis, ProficiencyLevel.Expert);
-    nsBrand.combat.setSave(DStat.Cha, ProficiencyLevel.Expert);
-
-    nsBrand.combat.setRes(DamageType.All, 100);
-
-    nsBrand.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         `<p><em><strong>Domain of the Sea.</strong></em> <strong>[Land Specific Ability]</strong> 
         Already occpying almost the entire ocean-floor of the plane of water and extending in vast
@@ -53,7 +42,7 @@ export function setupNetherseaBrand()
         More powerful seaborn may gain other abilities.</p>`
     ));
 
-    nsBrand.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         `<p><em><strong>Near Invulnerability.</strong></em> While it does occasionally
         wither and retreat by itself at times (particularly following failed invasions).
@@ -64,7 +53,7 @@ export function setupNetherseaBrand()
         takes time for the investiture to reach them).</p>`
     ));
 
-    nsBrand.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.LairAction,
         `<p><em><strong>Predatory Expansion.</strong></em> <strong>[Land Specific Ability]</strong> While on land, every round at
         initiative count 20, 10 and 0, the nethersea brand may attempt to expand in all neighbouring horizontal tiles 
@@ -75,13 +64,14 @@ export function setupNetherseaBrand()
         damage every round they remain standing.</p>`
     ));
 
-    nsBrand.sheet.cr = new CRValue(30);
+    c.combat.cr = 30
 
-    nsBrand.combat.addAcBonus(35);
-    nsBrand.sheet.size = CreatureSize.Cosmic;
-    nsBrand.sheet.subtitle = " Seaborn, Unaligned";
-    nsBrand.sheet.acDesc = "";
-    nsBrand.sheet.category = "seaborn";
+    c.combat.addAcBonus(35);
+    c.combat.finalize();
 
-    nsBrand.finalize();
+    c.sheet.size = CreatureSize.Cosmic;
+    c.sheet.subtitle = " Seaborn, Unaligned";
+    c.sheet.acDesc = "";
+    c.sheet.category = "seaborn";
+    c.sheet.finalize();
 }

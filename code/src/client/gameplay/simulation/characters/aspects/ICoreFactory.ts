@@ -1,8 +1,12 @@
+import {IBaseAspectFactory} from "./IBaseAspectFactory";
+
+
 /**
  * The factory interface needed to be supported to set up an {@link ICore}
  * object.
  */
 export interface ICoreFactory
+    extends IBaseAspectFactory
 {
     /**
      * Set the display name.

@@ -1,6 +1,6 @@
-import {PcIndex}       from "../../data/pcIndex";
-import {NpcID}         from "../../data/npcIndex";
-import {GameTimestamp} from "../../GameTimestamp";
+import {NpcID}               from "../../data/npcIndex";
+import {PcIndex}             from "../../data/pcIndex";
+import {GameTimestamp}       from "../../GameTimestamp";
 import {PositiveEmotion}     from "../PositiveEmotion";
 import {addInteractionEvent} from "./s9";
 
@@ -42,7 +42,7 @@ export function sessionOpinionEvents03()
 
     addInteractionEvent(
         NpcID.Cecelia,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 5, 12, 0),
         "Took an interest in my health and offered words of comfort.",
         new Map([[PositiveEmotion.Gratitude, 2]])
@@ -146,7 +146,7 @@ export function sessionOpinionEvents03()
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION,
-            PcIndex.ID_AURELIA
+            
         ],
         new GameTimestamp(0, 5, 13, 30),
         "Seem like a well-mannered bunch. Asked for permission to enter our garden instead of jumping over the bush.",

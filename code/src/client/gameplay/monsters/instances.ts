@@ -1,14 +1,6 @@
-import {GENERATED_IDS}                     from "./contracts";
-import {
-    createFreedom,
-    createInkling,
-    createInklingAberrant,
-    createInklingDog,
-    createInklingDynamite,
-    createInklingTank,
-    createInklingWannabeBoss
-}                                          from "./inklings";
-import {ID_TO_SHEET_GENERATOR, IStatSheet} from "./sheet";
+import {GENERATED_IDS}                                                                                                                             from "./contracts";
+import {createFreedom, createInkling, createInklingAberrant, createInklingDog, createInklingDynamite, createInklingTank, createInklingWannabeBoss} from "./inklings";
+import {ID_TO_SHEET_GENERATOR, IStatSheet}                                                                                                         from "./sheet";
 
 
 export function setupStatSheet(category: string,

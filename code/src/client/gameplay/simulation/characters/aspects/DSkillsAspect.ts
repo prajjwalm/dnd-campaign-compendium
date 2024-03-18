@@ -1,17 +1,9 @@
-import {
-    DSkill,
-    ProficiencyLevel,
-    Shown,
-    StatForSkill,
-    VisibilityLevel
-}                          from "../../../data/constants";
-import {Rating}            from "../../../data/Rarity";
-import {Character}         from "../Character";
-import {AspectFactoryFlag} from "./AspectFactoryFlag";
-import {BaseAspect}        from "./BaseAspect";
-import {IDSkills}          from "./IDSkills";
-import {IDSkillsFactory}   from "./IDSkillsFactory";
-import {IDStats}           from "./IDStats";
+import {DSkill, pbMod, ProficiencyLevel, Shown, StatForSkill, VisibilityLevel} from "../../../data/constants";
+import {Rating}                                                                from "../../../data/Rarity";
+import {Character}                                                             from "../Character";
+import {BaseAspect}                                                            from "./BaseAspect";
+import {IDSkills}                                                              from "./IDSkills";
+import {IDSkillsFactory}                                                       from "./IDSkillsFactory";
 
 
 /**
@@ -58,18 +50,11 @@ export class DSkillsAspect
     private readonly skills: Map<DSkill, [ProficiencyLevel, number, VisibilityLevel]>;
 
     /**
-     * A reference to the {@link IDStats} of the character, we'll need this to
-     * implement this aspect.
-     */
-    private readonly dStats: IDStats;
-
-    /**
      * CTOR.
      */
-    constructor(private readonly c: Character)
+    constructor(c: Character)
     {
         super(c);
-        this.dStats = c;
         this.skills = new Map();
     }
 
@@ -93,8 +78,6 @@ export class DSkillsAspect
                                proficiency: ProficiencyLevel = ProficiencyLevel.Prof,
                                mod: number = 0)
     {
-        this.buildSentinel(AspectFactoryFlag.DSkillsSkillsDeclared,
-            AspectFactoryFlag.DSkillsSkillsFinalized);
         this.skills.set(skill, [proficiency, mod, visibility]);
     }
 
@@ -106,12 +89,8 @@ export class DSkillsAspect
                        tentative: boolean = false):
         [number, VisibilityLevel]
     {
-        if (!tentative) {
-            this.ensure(AspectFactoryFlag.DSkillsSkillsFinalized, true);
-        }
-
         // First get the contribution from the stat.
-        let statMod = this.dStats.mod(StatForSkill.get(skill));
+        let statMod = this.c.mod(StatForSkill.get(skill));
 
         // Now find the proficiency level to apply.
         let prof: ProficiencyLevel;
@@ -128,7 +107,7 @@ export class DSkillsAspect
         if (profOverride) {
             prof = profOverride;
         }
-        return [statMod + this.dStats.pb.mod(prof) + mod, vis];
+        return [statMod + pbMod(this.c.pb, prof) + mod, vis];
 
         // if (!this.skills.has(skill)) {
         //     prof = ProficiencyLevel.None;
@@ -151,8 +130,8 @@ export class DSkillsAspect
         //     }
         // }
         //
-        // return [this.dStats.mod(StatForSkill.get(skill)) +
-        //         this.dStats.pb.mod(prof) +
+        // return [this.c.mod(StatForSkill.get(skill)) +
+        //         this.c.pb.mod(prof) +
         //         mod,
         //         vis
         // ];
@@ -162,9 +141,7 @@ export class DSkillsAspect
      * @inheritDoc
      */
     public finalizeSkills()
-    {
-        this.setupSentinel(AspectFactoryFlag.DSkillsSkillsFinalized);
-    }
+    {}
 
     public get upgradedSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
     {
@@ -195,24 +172,22 @@ export class DSkillsAspect
                 upgradedSkills.set(
                     skill,
                     [
-                        this.dStats.mod(StatForSkill.get(skill)) +
-                        this.dStats.pb.mod(minProf) + minMod,
+                        this.c.mod(StatForSkill.get(skill)) +
+                        pbMod(this.c.pb, minProf) + minMod,
                         allVis
                     ]
                 );
             }
         }
 
-        console.log("Iterating skills...")
-        for (const [skill, [pb, mod, vis]] of this.skills.entries()) {
+        for (const [skill, [profLevel, mod, vis]] of this.skills.entries()) {
             if (skill == DSkill._ALL) {
                 continue;
             }
-            console.log(`Setting ${DSkill[skill]}: ${this.dStats.mod(StatForSkill.get(skill))} + ${this.dStats.pb.mod(pb)} + ${mod}`);
             upgradedSkills.set(skill,
                 [
-                    this.dStats.mod(StatForSkill.get(skill)) +
-                    this.dStats.pb.mod(pb) + mod, vis
+                    this.c.mod(StatForSkill.get(skill)) +
+                    pbMod(this.c.pb, profLevel) + mod, vis
                 ]);
         }
         return upgradedSkills;
@@ -220,7 +195,6 @@ export class DSkillsAspect
 
     public get dSkillRatings(): ReadonlyMap<DSkill, Rating>
     {
-        this.ensure(AspectFactoryFlag.DSkillsSkillsFinalized, true);
         const ratings: Map<DSkill, Rating> = new Map();
         for (const [skill, [value, _]] of this.upgradedSkills.entries()) {
             ratings.set(skill, DSkillsAspect.getRatingForSkillModifier(value));

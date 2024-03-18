@@ -1,26 +1,11 @@
-import {
-    Condition,
-    CSkill,
-    DamageType,
-    DSkill,
-    DStat,
-    Era,
-    Prof,
-    ProficiencyLevel,
-    Sense,
-    Speed,
-    StatValue,
-    VisibilityLevel
-}                                             from "../../data/constants";
-import {NpcID}                                from "../../data/npcIndex";
-import {PcIndex}                              from "../../data/pcIndex";
-import {Rating}                               from "../../data/Rarity";
-import {Dice}                                 from "../../rolling/Dice";
+import {Condition, CSkill, DamageType, DSkill, DStat, Era, pbMod, ProficiencyLevel, Sense, Speed, VisibilityLevel} from "../../data/constants";
+import {NpcID}                                                                                                     from "../../data/npcIndex";
+import {PcIndex}                                                                                                   from "../../data/pcIndex";
+import {Rating}                                                                                                    from "../../data/Rarity";
+import {Dice}                                                                                                      from "../../rolling/Dice";
 import {Action}                               from "../action/Action";
-import {IActionContext}                       from "../action/IActionContext";
-import {
-    AspectNotSetupException
-}                                             from "./aspects/AspectNotSetupException";
+import {AspectNotSetupException}              from "./aspects/AspectNotSetupException";
+import {AspectOutOfOrderException}            from "./aspects/AspectOutOfOrderException";
 import {BaseAspect}                           from "./aspects/BaseAspect";
 import {CardAspect}                           from "./aspects/CardAspect";
 import {CombatAspect}                         from "./aspects/CombatAspect";
@@ -43,15 +28,80 @@ import {IDStatsFactory}                       from "./aspects/IDStatsFactory";
 import {IOperator}                            from "./aspects/IOperator";
 import {CombatRatingMetric, IOperatorFactory} from "./aspects/IOperatorFactory";
 import {IOpinionated}                         from "./aspects/IOpinionated";
-import {
-    IOpinionatedFactory
-}                                             from "./aspects/IOpinionatedFactory";
+import {IOpinionatedFactory}                  from "./aspects/IOpinionatedFactory";
 import {ISheet}                               from "./aspects/ISheet";
 import {ISheetFactory}                        from "./aspects/ISheetFactory";
 import {OperatorAspect}                       from "./aspects/OperatorAspect";
 import {OpinionAspect}                        from "./aspects/OpinionAspect";
 import {SheetAspect}                          from "./aspects/SheetAspect";
 import {Morale}                               from "./Morale";
+
+
+/**
+ * The various Aspects, listed in order. Attempting to initialize an aspect
+ * after one of it successors should result in an
+ * {@link AspectOutOfOrderException}, though some older sheets don't follow
+ * this. Some aspects not being initialized at all is fine, but dependant
+ * aspects might throw an
+ * {@link AspectNotSetupException} if they encounter logic that required the
+ * missing aspect.
+ */
+export enum EAspect
+{
+    Core,
+    DStats,
+    DSkills,
+    CSkills,
+    Operator,
+    Card,
+    Opinions,
+    Combat,
+    Sheet,
+    AspectCount,
+}
+
+
+/**
+ * So that we may be a bit more generous in the order of aspect initialization.
+ */
+const AspectDependencies: Map<EAspect, EAspect[]> = new Map
+([
+    [EAspect.Core,     []],
+    [EAspect.DStats,   []],
+    [EAspect.DSkills,  [EAspect.DStats]],
+    [EAspect.CSkills,  []],
+    [EAspect.Operator, [EAspect.Core, EAspect.DSkills, EAspect.CSkills]],
+    [EAspect.Card,     [EAspect.Core]],
+    [EAspect.Opinions, [EAspect.Core, EAspect.DSkills, EAspect.Operator]],
+    [EAspect.Combat,   [EAspect.Core, EAspect.DSkills, EAspect.Operator]],
+    [EAspect.Sheet,    [EAspect.Combat]],
+]);
+
+const AspectDependants: Map<EAspect, EAspect[]> = new Map();
+for (const [aspect, dependencies] of AspectDependencies) {
+    for (const dependency of dependencies) {
+        if (!AspectDependants.has(dependency)) {
+            AspectDependants.set(dependency, []);
+        }
+        AspectDependants.get(dependency).push(aspect);
+    }
+}
+
+
+/**
+ * The various constructors (classes) of the Aspects listed in enum order.
+ */
+const AspectConstructors: (new(c: Character) => BaseAspect)[] = [
+    CoreAspect,
+    DStatsAspect,
+    DSkillsAspect,
+    CSkillsAspect,
+    OperatorAspect,
+    CardAspect,
+    OpinionAspect,
+    CombatAspect,
+    SheetAspect,
+];
 
 
 /**
@@ -71,6 +121,7 @@ export class Character
                ICSkills,
                IOperator
 {
+
     /**
      * An index to make sure we don't ever get two objects for one character.
      */
@@ -85,50 +136,8 @@ export class Character
         return Character._Index.get(npcId);
     }
 
-    /**
-     * The aspect handling the core 'fields'.
-     */
-    protected _coreAspect: CoreAspect;
+    protected readonly aspects: BaseAspect[];
 
-    /**
-     * The aspect handling the D&D stats.
-     */
-    protected _dStatsAspect: DStatsAspect;
-
-    /**
-     * The aspect handling the D&D skills.
-     */
-    protected _dSkillsAspect: DSkillsAspect;
-
-    /**
-     * The aspect handling the interface to the opinion table.
-     */
-    protected _opinionAspect: OpinionAspect;
-
-    /**
-     * The aspect handling the creation of the character card.
-     */
-    protected _cardAspect: CardAspect;
-
-    /**
-     * The aspect handling the backend of combat.
-     */
-    protected _combatAspect: CombatAspect;
-
-    /**
-     * The aspect handling stat sheet creation.
-     */
-    protected _sheetAspect: SheetAspect
-
-    /**
-     * The aspect handling CoC skills.
-     */
-    protected _cSkillsAspect: CSkillsAspect;
-
-    /**
-     * The aspect handling the operator.
-     */
-    protected _operatorAspect: OperatorAspect;
 
     /**
      * CTOR.
@@ -136,15 +145,104 @@ export class Character
     public constructor(public readonly id: NpcID)
     {
         Character._Index.set(id, this);
-        this._coreAspect = null;
-        this._dStatsAspect = null;
-        this._dSkillsAspect = null;
-        this._cardAspect = null;
-        this._opinionAspect = null;
-        this._combatAspect = null;
-        this._sheetAspect = null;
-        this._cSkillsAspect = null;
-        this._operatorAspect = null;
+
+        this.aspects = new Array(EAspect.AspectCount);
+        this.aspects.fill(null);
+    }
+
+    public GetOrCreateAspect(newAspect: EAspect): BaseAspect
+    {
+        if (this.aspects[newAspect] == null) {
+            if (AspectDependants.has(newAspect)) {
+                for (const aspect of AspectDependants.get(newAspect)) {
+                    if (this.aspects[aspect] != null) {
+                        throw new AspectOutOfOrderException();
+                    }
+                }
+            }
+            this.aspects[newAspect] = new AspectConstructors[newAspect](this);
+        }
+        return this.aspects[newAspect];
+    }
+
+    public GetOrThrowAspect(aspect: EAspect): BaseAspect
+    {
+        if (this.aspects[aspect] == null) {
+            throw new AspectNotSetupException(EAspect[aspect]);
+        }
+        return this.aspects[aspect];
+    }
+
+
+    // The following methods have been made public only so that the subclass
+    // CharacterVariant can access these for another Character.
+
+    protected get coreAspect()     : ICore         { return this.GetOrThrowAspect(EAspect.Core)      as CoreAspect     ; }
+    protected get dStatsAspect()   : IDStats       { return this.GetOrThrowAspect(EAspect.DStats)    as DStatsAspect   ; }
+    protected get dSkillsAspect()  : IDSkills      { return this.GetOrThrowAspect(EAspect.DSkills)   as DSkillsAspect  ; }
+    protected get cSkillsAspect()  : ICSkills      { return this.GetOrThrowAspect(EAspect.CSkills)   as CSkillsAspect  ; }
+    protected get operatorAspect() : IOperator     { return this.GetOrThrowAspect(EAspect.Operator)  as OperatorAspect ; }
+    protected get cardAspect()     : ICard         { return this.GetOrThrowAspect(EAspect.Card)      as CardAspect     ; }
+    protected get opinionAspect()  : IOpinionated  { return this.GetOrThrowAspect(EAspect.Opinions)  as OpinionAspect  ; }
+    protected get combatAspect()   : ICombat       { return this.GetOrThrowAspect(EAspect.Combat)    as CombatAspect   ; }
+    protected get sheetAspect()    : ISheet        { return this.GetOrThrowAspect(EAspect.Sheet)     as SheetAspect    ; }
+
+    public get core()     : ICoreFactory        { return this.GetOrCreateAspect(EAspect.Core)     as CoreAspect     ; }
+    public get dStats()   : IDStatsFactory      { return this.GetOrCreateAspect(EAspect.DStats)   as DStatsAspect   ; }
+    public get dSkills()  : IDSkillsFactory     { return this.GetOrCreateAspect(EAspect.DSkills)  as DSkillsAspect  ; }
+    public get cSkills()  : ICSkillsFactory     { return this.GetOrCreateAspect(EAspect.CSkills)  as CSkillsAspect  ; }
+    public get operator() : IOperatorFactory    { return this.GetOrCreateAspect(EAspect.Operator) as OperatorAspect ; }
+    public get card()     : ICardFactory        { return this.GetOrCreateAspect(EAspect.Card)     as CardAspect     ; }
+    public get opinions() : IOpinionatedFactory { return this.GetOrCreateAspect(EAspect.Opinions) as OpinionAspect  ; }
+    public get combat()   : ICombatFactory      { return this.GetOrCreateAspect(EAspect.Combat)   as CombatAspect   ; }
+    public get sheet()    : ISheetFactory       { return this.GetOrCreateAspect(EAspect.Sheet)    as SheetAspect    ; }
+
+    /**
+     * @inheritDoc
+     */
+    public get name(): string
+    {
+        return this.coreAspect.name;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public get imgPath(): string
+    {
+        return this.coreAspect.imgPath;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public get stats(): ReadonlyMap<DStat, number>
+    {
+        return this.dStatsAspect.stats;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public visibility(stat: DStat): VisibilityLevel
+    {
+        return this.dStatsAspect.visibility(stat);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public mod(stat: DStat): number
+    {
+        return this.dStatsAspect.mod(stat);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public get pb(): number
+    {
+        return this.dStatsAspect.pb;
     }
 
     /**
@@ -155,6 +253,86 @@ export class Character
                        tentative: boolean = false): [number, VisibilityLevel]
     {
         return this.dSkillsAspect.getSkillMod(skill, profOverride, tentative);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public get upgradedSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
+    {
+        return this.dSkillsAspect.upgradedSkills;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public get dSkillRatings(): ReadonlyMap<DSkill, Rating>
+    {
+        return this.dSkillsAspect.dSkillRatings;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public getSkillVal(skill: CSkill): [number, VisibilityLevel]
+    {
+        return this.cSkillsAspect.getSkillVal(skill);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public get cSkillRatings(): ReadonlyMap<CSkill, Rating>
+    {
+        return this.cSkillsAspect.cSkillRatings;
+    }
+
+    public get era(): Era
+    {
+        return this.operatorAspect.era;
+    }
+
+    public get professions(): [string, string]
+    {
+        return this.operatorAspect.professions;
+    }
+
+    public get morale(): Morale
+    {
+        return this.operatorAspect.morale;
+    }
+
+    public get fatigue(): number
+    {
+        return this.operatorAspect.fatigue;
+    }
+
+    public get ratings(): CombatRatingMetric
+    {
+        return this.operatorAspect.ratings;
+    }
+
+    public get notableDSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
+    {
+        return this.operatorAspect.notableDSkills;
+    }
+
+    public get notableCSkills(): ReadonlyMap<CSkill, [number, VisibilityLevel]>
+    {
+        return this.operatorAspect.notableCSkills;
+    }
+
+    public get notableStuff(): ReadonlyArray<[string, string]>
+    {
+        return this.operatorAspect.notableStuff;
+    }
+
+    /**
+     * Returns the DOM string generated by the operator aspect.
+     */
+    public generateOperatorDOM()
+    {
+        return this.operatorAspect.generateDOMString();
     }
 
     /**
@@ -189,79 +367,9 @@ export class Character
         return this.cardAspect.generateCard(floating);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public render(): string
+    public generateTimelineDOMString(pc: PcIndex): string
     {
-        return "";
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public mod(stat: DStat): number
-    {
-        return this.dStatsAspect.mod(stat);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public dc(stat: DStat): number
-    {
-        return this._combatAspect.dc(stat);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public getSkillVal(skill: CSkill): [number, VisibilityLevel]
-    {
-        return this.cSkillsAspect.getSkillVal(skill);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public visibility(stat: DStat): VisibilityLevel
-    {
-        return this.dStatsAspect.visibility(stat);
-    }
-
-    /**
-     * Finalize({@link BaseAspect.finalize}) all the completed aspects.
-     */
-    public finalize(): void
-    {
-        // This finalization should've nothing to do with the setup, so the
-        // order of finalization shouldn't matter.
-        let aspect: BaseAspect;
-        for (aspect of [
-            this._coreAspect,
-            this._dStatsAspect,
-            this._dSkillsAspect,
-            this._opinionAspect,
-            this._cardAspect,
-            this._combatAspect,
-            this._sheetAspect,
-            this._cSkillsAspect,
-            this._operatorAspect,
-        ])
-        {
-            if (aspect == null) {
-                continue;
-            }
-            aspect.finalize();
-        }
-    }
-
-    /**
-     * Returns the DOM string generated by the operator aspect.
-     */
-    public generateOperatorDOM()
-    {
-        return this.operatorAspect.generateDOMString();
+        return this.opinionAspect.generateTimelineDOMString(pc);
     }
 
     /**
@@ -278,15 +386,29 @@ export class Character
      */
     public generateOpinionTimelineDOM(pc: PcIndex)
     {
+        if (this.aspects[EAspect.Opinions] == null) {
+            return null;
+        }
         return this.opinionAspect.generateTimelineDOMString(pc);
     }
 
     /**
      * @inheritDoc
      */
-    public get upgradedSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
+    get isOpinionated(): boolean
     {
-        return this.dSkillsAspect.upgradedSkills;
+        return this.aspects[EAspect.Opinions] != null && this.opinionAspect.isOpinionated;;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public get passiveDeception(): number
+    {
+        if (this.aspects[EAspect.Opinions] == null) {
+            return null;
+        }
+        return this.opinionAspect.passiveDeception;
     }
 
     /**
@@ -294,23 +416,7 @@ export class Character
      */
     get ac(): number
     {
-        return this._combatAspect.ac;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public get stats(): ReadonlyMap<DStat, StatValue>
-    {
-        return this.dStatsAspect.stats;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public get pb(): Prof
-    {
-        return this.dStatsAspect.pb;
+        return this.combatAspect.ac;
     }
 
     /**
@@ -356,9 +462,22 @@ export class Character
     /**
      * @inheritDoc
      */
+    public dc(stat: DStat): number
+    {
+        return this.combatAspect.dc(stat);
+    }
+
+    /**
+     * @inheritDoc
+     */
     get passivePerception(): number
     {
         return this.combatAspect.passivePerception;
+    }
+
+    public get cr(): number
+    {
+        return this.combatAspect.cr;
     }
 
     /**
@@ -388,155 +507,16 @@ export class Character
     /**
      * @inheritDoc
      */
-    public get actionContentAPI(): IActionContext
+    public render(): string
     {
-        return this.dStatsAspect.actionContentAPI;
+        return this.sheetAspect.render();
     }
 
     /**
-     * @inheritDoc
+     * Finalize({@link BaseAspect.finalize}) all the completed aspects.
      */
-    get isOpinionated(): boolean
-    {
-        return this.opinionAspect.isOpinionated;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public get passiveDeception(): number
-    {
-        return this.opinionAspect.passiveDeception;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public get name(): string
-    {
-        return this.coreAspect.name;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public get imgPath(): string
-    {
-        return this.coreAspect.imgPath;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public get cSkillRatings(): ReadonlyMap<CSkill, Rating>
-    {
-        return this.cSkillsAspect.cSkillRatings;
-    }
-
-    /**
-     * Accessor to factory methods for setting up core data.
-     */
-    public get core(): ICoreFactory
-    {
-        if (this._coreAspect == null) {
-            this._coreAspect = new CoreAspect(this);
-        }
-        return this._coreAspect;
-    }
-
-    /**
-     * Accessor to factory methods for setting up the stats.
-     */
-    public get dStats(): IDStatsFactory
-    {
-        if (this._dStatsAspect == null) {
-            this._dStatsAspect = new DStatsAspect(this);
-        }
-        return this._dStatsAspect;
-    }
-
-    /**
-     * Accessor to factory methods for setting up the skills.
-     */
-    public get dSKills(): IDSkillsFactory
-    {
-        if (this._dSkillsAspect == null) {
-            // [DesignChoice]
-            // Choice between this & this.dStatsAspect - former allows lazy
-            // setup. Latter requires stats to be at least setup before skills.
-            // Since we're already providing a character reference I went with
-            // that (and stating that the aspects won't have references to each
-            // other) but yea this could be worth a thought someday?
-            this._dSkillsAspect = new DSkillsAspect(this);
-        }
-        return this._dSkillsAspect;
-    }
-
-    /**
-     * Accessor to factory methods for setting up opinion stuff.
-     */
-    public get opinions(): IOpinionatedFactory
-    {
-        if (this._opinionAspect == null) {
-            this._opinionAspect = new OpinionAspect(this);
-        }
-        return this._opinionAspect;
-    }
-
-    /**
-     * Accessor to factory methods for setting up the card related information.
-     */
-    public get card(): ICardFactory
-    {
-        if (this._cardAspect == null) {
-            this._cardAspect = new CardAspect(this);
-        }
-        return this._cardAspect;
-    }
-
-    /**
-     * Accessor to factory methods for setting up combat information.
-     */
-    public get combat(): ICombatFactory
-    {
-        if (this._combatAspect == null) {
-            this._combatAspect = new CombatAspect(this);
-        }
-        return this._combatAspect;
-    }
-
-    /**
-     * Accessor to factory methods for setting up sheet information.
-     */
-    public get sheet(): ISheetFactory
-    {
-        if (this._sheetAspect == null) {
-            this._sheetAspect = new SheetAspect(this);
-        }
-        return this._sheetAspect;
-    }
-
-    /**
-     * Accessor to factory methods for setting up coc skills information.
-     */
-    public get cSkills(): ICSkillsFactory
-    {
-        if (this._cSkillsAspect == null) {
-            this._cSkillsAspect = new CSkillsAspect(this);
-        }
-        return this._cSkillsAspect;
-    }
-
-    /**
-     * Accessor to factory methods for setting up the operator information.
-     */
-    public get operator(): IOperatorFactory
-    {
-        if (this._operatorAspect == null) {
-            this._operatorAspect = new OperatorAspect(this);
-        }
-        return this._operatorAspect;
-    }
+    public finalize(): void
+    {}
 
     /**
      * Shortcut getter for STR.
@@ -591,7 +571,7 @@ export class Character
      */
     public get SemiProf(): number
     {
-        return this.pb.mod(ProficiencyLevel.Half);
+        return pbMod(this.pb, ProficiencyLevel.Half);
     }
 
     /**
@@ -599,7 +579,7 @@ export class Character
      */
     public get Prof(): number
     {
-        return this.pb.mod(ProficiencyLevel.Prof);
+        return this.pb;
     }
 
     /**
@@ -607,163 +587,12 @@ export class Character
      */
     public get Expertise(): number
     {
-        return this.pb.mod(ProficiencyLevel.Expert);
+        return pbMod(this.pb, ProficiencyLevel.Expert);
     }
 
-    public get fatigue(): number
+    public generateDOMString(): string
     {
-        return this.operatorAspect.fatigue;
-    }
-
-    public get morale(): Morale
-    {
-        return this.operatorAspect.morale;
-    }
-
-    public get notableCSkills(): ReadonlyMap<CSkill, [number, VisibilityLevel]>
-    {
-        return this.operatorAspect.notableCSkills;
-    }
-
-    public get notableDSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
-    {
-        return this.operatorAspect.notableDSkills;
-    }
-
-    public get notableStuff(): ReadonlyArray<[string, string]>
-    {
-        return this.operatorAspect.notableStuff;
-    }
-
-    public get ratings(): CombatRatingMetric
-    {
-        return this.operatorAspect.ratings;
-    }
-
-    public get era(): Era
-    {
-        return this.operator.era;
-    }
-
-    public get professions(): [string, string]
-    {
-        return this.operator.professions;
-    }
-
-    public get dSkillRatings(): ReadonlyMap<DSkill, Rating>
-    {
-        return this.dSkillsAspect.dSkillRatings;
-    }
-
-    // The following methods have been made public only so that the subclass
-    // CharacterVariant can access these for another Character.
-
-    /**
-     * Retrieve the aspect storing the card related information.
-     * Not expected to be invoked externally.
-     */
-    public get cardAspect(): CardAspect
-    {
-        if (this._cardAspect == null) {
-            throw new AspectNotSetupException("cardAspect");
-        }
-        return this._cardAspect;
-    }
-
-    /**
-     * Retrieve the aspect storing the opinion related information.
-     * Not expected to be invoked externally.
-     */
-    public get opinionAspect(): OpinionAspect
-    {
-        if (this._opinionAspect == null) {
-            throw new AspectNotSetupException("opinionAspect");
-        }
-        return this._opinionAspect;
-    }
-
-    /**
-     * Retrieve the aspect storing the D&D skills related information.
-     * Not expected to be invoked externally.
-     */
-    public get dSkillsAspect(): DSkillsAspect
-    {
-        if (this._dSkillsAspect == null) {
-            throw new AspectNotSetupException("dSkillsAspect");
-        }
-        return this._dSkillsAspect;
-    }
-
-    /**
-     * Retrieve the aspect storing the D&D stats related information.
-     * Not expected to be invoked externally.
-     */
-    public get dStatsAspect(): DStatsAspect
-    {
-        if (this._dStatsAspect == null) {
-            throw new AspectNotSetupException("dStatsAspect");
-        }
-        return this._dStatsAspect;
-    }
-
-    /**
-     * Retrieve the aspect storing the core related information.
-     * Not expected to be invoked externally.
-     */
-    public get coreAspect(): CoreAspect
-    {
-        if (this._coreAspect == null) {
-            throw new AspectNotSetupException("coreAspect");
-        }
-        return this._coreAspect;
-    }
-
-    /**
-     * Retrieve the aspect storing the combat related information.
-     * Not expected to be invoked externally.
-     */
-    public get combatAspect(): CombatAspect
-    {
-        if (this._combatAspect == null) {
-            throw new AspectNotSetupException("combatAspect");
-        }
-        return this._combatAspect;
-    }
-
-    /**
-     * Retrieve the aspect storing the sheet related information.
-     * Not expected to be invoked externally.
-     */
-    public get sheetAspect(): SheetAspect
-    {
-        if (this._sheetAspect == null) {
-            throw new AspectNotSetupException("sheetAspect");
-        }
-        return this._sheetAspect;
-    }
-
-    /**
-     * Retrieve the aspect storing the CoC skills related information.
-     * Not expected to be invoked externally.
-     */
-    public get cSkillsAspect(): CSkillsAspect
-    {
-        if (this._cSkillsAspect == null) {
-            throw new AspectNotSetupException("sheetAspect");
-        }
-        return this._cSkillsAspect;
-    }
-
-    /**
-     * Retrieve the aspect storing the operator related information.
-     * Not expected to be invoked externally.
-     */
-    public get operatorAspect(): OperatorAspect
-    {
-        if (this._operatorAspect == null) {
-            throw new AspectNotSetupException("sheetAspect");
-        }
-        return this._operatorAspect;
+        throw new Error("Not supported.");
     }
 }
 

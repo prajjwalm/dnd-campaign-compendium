@@ -1,9 +1,6 @@
-import {generateAchievementsPanel}        from "./Achievements";
-import {generateBuildingsPanel} from "./buildingInstances";
-import {
-    generateOperatorProfileSelection,
-    setupBaseOperatorLogic
-}                               from "./Operator";
+import {generateAchievementsPanel}                                from "./Achievements";
+import {generateBuildingsPanel}                                   from "./buildingInstances";
+import {generateOperatorProfileSelection, setupBaseOperatorLogic} from "./Operator";
 
 export function generateBaseDOM()
 {

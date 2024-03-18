@@ -79,23 +79,20 @@
  *
  */
 
-import {getEnumIterator}         from "../../common/common";
-import {PcCharismaMods, PcIndex} from "../data/pcIndex";
-import {IDOMGenerator}           from "../IDomGenerator";
-import {NpcID }                  from "../data/npcIndex";
-import {GameTimestamp}           from "../GameTimestamp";
-import {getZone}                          from "./common";
-import {testSlot}                         from "./FixedSizeSlot";
-import {IAttitudeHandler}                 from "./IAttitudeHandler";
-import {NpcInteractionEvent}              from "./NpcInteractionEvent";
-import {NegativeEmotion, PositiveEmotion} from "./PositiveEmotion";
-import {RenderableEvent}                  from "./RenderableEvent";
-import {
-    StandardAttitudeHandler,
-    testAttitudeHandler
-}                                         from "./StandardAttitudeHandler";
-import {testBufferedAttitude}             from "./StandardBufferedAttitudeList";
-import {TimeskipEvent}                    from "./TimeskipEvent";
+import {getEnumIterator}                              from "../../common/common";
+import {NpcID}                                        from "../data/npcIndex";
+import {PcCharismaMods, PcIndex}                      from "../data/pcIndex";
+import {GameTimestamp}                                from "../GameTimestamp";
+import {IDOMGenerator}                                from "../IDomGenerator";
+import {getZone}                                      from "./common";
+import {testSlot}                                     from "./FixedSizeSlot";
+import {IAttitudeHandler}                             from "./IAttitudeHandler";
+import {NpcInteractionEvent}                          from "./NpcInteractionEvent";
+import {NegativeEmotion, PositiveEmotion}             from "./PositiveEmotion";
+import {RenderableEvent}                              from "./RenderableEvent";
+import {StandardAttitudeHandler, testAttitudeHandler} from "./StandardAttitudeHandler";
+import {testBufferedAttitude}                         from "./StandardBufferedAttitudeList";
+import {TimeskipEvent}                                from "./TimeskipEvent";
 
 
 export class NpcOpinion

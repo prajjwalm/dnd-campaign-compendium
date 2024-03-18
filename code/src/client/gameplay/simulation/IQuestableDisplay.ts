@@ -1,6 +1,3 @@
-import {DamageType, DSkill} from "../data/constants";
-
-
 /**
  * Provides the information needed to display a {@link IQuestable} on the site.
  */

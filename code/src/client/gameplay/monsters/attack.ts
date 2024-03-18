@@ -1,17 +1,8 @@
-import {ISheetAction} from "../simulation/action/ISheetAction";
-import {wrapRoll}     from "../simulation/action/Wrap";
-import {
-    IDStats
-}                     from "../simulation/characters/aspects/IDStats";
-import {
-    D1, Dice
-}                     from "../rolling/Dice";
-import {
-    NatRollable, DamageRollable
-} from "../rolling/Rollable";
-import {
-    Activation, DStat, DamageType, E, ProficiencyLevel
-} from "../data/constants";
+import {Activation, DamageType, DStat, E, pbMod, ProficiencyLevel} from "../data/constants";
+import {D1, Dice}                                                  from "../rolling/Dice";
+import {ISheetAction}                                              from "../simulation/action/ISheetAction";
+import {wrapRoll}                                                  from "../simulation/action/Wrap";
+import {IDStats}                                                   from "../simulation/characters/aspects/IDStats";
 
 
 interface IAttackDamageParams
@@ -156,7 +147,7 @@ abstract class Attack
         if (stat == undefined) {
             stat = this.mainStat;
         }
-        const mod = this.getMod(stat) + this.sheet.pb.mod(prof) + this.hitBonus;
+        const mod = this.getMod(stat) + pbMod(this.sheet.pb, prof) + this.hitBonus;
         return this.doGetToHitRollableStr(mod);
     }
 
@@ -183,9 +174,7 @@ abstract class Attack
         if (stat == undefined) {
             stat = this.mainStat;
         }
-        console.log(ProficiencyLevel[prof]);
-        console.log(8, this.getMod(stat), this.sheet.pb.mod(prof), this.dcBonus)
-        return 8 + this.getMod(stat) + this.sheet.pb.mod(prof) + this.dcBonus;
+        return 8 + this.getMod(stat) + pbMod(this.sheet.pb, prof) + this.dcBonus;
     }
 
     public bindDamages(damageParams: IAttackDamageParams): this

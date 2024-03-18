@@ -1,5 +1,5 @@
-import {DamageType}        from "../../data/constants";
-import {DamageTreeNodeTag} from "./DamageTreeNodeTag";
+import {DamageType}              from "../../data/constants";
+import {DamageTreeNodeTag}       from "./DamageTreeNodeTag";
 import {DamageTreeNodeType}      from "./DamageTreeNodeType";
 import {IDamageTreeLeafNodeBuff} from "./IDamageTreeLeafNodeBuff";
 import {IDamageTreeNode}         from "./IDamageTreeNode";

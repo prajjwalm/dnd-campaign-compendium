@@ -1,28 +1,10 @@
-import {
-    Activation,
-    Condition,
-    CreatureSize,
-    CRValue,
-    DStat,
-    Sense,
-    Speed
-}                       from "../../../data/constants";
-import {setupStatSheet} from "../../../monsters/instances";
-import {
-    wrapActivation,
-    wrapCreatureSize,
-    wrapDamageType,
-    wrapRoll,
-    wrapDSkill, wrapSense, wrapSpeed
-} from "../../action/Wrap";
-import {Character}      from "../Character";
-import {BaseAspect}     from "./BaseAspect";
-import {ICombat}        from "./ICombat";
-import {ICore}          from "./ICore";
-import {IDSkills}       from "./IDSkills";
-import {IDStats}        from "./IDStats";
-import {ISheet}         from "./ISheet";
-import {ISheetFactory}  from "./ISheetFactory";
+import {Activation, Condition, CreatureSize, DStat, pbMod, statMod}                                   from "../../../data/constants";
+import {setupStatSheet}                                                                               from "../../../monsters/instances";
+import {wrapActivation, wrapCreatureSize, wrapDamageType, wrapDSkill, wrapRoll, wrapSense, wrapSpeed} from "../../action/Wrap";
+import {Character}                                                                                    from "../Character";
+import {BaseAspect}                                                                                   from "./BaseAspect";
+import {ISheet}                                                                                       from "./ISheet";
+import {ISheetFactory}                                                                                from "./ISheetFactory";
 
 
 /**
@@ -35,30 +17,6 @@ export class SheetAspect
                ISheetFactory
 {
     /**
-     * A reference to the {@link ICombat} aspect of this character, we will need
-     * this to build the sheet.
-     */
-    private readonly combatAspect: ICombat;
-
-    /**
-     * A reference to the {@link ICore} aspect of this character, we will need
-     * this to build the sheet.
-     */
-    private readonly coreAspect: ICore;
-
-    /**
-     * A reference to the {@link IDStats} aspect of this character, we will need
-     * this to build the sheet.
-     */
-    private readonly statsAspect: IDStats;
-
-    /**
-     * A reference to the {@link IDSkills} aspect of this character, we will
-     * need this to build the sheet.
-     */
-    private readonly skillAspect: IDSkills;
-
-    /**
      * Backing field under {@link subtitle}.
      */
     private _subtitle: string;
@@ -67,11 +25,6 @@ export class SheetAspect
      * Backing field under {@link acDesc}.
      */
     private _acDesc: string;
-
-    /**
-     * Backing field under {@link cr}.
-     */
-    private _cr: CRValue;
 
     /**
      * Backing field under {@link size}.
@@ -90,15 +43,9 @@ export class SheetAspect
     public constructor(c: Character)
     {
         super(c);
-        this.combatAspect = c;
-        this.coreAspect = c;
-        this.skillAspect = c;
-        this.statsAspect = c;
-
         this._subtitle = "";
         this.altName = null;
         this._acDesc = "";
-        this._cr = null;
         this.theme = "";
     }
 
@@ -107,7 +54,6 @@ export class SheetAspect
         const aspect = new SheetAspect(other);
         aspect._subtitle = this._subtitle;
         aspect._acDesc   = this._acDesc;
-        aspect._cr       = this._cr;
         aspect._size     = this._size;
         aspect.category  = this.category;
         aspect.altName   = this.altName;
@@ -120,12 +66,12 @@ export class SheetAspect
     public render(): string
     {
         const speedList = [];
-        for (const [speed, value] of this.combatAspect.speeds.entries()) {
+        for (const [speed, value] of this.c.speeds.entries()) {
             speedList.push(`${wrapSpeed(speed)} ${value} ft.`);
         }
 
         const senseList = [];
-        for (const [sense, value] of this.combatAspect.senses.entries()) {
+        for (const [sense, value] of this.c.senses.entries()) {
             senseList.push(`${wrapSense(sense)} ${value} ft.`);
         }
 
@@ -137,19 +83,19 @@ export class SheetAspect
                             DStat.Wis,
                             DStat.Cha])
         {
-            const statVal = this.combatAspect.stats.get(stat);
-            statList.push(`<td>${statVal.stat} ${wrapRoll(statVal.mod)}</td>`);
+            const statVal = this.c.stats.get(stat);
+            statList.push(`<td>${statVal} ${wrapRoll(statMod(statVal))}</td>`);
         }
 
         const saveList = [];
-        for (const [stat, [prof, mod]] of this.combatAspect.saves.entries()) {
-            const save = this.statsAspect.mod(stat) + this.combatAspect.pb.mod(prof) + mod;
+        for (const [stat, [prof, mod]] of this.c.saves.entries()) {
+            const save = this.c.mod(stat) + pbMod(this.c.pb, prof) + mod;
             saveList.push(`${DStat[stat]} ${wrapRoll(save)}`);
         }
 
-        console.log(`Skills for ${this.coreAspect.name}`);
+        console.log(`Skills for ${this.c.name}`);
         const skillList = [];
-        for (const [skill, [mod, _]] of this.skillAspect.upgradedSkills.entries()) {
+        for (const [skill, [mod, _]] of this.c.upgradedSkills.entries()) {
             skillList.push(`<span style="display: inline-block;">${wrapDSkill(skill)} ${wrapRoll(mod)}</span>`);
         }
 
@@ -157,7 +103,7 @@ export class SheetAspect
         const res = [];
         const imm = [];
 
-        for (const [dt, r] of this.combatAspect.damageRes.entries()) {
+        for (const [dt, r] of this.c.damageRes.entries()) {
             if (r < 0) {
                 const details = r == -100 ? "" : `(${100 - r}% damage)`;
                 vul.push(`${wrapDamageType(dt)} ${details}`);
@@ -185,7 +131,7 @@ export class SheetAspect
                        `<tr><td>Damage Immunities</td><td>${imm.join(", ")}</td></tr>`;
 
         const ci = [];
-        for (const v of this.combatAspect.conditionImmunities.values()) {
+        for (const v of this.c.conditionImmunities.values()) {
             ci.push(Condition[v]);
         }
         const ciStr = ci.length == 0 ?
@@ -195,13 +141,12 @@ export class SheetAspect
 
         const contentList: Map<Activation, string[]> = new Map();
 
-        for (const action of this.combatAspect.actions.values()) {
-            action.c = this.character;
+        for (const action of this.c.actions.values()) {
+            action.c = this.c;
             const activation = action.activation;
             if (!contentList.has(activation)) {
                 contentList.set(activation, []);
             }
-            action.bindStats(this.statsAspect);
             contentList.get(activation).push(action.createContent());
         }
 
@@ -217,16 +162,16 @@ export class SheetAspect
         }
 
         return `
-        <div class="stat_sheet" id="stat_sheet_${this.category}_${this.id}">
+        <div class="stat_sheet" id="stat_sheet_${this.category}_${this.c.id}">
             <div class="sheet_header">
                 <div class="header_zone">
-                <h3 class="sheet_title">${this.altName == null ? this.coreAspect.name : this.altName}</h3>
+                <h3 class="sheet_title">${this.altName == null ? this.c.name : this.altName}</h3>
                 <div class="sheet_subtitle">${wrapCreatureSize(this._size)} ${this._subtitle}</div>
                 </div>
                 <div class="header_zone">
                     <table>
-                        <tr><td>Armor Class</td><td>${this.combatAspect.ac} ${this._acDesc}</td></tr>
-                        <tr><td>Hit Points</td><td>${this.combatAspect.hp } ${wrapRoll(this.combatAspect.hpDice)}</td></tr>
+                        <tr><td>Armor Class</td><td>${this.c.ac} ${this._acDesc}</td></tr>
+                        <tr><td>Hit Points</td><td>${this.c.hp } ${wrapRoll(this.c.hpDice)}</td></tr>
                         <tr><td>Speed</td><td>${speedList.length == 0 ? "None" : speedList.join(", ")}</td></tr>
                     </table>
                 </div>
@@ -241,8 +186,8 @@ export class SheetAspect
                         ${senseList.length > 0 ? `<tr><td>Senses</td><td>${senseList.join(" ")}</td></tr>` : ""} 
                         ${saveList .length > 0 ? `<tr><td>Saving Throws</td><td>${saveList.join(" ")}</td></tr>` : ""} 
                         ${skillList.length > 0 ? `<tr><td>Skills</td><td>${skillList.join(" ")}</td></tr>` : ""}
-                        <tr><td>Challenge Rating</td><td>${this._cr.cr}</td></tr>
-                        <tr><td>Proficiency Bonus</td><td>${this.combatAspect.pb.mod()}</td></tr>
+                        <tr><td>Challenge Rating</td><td>${this.c.cr}</td></tr>
+                        <tr><td>Proficiency Bonus</td><td>${this.c.pb}</td></tr>
                         ${vulStr}${resStr}${immStr}${ciStr}
                     </table>
                 </div>
@@ -270,14 +215,6 @@ export class SheetAspect
     /**
      * @inheritDoc
      */
-    public set cr(v: CRValue)
-    {
-        this._cr = v;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public set size(s: CreatureSize)
     {
         this._size = s;
@@ -290,9 +227,9 @@ export class SheetAspect
     {
         super.finalize();
         setupStatSheet(this.category,
-                       `${this.category}_${this.id}`,
-                       this.coreAspect.name,
-                       this.coreAspect.imgPath,
+                       `${this.category}_${this.c.id}`,
+                       this.c.name,
+                       this.c.imgPath,
                        () => this,
                        true,
                        this.theme);

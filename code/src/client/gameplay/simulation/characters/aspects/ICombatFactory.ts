@@ -1,11 +1,7 @@
-import {Dice}   from "../../../rolling/Dice";
-import {
-    Activation,
-    AdventurerClass, Condition, CreatureSize, DamageType, DStat,
-    ProficiencyLevel, Sense,
-    Speed
-}               from "../../../data/constants";
-import {Action} from "../../action/Action";
+import {AdventurerClass, Condition, DamageType, DStat, ProficiencyLevel, Sense, Speed} from "../../../data/constants";
+import {Dice}                                                                          from "../../../rolling/Dice";
+import {Action}                                                                        from "../../action/Action";
+import {IBaseAspectFactory}                                                            from "./IBaseAspectFactory";
 
 
 /**
@@ -13,6 +9,7 @@ import {Action} from "../../action/Action";
  * other aspects (the default implementation).
  */
 export interface ICombatFactory
+    extends IBaseAspectFactory
 {
     setMagicalArmor(armorAC: number): void;
     setLightArmor(armorAC: number): void;
@@ -21,7 +18,9 @@ export interface ICombatFactory
     addAcBonus(bonus: number): void;
 
     // Monk and Barb ac's can be derived from classes.
-    set bladeSinger(val: boolean);
+    set bladeSingerAC(val: boolean);
+
+    set cr(val: number);
 
     addClassLevels(klass: AdventurerClass, levels: number);
 

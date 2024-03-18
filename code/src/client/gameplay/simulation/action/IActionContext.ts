@@ -1,6 +1,4 @@
-import {
-    DStat, ProficiencyLevel
-} from "../../data/constants";
+import {DStat, ProficiencyLevel} from "../../data/constants";
 
 
 export interface IActionContext

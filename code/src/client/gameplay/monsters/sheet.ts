@@ -1,15 +1,9 @@
-import {wrapRoll}                    from "../simulation/action/Wrap";
-import {IDStats}                     from "../simulation/characters/aspects/IDStats";
-import {D1, Dice}                    from "../rolling/Dice";
-import {NatRollable, DamageRollable} from "../rolling/Rollable";
-import {
-    Activation, AdventurerClass, ClassHitDice, Condition, DStat,
-    CreatureSize, CRValue, DamageType, E, Prof, ProficiencyLevel, SizeToDice,
-    DSkill, Speed, StatForSkill, StatValue, VisibilityLevel,
-}                               from "../data/constants";
-import {IAttack, IBuffedAttack} from "./attack";
-import {ISheetAction}           from "../simulation/action/ISheetAction";
-import {IActionContext}         from "../simulation/action/IActionContext";
+import {Activation, AdventurerClass, ClassHitDice, Condition, CreatureSize, DamageType, DSkill, DStat, E, pbMod, ProficiencyLevel, SizeToDice, Speed, StatForSkill, statMod, VisibilityLevel,} from "../data/constants";
+import {D1, Dice}                                                                                                                                                                              from "../rolling/Dice";
+import {ISheetAction}                                                                                                                                                                          from "../simulation/action/ISheetAction";
+import {wrapRoll}                                                                                                                                                                              from "../simulation/action/Wrap";
+import {IDStats}                                                                                                                                                                               from "../simulation/characters/aspects/IDStats";
+import {IAttack, IBuffedAttack}                                                                                                                                                                from "./attack";
 
 
 /**
@@ -17,7 +11,7 @@ import {IActionContext}         from "../simulation/action/IActionContext";
  */
 class HpBlock
 {
-    public constructor(public readonly stats: Map<DStat, StatValue>,
+    public constructor(public readonly stats: Map<DStat, number>,
                        public readonly size: Dice,
                        public readonly biologicalHp: number,
                        public readonly adventurerLevels: Map<AdventurerClass, number> = new Map(),
@@ -26,7 +20,7 @@ class HpBlock
 
     public get conHpPerDice()
     {
-        return this.stats.get(DStat.Con).mod + (this.isTough ? 2 : 0);
+        return this.stats.get(DStat.Con) + (this.isTough ? 2 : 0);
     }
 
     private getAdventurerHp(): number
@@ -54,8 +48,8 @@ interface StatBlockParams {
     monster_id: string;
     title: string;
     subtitle: string;
-    crValue: CRValue;
-    stats: Map<DStat, StatValue>;
+    crValue: number;
+    stats: Map<DStat, number>;
     speeds: Map<Speed, number>;
     size: CreatureSize;
     biologicalHp: number;
@@ -109,7 +103,7 @@ export function isContractSelected(contractId)
 
 
 /**
- * @deprecated
+ * @deprecated The sheet aspect should be used henceforth.
  */
 export class StatSheet
     implements IDStats,
@@ -123,11 +117,11 @@ export class StatSheet
 
     public readonly speeds: Map<Speed, number>;
 
-    public readonly stats: Map<DStat, StatValue>;
+    public readonly stats: Map<DStat, number>;
 
     private readonly _hpDice: Map<Dice, number>;
 
-    private readonly crValue: CRValue;
+    private readonly crValue: number;
 
     protected _ac: number;
 
@@ -211,10 +205,6 @@ export class StatSheet
         throw new Error("Method not implemented.");
     }
 
-    get actionContentAPI(): IActionContext {
-        throw new Error("Method not implemented.");
-    }
-
     // TODO: LANGUAGES, SENSES
     public render(): string {
         const speedList = [];
@@ -231,7 +221,7 @@ export class StatSheet
                             DStat.Cha])
         {
             const statVal = this.stats.get(stat);
-            statList.push(`<td>${statVal.stat} ${wrapRoll(statVal.mod)}</td>`);
+            statList.push(`<td>${statVal} ${wrapRoll(statMod(statVal))}</td>`);
         }
 
         const saveList = [];
@@ -321,8 +311,8 @@ export class StatSheet
                     <table>
                         <tr><td>Saving Throws</td><td>${saveList.join(" ")}</td></tr>
                         <tr><td>Skills</td><td>${skillList.join(" ")}</td></tr>
-                        <tr><td>Challenge Rating</td><td>${this.crValue.cr}</td></tr>
-                        <tr><td>Proficiency Bonus</td><td>${this.pb.mod()}</td></tr>
+                        <tr><td>Challenge Rating</td><td>${this.crValue}</td></tr>
+                        <tr><td>Proficiency Bonus</td><td>${this.pb}</td></tr>
                         ${vulStr}${resStr}${immStr}${cimmStr}
                     </table>
                 </div>
@@ -331,8 +321,8 @@ export class StatSheet
         </div>`;
     }
 
-    public get pb(): Prof {
-        return this.crValue.prof;
+    public get pb(): number {
+        return Math.ceil(Math.max(1, this.crValue) / 4) + 1;
     }
 
     protected get attacks(): Map<string, ISheetAction>
@@ -357,7 +347,7 @@ export class StatSheet
         const m = new Map();
         for (const [stat, [saveProf, saveBonus]] of this.saveProficiencies.entries()) {
             m.set(stat,
-                  (m.has(stat) ? m.get(stat) : this.stats.get(stat).mod) + this.pb.mod(saveProf) + saveBonus);
+                  (m.has(stat) ? m.get(stat) : statMod(this.stats.get(stat))) + pbMod(this.pb, saveProf)  + saveBonus);
         }
         return m;
     }
@@ -367,7 +357,7 @@ export class StatSheet
         for (const [skill, [saveProf, saveBonus]] of this.skillProficiencies.entries()) {
             const stat = StatForSkill.get(skill);
             m.set(skill,
-                  (m.has(skill) ? m.get(skill) : this.stats.get(stat).mod) + this.pb.mod(saveProf) + saveBonus);
+                  (m.has(skill) ? m.get(skill) : statMod(this.stats.get(stat))) + pbMod(this.pb, saveProf) + saveBonus);
         }
         return m;
     }

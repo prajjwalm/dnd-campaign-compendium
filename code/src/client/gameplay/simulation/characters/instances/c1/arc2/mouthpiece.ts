@@ -7,9 +7,9 @@ export function setupMouthpiece()
 
     c.core.name = "Troupe Mouthpiece";
     c.core.imgPath = "character_tokens/C1/Arc2/ahrendts.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
-
     c.card.addCardTag('M');
     c.card.addCardTag(`Deceased`);
     c.card.addCardTag('From | Materia / Shadowfell / Ruin');
@@ -25,6 +25,6 @@ export function setupMouthpiece()
       Was killed by a group of adventurers and ${Character.get(NpcID.Lucian).createLink("Solitare")} but he had already 
       accomplished what his master needed...`;
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
+
 }

@@ -1,9 +1,7 @@
-import {PcIndex}       from "../../data/pcIndex";
-import {
-    Character
-}                      from "../../simulation/characters/Character";
-import {NpcID}         from "../../data/npcIndex";
-import {GameTimestamp} from "../../GameTimestamp";
+import {NpcID}               from "../../data/npcIndex";
+import {PcIndex}             from "../../data/pcIndex";
+import {GameTimestamp}       from "../../GameTimestamp";
+import {Character}           from "../../simulation/characters/Character";
 import {PositiveEmotion}     from "../PositiveEmotion";
 import {addInteractionEvent} from "./s9";
 
@@ -12,7 +10,7 @@ export function sessionOpinionEvents06()
 {
     addInteractionEvent(
         NpcID.Erica,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 6, 0),
         "Huh that was quite a shove. But given how polite they were in " +
         "asking if they could visit our garden yesterday, I can only " +
@@ -22,7 +20,7 @@ export function sessionOpinionEvents06()
 
     addInteractionEvent(
         NpcID.Erica,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 6, 6, 30),
         "<span style='font-size: 11px'>The way Aurelia's owl was staring after me, hiding in the " +
         "bush until I saw it, then flying off - I'm sure of it. Probably one of her " +

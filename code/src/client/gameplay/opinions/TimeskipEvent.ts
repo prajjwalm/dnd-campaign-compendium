@@ -1,5 +1,5 @@
-import {EQ}            from "../../common/common";
-import {GameTimestamp} from "../GameTimestamp";
+import {EQ}                               from "../../common/common";
+import {GameTimestamp}                    from "../GameTimestamp";
 import {NegativeEmotion, PositiveEmotion} from "./PositiveEmotion";
 import {RenderableEvent}                  from "./RenderableEvent";
 

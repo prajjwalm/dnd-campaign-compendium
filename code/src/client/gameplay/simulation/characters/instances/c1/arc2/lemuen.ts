@@ -7,9 +7,9 @@ export function setupLemuen()
 
     c.core.name = "Lemuen";
     c.core.imgPath = "character_tokens/C1/Arc2/lemuen.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
-
     c.card.addCardTag('Deceased');
     c.card.addCardTag('F124');
     c.card.addCardTag('From | Ruin');
@@ -26,6 +26,5 @@ export function setupLemuen()
       very few individuals would know her full life story - probably only Mostima. And yet, one adventurer did begin
       to bond with a part of her left behind after she died, inheriting her skills and small pieces of her memories.`;
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
 }

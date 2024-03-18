@@ -1,22 +1,16 @@
-import {GameTimestamp}         from "../../../GameTimestamp";
-import {NpcInteractionEvent}   from "../../../opinions/NpcInteractionEvent";
-import {NpcOpinion}            from "../../../opinions/NpcOpinions";
-import {PositiveEmotion}       from "../../../opinions/PositiveEmotion";
-import {arc21OpinionEvents}    from "../../../opinions/sessions/arc_21";
-import {arc22OpinionEvents}    from "../../../opinions/sessions/arc_22";
-import {arc23OpinionEvents}    from "../../../opinions/sessions/arc_23";
-import {TimeskipEvent}         from "../../../opinions/TimeskipEvent";
-import {getEnumIterator}       from "../../../../common/common";
-import {PcIndex, PcTokenNames} from "../../../data/pcIndex";
-import {DSkill}                from "../../../data/constants";
-import {NpcID}                 from "../../../data/npcIndex";
-import {IDOMGenerator}         from "../../../IDomGenerator";
-import {Character}             from "../Character";
-import {BaseAspect}            from "./BaseAspect";
-import {ICore}                 from "./ICore";
-import {IDSkills}              from "./IDSkills";
-import {IOpinionated}             from "./IOpinionated";
-import {IOpinionatedFactory}    from "./IOpinionatedFactory";
+import {getEnumIterator}        from "../../../../common/common";
+import {DSkill}                 from "../../../data/constants";
+import {NpcID}                  from "../../../data/npcIndex";
+import {PcIndex, PcTokenNames}  from "../../../data/pcIndex";
+import {GameTimestamp}          from "../../../GameTimestamp";
+import {NpcInteractionEvent}    from "../../../opinions/NpcInteractionEvent";
+import {NpcOpinion}             from "../../../opinions/NpcOpinions";
+import {PositiveEmotion}        from "../../../opinions/PositiveEmotion";
+import {arc21OpinionEvents}     from "../../../opinions/sessions/arc_21";
+import {arc22OpinionEvents}     from "../../../opinions/sessions/arc_22";
+import {arc23OpinionEvents}     from "../../../opinions/sessions/arc_23";
+import {sessionOpinionEvents10} from "../../../opinions/sessions/s10";
+import {sessionOpinionEvents11} from "../../../opinions/sessions/s11";
 import {sessionOpinionEvents02} from "../../../opinions/sessions/s2";
 import {sessionOpinionEvents03} from "../../../opinions/sessions/s3";
 import {sessionOpinionEvents04} from "../../../opinions/sessions/s4";
@@ -25,8 +19,11 @@ import {sessionOpinionEvents06} from "../../../opinions/sessions/s6";
 import {sessionOpinionEvents07} from "../../../opinions/sessions/s7";
 import {sessionOpinionEvents08} from "../../../opinions/sessions/s8";
 import {sessionOpinionEvents09} from "../../../opinions/sessions/s9";
-import {sessionOpinionEvents10} from "../../../opinions/sessions/s10";
-import {sessionOpinionEvents11} from "../../../opinions/sessions/s11";
+import {TimeskipEvent}          from "../../../opinions/TimeskipEvent";
+import {Character}              from "../Character";
+import {BaseAspect}             from "./BaseAspect";
+import {IOpinionated}           from "./IOpinionated";
+import {IOpinionatedFactory}    from "./IOpinionatedFactory";
 
 
 /**
@@ -35,8 +32,7 @@ import {sessionOpinionEvents11} from "../../../opinions/sessions/s11";
 export class OpinionAspect
     extends BaseAspect
     implements IOpinionated,
-               IOpinionatedFactory,
-               IDOMGenerator
+               IOpinionatedFactory
 {
     /**
      * Setups up the opinion table element after adding the various pc-npc
@@ -101,16 +97,6 @@ export class OpinionAspect
     }
 
     /**
-     * Reference to the {@link ICore} aspect of the character.
-     */
-    private readonly core: ICore;
-
-    /**
-     * Reference to the {@link IDSkills} aspect of the character.
-     */
-    private readonly dSkills: IDSkills;
-
-    /**
      * The opinions that this NPC holds towards the various pcs.
      */
     private opinions: Map<PcIndex, NpcOpinion>;
@@ -126,9 +112,6 @@ export class OpinionAspect
     constructor(c: Character)
     {
         super(c);
-
-        this.core         = c;
-        this.dSkills      = c;
         this._opinionated = false;
         this.opinions     = null;
     }
@@ -166,7 +149,7 @@ export class OpinionAspect
         return `
             <div class='simple_table__row'>
                 <div class='simple_table__row__cell character_token'>
-                    <img src="${this.core.imgPath}" alt="[NULL]">
+                    <img src="${this.c.imgPath}" alt="[NULL]">
                 </div>
                 ${opinionStrings.join("")}
             </div>
@@ -239,7 +222,7 @@ export class OpinionAspect
         if (val) {
             this.opinions = new Map();
             for (const pc of getEnumIterator(PcIndex) as Generator<PcIndex>) {
-                this.opinions.set(pc, new NpcOpinion(this.id, pc));
+                this.opinions.set(pc, new NpcOpinion(this.c.id, pc));
             }
         }
     }
@@ -249,6 +232,6 @@ export class OpinionAspect
      */
     public get passiveDeception(): number
     {
-        return 10 + this.dSkills.getSkillMod(DSkill.Deception)[0];
+        return 10 + this.c.getSkillMod(DSkill.Deception)[0];
     }
 }

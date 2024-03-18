@@ -7,6 +7,7 @@ export function setupPetra()
 
     c.core.name = "Petra";
     c.core.imgPath = "character_tokens/C2/Arc1/Petra.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(2, 1);
 
@@ -14,7 +15,5 @@ export function setupPetra()
     c.card.addCardTag("CR 1");
 
     c.card.summary = () => `???`;
-
-    c.opinions.isOpinionated = false;
-
+    c.card.finalize();
 }

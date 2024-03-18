@@ -7,9 +7,9 @@ export function setupShimaken()
 
     c.core.name = "Ken Shima";
     c.core.imgPath = "character_tokens/C1/Arc2/shimaken.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
-
     c.card.addCardTag(`Deceased`);
     c.card.addCardTag('M72');
     c.card.addCardTag('From | Ruin');
@@ -29,6 +29,5 @@ export function setupShimaken()
     best at fighting but maintained an unshakable, and contagious, aura of hope and optimism despite having seen 
     his fair share of atrocities and horrors. Organized a 'resistance' aimed at making leaving the castle possible.`;
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
 }

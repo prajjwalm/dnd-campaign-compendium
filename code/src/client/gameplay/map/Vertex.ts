@@ -1,6 +1,6 @@
 import {BaseUniqueDOMGenerator} from "../BaseUniqueDOMGenerator";
+import {IUniqueDOMGenerator}    from "../IUniqueDOMGenerator";
 import {Edge}                   from "./Edge";
-import {IUniqueDOMGenerator} from "../IUniqueDOMGenerator";
 
 
 /**

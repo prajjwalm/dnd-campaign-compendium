@@ -7,9 +7,9 @@ export function setupShamare()
 
     c.core.name = "Shamare";
     c.core.imgPath = "character_tokens/C1/Arc2/shamare.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
-
     c.card.addCardTag('Deceased?');
     c.card.addCardTag('F52');
     c.card.addCardTag('From | Ruin');
@@ -28,6 +28,5 @@ export function setupShamare()
       ${Character.get(NpcID.Mouthpiece).createLink("last employer")} after she had completed a certain contract supposedly
       involving a lock. Shamare finally gave up her quest for vengeance when she realized she was being manipulated.`;
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
 }

@@ -2,9 +2,7 @@ import {getEnumIterator}                       from "../../../common/common";
 import {NpcID}                                 from "../../data/npcIndex";
 import {PcIndex}                               from "../../data/pcIndex";
 import {GameTimestamp}                         from "../../GameTimestamp";
-import {
-    Character
-}                                              from "../../simulation/characters/Character";
+import {Character}                             from "../../simulation/characters/Character";
 import {PositiveEmotion}                       from "../PositiveEmotion";
 import {addInteractionEvent, addTimeSkipEvent} from "./s9";
 
@@ -15,7 +13,7 @@ export function sessionOpinionEvents05()
         NpcID.Dawn,
         [
             PcIndex.ID_HELIOS,
-            PcIndex.ID_AURELIA
+
         ],
         new GameTimestamp(0, 5, 17, 30),
         "It seems they're wreaking havoc on the paintbrushes.",
@@ -33,7 +31,7 @@ export function sessionOpinionEvents05()
 
     addInteractionEvent(
         NpcID.Dawn,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 5, 17, 35),
         "Got assaulted by my innocent canvas. So cute.",
         new Map([[PositiveEmotion.Affection, 2]])
@@ -41,7 +39,7 @@ export function sessionOpinionEvents05()
 
     addInteractionEvent(
         NpcID.Dawn,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 5, 17, 35),
         "Has a good imagination and a poetic painting in mind.",
         new Map([[PositiveEmotion.Respect, 2]])
@@ -49,7 +47,7 @@ export function sessionOpinionEvents05()
 
     addTimeSkipEvent(
         NpcID.Dusk,
-        [PcIndex.ID_AURELIA, PcIndex.ID_HELIOS],
+        [PcIndex.ID_HELIOS],
         GameTimestamp.fromDays(2),
         GameTimestamp.fromDays(5),
         "",
@@ -69,7 +67,7 @@ export function sessionOpinionEvents05()
 
     addInteractionEvent(
         NpcID.Dusk,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 5, 17, 40),
         "Know your place. It is not you the canvas beckons.",
         new Map([
@@ -160,7 +158,6 @@ export function sessionOpinionEvents05()
         addInteractionEvent(
             npc,
             [
-                PcIndex.ID_AURELIA,
                 PcIndex.ID_HELIOS,
                 PcIndex.ID_CYRION
             ],
@@ -180,7 +177,7 @@ export function sessionOpinionEvents05()
 
     addInteractionEvent(
         NpcID.Erica,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 5, 19, 25),
         "Seemed to be interested in books and literature in all forms.",
         new Map([[PositiveEmotion.Respect, 1]]),
@@ -188,7 +185,7 @@ export function sessionOpinionEvents05()
 
     addInteractionEvent(
         NpcID.Erica,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 5, 19, 30),
         "Nudged me to write. Was being genuine when she mentioned she would " +
         "love to read something I came up with.",
@@ -201,7 +198,7 @@ export function sessionOpinionEvents05()
 
     addInteractionEvent(
         NpcID.Dusk,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 5, 19, 30),
         "<em style='font-size: 11px'>(Musing) " +
         "Books belong to the same world as works of art. Like paintings, the " +
@@ -217,7 +214,7 @@ export function sessionOpinionEvents05()
 
     addInteractionEvent(
         NpcID.Coroto,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 5, 19, 30),
         "What's her game here? Why's this strange elf woman encouraging " +
         "my wife so? Just another fan of literature? Or is there some " +
@@ -311,7 +308,7 @@ export function sessionOpinionEvents05()
 
     addInteractionEvent(
         NpcID.Hina,
-        [PcIndex.ID_AURELIA],
+        [],
         originalTimestamp,
         "Hmm... a spellcaster... they're typically the first to be targeted, " +
         "and for good reason. Fights are always safer with their throats slit... " +
@@ -349,7 +346,7 @@ export function sessionOpinionEvents05()
 
     addInteractionEvent(
         NpcID.Dawn,
-        [PcIndex.ID_AURELIA],
+        [],
         originalTimestamp,
         "Fireball after fireball. Teleporting roof-to-roof in the " +
         "shadows. All for these poor inklings. Hehe, aren't we dramatic?",
@@ -638,7 +635,7 @@ export function combatMemories(memoriesErased, applicableTimestamp)
 
         addInteractionEvent(
             NpcID.Erica,
-            [PcIndex.ID_AURELIA],
+            [],
             applicableTimestamp,
             "I suspected she was a powerful spellcaster, but damn, I don't " +
             "think I, as an Ursine noble, met more than a handful of mages who could conjure " +
@@ -689,7 +686,7 @@ export function combatMemories(memoriesErased, applicableTimestamp)
             if (!exclusionListA.includes(npcIndex)) {
                 addInteractionEvent(
                     npcIndex,
-                    [PcIndex.ID_AURELIA],
+                    [],
                     applicableTimestamp,
                     "Stood tall in the fearsome blizzard and granted us " +
                     "cover from the aerial roof.",

@@ -1,30 +1,27 @@
-import {
-    DSkill,
-    Hidden,
-    Prof
-}                  from "../../../../../data/constants";
-import {NpcID}     from "../../../../../data/npcIndex";
-import {Character} from "../../../Character";
+import {DSkill, Hidden} from "../../../../../data/constants";
+import {NpcID}          from "../../../../../data/npcIndex";
+import {Character}      from "../../../Character";
 
 export function setupCecilia()
 {
-    const cecilia = new Character(NpcID.Cecelia);
+    const c = new Character(NpcID.Cecelia);
 
-    cecilia.core.name = "Cecilia";
-    cecilia.core.imgPath = "character_tokens/C2/Arc1/Cecilia.png";
+    c.core.name = "Cecilia";
+    c.core.imgPath = "character_tokens/C2/Arc1/Cecilia.png";
+    c.core.finalize();
 
     // Setup D&D stats.
-    cecilia.dStats.initializeStats(6, 16, 8, 10, 14, 18);
-    cecilia.dStats.pb = Prof.get(3);
+    c.dStats.initializeStats(6, 16, 8, 10, 14, 18);
+    c.dStats.pb = 3;
+    c.dStats.finalize();
 
-    cecilia.dSKills.setSkillProficiency(DSkill.Insight, Hidden);
-    //todo
-    cecilia.dSKills.finalizeSkills();
+    c.dSkills.setSkillProficiency(DSkill.Insight, Hidden);
+    c.dSkills.finalize();
 
-    cecilia.card.setCampaignArc(2, 1);
-
-    cecilia.card.addCardTag("F11");
-    cecilia.card.addCardTag("CR 3");
+    c.card.setCampaignArc(2, 1);
+    c.card.addCardTag("F11");
+    c.card.addCardTag("CR 3");
+    c.card.finalize();
 
     // [NpcPersonalityTag.Conciliatory, 3],
     // [NpcPersonalityTag.Naive, 3],
@@ -32,5 +29,6 @@ export function setupCecilia()
     // [NpcPersonalityTag.Kind, 1],
     // [NpcPersonalityTag.Depressive, 1],
     // [NpcPersonalityTag["Abhors Violence"], 1],
-    cecilia.opinions.isOpinionated = true;
+    c.opinions.isOpinionated = true;
+    c.opinions.finalize();
 }

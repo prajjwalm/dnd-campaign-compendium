@@ -1,9 +1,3 @@
-
-import {
-    Prof,
-    DSkill,
-    Hidden
-}                  from "../../../../../data/constants";
 import {NpcID}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
@@ -14,8 +8,7 @@ export function setupShuo()
 
     c.core.name = "Shuo";
     c.core.imgPath = "character_tokens/C2/Arc2/Shuo.png";
-
-    c.opinions.isOpinionated = false;
+    c.core.finalize();
 
     c.card.setCampaignArc(2, 2);
     c.card.addCardTag("M");
@@ -24,4 +17,5 @@ export function setupShuo()
     c.card.addCardTag(`<span>Primordial | Outsider <span class='verbose'>(1<sup>st</sup> Fragment of Sui)</span></span>`);
     c.card.addCardTag(`The First Martial Artist`);
     c.card.addCardTag("CR | 24 / 28");
+    c.card.finalize();
 }

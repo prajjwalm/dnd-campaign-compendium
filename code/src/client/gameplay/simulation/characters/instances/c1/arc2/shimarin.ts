@@ -1,5 +1,5 @@
-import {NpcID}         from "../../../../../data/npcIndex";
-import {Character}     from "../../../Character";
+import {NpcID}     from "../../../../../data/npcIndex";
+import {Character} from "../../../Character";
 
 export function setupShimarin()
 {
@@ -7,6 +7,7 @@ export function setupShimarin()
 
     c.core.name = "Rin Shima";
     c.core.imgPath = "character_tokens/C1/Arc2/shimarin.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
 
@@ -182,6 +183,5 @@ there was one other - a single Honorspren who stood next to her, waiting, and ha
     // [NpcPersonalityTag.Ascetic, 2],
     // [NpcPersonalityTag.Stern, 1],
     // [NpcPersonalityTag.Kind, 1],
-    c.opinions.isOpinionated = false;
-
+    c.card.finalize();
 }

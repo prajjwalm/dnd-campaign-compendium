@@ -7,9 +7,9 @@ export function setupGen()
 
     c.core.name = "Gen";
     c.core.imgPath = "character_tokens/C1/Arc2/gen.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
-
     c.card.addCardTag('');
     c.card.addCardTag('From | Materia / Ruin / Devotion');
     c.card.addCardTag(`Race | Human`);
@@ -26,6 +26,5 @@ export function setupGen()
 
     c.card.primaryImageTitle = "Child";
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
 }

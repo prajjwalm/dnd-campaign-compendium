@@ -1,33 +1,34 @@
-import {Prof}      from "../../../../../data/constants";
 import {NpcID}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupLucian()
 {
-    const lucian = new Character(NpcID.Lucian);
+    const c = new Character(NpcID.Lucian);
 
-    lucian.core.name = "Lucian";
-    lucian.core.imgPath = "character_tokens/C1/Arc1/lucian_norm.png";
+    c.core.name = "Lucian";
+    c.core.imgPath = "character_tokens/C1/Arc1/lucian_norm.png";
+    c.core.finalize();
 
-    lucian.dStats.pb = Prof.get(7);
-    lucian.dStats.initializeStats(13, 25, 7, 13, 5, 27);
+    c.dStats.pb = 7;
+    c.dStats.initializeStats(13, 25, 7, 13, 5, 27);
+    c.dStats.finalize();
 
-    lucian.card.setCampaignArc(1, 1);
-    lucian.card.addCardTag("M210");
-    lucian.card.addCardTag("From | Ruin");
-    lucian.card.addCardTag("Allegiance | Ruin / Troupe Leader");
-    lucian.card.addCardTag("Race | Feline");
-    lucian.card.addCardTag("<span class='verbose'>Echo</span> Warrior / <span class='verbose'>Assassin</span> Rogue / ...");
+    c.card.setCampaignArc(1, 1);
+    c.card.addCardTag("M210");
+    c.card.addCardTag("From | Ruin");
+    c.card.addCardTag("Allegiance | Ruin / Troupe Leader");
+    c.card.addCardTag("Race | Feline");
+    c.card.addCardTag("<span class='verbose'>Echo</span> Warrior / <span class='verbose'>Assassin</span> Rogue / ...");
     // Grave cleric, chrono mage
-    lucian.card.addCardTag("Nightblood | Ominous Melody");
-    lucian.card.addCardTag("Time Command");
-    lucian.card.addCardTag("Aberrant Fused (???)");
-    lucian.card.addCardTag("<i>He who quiets</i>");
-    lucian.card.addCardTag("CR | 23");
-    lucian.card.primaryImageTitle = "Phantom";
-    lucian.card.addAlternateImage("Solitaire", "character_tokens/C1/Arc1/lucian_mad.png");
+    c.card.addCardTag("Nightblood | Ominous Melody");
+    c.card.addCardTag("Time Command");
+    c.card.addCardTag("Aberrant Fused (???)");
+    c.card.addCardTag("<i>He who quiets</i>");
+    c.card.addCardTag("CR | 23");
+    c.card.primaryImageTitle = "Phantom";
+    c.card.addAlternateImage("Solitaire", "character_tokens/C1/Arc1/lucian_mad.png");
 
-    lucian.card.summary = () =>`
+    c.card.summary = () =>`
     "This darkness is a refuge, a throne, and paradise. The spirits of the dead have never left, and I’ve cursed 
      the world from atop their bones... Seeing me as I am now, do you still want to hear my song? Do you still
      dare... to stand before me?"<br/>
@@ -39,8 +40,5 @@ export function setupLucian()
      his curse. Following which he stealthily assassinated ${Character.get(NpcID.TraitorOthello).createLink("The Traitor")}, who was 
      preoccupied in fighting 'Agents of the Fifth', thus freeing the Primordial nightmares.
     `;
-
-    lucian.opinions.isOpinionated = false;
-
-
+    c.card.finalize();
 }

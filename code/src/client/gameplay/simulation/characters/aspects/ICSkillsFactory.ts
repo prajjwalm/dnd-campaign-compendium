@@ -1,13 +1,12 @@
-import {
-    CSkill,
-    VisibilityLevel
-} from "../../../data/constants";
+import {CSkill, VisibilityLevel} from "../../../data/constants";
+import {IBaseAspectFactory}      from "./IBaseAspectFactory";
 
 
 /**
  * The default factory method for setting up an {@link ICSkills} object.
  */
 export interface ICSkillsFactory
+    extends IBaseAspectFactory
 {
     /**
      * Add / Override value in the given skill.
@@ -20,10 +19,4 @@ export interface ICSkillsFactory
      * Add / Override value in the given skills.
      */
     setSkillValues(data: [CSkill, number, VisibilityLevel][]);
-
-    /**
-     * Once called, we can no longer edit the skills in any way. This is to
-     * ensure we are not updating the skills via unexpected references.
-     */
-    finalizeSkills();
 }

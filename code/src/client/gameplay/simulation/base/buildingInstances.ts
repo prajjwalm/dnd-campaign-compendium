@@ -1,9 +1,3 @@
-import {CSkill}    from "../../data/constants";
-import {NpcID}     from "../../data/npcIndex";
-import {Rarity}    from "../../data/Rarity";
-import {Character} from "../characters/Character";
-import {Building}  from "./Building";
-
 const buildingInstances = [
     // new Building(
     //     "Inn",

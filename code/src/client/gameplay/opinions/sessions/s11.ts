@@ -1,9 +1,7 @@
-import {PcIndex}       from "../../data/pcIndex";
-import {
-    Character
-}                      from "../../simulation/characters/Character";
-import {NpcID}         from "../../data/npcIndex";
-import {GameTimestamp} from "../../GameTimestamp";
+import {NpcID}               from "../../data/npcIndex";
+import {PcIndex}             from "../../data/pcIndex";
+import {GameTimestamp}       from "../../GameTimestamp";
+import {Character}           from "../../simulation/characters/Character";
 import {PositiveEmotion}     from "../PositiveEmotion";
 import {addInteractionEvent} from "./s9";
 
@@ -364,7 +362,6 @@ export function sessionOpinionEvents11()
             npc,
             [
                 PcIndex.ID_HELIOS,
-                PcIndex.ID_AURELIA,
                 PcIndex.ID_CYRION,
             ],
             aftermathTime,
@@ -377,7 +374,6 @@ export function sessionOpinionEvents11()
         NpcID.Jaye,
         [
             PcIndex.ID_HELIOS,
-            PcIndex.ID_AURELIA,
             PcIndex.ID_CYRION,
         ],
         aftermathTime,
@@ -396,7 +392,6 @@ export function sessionOpinionEvents11()
         NpcID.Dawn,
         [
             PcIndex.ID_HELIOS,
-            PcIndex.ID_AURELIA,
             PcIndex.ID_CYRION,
         ],
         aftermathTime,

@@ -1,9 +1,6 @@
-import {Dice}   from "../../../rolling/Dice";
-import {
-    Condition, DStat, DamageType, Prof, ProficiencyLevel, Sense, Speed,
-    StatValue
-}               from "../../../data/constants";
-import {Action} from "../../action/Action";
+import {Condition, DamageType, DStat, ProficiencyLevel, Sense, Speed} from "../../../data/constants";
+import {Dice}                                                         from "../../../rolling/Dice";
+import {Action}                                                       from "../../action/Action";
 
 
 /**
@@ -18,8 +15,8 @@ import {Action} from "../../action/Action";
 export interface ICombat
 {
     get ac(): number;
-    get stats(): ReadonlyMap<DStat, StatValue>;
-    get pb(): Prof;
+    get stats(): ReadonlyMap<DStat, number>;
+    get pb(): number;
     get hpDice(): ReadonlyMap<Dice, number>;
     get hp(): number;
     get speeds(): ReadonlyMap<Speed, number>;
@@ -35,7 +32,11 @@ export interface ICombat
 
     get passivePerception(): number;
 
-    // We don't need CR here. That's a sheet only (user-facing) thing.
+    /**
+     * The CR of the creature. We need this to estimate its opponents to measure
+     * threat levels.
+     */
+    get cr(): number;
 
     /**
      * Damage taken is multiplied by 100% - res.

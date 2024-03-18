@@ -1,26 +1,14 @@
-import {
-    CSkill,
-    DSkill, Era,
-    Prof,
-    ProficiencyLevel, StatForSkill,
-    VisibilityLevel
-}                                                from "../../../data/constants";
-import {
-    Rarity, Rating
-}                                                from "../../../data/Rarity";
-import {NpcID}                                   from "../../../data/npcIndex";
-import {IDOMGenerator}                           from "../../../IDomGenerator";
-import {wrapCSkill, wrapDSkill}                  from "../../action/Wrap";
-import {OperatorProfiles}                        from "../../base/Operator";
-import {Character}                               from "../Character";
-import {Morale, MoraleEffects, NpcMoraleEffects} from "../Morale";
-import {BaseAspect}                              from "./BaseAspect";
-import {ICore}                                   from "./ICore";
-import {ICSkills}                                from "./ICSkills";
-import {IDSkills}                                from "./IDSkills";
-import {IDStats}                                 from "./IDStats";
-import {IOperator}                               from "./IOperator";
-import {CombatRatingMetric, IOperatorFactory}    from "./IOperatorFactory";
+import {CSkill, DSkill, Era, ProficiencyLevel, StatForSkill, VisibilityLevel} from "../../../data/constants";
+import {NpcID}                                                                from "../../../data/npcIndex";
+import {Rarity, Rating}                                                       from "../../../data/Rarity";
+import {IDOMGenerator}                                                        from "../../../IDomGenerator";
+import {wrapCSkill, wrapDSkill}                                               from "../../action/Wrap";
+import {OperatorProfiles}                                                     from "../../base/Operator";
+import {Character}                                                            from "../Character";
+import {Morale, MoraleEffects, NpcMoraleEffects}                              from "../Morale";
+import {BaseAspect}                                                           from "./BaseAspect";
+import {IOperator}                                                            from "./IOperator";
+import {CombatRatingMetric, IOperatorFactory}                                 from "./IOperatorFactory";
 
 
 export class OperatorAspect
@@ -34,14 +22,6 @@ export class OperatorAspect
     public ratings: CombatRatingMetric;
 
     public readonly notableStuff: [string, string][];
-
-    private readonly core: ICore;
-
-    private readonly dStats: IDStats;
-
-    private readonly dSkills: IDSkills;
-
-    private readonly cSkills: ICSkills;
 
     private readonly _afflictions: string[];
 
@@ -57,10 +37,6 @@ export class OperatorAspect
     public constructor(c: Character)
     {
         super(c);
-        this.core = c;
-        this.dStats = c;
-        this.dSkills = c;
-        this.cSkills = c;
 
         this.notableStuff = [];
         this._afflictions = [];
@@ -115,13 +91,13 @@ export class OperatorAspect
         const dSkillsByRating: Map<Rating, DSkill[]> = new Map();
         const cSkillsByRating: Map<Rating, CSkill[]> = new Map();
 
-        for (const [skill, rating] of this.dSkills.dSkillRatings.entries()) {
+        for (const [skill, rating] of this.c.dSkillRatings.entries()) {
             if (!dSkillsByRating.has(rating)) {
                 dSkillsByRating.set(rating, []);
             }
             dSkillsByRating.get(rating).push(skill);
         }
-        for (const [skill, rating] of this.cSkills.cSkillRatings.entries()) {
+        for (const [skill, rating] of this.c.cSkillRatings.entries()) {
             if (!cSkillsByRating.has(rating)) {
                 cSkillsByRating.set(rating, []);
             }
@@ -176,10 +152,10 @@ export class OperatorAspect
 
         return `
             <div class="operator_screen">
-                <div class="operator_screen__title">Villager Profile: ${this.core.name} 
+                <div class="operator_screen__title">Villager Profile: ${this.c.name} 
                     <span class="operator_screen__back"><i class="fa-solid fa-arrow-left"></i></span>
                 </div>
-                <div class="operator_screen__icon"><img src="${this.core.imgPath}" alt=""/></div>
+                <div class="operator_screen__icon"><img src="${this.c.imgPath}" alt=""/></div>
                 <div class="operator_screen__ratings icon_table">
                     <div class="icon_table__slot">
                         <div class="icon_table__slot__icon"><i class="fa-solid fa-swords"></i></div>
@@ -268,7 +244,7 @@ export class OperatorAspect
 
     public finalize(): void
     {
-        OperatorProfiles.set(this.id, this.generateDOMString());
+        OperatorProfiles.set(this.c.id, this.generateDOMString);
     }
 
     /**
@@ -287,13 +263,13 @@ export class OperatorAspect
         this._morale = value;
         const effects = MoraleEffects.get(value);
         if (effects.has(NpcMoraleEffects.ProficiencyBonusModifier)) {
-            this.character.dStats.pb =
-                Prof.get(this.dStats.pb.mod() + effects.get(NpcMoraleEffects.ProficiencyBonusModifier));
+            this.c.dStats.pb =
+                (this.c.pb + effects.get(NpcMoraleEffects.ProficiencyBonusModifier));
         }
         if (effects.has(NpcMoraleEffects.SkillModifier)) {
-            for (let [skill, [num, vis]] of this.dSkills.upgradedSkills) {
-                num -= this.dStats.mod(StatForSkill.get(skill));
-                this.character.dSKills.setSkillProficiency(
+            for (let [skill, [num, vis]] of this.c.upgradedSkills) {
+                num -= this.c.mod(StatForSkill.get(skill));
+                this.c.dSkills.setSkillProficiency(
                     skill,
                     vis,
                     ProficiencyLevel.None,
@@ -316,7 +292,7 @@ export class OperatorAspect
      */
     public get notableDSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
     {
-        return this.dSkills.upgradedSkills;
+        return this.c.upgradedSkills;
     }
 
     public era: Era;

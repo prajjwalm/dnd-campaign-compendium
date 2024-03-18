@@ -7,6 +7,7 @@ export function setupVerrader()
 
     c.core.name = "Verrader";
     c.core.imgPath = "character_tokens/C1/Arc2/verrader.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
 
@@ -28,6 +29,5 @@ export function setupVerrader()
       ${Character.get(NpcID.Shimarin).createLink("Shimarin")}, in magma. Died at the hands of the Steel Inquisitors, 
       his soul burnt to power Rin's hemalurgy.`;
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
 }

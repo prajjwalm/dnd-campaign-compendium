@@ -7,9 +7,9 @@ export function setupOthello()
 
     c.core.name = "The traitor";
     c.core.imgPath = "character_tokens/C1/Arc2/othello.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
-
     c.card.addCardTag('Deceased');
     c.card.addCardTag('M5020');
     c.card.addCardTag('From | Materia / Preservation / Ruin');
@@ -32,6 +32,5 @@ export function setupOthello()
       with him, however, the mists touched him causing him to fully become himself again. Unfortunately, this was but
       for a moment since soon after he was assassinated by ${Character.get(NpcID.Lucian).createLink("Solitaire")}.`;
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
 }

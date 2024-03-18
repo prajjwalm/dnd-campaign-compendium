@@ -1,9 +1,7 @@
-import {PcIndex}       from "../../data/pcIndex";
-import {
-    Character
-}                      from "../../simulation/characters/Character";
-import {NpcID}         from "../../data/npcIndex";
-import {GameTimestamp} from "../../GameTimestamp";
+import {NpcID}               from "../../data/npcIndex";
+import {PcIndex}             from "../../data/pcIndex";
+import {GameTimestamp}       from "../../GameTimestamp";
+import {Character}           from "../../simulation/characters/Character";
 import {PositiveEmotion}     from "../PositiveEmotion";
 import {addInteractionEvent} from "./s9";
 

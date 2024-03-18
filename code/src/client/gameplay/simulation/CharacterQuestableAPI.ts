@@ -1,5 +1,6 @@
 import {IQuestable} from "./IQuestable";
 
+
 /**
  * Takes a character and applies a Questable API wrapper onto it.
  */

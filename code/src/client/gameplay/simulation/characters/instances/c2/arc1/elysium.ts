@@ -1,95 +1,46 @@
-import {
-    Activation,
-    AdventurerClass,
-    CreatureSize,
-    CRValue,
-    CSkill,
-    DamageType,
-    DSkill,
-    DStat,
-    Era,
-    Hidden,
-    Prof,
-    ProficiencyLevel,
-    Speed,
-    Vague
-}                                 from "../../../../../data/constants";
-import {NpcID}                    from "../../../../../data/npcIndex";
-import {D1, D4, D6}               from "../../../../../rolling/Dice";
-import {Action}                   from "../../../../action/Action";
-import {wrapDamageType, wrapRoll} from "../../../../action/Wrap";
-import {Character}                from "../../../Character";
-import {Morale}                   from "../../../Morale";
+import {Activation, AdventurerClass, CreatureSize, CSkill, DamageType, DSkill, DStat, Era, Hidden, ProficiencyLevel, Speed, Vague} from "../../../../../data/constants";
+import {NpcID}                                                                                                                     from "../../../../../data/npcIndex";
+import {D1, D4, D6}                                                                                                                from "../../../../../rolling/Dice";
+import {Action}                                                                                                                    from "../../../../action/Action";
+import {wrapDamageType, wrapRoll}                                                                                                  from "../../../../action/Wrap";
+import {Character}                                                                                                                 from "../../../Character";
+import {Morale}                                                                                                                    from "../../../Morale";
 
 export function setupElysium()
 {
-    const elysium = new Character(NpcID.Elysium);
+    const c = new Character(NpcID.Elysium);
 
-    elysium.core.name = "Elysium";
-    elysium.core.imgPath = "character_tokens/C2/Arc1/Elysium.png";
+    c.core.name = "Elysium";
+    c.core.imgPath = "character_tokens/C2/Arc1/Elysium.png";
+    c.core.finalize();
 
-    elysium.card.setCampaignArc(2, 1);
+    c.card.setCampaignArc(2, 1);
 
-    elysium.card.addCardTag("M106 (33)");
-    elysium.card.addCardTag("CR 9");
-    elysium.card.addCardTag("Elite Messenger");
-    elysium.card.addCardTag("Honorary Saint");
-    elysium.card.addCardTag("Class | Artificer &times; Rogue");
-    elysium.card.addCardTag("Race | Human");
-    elysium.card.primaryImageTitle = "Casual Topographer";
-    elysium.card.addAlternateImage("Spec Ops", "character_tokens/C2/Arc1/ElysiumElite.png");
+    c.card.addCardTag("M106 (33)");
+    c.card.addCardTag("CR 9");
+    c.card.addCardTag("Elite Messenger");
+    c.card.addCardTag("Honorary Saint");
+    c.card.addCardTag("Class | Artificer &times; Rogue");
+    c.card.addCardTag("Race | Human");
+    c.card.primaryImageTitle = "Casual Topographer";
+    c.card.addAlternateImage("Spec Ops", "character_tokens/C2/Arc1/ElysiumElite.png");
+    c.card.finalize();
 
     // Setup D&D stats.
-    elysium.dStats.initializeStats( 8, 18, 10, 19, 18, 10);
-    elysium.dStats.pb = Prof.get(5);
+    c.dStats.initializeStats( 8, 18, 10, 19, 18, 10);
+    c.dStats.pb = 5;
+    c.dStats.finalize();
 
     // Setup D&D skills.
-    elysium.dSKills.setSkillProficiency(DSkill.Insight, Hidden);
-    elysium.dSKills.setSkillProficiency(DSkill.Investigation, Hidden);
-    elysium.dSKills.setSkillProficiency(DSkill.Medicine, Hidden);
-    elysium.dSKills.setSkillProficiency(DSkill.Stealth, Hidden);
-    elysium.dSKills.setSkillProficiency(DSkill.SlightOfHand, Hidden, ProficiencyLevel.Expert);
-    elysium.dSKills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Expert, 5);
+    c.dSkills.setSkillProficiency(DSkill.Insight, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Investigation, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Medicine, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Stealth, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.SlightOfHand, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Expert, 5);
+    c.dSkills.finalize();
 
-    elysium.opinions.isOpinionated = true;
-
-    elysium.operator.morale = Morale.Average;
-    elysium.dSKills.finalizeSkills();
-
-    elysium.operator.fatigue = 10;
-    elysium.operator.ratings = {
-        damage  : "C-",
-        control : "SS",
-        survival: "D",
-        pro     : "S",
-    };
-    elysium.operator.era = Era.Information;
-    elysium.operator.professions = ["Messenger / Logistics", "Messenger"];
-
-    elysium.operator.addNotableStuff("Major Damage Type", "Slashing / Piercing");
-    elysium.operator.addNotableStuff("Strong against", "Nothing really (by himself)");
-    elysium.operator.addNotableStuff("Combat Experience", "B Grade (5 years / in logistics)");
-    elysium.operator.addNotableStuff("Challenge Rating", "9");
-
-    elysium.operator.setChemistryWith(NpcID.Ezell, 31,
-                                      "(Boyfriend) During the course of his latest assignment in assisting the Saints, " +
-                                      "the two have been through a lot of perilous missions together - including some " +
-                                      "outside of professional scope (like finding a cure for Cecilia).");
-    elysium.operator.setChemistryWith(NpcID.Jordi, 17,
-                                      "Though Jordi doesn't remember, Elysium knows him from a time long ago...");
-    elysium.operator.setChemistryWith(NpcID.Dawn, 14,
-                                      "Was aware that she was in touch with the entity 'guarding' the village. He could see " +
-                                      "her burying sadness and strongly felt she was a good person, despite her secrets. " +
-                                      "His respect for her increased significantly after recent events.");
-    elysium.operator.setChemistryWith(NpcID.Hina, 13,
-                                      "Feels a strong sense of sympathy and a slight paternal instinct for her. Understands " +
-                                      "her situation and periodically smuggles stuff she needs. Also spoils her rotten.");
-    elysium.operator.setChemistryWith(NpcID.Cecelia, 11,
-                                      "Has known her from almost the day she was born. Is quite empathetic to her situation " +
-                                      "and feels she is too good a person to die so young. Also Ezell's concern for her has " +
-                                      "made him quite invested in her fate.");
-
-    elysium.cSkills.setSkillValues([
+    c.cSkills.setSkillValues([
         [CSkill.Accounting,              5,  Vague],
         [CSkill.Anthropology,            0,  Vague],
         [CSkill.Appraise,                0,  Vague],
@@ -109,7 +60,7 @@ export function setupElysium()
         [CSkill.LibraryUse,             20,  Vague],
         [CSkill.Locksmith,               0,  Vague],
         [CSkill.MechanicalRepair,       10,  Vague],
-        [CSkill.ModernMedicine, 0, Vague],
+        [CSkill.ModernMedicine,          0,  Vague],
         [CSkill.NaturalWorld,           10,  Vague],
         [CSkill.Navigate,               80,  Vague],
         [CSkill.Occult,                  5,  Vague],
@@ -151,20 +102,59 @@ export function setupElysium()
         [CSkill.Physics,                30,  Vague],
         [CSkill.Zoology,                 0,  Vague],
     ]);
+    c.cSkills.finalize();
 
-    elysium.combat.setSpeed(Speed.Walking, 30);
+    c.operator.morale = Morale.Average;
+    c.operator.fatigue = 10;
+    c.operator.ratings = {
+        damage  : "C-",
+        control : "SS",
+        survival: "D",
+        pro     : "S",
+    };
+    c.operator.era = Era.Information;
+    c.operator.professions = ["Messenger / Logistics", "Messenger"];
 
-    elysium.combat.setSave(DStat.Int);
-    elysium.combat.setSave(DStat.Wis);
-    elysium.combat.setSave(DStat.Cha);
+    c.operator.addNotableStuff("Major Damage Type", "Slashing / Piercing");
+    c.operator.addNotableStuff("Strong against", "Nothing really (by himself)");
+    c.operator.addNotableStuff("Combat Experience", "B Grade (5 years / in logistics)");
+    c.operator.addNotableStuff("Challenge Rating", "9");
 
-    elysium.combat.addClassLevels(AdventurerClass.Rogue, 4);
-    elysium.combat.addClassLevels(AdventurerClass.Artificer, 5);
-    elysium.combat.computeHP();
+    c.operator.setChemistryWith(NpcID.Ezell, 31,
+                                      "(Boyfriend) During the course of his latest assignment in assisting the Saints, " +
+                                      "the two have been through a lot of perilous missions together - including some " +
+                                      "outside of professional scope (like finding a cure for Cecilia).");
+    c.operator.setChemistryWith(NpcID.Jordi, 17,
+                                      "Though Jordi doesn't remember, Elysium knows him from a time long ago...");
+    c.operator.setChemistryWith(NpcID.Dawn, 14,
+                                      "Was aware that she was in touch with the entity 'guarding' the village. He could see " +
+                                      "her burying sadness and strongly felt she was a good person, despite her secrets. " +
+                                      "His respect for her increased significantly after recent events.");
+    c.operator.setChemistryWith(NpcID.Hina, 13,
+                                      "Feels a strong sense of sympathy and a slight paternal instinct for her. Understands " +
+                                      "her situation and periodically smuggles stuff she needs. Also spoils her rotten.");
+    c.operator.setChemistryWith(NpcID.Cecelia, 11,
+                                      "Has known her from almost the day she was born. Is quite empathetic to her situation " +
+                                      "and feels she is too good a person to die so young. Also Ezell's concern for her has " +
+                                      "made him quite invested in her fate.");
+    c.operator.finalize();
 
-    elysium.combat.setRes(DamageType.Piercing, 50);
+    c.opinions.isOpinionated = true;
+    c.opinions.finalize();
 
-    elysium.combat.addAction(new Action(
+    c.combat.setSpeed(Speed.Walking, 30);
+
+    c.combat.setSave(DStat.Int);
+    c.combat.setSave(DStat.Wis);
+    c.combat.setSave(DStat.Cha);
+
+    c.combat.addClassLevels(AdventurerClass.Rogue, 4);
+    c.combat.addClassLevels(AdventurerClass.Artificer, 5);
+    c.combat.computeHP();
+
+    c.combat.setRes(DamageType.Piercing, 50);
+
+    c.combat.addAction(new Action(
         Activation.Special, `
         <p><strong><em>FlagBearer Artificer.</em></strong> Being only a novice fighter, 
         Elysium could probably be defeated by a common highway bandit. Yet he
@@ -193,33 +183,33 @@ export function setupElysium()
                 becomes unusable for 24 hours, and he gains 1 level of exhaustion.</li>
         </ul>`));
 
-    elysium.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special, `
         <p><strong><em>Sneak Attack.</em></strong> Once per turn, Elysium can boost a finesse/ranged weapon attack by 
         ${wrapRoll([2, D6])} as per sneak attack rules.</p>`));
 
-    elysium.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.BonusAction, `
             <p><strong><em>Cunning Action.</em></strong> Can use a bonus action to take the Dash, Disengage, or Hide
             action.</p>`));
 
-    elysium.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Action, `
-        <p><strong><em>Dagger.</em></strong> Melee Weapon Attack: ${wrapRoll(elysium.DEX + elysium.SemiProf)}
-        reach 5 ft. (or a 60ft Ranged throw), one target. Hit: ${wrapRoll([[1, D4], [elysium.DEX, D1]])} 
+        <p><strong><em>Dagger.</em></strong> Melee Weapon Attack: ${wrapRoll(c.DEX + c.SemiProf)}
+        reach 5 ft. (or a 60ft Ranged throw), one target. Hit: ${wrapRoll([[1, D4], [c.DEX, D1]])} 
         ${wrapDamageType(DamageType.Slashing)} damage.</p>`));
 
-    elysium.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Action, `
         <p><strong><em>[FlagBearer] Monitor.</em> (Cooldown 1:2)</strong> Elysium grants
         Haste to upto 8 allies within 60 ft and locks on to upto 4 enemies in 
         that range. Locked enemies suffer from Slow and lose invisibility. Attacks 
-        with ranged weapons gain a +${elysium.Prof} to hit.<br/>
+        with ranged weapons gain a +${c.Prof} to hit.<br/>
         <em>Overdrive.</em> All allies within 1 mile gain Haste and upto 6 enemies 
         within 120 ft may be locked on.
         </p>`));
 
-    elysium.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Action, `
         <p><strong><em>[FlagBearer] Support.</em> (Cooldown 1:3)</strong> At the end of 
         each of his turns, all allies within 30 ft of Elysium, except himself, 
@@ -229,7 +219,7 @@ export function setupElysium()
         slot or equivalent to all allies within 120 ft of Elysium.
         </p>`));
 
-    elysium.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Action, `
         <p><strong><em>[FlagBearer] Maneuver.</em> (Cooldown 1:4)</strong> At the
         end of each of their turns, all allies within 150 ft of Elysium, except 
@@ -238,11 +228,12 @@ export function setupElysium()
         <em>Overdrive.</em> The range expands to 300 ft, teleportation distance 
         to 60 ft and all allies, other than himself, gain invisibility as well.
         </p>`));
+    c.combat.cr = 9
+    c.combat.finalize();
 
-    elysium.sheet.size = CreatureSize.Medium;
-    elysium.sheet.subtitle = " Humanoid, Neutral Good";
-    elysium.sheet.acDesc = " (Bulletproof Vest)";
-    elysium.sheet.category = "human";
-    elysium.sheet.cr = new CRValue(9);
-
+    c.sheet.size = CreatureSize.Medium;
+    c.sheet.subtitle = " Humanoid, Neutral Good";
+    c.sheet.acDesc = " (Bulletproof Vest)";
+    c.sheet.category = "human";
+    c.sheet.finalize();
 }

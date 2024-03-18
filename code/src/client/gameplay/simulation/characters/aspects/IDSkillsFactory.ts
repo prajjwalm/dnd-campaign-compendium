@@ -1,14 +1,12 @@
-import {
-    ProficiencyLevel,
-    DSkill,
-    VisibilityLevel
-} from "../../../data/constants";
+import {DSkill, ProficiencyLevel, VisibilityLevel} from "../../../data/constants";
+import {IBaseAspectFactory}                        from "./IBaseAspectFactory";
 
 
 /**
  * The default factory method for setting up an {@link IDSkills} object.
  */
 export interface IDSkillsFactory
+    extends IBaseAspectFactory
 {
     /**
      * Add / Override proficiency level in the given skill.

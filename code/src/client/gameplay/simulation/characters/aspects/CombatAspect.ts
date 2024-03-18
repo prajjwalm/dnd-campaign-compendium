@@ -1,17 +1,12 @@
-import {updateMap} from "../../../../common/common";
-import {D1, Dice}  from "../../../rolling/Dice";
-import {
-    AdventurerClass, ClassHitDice, Condition, DamageType, DStat, Prof,
-    ProficiencyLevel, Sense, DSkill, Speed, StatValue
-}                 from "../../../data/constants";
-import {NpcID}    from "../../../data/npcIndex";
-import {Action}   from "../../action/Action";
-import {Character}      from "../Character";
-import {BaseAspect}     from "./BaseAspect";
-import {ICombat}        from "./ICombat";
-import {ICombatFactory} from "./ICombatFactory";
-import {IDSkills}       from "./IDSkills";
-import {IDStats}        from "./IDStats";
+import {updateMap}                                                                                           from "../../../../common/common";
+import {AdventurerClass, ClassHitDice, Condition, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../data/constants";
+import {NpcID}                                                                                               from "../../../data/npcIndex";
+import {D1, Dice}                                                                                            from "../../../rolling/Dice";
+import {Action}                                                                                              from "../../action/Action";
+import {Character}                                                                                           from "../Character";
+import {BaseAspect}                                                                                          from "./BaseAspect";
+import {ICombat}                                                                                             from "./ICombat";
+import {ICombatFactory}                                                                                      from "./ICombatFactory";
 
 
 /**
@@ -24,10 +19,6 @@ export class CombatAspect
     implements ICombat,
                ICombatFactory
 {
-    private readonly statsAspect: IDStats;
-
-    private readonly skillsAspect: IDSkills;
-
     private readonly baseACSources: number[];
 
     private readonly acBonuses: number[];
@@ -48,31 +39,25 @@ export class CombatAspect
 
     private readonly _actions: Map<string, Action>;
 
-    private _bonusHP: number;
-
-    private _hp: number;
-
-    private bioHpDice: [number, Dice][];
+    private readonly bioHpDice: [number, Dice][];
 
     constructor(c: Character)
     {
         super(c);
-        this.statsAspect  = c;
-        this.skillsAspect = c;
 
-        this._hpDice   = new Map();
-        this._bonusHP  = 0;
+        this._hpDice = new Map();
+        this._bonusHP = 0;
         this.bioHpDice = [];
 
-        this.baseACSources        = [];
-        this.acBonuses            = [];
-        this.classes              = new Map();
-        this._speeds              = new Map();
-        this._senses              = new Map();
-        this._res                 = new Map();
-        this._saves               = new Map();
+        this.baseACSources = [];
+        this.acBonuses = [];
+        this.classes = new Map();
+        this._speeds = new Map();
+        this._senses = new Map();
+        this._res = new Map();
+        this._saves = new Map();
         this._conditionImmunities = new Set();
-        this._actions             = new Map();
+        this._actions = new Map();
     }
 
     public duplicate(other: Character): this
@@ -80,8 +65,9 @@ export class CombatAspect
         const aspect = new CombatAspect(other);
 
         aspect.baseACSources.push(...this.baseACSources);
-        aspect.acBonuses    .push(...this.acBonuses);
+        aspect.acBonuses.push(...this.acBonuses);
 
+        aspect.cr = this.cr;
         for (const [cls, level] of this.classes.entries()) {
             aspect.classes.set(cls, level);
         }
@@ -113,33 +99,20 @@ export class CombatAspect
         return aspect as this;
     }
 
-    addBioHpDice(count: number, dice: Dice) {
-        this.bioHpDice.push([count, dice]);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    dc(stat: DStat): number
-    {
-        return 8 + this.statsAspect.mod(stat) + this.statsAspect.pb.mod();
-    }
-
-
     public setMagicalArmor(armorAC: number): void
     {
-        this.baseACSources.push(armorAC + this.statsAspect.mod(DStat.Dex));
+        this.baseACSources.push(armorAC + this.c.mod(DStat.Dex));
     }
 
     public setLightArmor(armorAC: number): void
     {
-        this.baseACSources.push(armorAC + this.statsAspect.mod(DStat.Dex));
+        this.baseACSources.push(armorAC + this.c.mod(DStat.Dex));
     }
 
     public setMediumArmor(armorAC: number): void
     {
         this.baseACSources.push(
-            armorAC + Math.min(2, this.statsAspect.mod(DStat.Dex))
+            armorAC + Math.min(2, this.c.mod(DStat.Dex))
         );
     }
 
@@ -153,14 +126,14 @@ export class CombatAspect
         this.acBonuses.push(bonus)
     }
 
-    public set bladeSinger(val: boolean)
+    public set bladeSingerAC(val: boolean)
     {
         if (!this.classes.has(AdventurerClass.Wizard)) {
-            console.warn("BladeSinger on non wizard:", NpcID[this.id]);
+            console.warn("BladeSinger on non wizard:", NpcID[this.c.id]);
         }
         this.baseACSources.push(
-            this.statsAspect.mod(DStat.Dex) +
-            this.statsAspect.mod(DStat.Int) + 10
+            this.c.mod(DStat.Dex) +
+            this.c.mod(DStat.Int) + 10
         );
     }
 
@@ -168,13 +141,13 @@ export class CombatAspect
     {
         if (klass == AdventurerClass.Monk) {
             this.baseACSources.push(
-                this.statsAspect.mod(DStat.Dex) +
-                this.statsAspect.mod(DStat.Wis) + 10
+                this.c.mod(DStat.Dex) +
+                this.c.mod(DStat.Wis) + 10
             );
         } else if (klass == AdventurerClass.Barbarian) {
             this.baseACSources.push(
-                this.statsAspect.mod(DStat.Dex) +
-                this.statsAspect.mod(DStat.Con) + 10
+                this.c.mod(DStat.Dex) +
+                this.c.mod(DStat.Con) + 10
             );
         }
         this.classes.set(
@@ -182,6 +155,8 @@ export class CombatAspect
             (this.classes.has(klass) ? this.classes.get(klass) : 0) + levels
         );
     }
+
+    private _bonusHP: number;
 
     public get bonusHP(): number
     {
@@ -194,11 +169,16 @@ export class CombatAspect
 
     }
 
+    addBioHpDice(count: number, dice: Dice)
+    {
+        this.bioHpDice.push([count, dice]);
+    }
+
     public computeHP()
     {
         this._hpDice.clear();
 
-        const constPerDice = this.statsAspect.mod(DStat.Con);
+        const constPerDice = this.c.mod(DStat.Con);
 
         // Add all non-D1 HP dice first.
         for (const [klass, levels] of this.classes.entries()) {
@@ -207,16 +187,15 @@ export class CombatAspect
             }
             if (this._hpDice.size == 0) {
                 updateMap(this._hpDice,
-                          D1,
-                          ClassHitDice.get(klass).sides + constPerDice);
+                    D1,
+                    ClassHitDice.get(klass).sides + constPerDice);
                 updateMap(this._hpDice,
-                          ClassHitDice.get(klass),
-                          levels - 1);
-            }
-            else {
+                    ClassHitDice.get(klass),
+                    levels - 1);
+            } else {
                 updateMap(this._hpDice,
-                          ClassHitDice.get(klass),
-                          levels);
+                    ClassHitDice.get(klass),
+                    levels);
             }
         }
         for (const [count, dice] of this.bioHpDice) {
@@ -277,12 +256,14 @@ export class CombatAspect
         this._actions.set(key, a);
     }
 
+    private _hp: number;
+
     public get ac(): number
     {
         // Someday when I display armor names (computed), I may make armors more
         // than just numbers. Also, might be preferable to go for a lower AC for
         // other buffs later.
-        let bestBaseAC = 10 + this.statsAspect.mod(DStat.Dex);
+        let bestBaseAC = 10 + this.c.mod(DStat.Dex);
         for (const ac of this.baseACSources) {
             if (ac < bestBaseAC) {
                 return;
@@ -296,14 +277,14 @@ export class CombatAspect
         return totalAC;
     }
 
-    public get stats(): ReadonlyMap<DStat, StatValue>
+    public get stats(): ReadonlyMap<DStat, number>
     {
-        return this.statsAspect.stats;
+        return this.c.stats;
     }
 
-    public get pb(): Prof
+    public get pb(): number
     {
-        return this.statsAspect.pb;
+        return this.c.pb;
     }
 
     public get hpDice(): ReadonlyMap<Dice, number>
@@ -331,10 +312,20 @@ export class CombatAspect
         return this._saves;
     }
 
+    /**
+     * @inheritDoc
+     */
+    dc(stat: DStat): number
+    {
+        return 8 + this.c.mod(stat) + this.c.pb;
+    }
+
     public get passivePerception(): number
     {
-        return this.skillsAspect.getSkillMod(DSkill.Perception)[0] + 10;
+        return this.c.getSkillMod(DSkill.Perception)[0] + 10;
     }
+
+    public cr: number;
 
     public get damageRes(): ReadonlyMap<DamageType, number>
     {

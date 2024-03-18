@@ -11,7 +11,7 @@ export function arc22OpinionEvents()
 
     addInteractionEvent(
         NpcID.Hina,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 29, 8),
         `Being called an ingrate after I pledged to give up my life for them 
          pricks just a bit. Sigh, she's probably kidding, isn't she? Though jokes 
@@ -27,7 +27,7 @@ export function arc22OpinionEvents()
 
     addInteractionEvent(
         NpcID.Dawn,
-        [PcIndex.ID_AURELIA, PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
+        [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 29, 8),
         `They actually made it? Meaning... I needn't disappear...</br>
          I... get to live? A normal life? And Tomasa too??
@@ -41,7 +41,7 @@ export function arc22OpinionEvents()
 
     addInteractionEvent(
         NpcID.Elysium,
-        [PcIndex.ID_AURELIA, PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
+        [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 29, 8),
         `These guys actually returned successful from a mission this perilous 
          within 1 day?? Hmm, they're far from run-of-the-mill, I must admit.`,
@@ -55,7 +55,7 @@ export function arc22OpinionEvents()
 
     addInteractionEvent(
         NpcID.Ezell,
-        [PcIndex.ID_AURELIA, PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
+        [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 29, 8),
         `They're really amazing. To accomplish such a feat with such elegance. 
         Meanwhile we couldn't even enter- Ugh!`,
@@ -82,7 +82,7 @@ export function arc22OpinionEvents()
 
     addInteractionEvent(
         NpcID.Elysium,
-        [PcIndex.ID_AURELIA],
+        [],
         new GameTimestamp(0, 29, 8, 15),
         `She spoke to the <i>survivor Himself</i>??! And to tell Him off because 
         she didn't like His ways? I continue to be amazed by your strength of 

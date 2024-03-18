@@ -1,7 +1,8 @@
-import {Era}    from "../../../data/constants";
-import {Rarity} from "../../../data/Rarity";
-import {NpcID}  from "../../../data/npcIndex";
-import {Morale} from "../Morale";
+import {Era}                from "../../../data/constants";
+import {NpcID}              from "../../../data/npcIndex";
+import {Rarity}             from "../../../data/Rarity";
+import {Morale}             from "../Morale";
+import {IBaseAspectFactory} from "./IBaseAspectFactory";
 
 
 export interface CombatRatingMetric
@@ -13,6 +14,7 @@ export interface CombatRatingMetric
 }
 
 export interface IOperatorFactory
+    extends IBaseAspectFactory
 {
     set era(v: Era);
 

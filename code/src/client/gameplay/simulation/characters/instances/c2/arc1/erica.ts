@@ -1,35 +1,34 @@
-import {
-    Prof,
-    ProficiencyLevel,
-    DSkill,
-    Hidden
-}                  from "../../../../../data/constants";
-import {NpcID}     from "../../../../../data/npcIndex";
-import {Character} from "../../../Character";
+import {DSkill, Hidden, ProficiencyLevel} from "../../../../../data/constants";
+import {NpcID}                            from "../../../../../data/npcIndex";
+import {Character}                        from "../../../Character";
 
 export function setupErica()
 {
     // Prepare the character object.
-    const erica = new Character(NpcID.Erica);
+    const c = new Character(NpcID.Erica);
 
-    erica.core.name = "Erica";
-    erica.core.imgPath = "character_tokens/C2/Arc1/Erica.png";
+    c.core.name = "Erica";
+    c.core.imgPath = "character_tokens/C2/Arc1/Erica.png";
+    c.core.finalize();
 
     // Setup D&D stats.
-    erica.dStats.initializeStats(8, 8, 14, 12, 14, 20);
-    erica.dStats.pb = Prof.get(3);
+    c.dStats.initializeStats(8, 8, 14, 12, 14, 20);
+    c.dStats.pb = 3;
+    c.dStats.finalize();
 
     // Setup D&D skills.
-    erica.dSKills.setSkillProficiency(DSkill.Perception, Hidden);
-    erica.dSKills.setSkillProficiency(DSkill.Insight, Hidden, ProficiencyLevel.Expert);
-    erica.dSKills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Expert);
-    erica.dSKills.setSkillProficiency(DSkill._ALL, Hidden, ProficiencyLevel.Half);
-    erica.dSKills.finalizeSkills();
+    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Insight, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill._ALL, Hidden, ProficiencyLevel.Half);
+    c.dSkills.finalize();
 
-    erica.card.setCampaignArc(2, 1);
+    c.card.setCampaignArc(2, 1);
 
-    erica.card.addCardTag("F50");
-    erica.card.addCardTag("CR 2");
+    c.card.addCardTag("F50");
+    c.card.addCardTag("CR 2");
+    c.card.finalize();
 
-    erica.opinions.isOpinionated = true;
+    c.opinions.isOpinionated = true;
+    c.opinions.finalize();
 }

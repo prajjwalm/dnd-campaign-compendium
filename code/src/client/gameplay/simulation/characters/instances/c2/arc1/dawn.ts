@@ -1,52 +1,52 @@
-import {
-    Prof,
-    ProficiencyLevel,
-    DSkill,
-    Hidden, CSkill
-} from "../../../../../data/constants";
-import {NpcID}     from "../../../../../data/npcIndex";
-import {Character} from "../../../Character";
+import {CSkill, DSkill, Hidden, ProficiencyLevel} from "../../../../../data/constants";
+import {NpcID}                                    from "../../../../../data/npcIndex";
+import {Character}                                from "../../../Character";
 
 export function setupDawn()
 {
     // Prepare the character object.
-    const dawn = new Character(NpcID.Dawn);
+    const c = new Character(NpcID.Dawn);
 
-    dawn.core.name = "Dawn";
-    dawn.core.imgPath = "character_tokens/C2/Arc1/Dawn.png";
+    c.core.name = "Dawn";
+    c.core.imgPath = "character_tokens/C2/Arc1/Dawn.png";
+    c.core.finalize();
 
     // Setup D&D stats.
-    dawn.dStats.initializeStats(8,  8, 16, 11, 17, 18);
-    dawn.dStats.pb = Prof.get(4);
+    c.dStats.initializeStats(8,  8, 16, 11, 17, 18);
+    c.dStats.pb = 4;
+    c.dStats.finalize();
 
     // Setup D&D skills.
-    dawn.dSKills.setSkillProficiency(DSkill.AnimalHandling, Hidden);
-    dawn.dSKills.setSkillProficiency(DSkill.Deception, Hidden);
-    dawn.dSKills.setSkillProficiency(DSkill.History, Hidden);
-    dawn.dSKills.setSkillProficiency(DSkill.Insight, Hidden);
-    dawn.dSKills.setSkillProficiency(DSkill.Medicine, Hidden);
-    dawn.dSKills.setSkillProficiency(DSkill.Survival, Hidden, ProficiencyLevel.Prof, 5);
-    dawn.dSKills.setSkillProficiency(DSkill.Persuasion, Hidden, ProficiencyLevel.Expert);
-    dawn.dSKills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Expert);
-    dawn.dSKills.setSkillProficiency(DSkill.SlightOfHand, Hidden, ProficiencyLevel.Expert);
-    dawn.dSKills.setSkillProficiency(DSkill._ALL, Hidden, ProficiencyLevel.Half);
-    dawn.dSKills.finalizeSkills();
+    c.dSkills.setSkillProficiency(DSkill.AnimalHandling, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Deception, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.History, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Insight, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Medicine, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Survival, Hidden, ProficiencyLevel.Prof, 5);
+    c.dSkills.setSkillProficiency(DSkill.Persuasion, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.SlightOfHand, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill._ALL, Hidden, ProficiencyLevel.Half);
+    c.dSkills.finalize();
 
-    dawn.opinions.isOpinionated = true;
+    c.opinions.isOpinionated = true;
+    c.opinions.finalize();
 
     // Card information.
-    dawn.card.setCampaignArc(2, 1);
-    dawn.card.addCardTag("F405 (32)");
-    dawn.card.addCardTag("From | Materia<span class='verbose'>(Naiyumi)</span> / Devotion");
-    dawn.card.addCardTag("Race | Human");
-    dawn.card.addCardTag("CR 8");
+    c.card.setCampaignArc(2, 1);
+    c.card.addCardTag("F405 (32)");
+    c.card.addCardTag("From | Materia<span class='verbose'>(Naiyumi)</span> / Devotion");
+    c.card.addCardTag("Race | Human");
+    c.card.addCardTag("CR 8");
 
-    dawn.card.summary = () =>`
+    c.card.summary = () =>`
     The gentle and reserved pawn shop owner and the de facto caretaker of the small mountainous village of Po'shan. 
     Appears to hide quite a bit of pain underneath a sad smile. Was born in the hinterlands of Naiyumi around 
     1200 AR. Kept witnessing the residents of her village constantly get slaughtered again and again, and lose 
     quite a bit of the memories of their times spent together again and again.<br/>
     <div class="effect_tag">Incomplete</div>`;
+
+    c.card.finalize();
 
     //         // [NpcPersonalityTag["Nature Lover"], 3],
     //         // [NpcPersonalityTag.Industrious, 2],
@@ -56,7 +56,7 @@ export function setupDawn()
     //         // [NpcPersonalityTag.Accepting, 1],
     //         // [NpcPersonalityTag.Depressive, 1],
 
-    dawn.cSkills.setSkillValues([
+    c.cSkills.setSkillValues([
         [CSkill.Accounting,             35,  Hidden],
         [CSkill.Anthropology,            0,  Hidden],
         [CSkill.Appraise,                0,  Hidden],
@@ -108,4 +108,5 @@ export function setupDawn()
         [CSkill.Biology,                 0,  Hidden],
         [CSkill.Botany,                  0,  Hidden],
     ]);
+    c.cSkills.finalize();
 }

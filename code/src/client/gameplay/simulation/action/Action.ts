@@ -1,33 +1,27 @@
 import {Activation}        from "../../data/constants";
-import {IDStats}           from "../characters/aspects/IDStats";
 import {Character}         from "../characters/Character";
-import {IMeasurableAction} from "./IMeasurableAction";
+import {AttackAbstraction} from "./AttackAbstraction";
 
 
 export class Action
-    implements IMeasurableAction
 {
     public c: Character;
 
     constructor(private _activation: Activation,
-                private _content: string | ((c: Character) => string))
+                private _content: string | ((c: Character) => string),
+                private readonly _abstraction: AttackAbstraction | null = null)
     {
         this.c = null;
     }
 
-    public measureImpact(given?: ReadonlyMap<ActionMeasureInput, number>):
-        ReadonlyMap<ActionMeasureMetric, number>
-    {
-        throw new Error("Not implemented.");
+    public score() {
+        return this._abstraction.computeScore(this.c.cr);
     }
 
     public get activation(): Activation
     {
         return this._activation;
     }
-
-    public bindStats(stats: IDStats): void
-    { }
 
     public createContent(): string
     {

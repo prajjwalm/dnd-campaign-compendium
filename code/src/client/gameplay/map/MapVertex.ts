@@ -1,15 +1,9 @@
-import {NpcID}                                        from "../data/npcIndex";
-import {
-    Character
-}                                                     from "../simulation/characters/Character";
-import {MapGraph}                                     from "./MapGraph";
-import {MapTransportation, TransportationToDOMString} from "./MapTransportation";
-import {
-    MapVertexStatus,
-    MapVertexStatusDescriptions,
-    MapVertexStatusIcons
-}                                                     from "./MapVertexStatus";
-import {Vertex}                                       from "./Vertex";
+import {NpcID}                                                              from "../data/npcIndex";
+import {Character}                                                          from "../simulation/characters/Character";
+import {MapGraph}                                                           from "./MapGraph";
+import {MapTransportation, TransportationToDOMString}                       from "./MapTransportation";
+import {MapVertexStatus, MapVertexStatusDescriptions, MapVertexStatusIcons} from "./MapVertexStatus";
+import {Vertex}                                                             from "./Vertex";
 
 
 /**

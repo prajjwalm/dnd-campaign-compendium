@@ -1,11 +1,7 @@
-import {Rarity}      from "../data/Rarity";
-import {UpgradeGraph}      from "./UpgradeGraph";
-import {UpgradeDescGenerators,
-        UpgradeIcons,
-        UpgradeNames,
-        UpgradeRarityLevels,
-        UpgradeVertexType} from "./UpgradeVertexConfig";
-import {Vertex}            from "./Vertex";
+import {Rarity}                                                                                    from "../data/Rarity";
+import {UpgradeGraph}                                                                              from "./UpgradeGraph";
+import {UpgradeDescGenerators, UpgradeIcons, UpgradeNames, UpgradeRarityLevels, UpgradeVertexType} from "./UpgradeVertexConfig";
+import {Vertex}                                                                                    from "./Vertex";
 
 
 export class UpgradeVertex

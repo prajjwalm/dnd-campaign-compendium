@@ -1,19 +1,21 @@
-import {Prof}      from "../../../../../data/constants";
 import {NpcID}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupEzell()
 {
-    const ezell = new Character(NpcID.Ezell);
+    const c = new Character(NpcID.Ezell);
 
-    ezell.core.name = "Ezell";
-    ezell.core.imgPath = "character_tokens/C2/Arc1/Ezell.png";
+    c.core.name = "Ezell";
+    c.core.imgPath = "character_tokens/C2/Arc1/Ezell.png";
+    c.core.finalize();
 
     // Setup D&D stats.
-    ezell.dStats.initializeStats(8, 20, 14, 10, 13, 16);
-    ezell.dStats.pb = Prof.get(4);
+    c.dStats.initializeStats(8, 20, 14, 10, 13, 16);
+    c.dStats.pb = 4;
+    c.dStats.finalize();
 
-    ezell.opinions.isOpinionated = true;
+    c.opinions.isOpinionated = true;
+    c.opinions.finalize();
 
     // [NpcPersonalityTag.Recluse, 2],
     // [NpcPersonalityTag.Judging, 2],
@@ -24,9 +26,10 @@ export function setupEzell()
     // [NpcPersonalityTag.Pessimist, 1],
     // [NpcPersonalityTag["Night owl"], 1],
 
-    ezell.card.setCampaignArc(2, 1);
-    ezell.card.addCardTag("M144 (32)");
-    ezell.card.addCardTag("CR 12");
-    ezell.card.addCardTag("Race | Aasimar");
-    ezell.card.addCardTag("'Saint'");
+    c.card.setCampaignArc(2, 1);
+    c.card.addCardTag("M144 (32)");
+    c.card.addCardTag("CR 12");
+    c.card.addCardTag("Race | Aasimar");
+    c.card.addCardTag("'Saint'");
+    c.card.finalize();
 }

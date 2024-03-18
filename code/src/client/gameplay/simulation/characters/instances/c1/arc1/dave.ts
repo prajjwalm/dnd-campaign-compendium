@@ -3,26 +3,28 @@ import {Character} from "../../../Character";
 
 export function setupDave()
 {
-    const dave = new Character(NpcID.DaveRuhl);
+    const c = new Character(NpcID.DaveRuhl);
 
-    dave.core.name = "Dave Ruhl";
-    dave.core.imgPath = "character_tokens/C1/Arc1/dave.png";
+    c.core.name = "Dave Ruhl";
+    c.core.imgPath = "character_tokens/C1/Arc1/dave.png";
+    c.core.finalize();
 
-    dave.card.addCardTag("Physically Deceased");
-    dave.card.setCampaignArc(1, 1);
-    dave.card.addCardTag("M2500");
-    dave.card.addCardTag("CR | 13");
-    dave.card.addCardTag("From | Innovation / Preservation");
-    dave.card.addCardTag("Race | Warforged");
-    dave.card.addCardTag("<span class='verbose'>Samurai</span> Fighter");
-    dave.card.addCardTag("Faction: Defenders");
+    c.card.addCardTag("Physically Deceased");
+    c.card.setCampaignArc(1, 1);
+    c.card.addCardTag("M2500");
+    c.card.addCardTag("CR | 13");
+    c.card.addCardTag("From | Innovation / Preservation");
+    c.card.addCardTag("Race | Warforged");
+    c.card.addCardTag("<span class='verbose'>Samurai</span> Fighter");
+    c.card.addCardTag("Faction: Defenders");
 
-    dave.card.summary = () =>`A warforged automaton that was purchased by ${Character.get(NpcID.Caelynn).createLink("Caelynn")}'s 
+    c.card.summary = () =>`A warforged automaton that was purchased by ${Character.get(NpcID.Caelynn).createLink("Caelynn")}'s 
       batch-mates at a heavy price upon her graduation, to serve and protect her. His modules were heavily operated 
       upon by Lesley who practiced her coding skills on him. Failed to defend Caelynn at one point long ago, and 
       gave his life holding out against a deep-sea aberration to atone for it.`;
 
-    dave.opinions.isOpinionated = false;
+    c.card.finalize();
 
-    
+    c.opinions.isOpinionated = false;
+    c.opinions.finalize();
 }

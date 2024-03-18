@@ -1,39 +1,39 @@
-import {
-    Prof,
-    DSkill,
-    Hidden
-}                  from "../../../../../data/constants";
-import {NpcID}     from "../../../../../data/npcIndex";
-import {Character} from "../../../Character";
+import {DSkill, Hidden} from "../../../../../data/constants";
+import {NpcID}          from "../../../../../data/npcIndex";
+import {Character}      from "../../../Character";
 
 export function setupIona()
 {
     // Prepare the character object.
-    const iona = new Character(NpcID.Iona);
+    const c = new Character(NpcID.Iona);
 
-    iona.core.name = "Iona";
-    iona.core.imgPath = "character_tokens/C2/Arc1/Iona.png";
+    c.core.name = "Iona";
+    c.core.imgPath = "character_tokens/C2/Arc1/Iona.png";
+    c.core.finalize();
 
     // Setup D&D stats.
-    iona.dStats.initializeStats(8, 10, 16, 17, 11, 12);
-    iona.dStats.pb = Prof.get(2);
+    c.dStats.initializeStats(8, 10, 16, 17, 11, 12);
+    c.dStats.pb = 2;
+    c.dStats.finalize();
 
     // Setup D&D skills.
-    iona.dSKills.setSkillProficiency(DSkill.Arcana, Hidden);
-    iona.dSKills.setSkillProficiency(DSkill.History, Hidden);
-    iona.dSKills.setSkillProficiency(DSkill.Investigation, Hidden);
-    iona.dSKills.setSkillProficiency(DSkill.Nature, Hidden);
-    iona.dSKills.setSkillProficiency(DSkill.Perception, Hidden);
-    iona.dSKills.setSkillProficiency(DSkill.Religion, Hidden);
-    iona.dSKills.setSkillProficiency(DSkill.Stealth, Hidden);
-    iona.dSKills.setSkillProficiency(DSkill.Survival, Hidden);
-    iona.dSKills.finalizeSkills();
+    c.dSkills.setSkillProficiency(DSkill.Arcana, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.History, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Investigation, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Nature, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Religion, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Stealth, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Survival, Hidden);
+    c.dSkills.finalize();
 
-    iona.opinions.isOpinionated = true;
+    c.opinions.isOpinionated = true;
+    c.opinions.finalize();
 
-    iona.card.setCampaignArc(2, 1);
-    iona.card.addCardTag("F13");
-    iona.card.addCardTag("CR 2");
+    c.card.setCampaignArc(2, 1);
+    c.card.addCardTag("F13");
+    c.card.addCardTag("CR 2");
+    c.card.finalize();
 
     // [NpcPersonalityTag.Sanguine, 2],
     // [NpcPersonalityTag.Optimist, 2],

@@ -1,9 +1,7 @@
-import {PcIndex}       from "../../data/pcIndex";
-import {
-    Character
-}                      from "../../simulation/characters/Character";
-import {NpcID}         from "../../data/npcIndex";
-import {GameTimestamp} from "../../GameTimestamp";
+import {NpcID}                                 from "../../data/npcIndex";
+import {PcIndex}                               from "../../data/pcIndex";
+import {GameTimestamp}                         from "../../GameTimestamp";
+import {Character}                             from "../../simulation/characters/Character";
 import {PositiveEmotion}                       from "../PositiveEmotion";
 import {addInteractionEvent, addTimeSkipEvent} from "./s9";
 
@@ -26,7 +24,7 @@ export function sessionOpinionEvents10()
     addInteractionEvent(
         NpcID.Hina,
         [
-            PcIndex.ID_AURELIA,
+
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
         ],
@@ -39,7 +37,7 @@ export function sessionOpinionEvents10()
     addInteractionEvent(
         NpcID.Hina,
         [
-            PcIndex.ID_AURELIA,
+
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
         ],
@@ -55,7 +53,7 @@ export function sessionOpinionEvents10()
     addInteractionEvent(
         NpcID.Elysium,
         [
-            PcIndex.ID_AURELIA,
+
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
         ],
@@ -76,7 +74,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Dusk,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA
+                                                            
                                                         ]
                                                     ],
                                                     [NpcID.Dawn, []],
@@ -84,20 +82,20 @@ export function sessionOpinionEvents10()
                                                         NpcID.Andri,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
                                                     [
                                                         NpcID.Athlon,
                                                         [
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
                                                     // [NpcId.Bjorn,
                                                     // [PcIndex.ID_HELIOS,
-                                                    // PcIndex.ID_AURELIA,
+                                                    //
                                                     // PcIndex.ID_CYRION]],
                                                     [
                                                         NpcID.Cecelia,
@@ -110,7 +108,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Coroto,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -118,7 +116,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Elysium,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -133,7 +131,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Genefe,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -141,7 +139,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Hav,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -156,7 +154,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Ingrid,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -170,7 +168,7 @@ export function sessionOpinionEvents10()
                                                     [
                                                         NpcID.Jaye,
                                                         [
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -178,7 +176,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Jordi,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -186,7 +184,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Kastor,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -194,7 +192,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Petra,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -202,7 +200,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Roberta,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                         ]
                                                     ],
                                                     [
@@ -216,7 +214,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Sybilla,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -224,7 +222,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Tomasa,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -236,7 +234,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Vitacia,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -244,7 +242,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Yuki,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -252,7 +250,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Ezell,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -260,7 +258,7 @@ export function sessionOpinionEvents10()
                                                         NpcID.Irene,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_AURELIA,
+
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
@@ -286,7 +284,7 @@ export function sessionOpinionEvents10()
 
     addTimeSkipEvent(
         NpcID.Hina,
-        [PcIndex.ID_AURELIA],
+        [],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
         `She's putting in so much effort (it it a penance?), yet these kids... sigh. With them 
@@ -305,7 +303,7 @@ export function sessionOpinionEvents10()
 
     addTimeSkipEvent(
         NpcID.Iona,
-        [PcIndex.ID_AURELIA],
+        [],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
         `Wow, a year ago, I'd never have imagined this. That I'll be going to a 
@@ -321,7 +319,7 @@ export function sessionOpinionEvents10()
 
     addTimeSkipEvent(
         NpcID.Verna,
-        [PcIndex.ID_AURELIA],
+        [],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
         `Her classes for the kids are actually pretty decent, and God knows this
@@ -334,7 +332,7 @@ export function sessionOpinionEvents10()
 
     addTimeSkipEvent(
         NpcID.Cecelia,
-        [PcIndex.ID_AURELIA],
+        [],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
         `Damn it. It hurts watching her try so hard, and yet I can't reciprocate...
@@ -352,7 +350,7 @@ export function sessionOpinionEvents10()
 
     addTimeSkipEvent(
         NpcID.Sasha,
-        [PcIndex.ID_AURELIA],
+        [],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
         `Another physics lesson??? Oh, we're going to the beach today?`,
@@ -441,7 +439,7 @@ export function sessionOpinionEvents10()
 
     addTimeSkipEvent(
         NpcID.Dawn,
-        [PcIndex.ID_HELIOS, PcIndex.ID_CYRION, PcIndex.ID_AURELIA],
+        [PcIndex.ID_HELIOS, PcIndex.ID_CYRION],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
         "",
@@ -452,7 +450,7 @@ export function sessionOpinionEvents10()
 
     addTimeSkipEvent(
         NpcID.Erica,
-        [PcIndex.ID_AURELIA],
+        [],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
         "",

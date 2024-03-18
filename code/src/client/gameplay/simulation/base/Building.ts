@@ -1,8 +1,7 @@
-import {getEnumIterator} from "../../../common/common";
-import {NpcID}           from "../../data/npcIndex";
-import {Rarity}          from "../../data/Rarity";
-import {IDOMGenerator}   from "../../IDomGenerator";
-import {Character}       from "../characters/Character";
+import {NpcID}         from "../../data/npcIndex";
+import {Rarity}        from "../../data/Rarity";
+import {IDOMGenerator} from "../../IDomGenerator";
+import {Character}     from "../characters/Character";
 
 
 /**

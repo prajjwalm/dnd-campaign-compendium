@@ -1,11 +1,11 @@
-import {numberToText}                                                                                                          from "../../../../../../common/common";
-import {Activation, Condition, CreatureSize, CRValue, DamageType, DSkill, DStat, Hidden, Prof, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                                 from "../../../../../data/npcIndex";
-import {D1, D10, D12, D8}                                                                                                      from "../../../../../rolling/Dice";
-import {Action}                                                                                                                from "../../../../action/Action";
-import {wrapCondition, wrapDamageType, wrapRoll}                                                                               from "../../../../action/Wrap";
-import {Character}                                                                                                             from "../../../Character";
-import {CharacterVariant}                                                                                                      from "../../../CharacterVariant";
+import {numberToText}                                                                                           from "../../../../../../common/common";
+import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {NpcID}                                                                                                  from "../../../../../data/npcIndex";
+import {D1, D10, D12, D8}                                                                                       from "../../../../../rolling/Dice";
+import {Action}                                                                                                 from "../../../../action/Action";
+import {wrapCondition, wrapDamageType, wrapRoll}                                                                from "../../../../action/Wrap";
+import {Character}                                                                                              from "../../../Character";
+import {CharacterVariant}                                                                                       from "../../../CharacterVariant";
 
 
 function harpoonAttackGenerator(harpoonStrength: number,
@@ -38,40 +38,40 @@ function harpoonAttackGenerator(harpoonStrength: number,
 
 export function setupHarpooners()
 {
-    const harpooner = new Character(NpcID.Harpooner);
+    const c = new Character(NpcID.Harpooner);
 
-    harpooner.core.name = "Harpooner";
-    harpooner.core.imgPath = "mob_tokens/seaborn/Harpooner.png";
+    c.core.name = "Harpooner";
+    c.core.imgPath = "mob_tokens/seaborn/Harpooner.png";
+    c.core.finalize();
 
-    harpooner.dStats.initializeStats(20, 14, 12, 13, 10, 11);
-    harpooner.dStats.pb = Prof.get(3);
+    c.dStats.initializeStats(20, 14, 12, 13, 10, 11);
+    c.dStats.pb = 3;
+    c.dStats.finalize();
 
-    harpooner.dSKills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Expert);
-    harpooner.dSKills.finalizeSkills();
+    c.dSkills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.finalize();
 
-    harpooner.opinions.isOpinionated = false;
+    const harpoonerHitDiceCount = D8.countHavingE(90, c.CON);
+    c.combat.addBioHpDice(harpoonerHitDiceCount, D8);
+    c.combat.computeHP();
 
-    const harpoonerHitDiceCount = D8.countHavingE(90, harpooner.CON);
-    harpooner.combat.addBioHpDice(harpoonerHitDiceCount, D8);
-    harpooner.combat.computeHP();
+    c.combat.setSave(DStat.Int, ProficiencyLevel.Prof);
 
-    harpooner.combat.setSave(DStat.Int, ProficiencyLevel.Prof);
+    c.combat.setSpeed(Speed.Walking, 25);
+    c.combat.setSpeed(Speed.Swimming, 35);
 
-    harpooner.combat.setSpeed(Speed.Walking, 25);
-    harpooner.combat.setSpeed(Speed.Swimming, 35);
+    c.combat.setRes(DamageType.Hellfire,    -100);
+    c.combat.setRes(DamageType.Lightning,   -100);
+    c.combat.setRes(DamageType.Fire,        -100);
+    c.combat.setRes(DamageType.Psychic,      50);
+    c.combat.setRes(DamageType.Physical,     50);
+    c.combat.setRes(DamageType.Cold,         50);
+    c.combat.setRes(DamageType.Acid,         100);
+    c.combat.setRes(DamageType.Poison,       100);
 
-    harpooner.combat.setRes(DamageType.Hellfire,    -100);
-    harpooner.combat.setRes(DamageType.Lightning,   -100);
-    harpooner.combat.setRes(DamageType.Fire,        -100);
-    harpooner.combat.setRes(DamageType.Psychic,      50);
-    harpooner.combat.setRes(DamageType.Physical,     50);
-    harpooner.combat.setRes(DamageType.Cold,         50);
-    harpooner.combat.setRes(DamageType.Acid,         100);
-    harpooner.combat.setRes(DamageType.Poison,       100);
+    c.combat.setSense(Sense.BlindSight, 20);
 
-    harpooner.combat.setSense(Sense.BlindSight, 20);
-
-    harpooner.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Special,
         `<p><em><strong>Investiture Radar.</strong></em> The harpooner doesn't 
         have regular sight but can detect the amounts of investiture(HP) creatures
@@ -83,49 +83,53 @@ export function setupHarpooners()
         have moved since then).</p>`
     ));
 
-    harpooner.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.Action,
         harpoonAttackGenerator(1, 1, "a target")
     ), "harpoon_major_new");
 
-    harpooner.combat.addAction(new Action(
+    c.combat.addAction(new Action(
         Activation.BonusAction,
         harpoonAttackGenerator(-1, 1, "a target")
     ), "harpoon_minor_new");
 
-    harpooner.sheet.cr       = new CRValue(5);
-    harpooner.sheet.size     = CreatureSize.Medium;
-    harpooner.sheet.subtitle = " Seaborn, Neutral Evil";
-    harpooner.sheet.acDesc   = " (Natural Armor)";
-    harpooner.sheet.category = "seaborn";
+    c.combat.cr = 5
+    c.combat.finalize();
 
-    harpooner.finalize();
+    c.sheet.size     = CreatureSize.Medium;
+    c.sheet.subtitle = " Seaborn, Neutral Evil";
+    c.sheet.acDesc   = " (Natural Armor)";
+    c.sheet.category = "seaborn";
+    c.sheet.finalize();
 
 
-    const harpoonerN = new CharacterVariant(NpcID.HarpoonerN, NpcID.Harpooner);
+    const n = new CharacterVariant(NpcID.HarpoonerN, NpcID.Harpooner);
 
-    harpoonerN.core.name = "Nourished Harpooner";
-    harpoonerN.core.imgPath = "mob_tokens/seaborn/HarpoonerN.png";
+    n.core.name = "Nourished Harpooner";
+    n.core.imgPath = "mob_tokens/seaborn/HarpoonerN.png";
+    n.core.finalize();
 
-    harpoonerN.dStats.initializeStats(25, 15, 17, 14, 11, 13);
-    harpoonerN.dStats.pb = Prof.get(4);
+    n.dStats.initializeStats(25, 15, 17, 14, 11, 13);
+    n.dStats.pb = 4;
+    n.dStats.finalize();
 
-    harpoonerN.combat.addBioHpDice(harpoonerHitDiceCount, D10);
-    harpoonerN.combat.computeHP();
+    n.combat.addBioHpDice(harpoonerHitDiceCount, D10);
+    n.combat.computeHP();
 
-    harpoonerN.combat.addAction(new Action(
+    n.combat.addAction(new Action(
         Activation.Action,
         harpoonAttackGenerator(3, 2, "the same target")
     ), "harpoon_major_new");
 
-    harpoonerN.combat.addAction(new Action(
+    n.combat.addAction(new Action(
         Activation.BonusAction,
         harpoonAttackGenerator(0, 2, "two distinct targets")
     ), "harpoon_minor_new");
 
-    harpoonerN.sheet.cr    = new CRValue(9);
-    harpoonerN.sheet.size  = CreatureSize.Large;
-    harpoonerN.sheet.theme = "danger_1";
+    n.combat.cr = 9
+    n.combat.finalize();
 
-    harpoonerN.finalize();
+    n.sheet.size  = CreatureSize.Large;
+    n.sheet.theme = "danger_1";
+    n.sheet.finalize();
 }

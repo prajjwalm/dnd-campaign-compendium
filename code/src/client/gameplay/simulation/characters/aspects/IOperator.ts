@@ -1,13 +1,11 @@
-import {
-    CSkill,
-    DSkill, Era,
-    VisibilityLevel
-} from "../../../data/constants";
-import {Morale} from "../Morale";
-import {CombatRatingMetric} from "./IOperatorFactory";
+import {CSkill, DSkill, Era, VisibilityLevel} from "../../../data/constants";
+import {IDOMGenerator}                        from "../../../IDomGenerator";
+import {Morale}                               from "../Morale";
+import {CombatRatingMetric}                   from "./IOperatorFactory";
 
 
 export interface IOperator
+    extends IDOMGenerator
 {
     /**
      * The era in terms of science this operator comes from.

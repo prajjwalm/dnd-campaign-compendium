@@ -1,30 +1,29 @@
-import {NpcID}         from "../../../../../data/npcIndex";
-import {Character}     from "../../../Character";
+import {NpcID}     from "../../../../../data/npcIndex";
+import {Character} from "../../../Character";
 
 export function setupCaelynn()
 {
-    const cae = new Character(NpcID.Caelynn);
+    const c = new Character(NpcID.Caelynn);
 
-    cae.core.name = "Caelynn Nailo";
-    cae.core.imgPath = "character_tokens/C1/Arc1/caelynn.png";
+    c.core.name = "Caelynn Nailo";
+    c.core.imgPath = "character_tokens/C1/Arc1/caelynn.png";
+    c.core.finalize();
 
-    cae.card.setCampaignArc(1, 1);
-    cae.card.addCardTag("F4560");
-    cae.card.addCardTag("CR | 25");
-    cae.card.addCardTag("From | Materia / Preservation");
-    cae.card.addCardTag("Allegiance | Preservation");
-    cae.card.addCardTag("Race | Half-Elf");
-    cae.card.addCardTag("<span class='verbose'>Circle of Dreams</span> Druid");
-    cae.card.addCardTag("Guardian of Life");
-    cae.card.addCardTag("Atium Savant");
-    cae.card.addCardTag("Faction: Watchers");
-
-    cae.card.summary = () =>`Born in the last years of the heroic age, fled into The Gardens due to an accidental encounter with the Fifth
+    c.card.setCampaignArc(1, 1);
+    c.card.addCardTag("F4560");
+    c.card.addCardTag("CR | 25");
+    c.card.addCardTag("From | Materia / Preservation");
+    c.card.addCardTag("Allegiance | Preservation");
+    c.card.addCardTag("Race | Half-Elf");
+    c.card.addCardTag("<span class='verbose'>Circle of Dreams</span> Druid");
+    c.card.addCardTag("Guardian of Life");
+    c.card.addCardTag("Atium Savant");
+    c.card.addCardTag("Faction: Watchers");
+    c.card.summary = () =>`Born in the last years of the heroic age, fled into The Gardens due to an accidental encounter with the Fifth
       Nightmare. Being extremely gifted, she received guidance from various orders - often from Guardians themselves.
       Was once close to ${Character.get(NpcID.TraitorOthello).createLink("The Traitor")}. Currently leads the people of the Garden
       as the Guardian of Life. Now an Atium savant.`;
-
-    cae.card.story = () => `
+    c.card.story = () => `
 <h5>Early life</h5>
 Caelynn Nailo was born in ? during the years that marked the end of the Heroic Age, and the onset of the Silent Age. 
 Born in a university to a family of accomplished and well renowned scholars, young Caelynn had led a protected - 
@@ -130,18 +129,8 @@ Playwright's powers had bound their souls in their skirmish. And so, she once ag
 people important to her, people who'd given her hope. There were already plans of war in motion. Of vengence, of
 survival. Until now, they had tried to play nice, it had resulted in the death of friends, in the death of God. 
 No more...`;
+    c.card.finalize();
 
-// [NpcPersonalityTag.Industrious, 4],
-// [NpcPersonalityTag.Confident, 3],
-// [NpcPersonalityTag.Outdoorsman, 3],
-// [NpcPersonalityTag.Kind, 2],
-// [NpcPersonalityTag.Optimist, 2],
-// [NpcPersonalityTag.Ascetic, 2],
-// [NpcPersonalityTag.Stern, 1],
-// [NpcPersonalityTag.Abrasive, 1],
-// [NpcPersonalityTag.Bisexual, 1],
-
-    cae.opinions.isOpinionated = false;
-
-
+    c.opinions.isOpinionated = false;
+    c.opinions.finalize();
 }

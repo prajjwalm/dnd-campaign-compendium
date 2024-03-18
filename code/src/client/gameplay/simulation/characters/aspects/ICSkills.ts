@@ -1,9 +1,6 @@
-import {
-    ProficiencyLevel,
-    DSkill,
-    VisibilityLevel, CSkill
-}               from "../../../data/constants";
-import {Rating} from "../../../data/Rarity";
+import {CSkill, VisibilityLevel} from "../../../data/constants";
+import {Rating}                  from "../../../data/Rarity";
+
 
 /**
  * Objects supporting this interface can be queried to get their modifiers for

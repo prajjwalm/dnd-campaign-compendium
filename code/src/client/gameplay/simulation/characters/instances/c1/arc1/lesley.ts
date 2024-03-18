@@ -3,23 +3,24 @@ import {Character} from "../../../Character";
 
 export function setupLesley()
 {
-    const les = new Character(NpcID.Lesley);
+    const c = new Character(NpcID.Lesley);
 
-    les.core.name = "Lesley Aeternus";
-    les.core.imgPath = "character_tokens/C1/Arc1/lesley.png";
+    c.core.name = "Lesley Aeternus";
+    c.core.imgPath = "character_tokens/C1/Arc1/lesley.png";
+    c.core.finalize();
 
-    les.card.addCardTag("Deceased");
-    les.card.setCampaignArc(1, 1);
-    les.card.addCardTag("F2860");
-    les.card.addCardTag("CR | 18 / 24");
-    les.card.addCardTag("From | Shadowfell / Materia / Preservation");
-    les.card.addCardTag("Allegiance | Preservation");
-    les.card.addCardTag("Race | Higher Vampire");
-    les.card.addCardTag("<span class='verbose'>Chronurgy</span> Wizard / <span class='verbose'>Knowledge</span> Cleric");
-    les.card.addCardTag("Time Command");
-    les.card.addCardTag("Faction: Projectors");
+    c.card.addCardTag("Deceased");
+    c.card.setCampaignArc(1, 1);
+    c.card.addCardTag("F2860");
+    c.card.addCardTag("CR | 18 / 24");
+    c.card.addCardTag("From | Shadowfell / Materia / Preservation");
+    c.card.addCardTag("Allegiance | Preservation");
+    c.card.addCardTag("Race | Higher Vampire");
+    c.card.addCardTag("<span class='verbose'>Chronurgy</span> Wizard / <span class='verbose'>Knowledge</span> Cleric");
+    c.card.addCardTag("Time Command");
+    c.card.addCardTag("Faction: Projectors");
 
-    les.card.summary = () =>`A rich higher vampire mage with powerful time control powers. Came to The Gardens after a failed attempt to
+    c.card.summary = () =>`A rich higher vampire mage with powerful time control powers. Came to The Gardens after a failed attempt to
       kill ${Character.get(NpcID.Caelynn).createLink("Caelynn")}. Lived for two millennia there as her closest friend/advisor. Detested 
       her family and avoided using her higher vampiric and bloodline powers. Instead, spent all that time cultivating her arcane skills,
       becoming a highly skilled mage/enchanter over time. Her skills eventually becoming so well known in the right circles that clients
@@ -34,7 +35,7 @@ export function setupLesley()
       ${Character.get(NpcID.Lucian).createLink("assassin in black")} finally came for her life. But by some twist of fate, she had forged a
       bond with a person who was supposed to be her judge, jury and executioner - but he had deemed her not guilty. And via that bond...`;
 
-    les.card.story = () => `
+    c.card.story = () => `
 <h5>Early life</h5>
 All higher vampires are aristocrats, served upon - should they require it - by their thralls and other creatures of 
 the shadowfell. However, even among them, the Aeternus family - one of the oldest - was highly feared and regarded,
@@ -173,15 +174,8 @@ behind), but she knew that already. Still, when Caelynn told her all the Guardia
 likely to run into them, she was all too glad to be a part of that group, even if it meant running into the 
 SanguineArch themself...`;
 
-// [NpcPersonalityTag["Recovering Addict"], 5],
-// [NpcPersonalityTag.Bibliophile, 3],
-// [NpcPersonalityTag.Recluse, 3],
-// [NpcPersonalityTag.Lazy, 2],
-// [NpcPersonalityTag.Depressive, 1],
-// [NpcPersonalityTag["Guilt-ridden"], 1],
-// [NpcPersonalityTag.Introvert, 1],
+    c.card.finalize();
 
-    les.opinions.isOpinionated = false;
-
-
+    c.opinions.isOpinionated = false;
+    c.opinions.finalize();
 }

@@ -1,5 +1,5 @@
-import {getEnumIterator} from "../../common/common";
-import {Graph}           from "./Graph";
+import {getEnumIterator}                                                                            from "../../common/common";
+import {Graph}                                                                                      from "./Graph";
 import {SidePanel}                                                                                  from "./SidePanel";
 import {UpgradeEdge}                                                                                from "./UpgradeEdge";
 import {UpgradeVertex}                                                                              from "./UpgradeVertex";

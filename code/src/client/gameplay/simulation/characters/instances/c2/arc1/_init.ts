@@ -1,5 +1,3 @@
-import {NpcID}        from "../../../../../data/npcIndex";
-import {Character}    from "../../../Character";
 import {setupAndoain} from "./andoain";
 import {setupAndri}   from "./andri";
 import {setupAthlon}  from "./athlon";

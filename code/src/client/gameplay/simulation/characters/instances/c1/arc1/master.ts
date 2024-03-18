@@ -3,23 +3,24 @@ import {Character} from "../../../Character";
 
 export function setupMaster()
 {
-    const mas = new Character(NpcID.TheMaster);
+    const c = new Character(NpcID.TheMaster);
 
-    mas.core.name = "The Master";
-    mas.core.imgPath = "character_tokens/C1/Arc1/g_order.png";
+    c.core.name = "The Master";
+    c.core.imgPath = "character_tokens/C1/Arc1/g_order.png";
+    c.core.finalize();
 
-    mas.card.addCardTag("Deceased");
-    mas.card.setCampaignArc(1, 1);
-    mas.card.addCardTag("M50K+");
-    mas.card.addCardTag("CR | 27");
-    mas.card.addCardTag("From | Materia / Preservation");
-    mas.card.addCardTag("Allegiance | Preservation / ???");
-    mas.card.addCardTag("Race | Shadar-Kai");
-    mas.card.addCardTag("Paladin / Bard");
-    mas.card.addCardTag("Faction: Inquisitors");
-    mas.card.addCardTag("Ex-Guardian of Order");
+    c.card.addCardTag("Deceased");
+    c.card.setCampaignArc(1, 1);
+    c.card.addCardTag("M50K+");
+    c.card.addCardTag("CR | 27");
+    c.card.addCardTag("From | Materia / Preservation");
+    c.card.addCardTag("Allegiance | Preservation / ???");
+    c.card.addCardTag("Race | Shadar-Kai");
+    c.card.addCardTag("Paladin / Bard");
+    c.card.addCardTag("Faction: Inquisitors");
+    c.card.addCardTag("Ex-Guardian of Order");
 
-    mas.card.summary = () =>`Known across all the realms simply as 'The Master' - the Guardian of Order was an expert at diplomacy, the 
+    c.card.summary = () =>`Known across all the realms simply as 'The Master' - the Guardian of Order was an expert at diplomacy, the 
       forceful arm-twisting kind, who always got his way. Unlike most others who took it easy in the garden, he spent
       his whole life scheming and ruthlessly executing ever-more-complex Machiavellian schemes. So complex that even
       his own loyalties were at times doubted, particularly when some links were found between him and
@@ -30,6 +31,5 @@ export function setupMaster()
       hemalurgic spikes instead of letting his knowledge fall into the enemies hands. A pity too, for he was 
       literally the personification of one of the ideals of the new Preservation, "There's always another secret."`;
 
-    mas.opinions.isOpinionated = false;
-
+    c.card.finalize();
 }

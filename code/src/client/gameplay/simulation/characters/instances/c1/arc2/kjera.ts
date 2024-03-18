@@ -7,6 +7,7 @@ export function setupKjerra()
 
     c.core.name = "Kjerra";
     c.core.imgPath = "character_tokens/C1/Arc2/g_mag_stone.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
 
@@ -29,6 +30,5 @@ export function setupKjerra()
       herself has near unlimited mana and can cast all non-proprietary spells, and most proprietary ones, known in 
       all the dimensions. She personally maintains the entire internal financial infrastructure of the Gardens.`;
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
 }

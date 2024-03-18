@@ -7,9 +7,9 @@ export function setupLogos()
 
     c.core.name = "The Playwright";
     c.core.imgPath = "character_tokens/C1/Arc2/logos_normal.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
-
     c.card.addCardTag('M50K+');
     c.card.addCardTag('From | Ruin');
     c.card.addCardTag('Race | Banshee (Demon)');
@@ -30,6 +30,5 @@ export function setupLogos()
     all are very dangerous, and one among them becoming Lord was unheard of before him. Even back then he could 
     cast reality-bending magic simply by speaking aloud or writing his commands in the air.`;
 
-    c.opinions.isOpinionated = false;
-    
+    c.card.finalize();
 }

@@ -1,24 +1,27 @@
-import {Prof}      from "../../../../../data/constants";
 import {NpcID}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupAthlon()
 {
-    const athlon = new Character(NpcID.Athlon);
+    const c = new Character(NpcID.Athlon);
 
-    athlon.core.name = "Athlon";
-    athlon.core.imgPath = "character_tokens/C2/Arc1/Athlon.png";
+    c.core.name = "Athlon";
+    c.core.imgPath = "character_tokens/C2/Arc1/Athlon.png";
+    c.core.finalize();
 
     // Setup D&D stats.
-    athlon.dStats.initializeStats(10, 20, 18, 8, 16, 10);
-    athlon.dStats.pb = Prof.get(4);
+    c.dStats.initializeStats(10, 20, 18, 8, 16, 10);
+    c.dStats.pb = 4;
+    c.dStats.finalize();
 
-    athlon.card.setCampaignArc(2, 1);
+    c.dSkills.finalize();
 
-    athlon.card.addCardTag("M58");
-    athlon.card.addCardTag("CR 7")
+    c.card.setCampaignArc(2, 1);
+    c.card.addCardTag("M58");
+    c.card.addCardTag("CR 7")
 
-    athlon.card.summary = () => `???`;
+    c.card.summary = () => `???`;
+    c.card.finalize();
 
     // [NpcPersonalityTag.Addict, 4],
     // [NpcPersonalityTag["Guilt-ridden"], 2],
@@ -36,5 +39,6 @@ export function setupAthlon()
     //       Also kept the others who were with him, like ${Card.link("[character|Rin Shima]", "Shimarin")} and
     //       ${Card.link("[character|Fiest]", "Fiest")}, in very high regard.`],
     // ]),
-    athlon.opinions.isOpinionated = true;
+    c.opinions.isOpinionated = true;
+    c.opinions.finalize();
 }

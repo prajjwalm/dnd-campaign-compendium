@@ -1,5 +1,5 @@
-import {PARTY_INSIGHT} from "../data/pcIndex";
-import {GameTimestamp} from "../GameTimestamp";
+import {PARTY_INSIGHT}                    from "../data/pcIndex";
+import {GameTimestamp}                    from "../GameTimestamp";
 import {getZone}                          from "./common";
 import {NegativeEmotion, PositiveEmotion} from "./PositiveEmotion";
 import {RenderableEvent}                  from "./RenderableEvent";

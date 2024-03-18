@@ -1,30 +1,9 @@
-import {
-    D1, D10, D12, D4, D6, D8
-} from "../../../../../rolling/Dice";
-import {
-    Activation,
-    AdventurerClass,
-    Condition,
-    CreatureSize,
-    CRValue,
-    DamageType,
-    DStat,
-    Prof,
-    ProficiencyLevel,
-    Sense,
-    DSkill,
-    Speed,
-    StatValue,
-    VisibilityLevel, Hidden
-} from "../../../../../data/constants";
-import {
-    NpcID
-} from "../../../../../data/npcIndex";
-import {
-    Action
-} from "../../../../action/Action";
-import {wrapCondition, wrapDamageType, wrapRoll} from "../../../../action/Wrap";
-import {Character}                               from "../../../Character";
+import {Activation, AdventurerClass, Condition, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed, statMod} from "../../../../../data/constants";
+import {NpcID}                                                                                                                            from "../../../../../data/npcIndex";
+import {D1, D10, D12, D4, D6, D8}                                                                                                         from "../../../../../rolling/Dice";
+import {Action}                                                                                                                           from "../../../../action/Action";
+import {wrapCondition, wrapDamageType, wrapRoll}                                                                                          from "../../../../action/Wrap";
+import {Character}                                                                                                                        from "../../../Character";
 
 export function setupEphremis(stats?: Map<string, number>)
 {
@@ -43,17 +22,17 @@ export function setupEphremis(stats?: Map<string, number>)
     } else {
         Ephremis.dStats.initializeStats(30, 24, 29, 21, 18, 28);
     }
-    Ephremis.dStats.pb = Prof.get(8);
+    Ephremis.dStats.pb = 8;
 
-    Ephremis.dSKills.setSkillProficiency(DSkill.Stealth, Hidden, ProficiencyLevel.Prof);
-    Ephremis.dSKills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Prof);
-    Ephremis.dSKills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Prof);
-    Ephremis.dSKills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Prof);
-    Ephremis.dSKills.finalizeSkills();
+    Ephremis.dSkills.setSkillProficiency(DSkill.Stealth, Hidden, ProficiencyLevel.Prof);
+    Ephremis.dSkills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Prof);
+    Ephremis.dSkills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Prof);
+    Ephremis.dSkills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Prof);
+    Ephremis.dSkills.finalizeSkills();
 
     Ephremis.opinions.isOpinionated = false;
 
-    Ephremis.combat.addBioHpDice(D10.countHavingE(480, StatValue.mod(29)), D10);
+    Ephremis.combat.addBioHpDice(D10.countHavingE(480, statMod(29)), D10);
     Ephremis.combat.addClassLevels(AdventurerClass.Barbarian, 1);
     Ephremis.combat.computeHP();
 
@@ -226,7 +205,7 @@ export function setupEphremis(stats?: Map<string, number>)
          sunken.</p>`
     ));
 
-    Ephremis.sheet.cr = new CRValue(25);
+    Ephremis.combat.cr = 25
 
     // todo: remove redundancy.
     Ephremis.sheet.size = CreatureSize.Large;

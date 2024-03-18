@@ -1,6 +1,4 @@
-import {
-    D1, D100, D12, D20, D4, D6, D8, Dice, RollVariant
-} from "./Dice";
+import {D1, D100, D12, D20, D4, D6, D8, Dice, RollVariant} from "./Dice";
 
 
 export class RollArgumentError

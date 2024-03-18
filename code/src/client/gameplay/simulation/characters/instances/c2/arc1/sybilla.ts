@@ -7,14 +7,11 @@ export function setupSybilla()
 
     c.core.name = "Sybilla";
     c.core.imgPath = "character_tokens/C2/Arc1/Sybilla.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(2, 1);
-
     c.card.addCardTag("F34");
     c.card.addCardTag("CR 1");
-
     c.card.summary = () => `???`;
-
-    c.opinions.isOpinionated = false;
-
+    c.card.finalize();
 }

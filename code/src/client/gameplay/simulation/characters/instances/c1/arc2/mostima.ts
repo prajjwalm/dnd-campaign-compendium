@@ -7,9 +7,9 @@ export function setupMostima()
 
     c.core.name = "Mostima";
     c.core.imgPath = "character_tokens/C1/Arc2/mostima.png";
+    c.core.finalize();
 
     c.card.setCampaignArc(1, 2);
-
     c.card.addCardTag('F152');
     c.card.addCardTag('Plane-hopper');
     c.card.addCardTag(`From | Devotion | Materia | Ruin | ALL`);
@@ -31,6 +31,5 @@ export function setupMostima()
     suffer from psychosis or neurosis. Carries two staves that appear powerful and seem to be the manifestation of
     an ancient, or rather timeless, soul.`;
 
-    c.opinions.isOpinionated = false;
-
+    c.card.finalize();
 }
