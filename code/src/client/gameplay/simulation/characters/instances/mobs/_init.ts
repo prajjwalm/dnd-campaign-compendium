@@ -1,3 +1,4 @@
+import {AttackAbstraction}   from "../../../action/AttackAbstraction";
 import {setupCluster}        from "./fiends/Cluster";
 import {setupBrandGuiders}   from "./seaborn/BrandGuider";
 import {setupDrifter}        from "./seaborn/Drifter";
@@ -16,6 +17,10 @@ import {setupUrchins}        from "./seaborn/Urchin";
 
 export function setupMobs()
 {
+    const crTable = AttackAbstraction.generateCRTable();
+
+    $("#cr_table").html(crTable);
+
     setupNetherseaBrand();
     setupSlider();
     setupDrifter();

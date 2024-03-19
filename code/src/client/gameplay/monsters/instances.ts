@@ -124,16 +124,19 @@ export function setupMonsters()
             $(".stat_sheet").hide();
 
             if (!ID_TO_SHEET_GENERATOR.has(creatureId)) {
+                $("#cr_table").show();
                 return;
             }
 
             if (GENERATED_IDS.has(creatureId)) {
                 $(`#stat_sheet_${creatureId}`).show();
+                $("#cr_table").hide();
                 return;
             }
 
             $("#sheet_zone").append(ID_TO_SHEET_GENERATOR.get(creatureId)().render());
             GENERATED_IDS.add(creatureId);
+            $("#cr_table").hide();
         }, 10);
     });
 }

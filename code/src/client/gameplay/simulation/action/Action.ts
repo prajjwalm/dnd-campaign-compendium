@@ -1,6 +1,5 @@
 import {Activation}        from "../../data/constants";
 import {Character}         from "../characters/Character";
-import {AttackAbstraction} from "./AttackAbstraction";
 
 
 export class Action
@@ -8,14 +7,9 @@ export class Action
     public c: Character;
 
     constructor(private _activation: Activation,
-                private _content: string | ((c: Character) => string),
-                private readonly _abstraction: AttackAbstraction | null = null)
+                private _content: string | ((c: Character) => string))
     {
         this.c = null;
-    }
-
-    public score() {
-        return this._abstraction.computeScore(this.c.cr);
     }
 
     public get activation(): Activation

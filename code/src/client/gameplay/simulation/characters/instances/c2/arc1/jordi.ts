@@ -28,7 +28,6 @@ export function setupJordi()
     c.dSkills.setSkillProficiency(DSkill.Persuasion, Hidden);
     c.dSkills.finalize();
 
-
     c.cSkills.setSkillValues([
         [CSkill.Accounting,                     5,    Vague],
         [CSkill.Anthropology,                   0,    Vague],

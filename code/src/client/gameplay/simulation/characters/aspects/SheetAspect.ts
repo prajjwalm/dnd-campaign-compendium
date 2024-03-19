@@ -161,12 +161,22 @@ export class SheetAspect
             }
         }
 
+        const imbalanceValues = this.c.imbalance;
+        let imbalanceStr;
+        if (imbalanceValues == null) {
+            imbalanceStr = "";
+        }
+        else {
+            const imPercents = imbalanceValues.map(x => `${Math.round((x - 1) * 100)}%`).join(", ");
+            imbalanceStr = `(<i class="fa-solid fa-scale-unbalanced" style="padding-right: 8px;"></i>  ${imPercents})`;
+        }
+
         return `
         <div class="stat_sheet" id="stat_sheet_${this.category}_${this.c.id}">
             <div class="sheet_header">
                 <div class="header_zone">
                 <h3 class="sheet_title">${this.altName == null ? this.c.name : this.altName}</h3>
-                <div class="sheet_subtitle">${wrapCreatureSize(this._size)} ${this._subtitle}</div>
+                <div class="sheet_subtitle"><em>${wrapCreatureSize(this._size)} ${this._subtitle}</em> <span>${imbalanceStr}</span></div>
                 </div>
                 <div class="header_zone">
                     <table>

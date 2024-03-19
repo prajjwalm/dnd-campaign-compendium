@@ -1,6 +1,7 @@
 import {Condition, DamageType, DStat, ProficiencyLevel, Sense, Speed} from "../../../data/constants";
 import {Dice}                                                         from "../../../rolling/Dice";
 import {Action}                                                       from "../../action/Action";
+import {CombatTreeNode}                                               from "./CombatTreeNode";
 
 
 /**
@@ -47,4 +48,6 @@ export interface ICombat
     get conditionImmunities(): ReadonlySet<Condition>;
 
     get actions(): Map<string, Action>;
+
+    get imbalance(): [number, number, number] | null;
 }

@@ -504,6 +504,11 @@ export class Character
         return this.combatAspect.actions;
     }
 
+    public get imbalance(): [number, number, number] | null
+    {
+        return this.combatAspect.imbalance;
+    }
+
     /**
      * @inheritDoc
      */

@@ -16,6 +16,6 @@ export function setupShuo()
     c.card.addCardTag("Race | Titan <span class='verbose'>&times; Black/Gold Dragon</span>");
     c.card.addCardTag(`<span>Primordial | Outsider <span class='verbose'>(1<sup>st</sup> Fragment of Sui)</span></span>`);
     c.card.addCardTag(`The First Martial Artist`);
-    c.card.addCardTag("CR | 24 / 28");
+    c.card.addCardTag("CR | 24");
     c.card.finalize();
 }

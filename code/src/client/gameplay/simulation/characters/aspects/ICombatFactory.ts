@@ -1,6 +1,7 @@
 import {AdventurerClass, Condition, DamageType, DStat, ProficiencyLevel, Sense, Speed} from "../../../data/constants";
 import {Dice}                                                                          from "../../../rolling/Dice";
 import {Action}                                                                        from "../../action/Action";
+import {CombatTreeNode}                                                                from "./CombatTreeNode";
 import {IBaseAspectFactory}                                                            from "./IBaseAspectFactory";
 
 
@@ -37,4 +38,6 @@ export interface ICombatFactory
     addConditionImmunity(c: Condition);
 
     addAction(a: Action, key?: string | null);
+
+    get root(): CombatTreeNode | null;
 }

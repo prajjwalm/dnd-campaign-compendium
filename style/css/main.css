@@ -795,8 +795,9 @@ table.simple_table {
   margin-bottom: 4px;
 }
 .advanced_style .stat_sheet .sheet_header .header_zone .sheet_subtitle, .page[data-nav-id=beastiary] .stat_sheet .sheet_header .header_zone .sheet_subtitle {
-  font-style: italic;
   padding-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
 }
 .advanced_style .stat_sheet .sheet_header .header_zone table td, .page[data-nav-id=beastiary] .stat_sheet .sheet_header .header_zone table td, .advanced_style .stat_sheet .sheet_header .header_zone table th, .page[data-nav-id=beastiary] .stat_sheet .sheet_header .header_zone table th {
   padding: 4px;
@@ -1329,6 +1330,9 @@ table.simple_table {
 #beastiary #sheet_zone {
   width: 50%;
   min-width: 320px;
+}
+#beastiary #sheet_zone #cr_table td {
+  text-align: center;
 }
 
 .upgrade_stats, .upgrade_effects, .ratings_dictionary, .infrastructure .building__dictionary, .operator_screen__details, .operator_screen__skills, .theme--unknown .dictionary, .theme--friendly .dictionary, .theme--safe .dictionary, .theme--combat .dictionary, .theme--emergency .dictionary, .theme--neutral .dictionary, .theme--deadly .dictionary, .theme--black .dictionary, .dictionary {

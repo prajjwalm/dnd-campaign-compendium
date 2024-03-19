@@ -123,5 +123,5 @@ export function setupPathShaper()
     c.sheet.subtitle = " Seaborn, Lawful Neutral";
     c.sheet.acDesc   = " (Natural Leather)";
     c.sheet.category = "seaborn";
-    c.sheet.finalize();
+    // c.sheet.finalize();
 }

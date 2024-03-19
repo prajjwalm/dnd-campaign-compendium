@@ -81,8 +81,9 @@ $img_content_root: "../../assets/";
         }
 
         .sheet_subtitle {
-          font-style: italic;
           padding-bottom: 8px;
+          display: flex;
+          justify-content: space-between;
         }
 
         table {

@@ -2,15 +2,20 @@ import {numberToText}                                                           
 import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
 import {NpcID}                                                                                                  from "../../../../../data/npcIndex";
 import {D1, D10, D12, D8}                                                                                       from "../../../../../rolling/Dice";
-import {Action}                                                                                                 from "../../../../action/Action";
-import {wrapCondition, wrapDamageType, wrapRoll}                                                                from "../../../../action/Wrap";
+import {Action}                                  from "../../../../action/Action";
+import {AttackAbstraction, DebuffT3}             from "../../../../action/AttackAbstraction";
+import {wrapCondition, wrapDamageType, wrapRoll} from "../../../../action/Wrap";
+import {CombatTreeNode}                                                                                         from "../../../aspects/CombatTreeNode";
+import {ECombatTreeNodeType}                                                                                    from "../../../aspects/ECombatTreeNodeType";
 import {Character}                                                                                              from "../../../Character";
 import {CharacterVariant}                                                                                       from "../../../CharacterVariant";
 
 
 function harpoonAttackGenerator(harpoonStrength: number,
                                 harpoonCount: number,
-                                targetConstraint: string = "the target")
+                                targetConstraint: string = "the target",
+                                c: Character)
+    : [string, AttackAbstraction]
 {
     const p: { forceStr: string, range: number, title: string } = new Map([
         [3,  { "forceStr": "insane",      "range": 300,  "title": "Harpoon!!." }],
@@ -22,7 +27,7 @@ function harpoonAttackGenerator(harpoonStrength: number,
     const harpoonCountText = numberToText(harpoonCount);
     const s = harpoonCount > 1 ? "s" : "";
 
-    return (c: Character) => `
+    return [`
     <p><em><strong>${p.title}</strong></em> The harpooner launches ${harpoonCountText}
      harpoon${s} in a straight line towards ${targetConstraint} with ${p.forceStr}
      force, attempting to strike all creatures in a ${p.range} ft line. To hit: 
@@ -33,7 +38,12 @@ function harpoonAttackGenerator(harpoonStrength: number,
      it encounters an obstacle immune to piercing damage (which <u>might</u>
      be a creature whose armor blocked the shot, in such a case the creature
      must make a DC ${c.dc(DStat.Str) + harpoonStrength} save to avoid falling 
-     ${wrapCondition(Condition.Prone)})).</p>`;
+     ${wrapCondition(Condition.Prone)})).</p>`,
+        new AttackAbstraction([[4+harpoonStrength, D12, DamageType.Piercing],
+                                [c.STR,            D1,  DamageType.Piercing]],
+                              c.STR + c.Prof + harpoonStrength,
+                              null)
+    ];
 }
 
 export function setupHarpooners()
@@ -70,10 +80,11 @@ export function setupHarpooners()
     c.combat.setRes(DamageType.Poison,       100);
 
     c.combat.setSense(Sense.BlindSight, 20);
+    c.combat.setSense(Sense.SteelSight, 300);
 
     c.combat.addAction(new Action(
         Activation.Special,
-        `<p><em><strong>Investiture Radar.</strong></em> The harpooner doesn't 
+        `<p><strong><em>Investiture Radar.</em> (D3)</strong> The harpooner doesn't 
         have regular sight but can detect the amounts of investiture(HP) creatures
         within 300 ft of it have. It will try to target the creature with the 
         least HP within range, unless there is any magical barrier between them 
@@ -82,18 +93,26 @@ export function setupHarpooners()
         fail (e.g. the last attack didn't reduce the target's HP and neither 
         have moved since then).</p>`
     ));
+    c.combat.root.n(Activation.Special).addChild(
+        new CombatTreeNode(ECombatTreeNodeType.Leaf, null, new AttackAbstraction(
+            [], null, null, DebuffT3
+        ))
+    );
 
-    c.combat.addAction(new Action(
-        Activation.Action,
-        harpoonAttackGenerator(1, 1, "a target")
-    ), "harpoon_major_new");
+    let [ht1, ha1] = harpoonAttackGenerator(1, 1, "a target", c);
 
-    c.combat.addAction(new Action(
-        Activation.BonusAction,
-        harpoonAttackGenerator(-1, 1, "a target")
-    ), "harpoon_minor_new");
+    c.combat.addAction(new Action(Activation.Action, ht1), "harpoon_major_new");
+    c.combat.root.n(Activation.Action).addChild(
+        new CombatTreeNode(ECombatTreeNodeType.Leaf, null, ha1)
+    );
 
-    c.combat.cr = 5
+    let [ht2, ha2] = harpoonAttackGenerator(-1, 1, "a target", c);
+    c.combat.addAction(new Action(Activation.BonusAction, ht2), "harpoon_minor_new");
+    c.combat.root.n(Activation.BonusAction).addChild(
+        new CombatTreeNode(ECombatTreeNodeType.Leaf, null, ha2)
+    );
+
+    c.combat.cr = 6;
     c.combat.finalize();
 
     c.sheet.size     = CreatureSize.Medium;
@@ -116,17 +135,26 @@ export function setupHarpooners()
     n.combat.addBioHpDice(harpoonerHitDiceCount, D10);
     n.combat.computeHP();
 
-    n.combat.addAction(new Action(
-        Activation.Action,
-        harpoonAttackGenerator(3, 2, "the same target")
-    ), "harpoon_major_new");
+    // Cause of its blindsight.
+    n.combat.root.n(Activation.Special).addChild(
+        new CombatTreeNode(ECombatTreeNodeType.Leaf, null, new AttackAbstraction(
+            [], null, null, DebuffT3
+        ))
+    );
 
-    n.combat.addAction(new Action(
-        Activation.BonusAction,
-        harpoonAttackGenerator(0, 2, "two distinct targets")
-    ), "harpoon_minor_new");
+    let [ht3, ha3] = harpoonAttackGenerator(3, 2, "the same target", n);
+    n.combat.addAction(new Action(Activation.Action, ht3), "harpoon_major_new");
+    n.combat.root.n(Activation.Action).addChild(
+        new CombatTreeNode(ECombatTreeNodeType.Leaf, null, ha3, 2)
+    );
 
-    n.combat.cr = 9
+    let [ht4, ha4] = harpoonAttackGenerator(0, 2, "two distinct targets", n);
+    n.combat.addAction(new Action(Activation.BonusAction, ht4), "harpoon_minor_new");
+    n.combat.root.n(Activation.BonusAction).addChild(
+        new CombatTreeNode(ECombatTreeNodeType.Leaf, null, ha4, 2)
+    );
+
+    n.combat.cr = 10;
     n.combat.finalize();
 
     n.sheet.size  = CreatureSize.Large;

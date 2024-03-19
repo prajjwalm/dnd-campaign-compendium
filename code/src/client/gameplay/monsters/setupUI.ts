@@ -11,6 +11,8 @@ export function setupUI()
     $enclosingDiv.on("click", ".selectable_radio_container", function () {
         $(this).children(".selectable.radio").removeClass("selected");
         $(this).children(".selectable.radio").find(".selected_only").hide();
+        $(".stat_sheet").hide();
+        $("#cr_table").show();
     });
 
     $enclosingDiv.on("click", ".selectable.radio:not(.disabled)", function (e) {
