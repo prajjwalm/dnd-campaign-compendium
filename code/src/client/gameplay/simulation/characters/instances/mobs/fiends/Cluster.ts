@@ -216,5 +216,5 @@ export function setupCluster()
     c.sheet.subtitle = " Fiend, Lawful Evil";
     c.sheet.acDesc = " (Natural Armor)";
     c.sheet.category = "fiends";
-    c.sheet.finalize();
+    // c.sheet.finalize();
 }

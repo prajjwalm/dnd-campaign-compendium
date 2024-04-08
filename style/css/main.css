@@ -4517,6 +4517,14 @@ img {
   font-family: "Montserrat", sans-serif;
 }
 
+.terminal_subtitle {
+  font-size: 18px;
+  font-weight: 200;
+  font-variant-caps: small-caps;
+  font-family: "Montserrat", sans-serif;
+  color: #157FE3;
+}
+
 .inspect_base {
   margin-top: 16px;
 }
@@ -4654,15 +4662,17 @@ img {
   flex-flow: column nowrap;
   height: 100%;
 }
-.achievements__header {
+.achievements__summary {
+  width: 100%;
   display: flex;
-  flex-flow: row nowrap;
+  align-items: center;
   justify-content: space-between;
-}
-.achievements__header .xp_summary {
-  padding: 8px;
-  font-style: italic;
   font-family: "RobotoCondensed", sans-serif;
+  padding-bottom: 16px;
+  gap: 16px;
+}
+.achievements__summary .terminal_title, .achievements__summary .operator_profiles__header, .achievements__summary .operator_screen__title {
+  flex-grow: 2;
 }
 .achievements__scroller {
   overflow-y: scroll;
@@ -4675,7 +4685,7 @@ img {
   margin-bottom: 16px;
 }
 
-.achievement, .achievement--inner {
+.achievement {
   background-color: #222;
   border-radius: 4px;
   margin-bottom: 8px;
@@ -4725,8 +4735,8 @@ img {
   color: #157FE3;
   text-shadow: 0 1px 3px rgba(21, 127, 227, 0.12), 0 1px 2px rgba(21, 127, 227, 0.24);
 }
-.achievement--inner {
-  margin-left: 16px;
+.achievement__nested {
+  padding-left: 24px;
 }
 
 .achievement_category {

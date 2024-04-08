@@ -82,6 +82,14 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.terminal_subtitle {
+  font-size: 18px;
+  font-weight: 200;
+  font-variant-caps: small-caps;
+  font-family: "Montserrat", sans-serif;
+  color: colors.$node_safe;
+}
+
 .inspect_base {
   margin-top: 16px;
 
@@ -185,15 +193,17 @@
   flex-flow: column nowrap;
   height: 100%;
 
-  &__header {
+  &__summary {
+    width: 100%;
     display: flex;
-    flex-flow: row nowrap;
+    align-items: center;
     justify-content: space-between;
+    font-family: "RobotoCondensed", sans-serif;
+    padding-bottom: 16px;
+    gap: 16px;
 
-    .xp_summary {
-      padding: 8px;
-      font-style: italic;
-      font-family: "RobotoCondensed", sans-serif;
+    .terminal_title {
+      flex-grow: 2;
     }
   }
 
@@ -268,9 +278,8 @@
     }
   }
 
-  &--inner {
-    @extend .achievement;
-    margin-left: 16px;
+  &__nested {
+    padding-left: 24px;
   }
 }
 
