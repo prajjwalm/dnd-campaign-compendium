@@ -11,11 +11,11 @@ export function setupCellinia()
     c.core.finalize();
 
     // Setup D&D stats.
-    c.dStats.initializeStats(16, 27, 14, 19, 18, 25);
-    c.dStats.pb = 9;
+    c.dStats.initializeStats(24, 30, 25, 19, 18, 27);
+    c.dStats.pb = 10;
     c.dStats.finalize();
 
-    // todo
+    // todo, also cskills.
     c.dSkills.finalize();
 
     c.opinions.isOpinionated = true;
@@ -25,5 +25,15 @@ export function setupCellinia()
     c.card.addCardTag("F29");
     c.card.addCardTag("From | Devotion(?)");
     c.card.addCardTag("Race | Shifter[Lupine]");
+    c.card.addCardTag("CR | ?");
+
+    c.card.summary = () => `
+    A bureaucrat working in the logistics department of the State of Lateran, 
+    she's responsible for ensuring express deliveries in the outer fringes of 
+    the Saints' domain. (Notably a risky job, since it involves regularly braving
+    travels via the warped cognitive realm of the plane.) As an honorary saint, 
+    she's one of the few non-aasimar who're permitted to enter the capital.
+    <div class="effect_tag">Incomplete</div>`;
+
     c.card.finalize();
 }

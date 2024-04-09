@@ -29,7 +29,12 @@ export function setupMostima()
     A fallen angel who can move through planes without relying on perpendicularities. Has a tendency of talking to
     someone one minute and disappearing the next. Suffers from an advanced case of Nightblood but doesn't seem to 
     suffer from psychosis or neurosis. Carries two staves that appear powerful and seem to be the manifestation of
-    an ancient, or rather timeless, soul.`;
+    an ancient, or rather timeless, soul.<br/>
+    When Odium almost escaped His prison in a manner no one expected, or was prepared for, several extremely powerful
+    beings - mortal, immortal and Shardic - immediately reacted to try to stop Him, no matter the cost. Of them all,
+    it was her, thanks to her unique freedom of movement, that broke His escape attempt. However, the cost she paid
+    was heavy. And now, with less than 700 days to live, she awaits someone to defeat, and kill, her in a duel to
+    acquire her staves and powers.`;
 
     c.card.finalize();
 }

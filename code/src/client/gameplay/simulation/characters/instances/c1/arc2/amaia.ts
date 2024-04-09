@@ -18,7 +18,14 @@ export function setupAmaia()
     c.card.addCardTag(`Core of We Many`);
     c.card.addCardTag('CR | ?');
 
-    c.card.summary = () =>`???`;
+    c.card.summary = () => `
+    First sighted in the plane of Ruin enjoying a feast hosted by the Demon 
+    Lord Grazzt, not much is known of this woman except that she resides in a 
+    conjunction of the planes of Water and Devotion and is a highly feared figure
+    in the Church of the Deep. It remains to be seen what role she plays in the
+    rise of the Seaborn, yet for some reason she seems awfully anxious to get a 
+    hold of a ${Character.get(NpcID.Jordi).createLink("certain unassuming sea-elf")}.
+    <div class="effect_tag">Incomplete</div>`;
 
     c.core.finalize();
 }

@@ -226,6 +226,9 @@ $attitude_circle_border: 8px;
 
 .effect_tag {
   @include tag.tag(colors.$true_grey);
+  display: flex;
+  max-width: fit-content;
+  padding: 8px;
 
   &[data-emo="Affection"] {
    @include tag.tag(colors.$prussian);

@@ -532,6 +532,9 @@ table.simple_table {
 .effect_tag {
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
+  display: flex;
+  max-width: fit-content;
+  padding: 8px;
 }
 .effect_tag:not(.disabled) {
   border: solid 2px #aaa;

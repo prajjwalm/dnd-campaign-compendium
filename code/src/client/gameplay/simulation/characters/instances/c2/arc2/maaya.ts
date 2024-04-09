@@ -25,6 +25,17 @@ export function setupMaaya()
     c.card.addCardTag("F21");
     c.card.addCardTag("CR 21");
     c.card.addCardTag("Race | Ocean Elf &times; Seaborn");
+    c.card.addCardTag("From | Water &times; Devotion");
+    c.card.addCardTag("Daughter of the sea");
+    c.card.summary = () => `
+    An elf of submarine origins, she was found by a group of adventurers sitting
+    in the corner of a profane tomb that had been desecrated several times over
+    and abandoned in the long past. She would talk telepathically only, while
+    humming to herself a strange rhythm which seemed to nullify the investiture
+    in the region. Several parts of her body had been morphed into a seaborn 
+    nature.
+    <div class="effect_tag">Incomplete</div>
+    `;
     c.card.finalize();
 
     c.dSkills.setSkillProficiency(DSkill.Athletics,   Hidden);

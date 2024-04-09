@@ -137,7 +137,48 @@ export function setupHina()
     c.card.addCardTag("Chamber of Guilt");
     c.card.addCardTag("Class | Barbarian &times; Rogue");
     c.card.addCardTag("CR | 23");
-    c.card.summary = () =>"???";
+    c.card.summary = () => `Fortune's favoured child.`;
+
+    c.card.story = () => `
+<p>
+    A child whose eyes that have seen far too much, particularly given her age. 
+    She was first seen by a group of adventurers in Terra on the day of the 
+    second apocalypse, 1593AR. Ejected by seemingly the ground itself on the 
+    other bank of a stream of lava, she walked away without much interaction 
+    with them.</p>
+    <p> 
+    Seven years later, she would pick up different a band of adventures lying unconscious
+    on the banks of a lake the plane of Devotion
+    and bring them to the mountainous village of Po-Shan. A village in which they
+    would typically find her gaming and occasionally spouting caustic wit, in a house built
+    by herself (or so she claimed). The unusual occurances around her only began after the 
+    first time a villager died. The strangest time was when some adventurers 
+    stumbled onto her sitting alone in a demiplane of black ink. As if in a 
+    trance, she was leaning on ${Character.get(NpcID.Dusk).createLink("a dragon")}
+    and they were surrounded by humanoid spectres rising from the ink.
+    Her hands were limp, and she was deleriously painting with her toes, she was smoking
+    heavily.  
+     
+    It was only after the curse affecting the 
+    village was lifted that the ${Character.get(NpcID.Dusk).createLink("local guardian deity")}
+    revealed to the others that the child had bondsmith powers. Alongside this 
+    revelation, several adventurers noted ${Character.get(NpcID.Shimaken).createLink("a certain spirit")}
+    haunting her.</p>
+    <p>
+    She would soon after use her powers, somewhat reluctantly, to teleport the plane of Honor along with
+    a group of adventurers. In there she seemed to come across a figure of long
+    past, ${Character.get(NpcID.Ruzaki).createLink("a scholar")} whose very sight
+    crippled her entire psyche, reducing the bored, droll kid to a broken, 
+    psychotic mess.
+    He addressed her solely, like many after him did, as #41. After
+    they faked her death, stablized her emotions and helped her escape, she revealed
+    to her companions that she was one of sixty children selected out of over 
+    six hundred who'd been chosen for a special training programme that would 
+    make them grow into uber-soldiers 'strong enough to kill God'. Those sixty 
+    had been divided into three sets of twenty each, specializing in lethality, 
+    control and demolitions respectively. As #41, she was the top student of the
+    third batch... until something bad had happened and the Project was scrapped.</p>
+    <div class="effect_tag">Incomplete</div>`;
 
     c.card.primaryImageTitle = "Urchin";
     c.card.finalize();
@@ -358,7 +399,7 @@ export function setupHina()
         `<p><strong><em>Overwhelming Regrets.</em></strong> (Cost: 3) Hina uses her overwhelming regrets ability as a legendary action.</p>`
     ));
 
-    c.combat.cr = 23
+    c.combat.cr = 23;
     c.combat.finalize();
 
     c.sheet.size = CreatureSize.Medium;
