@@ -1,7 +1,7 @@
 import {Activation, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                       from "../../../../../data/npcIndex";
-import {D1, D12, D8}                                                                                 from "../../../../../rolling/Dice";
-import {Action}                                                                                      from "../../../../action/Action";
+import {NpcID}           from "../../../../../data/npcIndex";
+import {D1, D12, D4, D8} from "../../../../../rolling/Dice";
+import {Action}          from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                    from "../../../../action/Wrap";
 import {Character}                                                                                   from "../../../Character";
 
@@ -47,17 +47,14 @@ export function setupPathShaper()
 
     c.combat.addAction(new Action(
         Activation.Special,
-        c => `<p><strong><em>Searching for the Path.</em></strong> 
-        At the start of its turn the PathShaper must split into lingering 
-        fragments. It can choose to split into anywhere between 2-5 fragments.
-        Each fragment inherits an equal fraction of its HP and can attack and 
-        move independently.<br/>
+        c => `<p><strong><em>Shaping the Path.</em></strong> 
+        At the start of its turn the PathShaper must split into ${wrapRoll([[1, D4], [1, D1]])} lingering 
+        fragments (affected by light level).
+        Each fragment inherits its HP and can attack and move independently.<br/>
         At the start of its next turn, it chooses one of the fragments to be the 
         true path. That lingering fragment then becomes the PathShaper, while 
-        the others fade away. The PathShaper's HP now is that fragment's HP 
-        multiplied by the number of fragments it had split into. Any damage 
-        dealt by this fragment is now applied. So is the damage dealt by the 
-        other fragments, but that damage is divided by the number of fragments.
+        the others fade away. The PathShaper's HP now is that fragment's HP. 
+        Also, any damage dealt by this fragment is now applied. 
         </p>`
     ));
 
@@ -65,14 +62,13 @@ export function setupPathShaper()
         Activation.Special,
         c => `<p><strong><em>Mapping Dead Ends.</em></strong> 
         Everytime the PathShaper or one of its lingering fragments or its 
-        fractals take damage, or make a successful silent rend attack, they 
+        fractals make a successful silent rend attack, they 
         spawn a new fractal. These fractals have 20 HP, ${c.ac - 5} AC and the
-        same saves as the PathShaper. They can attack like the PathShaper, but 
-        their attacks deal one-tenth of the damage and do not deal elevated 
-        forms of damage. The fractals act right before the lingering PathShaper's
-        turn and disappear at the end of their turn.<br/>
-        Upon disappearing they restore half their current HP to the pathShaper.
-        </p>`
+        same saves as the PathShaper. They can make two rend attacks similar to the
+        PathShaper, but their attacks deal just the basic slashing damage and
+        not the accompanying elevated forms of damage. The fractals act right 
+        before the lingering PathShaper's turn and disappear at the end of their
+        turn if the light level is not extinguished.</p>`
     ));
 
     c.combat.addAction(new Action(
@@ -99,7 +95,7 @@ export function setupPathShaper()
         Original. 
         To hit - ${wrapRoll(c.DEX + c.Prof)}, damage ${wrapRoll([[2, D8], [c.CON, D1]])}
         ${wrapDamageType(DamageType.Slashing)} damage plus ${wrapRoll([2, D8])} ${wrapDamageType(DamageType.Necrotic)}
-        damage. It regains HP equal to the damage dealt</p>`
+        damage. It regains HP equal to the necrotic damage dealt.</p>`
     ));
 
     c.combat.addAction(new Action(
@@ -112,16 +108,16 @@ export function setupPathShaper()
 
     c.combat.addAction(new Action(
         Activation.LegendaryAction,
-        c => `<p><strong><em>Glitch.</em></strong> The PathShaper's lingering 
-        fragments all teleport upto 60ft in any direction.</p>`
+        c => `<p><strong><em>Glitch.</em></strong> The PathShaper teleports upto
+        60ft in any direction.</p>`
     ));
 
-    c.combat.cr = 20
+    c.combat.cr = 18;
     c.combat.finalize();
 
     c.sheet.size = CreatureSize.Huge;
     c.sheet.subtitle = " Seaborn, Lawful Neutral";
     c.sheet.acDesc   = " (Natural Leather)";
     c.sheet.category = "seaborn";
-    // c.sheet.finalize();
+    c.sheet.finalize();
 }

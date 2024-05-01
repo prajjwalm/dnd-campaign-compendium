@@ -55,7 +55,7 @@ export class OperatorAspect
     /**
      * @inheritDoc
      */
-    generateDOMString(): string
+    public generateDOMString = () =>
     {
         const tableEntries = [];
         for (const [key, value] of this.notableStuff) {

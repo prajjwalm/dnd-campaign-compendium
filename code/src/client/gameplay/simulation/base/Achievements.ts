@@ -504,7 +504,7 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                     .nest(new Achievement(
                         "Champions of Ruin",
                         "Leave behind a wake of death. (At least seven of " +
-                        "Gnatt, Damatzi, Ubbo Sathla, Hina, VoSee, Ephremis, " +
+                        "Gnatt, Damatzi, Ubbo Sathla, Hina, VoSee, Ephremis, Garcia, " +
                         "Maaya, Quintus, Aulus, Isin, Scarab, Elettra, Marin or " +
                         "Zaadimus should be dead for good when you sail the " +
                         "Nethersea).",
@@ -525,13 +525,13 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                 "Correcting the course",
                 "Defeat the original PathShaper, Garcia.",
                 8000,
-                false,
+                true,
             )
                 .nest(new Achievement(
                     "In the name of Ruin",
                     "Kill Garcia for good.",
                     2000,
-                    false
+                    true
                 ))
                 .nest(new Achievement(
                     "Masala Slime Tikka",
