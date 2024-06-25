@@ -95,7 +95,7 @@ export function setupJordi()
     c.operator.ratings = {
         damage  : "C",
         control : "C+",
-        survival: "B",
+        survival: "A",
         pro     : "B",
     };
     c.operator.addNotableStuff("Major Damage Type", "Radiant");
@@ -105,11 +105,10 @@ export function setupJordi()
     c.operator.setChemistryWith(NpcID.Hav, 21, "His GodFather/adoptive uncle, and the only link to his past. Had a great deal of respect for Hav.");
     c.operator.setChemistryWith(NpcID.Irene, 17, "Really took to her after she arrived. Perceived a hidden depth of character to her and resonated " +
                                                      "strongly with that. Crushes on her.");
-    c.operator.setChemistryWith(NpcID.Elysium, 16, "For some reason, Elysium had always been kind to him, and Jordi reciprocates that. Now he barely " +
+    c.operator.setChemistryWith(NpcID.Elysium, 16, "For some reason, Elysium had always been kind to him, and Jordi reciprocates that. Now he " +
                                                        "begins to remember that he might've met him before...");
-    c.operator.setChemistryWith(NpcID.Petra, 14, "She's been a really kind grandma to him since she arrived. Something nags at the back of his mind " +
-                                                     "when with her, but he just can't pinpoint it...");
-    c.operator.setChemistryWith(NpcID.Hina, 11, "Thinks of her as a younger sister, though he's not fully sure why.");
+    c.operator.setChemistryWith(NpcID.Petra, 14, "She's been a really kind grandma to him since she arrived. Perhaps too late, he finally " +
+                                                 "remembers his adoptive younger sister from before he was lost in the tides of the profound silence.");
     c.operator.setChemistryWith(NpcID.Yuki, 10, "Always took his side against Kastor's bullying and to Jordi he seems to radiate the aura of a " +
                                                     "noble warrior.");
     c.operator.professions = ["Church Keeper", "Fisherman"];

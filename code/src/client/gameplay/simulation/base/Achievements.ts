@@ -307,20 +307,20 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                 "Head past the grottos to reach the cliffs marking the shore " +
                 "of the Nethersea.",
                 3000,
-                false
+                true
             )
                 .nest(new Achievement(
                     "Rage and Hunger",
                     "Investigate the brutal murders happening around the town " +
                     "for the last 29 days.",
                     1000,
-                    false,
+                    true,
                 )
                     .nest(new Achievement(
                         "Blood and Oil",
                         "Prevent the murderer from claiming their 30th victim.",
                         600,
-                        false
+                        true
                     ))
                 )
                 .nest(new Achievement(
@@ -348,7 +348,7 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                         "Static beyond the Wall",
                         "Allow or deny a daemon her vengeance.",
                         800,
-                        false
+                        true
                     ))
                     .nest(new Achievement(
                         "The Power that makes Gods",
@@ -361,13 +361,13 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                         "Temporarily revive an old hero who died trapped by the " +
                         "second nightmare.",
                         1000,
-                        false
+                        true
                     )
                         .nest(new Achievement(
                             "The Blade of Vengeance",
                             "Use the ultimate weapon to reap your enemies' souls.",
                             1500,
-                            false
+                            true
                         )))
                     .nest(new Achievement(
                         "Black Rice",
