@@ -1,5 +1,5 @@
-import {DSkill, ProficiencyLevel, VisibilityLevel} from "../../../data/constants";
-import {IBaseAspectFactory}                        from "./IBaseAspectFactory";
+import {DSkill, ProficiencyLevel} from "../../../data/constants";
+import {IBaseAspectFactory}       from "./IBaseAspectFactory";
 
 
 /**
@@ -12,7 +12,6 @@ export interface IDSkillsFactory
      * Add / Override proficiency level in the given skill.
      */
     setSkillProficiency(skill: DSkill,
-                        visibility: VisibilityLevel,
                         proficiency?: ProficiencyLevel,
                         mod?: number);
 

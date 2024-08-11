@@ -1,4 +1,4 @@
-import {Activation, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
 import {NpcID}                                                                                       from "../../../../../data/npcIndex";
 import {D6, D8}                                                                                      from "../../../../../rolling/Dice";
 import {Action}                                                                                      from "../../../../action/Action";
@@ -17,7 +17,7 @@ export function setupSlider()
     c.dStats.pb = 2;
     c.dStats.finalize();
 
-    c.dSkills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Performance, ProficiencyLevel.Expert);
     c.dSkills.finalize();
 
     c.combat.addBioHpDice(D8.countHavingE(28, c.CON), D8);

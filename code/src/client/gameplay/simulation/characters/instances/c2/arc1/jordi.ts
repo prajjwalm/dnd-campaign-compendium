@@ -1,4 +1,4 @@
-import {Activation, AdventurerClass, CreatureSize, CSkill, DamageType, DSkill, DStat, Era, Hidden, ProficiencyLevel, Sense, Speed, Vague,} from "../../../../../data/constants";
+import {Activation, AdventurerClass, CreatureSize, CSkill, DamageType, DSkill, DStat, Era, ProficiencyLevel, Sense, Speed, } from "../../../../../data/constants";
 import {NpcID}                                                                                                                             from "../../../../../data/npcIndex";
 import {D1, D12, D6}                                                                                                                       from "../../../../../rolling/Dice";
 import {Action}                                                                                                                            from "../../../../action/Action";
@@ -20,75 +20,75 @@ export function setupJordi()
     c.dStats.finalize();
 
 
-    c.dSkills.setSkillProficiency(DSkill.Acrobatics, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Insight,    Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Medicine,   Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Religion,   Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Persuasion, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Acrobatics, );
+    c.dSkills.setSkillProficiency(DSkill.Perception, );
+    c.dSkills.setSkillProficiency(DSkill.Insight, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Medicine, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Religion,   );
+    c.dSkills.setSkillProficiency(DSkill.Persuasion, );
     c.dSkills.finalize();
 
     c.cSkills.setSkillValues([
-        [CSkill.Accounting,                     5,    Vague],
-        [CSkill.Anthropology,                   0,    Vague],
-        [CSkill.Appraise,                       0,    Vague],
-        [CSkill.Archaeology,                    0,    Vague],
-        [CSkill.Artillery,                      0,    Vague],
-        [CSkill.Charm,                         15,    Vague],
-        [CSkill.ComputerUse,                    5,    Vague],
-        [CSkill.Demolitions,                    0,    Vague],
-        [CSkill.Disguise,                       5,    Vague],
-        [CSkill.Diving,                       100,    Vague],
-        [CSkill.DriveAuto,                     20,    Vague],
-        [CSkill.ElectricalRepair,              10,    Vague],
-        [CSkill.Electronics,                    0,    Vague],
-        [CSkill.FirstAid,                      70,    Vague],
-        [CSkill.Hypnosis,                       0,    Vague],
-        [CSkill.Law,                            5,    Vague],
-        [CSkill.LibraryUse,                    20,    Vague],
-        [CSkill.Locksmith,                      0,    Vague],
-        [CSkill.MechanicalRepair,              10,    Vague],
-        [CSkill.ModernMedicine,                 0,    Vague],
-        [CSkill.NaturalWorld,                  30,    Vague],
-        [CSkill.Navigate,                      60,    Vague],
-        [CSkill.Occult,                         5,    Vague],
-        [CSkill.OperateHeavyMachinery,          0,    Vague],
-        [CSkill.Psychoanalysis,                 0,    Vague],
-        [CSkill.ReadLips,                       0,    Vague],
-        [CSkill.Ride,                          15,    Vague],
-        [CSkill.Throw,                         20,    Vague],
-        [CSkill.Acting,                         5,    Vague],
-        [CSkill.Calligraphy,                    0,    Vague],
-        [CSkill.Carpentry,                     10,    Vague],
-        [CSkill.Cooking,                       50,    Vague],
-        [CSkill.Dancing,                        5,    Vague],
-        [CSkill.FineArt,                        5,    Vague],
-        [CSkill.Forgery,                        0,    Vague],
-        [CSkill.Writing,                        5,    Vague],
-        [CSkill.Singing,                        5,    Vague],
-        [CSkill.Painting,                       5,    Vague],
-        [CSkill.Photography,                    0,    Vague],
-        [CSkill.Sculpting,                      0,    Vague],
-        [CSkill.Chainsaw,                      10,    Vague],
-        [CSkill.HeavyWeapons,                  10,    Vague],
-        [CSkill.Flamethrower,                  10,    Vague],
-        [CSkill.MachineGun,                    10,    Vague],
-        [CSkill.SubmachineGun,                 10,    Vague],
-        [CSkill.Aircraft,                       0,    Vague],
-        [CSkill.Boat,                          65,    Vague],
-        [CSkill.Astronomy,                      0,    Vague],
-        [CSkill.Biology,                        0,    Vague],
-        [CSkill.Botany,                         0,    Vague],
-        [CSkill.Chemistry,                      0,    Vague],
-        [CSkill.Cryptography,                   0,    Vague],
-        [CSkill.Engineering,                    0,    Vague],
-        [CSkill.Forensics,                      0,    Vague],
-        [CSkill.Geology,                        0,    Vague],
-        [CSkill.Mathematics,                   10,    Vague],
-        [CSkill.Meteorology,                    0,    Vague],
-        [CSkill.Pharmacy,                       0,    Vague],
-        [CSkill.Physics,                        0,    Vague],
-        [CSkill.Zoology,                        0,    Vague],
+        [CSkill.Accounting,                     5],
+        [CSkill.Anthropology,                   0],
+        [CSkill.Appraise,                       0],
+        [CSkill.Archaeology,                    0],
+        [CSkill.Artillery,                      0],
+        [CSkill.Charm,                         15],
+        [CSkill.ComputerUse,                    5],
+        [CSkill.Demolitions,                    0],
+        [CSkill.Disguise,                       5],
+        [CSkill.Diving,                       100],
+        [CSkill.DriveAuto,                     20],
+        [CSkill.ElectricalRepair,              10],
+        [CSkill.Electronics,                    0],
+        [CSkill.FirstAid,                      70],
+        [CSkill.Hypnosis,                       0],
+        [CSkill.Law,                            5],
+        [CSkill.LibraryUse,                    20],
+        [CSkill.Locksmith,                      0],
+        [CSkill.MechanicalRepair,              10],
+        [CSkill.ModernMedicine,                 0],
+        [CSkill.NaturalWorld,                  30],
+        [CSkill.Navigate,                      60],
+        [CSkill.Occult,                         5],
+        [CSkill.OperateHeavyMachinery,          0],
+        [CSkill.Psychoanalysis,                 0],
+        [CSkill.ReadLips,                       0],
+        [CSkill.Ride,                          15],
+        [CSkill.Throw,                         20],
+        [CSkill.Acting,                         5],
+        [CSkill.Calligraphy,                    0],
+        [CSkill.Carpentry,                     10],
+        [CSkill.Cooking,                       50],
+        [CSkill.Dancing,                        5],
+        [CSkill.FineArt,                        5],
+        [CSkill.Forgery,                        0],
+        [CSkill.Writing,                        5],
+        [CSkill.Singing,                        5],
+        [CSkill.Painting,                       5],
+        [CSkill.Photography,                    0],
+        [CSkill.Sculpting,                      0],
+        [CSkill.Chainsaw,                      10],
+        [CSkill.HeavyWeapons,                  10],
+        [CSkill.Flamethrower,                  10],
+        [CSkill.MachineGun,                    10],
+        [CSkill.SubmachineGun,                 10],
+        [CSkill.Aircraft,                       0],
+        [CSkill.Boat,                          65],
+        [CSkill.Astronomy,                      0],
+        [CSkill.Biology,                        0],
+        [CSkill.Botany,                         0],
+        [CSkill.Chemistry,                      0],
+        [CSkill.Cryptography,                   0],
+        [CSkill.Engineering,                    0],
+        [CSkill.Forensics,                      0],
+        [CSkill.Geology,                        0],
+        [CSkill.Mathematics,                   10],
+        [CSkill.Meteorology,                    0],
+        [CSkill.Pharmacy,                       0],
+        [CSkill.Physics,                        0],
+        [CSkill.Zoology,                        0],
     ]);
 
     c.operator.fatigue = 0;
@@ -103,7 +103,7 @@ export function setupJordi()
     c.operator.addNotableStuff("Weak against", "Martials");
     c.operator.addNotableStuff("Combat Experience", "C Grade (1 years)");
     c.operator.setChemistryWith(NpcID.Hav, 21, "His GodFather/adoptive uncle, and the only link to his past. Had a great deal of respect for Hav.");
-    c.operator.setChemistryWith(NpcID.Irene, 17, "Really took to her after she arrived. Perceived a hidden depth of character to her and resonated " +
+    c.operator.setChemistryWith(NpcID.Irene, 17, "Really took to her after she arrived. Perceived a  depth of character to her and resonated " +
                                                      "strongly with that. Crushes on her.");
     c.operator.setChemistryWith(NpcID.Elysium, 16, "For some reason, Elysium had always been kind to him, and Jordi reciprocates that. Now he " +
                                                        "begins to remember that he might've met him before...");

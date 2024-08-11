@@ -1,6 +1,6 @@
-import {DSkill, Hidden} from "../../../../../data/constants";
-import {NpcID}          from "../../../../../data/npcIndex";
-import {Character}      from "../../../Character";
+import {DSkill}    from "../../../../../data/constants";
+import {NpcID}     from "../../../../../data/npcIndex";
+import {Character} from "../../../Character";
 
 export function setupCecilia()
 {
@@ -15,7 +15,7 @@ export function setupCecilia()
     c.dStats.pb = 3;
     c.dStats.finalize();
 
-    c.dSkills.setSkillProficiency(DSkill.Insight, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Insight);
     c.dSkills.finalize();
 
     c.card.setCampaignArc(2, 1);

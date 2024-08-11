@@ -1,9 +1,10 @@
-import {Activation, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
 import {NpcID}                                                                                       from "../../../../../data/npcIndex";
-import {D1, D4, D6}                                                                                  from "../../../../../rolling/Dice";
+import {D1, D4, D6, D8}                                                                              from "../../../../../rolling/Dice";
 import {Action}                                                                                      from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                    from "../../../../action/Wrap";
 import {Character}                                                                                   from "../../../Character";
+import {CharacterVariant}                                                                            from "../../../CharacterVariant";
 
 export function setupDrifter()
 {
@@ -17,7 +18,7 @@ export function setupDrifter()
     c.dStats.pb = 2;
     c.dStats.finalize();
 
-    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Prof);
+    c.dSkills.setSkillProficiency(DSkill.Perception, ProficiencyLevel.Prof);
     c.dSkills.finalize();
 
     c.combat.addBioHpDice(D6.countHavingE(30, c.CON), D6);
@@ -47,8 +48,8 @@ export function setupDrifter()
 
     c.combat.addAction(new Action(
         Activation.Action,
-        `<p><em><strong>Spit.</strong></em> Ranged Attack. Range 60ft.  
-        ${wrapRoll(c.DEX + c.Prof)} to hit. ${wrapRoll([[1, D6], [c.DEX, D1]])}
+        c => `<p><em><strong>Spit.</strong></em> Ranged Attack. Range 60ft.  
+        ${wrapRoll(c.DEX + c.Prof)} to hit. ${wrapRoll([[1, D6], [c.DEX + c.STR, D1]])}
         ${wrapDamageType(DamageType.Bludgeoning)} and ${wrapRoll([[1, D4], [c.CON, D1]])}
         ${wrapDamageType(DamageType.Acid)} damage.
          </p>`
@@ -64,4 +65,32 @@ export function setupDrifter()
     c.sheet.category = "seaborn";
 
     c.sheet.finalize();
+
+    const n = new CharacterVariant(NpcID.DrifterN, NpcID.Drifter);
+
+    n.core.name = "Nourished Drifter";
+    n.core.imgPath = "mob_tokens/seaborn/DrifterN.png";
+    n.core.finalize();
+
+    n.dStats.initializeStats(18, 20, 16, 5, 8, 12);
+    n.dStats.pb = 6;
+    n.dStats.finalize();
+
+    n.combat.addBioHpDice(D8.countHavingE(60, n.CON), D8);
+    n.combat.computeHP();
+
+    n.combat.setSpeed(Speed.Flying, 70);
+    n.combat.setSpeed(Speed.Swimming, 80);
+
+    n.combat.addAction(new Action(
+        Activation.Action,
+        `<p><em><strong>Multiattack.</strong></em>The nourished drifter spits twice.</p>`
+    ));
+
+    n.combat.cr = 5;
+    n.combat.finalize();
+
+    n.sheet.size = CreatureSize.Large;
+    n.sheet.theme = "danger_1";
+    n.sheet.finalize();
 }

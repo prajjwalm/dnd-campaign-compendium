@@ -1,5 +1,5 @@
-import {DSkill, ProficiencyLevel, VisibilityLevel} from "../../../data/constants";
-import {Rating}                                    from "../../../data/Rarity";
+import {DSkill, ProficiencyLevel} from "../../../data/constants";
+import {Rating}                   from "../../../data/Rarity";
 
 
 /**
@@ -25,13 +25,13 @@ export interface IDSkills
      */
     getSkillMod(skill: DSkill,
                 profOverride?: ProficiencyLevel,
-                tentative?: boolean): [number, VisibilityLevel];
+                tentative?: boolean): number;
 
     /**
      * @returns All the skills that were improved beyond usual, via proficiency,
      *          or constant value.
      */
-    get upgradedSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>;
+    get upgradedSkills(): ReadonlyMap<DSkill, number>;
 
     get dSkillRatings(): ReadonlyMap<DSkill, Rating>;
 }

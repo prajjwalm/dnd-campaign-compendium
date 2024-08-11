@@ -9,6 +9,7 @@ import {PositiveEmotion}        from "../../../opinions/PositiveEmotion";
 import {arc21OpinionEvents}     from "../../../opinions/sessions/arc_21";
 import {arc22OpinionEvents}     from "../../../opinions/sessions/arc_22";
 import {arc23OpinionEvents}     from "../../../opinions/sessions/arc_23";
+import {arc24OpinionEvents}     from "../../../opinions/sessions/arc_24";
 import {sessionOpinionEvents10} from "../../../opinions/sessions/s10";
 import {sessionOpinionEvents11} from "../../../opinions/sessions/s11";
 import {sessionOpinionEvents02} from "../../../opinions/sessions/s2";
@@ -22,6 +23,7 @@ import {sessionOpinionEvents09} from "../../../opinions/sessions/s9";
 import {TimeskipEvent}          from "../../../opinions/TimeskipEvent";
 import {Character}              from "../Character";
 import {BaseAspect}             from "./BaseAspect";
+import {ICore}                  from "./ICore";
 import {IOpinionated}           from "./IOpinionated";
 import {IOpinionatedFactory}    from "./IOpinionatedFactory";
 
@@ -53,6 +55,7 @@ export class OpinionAspect
         arc21OpinionEvents();
         arc22OpinionEvents();
         arc23OpinionEvents();
+        arc24OpinionEvents();
 
         const $individualAst = $("#individual_ast");
         const $table_area = $("#attitude_summary_table_area");
@@ -72,6 +75,7 @@ export class OpinionAspect
             if (!npc || !npc.isOpinionated) {
                 continue;
             }
+            console.log(`Generating opinions for ${npc.name}`)
             npcRows.push(npc.generateOpinionDOM());
         }
 
@@ -97,6 +101,11 @@ export class OpinionAspect
     }
 
     /**
+     * A reference to the properties supplied by the core aspect.
+     */
+    private core: ICore;
+
+    /**
      * The opinions that this NPC holds towards the various pcs.
      */
     private opinions: Map<PcIndex, NpcOpinion>;
@@ -112,6 +121,8 @@ export class OpinionAspect
     constructor(c: Character)
     {
         super(c);
+
+        this.core         = c;
         this._opinionated = false;
         this.opinions     = null;
     }
@@ -210,7 +221,7 @@ export class OpinionAspect
      */
     public get isOpinionated(): boolean
     {
-        return this._opinionated;
+        return this.core.isActive && this._opinionated;
     }
 
     /**
@@ -232,6 +243,6 @@ export class OpinionAspect
      */
     public get passiveDeception(): number
     {
-        return 10 + this.c.getSkillMod(DSkill.Deception)[0];
+        return 10 + this.c.getSkillMod(DSkill.Deception);
     }
 }

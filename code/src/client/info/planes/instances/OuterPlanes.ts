@@ -32,14 +32,12 @@ export const PlaneDevotion = new OuterPlane(
     "Intertwining Helices",
     EShard.Devotion,
     EConventionalPlanes.Bytopia,
-    // Dawnchant
 );
 
 export const PlaneHonor = new OuterPlane(
     "Invariant Storm",
     EShard.Honor,
     EConventionalPlanes.Mechanus,
-    // Dawnchant
 );
 
 export const PlaneInnovation = new OuterPlane(
@@ -52,7 +50,6 @@ export const PlaneMercy = new OuterPlane(
     "Unblemished Heights",
     EShard.Mercy,
     EConventionalPlanes.MtCelestia
-    // Dawnchant
 );
 
 export const PlaneOdium = new OuterPlane(
@@ -65,14 +62,12 @@ export const PlanePreservation = new OuterPlane(
     "Infinite Gardens",
     EShard.Preservation,
     EConventionalPlanes.Elysium,
-    // Old Primordial
 );
 
 export const PlanePrudence = new OuterPlane(
     "Quiet Perfection",
     EShard.Prudence,
     EConventionalPlanes.Arcadia,
-    // Dawnchant
 );
 
 export const PlaneRuin = new OuterPlane(
@@ -91,14 +86,12 @@ export const PlaneVirtuosity = new OuterPlane(
     "Vibrant Lines",
     EShard.Virtuousity,
     EConventionalPlanes.Arborea,
-    // DreamSpeak
 );
 
 export const PlaneWhimsy = new OuterPlane(
     "Uncharted Dreamscapes",
     EShard.Whimsy,
     EConventionalPlanes.Limbo,
-    // DreamSpeak
 );
 
 

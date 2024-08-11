@@ -5,8 +5,8 @@ import {OpinionAspect}   from "../aspects/OpinionAspect";
 import {Character}       from "../Character";
 import {setupC1A1}       from "./c1/arc1/_init";
 import {setupC1A2}       from "./c1/arc2/_init";
-import {setupC2A1}       from "./c2/arc1/_init";
-import {setupC2A2}       from "./c2/arc2/_init";
+import {setupC2A1} from "./c2/arc1/_init";
+import {setupC2A2} from "./c2/arc2";
 
 export function setupCharacters()
 {

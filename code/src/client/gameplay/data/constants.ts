@@ -332,23 +332,3 @@ export enum Era {
     Ancient,
     Timeless,
 }
-
-
-/**
- * How much the PCs know about a NPC's certain characteristic, be it a combat
- * move, skill modifier, movement speed anything.
- */
-export enum VisibilityLevel
-{
-    Hidden,     // Default. Nothing is known.
-    Hinted,     // The pcs know a move exists, or a skill is special but not it's details.
-    Vague,      // The pcs know a rough categorization of the skill.
-    Shown,      // The DM mode, where everything is visible and rolls are allowed.
-}
-
-// By controlling these I can switch between player and DM mode.
-
-export let Hidden = VisibilityLevel.Hidden;
-export let Hinted = VisibilityLevel.Hinted;
-export let Vague  = VisibilityLevel.Vague;
-export let Shown  = VisibilityLevel.Shown;

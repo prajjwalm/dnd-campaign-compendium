@@ -388,7 +388,7 @@
 }
 .theme--black .theme_label {
   background-color: #00031D;
-  border: solid 2px #822000;
+  border: solid 2px #BA1921;
 }
 .theme--black .theme_subheader {
   color: #CA1412;
@@ -1068,7 +1068,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #FAFCFF;
+  color: #F2EDF5;
   z-index: 1;
   translate: -50% -50%;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -1133,7 +1133,7 @@
   font-family: "RobotoCondensed", sans-serif;
 }
 .tag:not(.disabled) {
-  background-color: #822000;
+  background-color: #BA1921;
 }
 .tag.disabled {
   background-color: #555;
@@ -1169,7 +1169,7 @@
  * * Also note: https://m3.material.io/styles/elevation/tokens
  * */
 h6, h5, h4, h3, h2 {
-  color: #240B36;
+  color: #58176A;
 }
 
 h2 {
@@ -1229,7 +1229,7 @@ img {
 
 .section {
   border-radius: 12px;
-  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  background: linear-gradient(90deg, rgba(88, 23, 106, 0.05) 0%, rgba(88, 23, 106, 0.07) 73%, rgba(88, 23, 106, 0.08) 100%);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -1245,7 +1245,7 @@ img {
 }
 
 .card_link {
-  color: #576CA8;
+  color: #58176A;
 }
 
 .base_management {
@@ -1585,7 +1585,7 @@ img {
   transform: translate(calc(-50% - 8px), -70px);
   font-size: 16px;
   font-family: "RobotoCondensed", sans-serif;
-  border: solid 2px #FAFCFF;
+  border: solid 2px #F2EDF5;
   font-weight: bold;
   background-color: #444548;
   border-radius: 50%;
@@ -1604,7 +1604,7 @@ img {
 }
 .infrastructure .building__icon .icon_bar {
   width: 100%;
-  background-color: #FAFCFF;
+  background-color: #F2EDF5;
   height: 2px;
 }
 .infrastructure .building__art {
@@ -2508,7 +2508,7 @@ body {
 
 #graph_selection_panel {
   background: #00031D;
-  color: #FAFCFF;
+  color: #F2EDF5;
   width: 180px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
@@ -2538,14 +2538,14 @@ body {
 #graph_labels .graph_label {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   background-color: #00031D;
-  color: #FAFCFF;
+  color: #F2EDF5;
   border-radius: 8px;
   padding: 8px 24px;
   font-family: "RobotoCondensed", sans-serif;
   cursor: pointer;
 }
 #graph_labels .graph_label.selected {
-  background-color: #822000;
+  background-color: #BA1921;
   cursor: unset;
 }
 

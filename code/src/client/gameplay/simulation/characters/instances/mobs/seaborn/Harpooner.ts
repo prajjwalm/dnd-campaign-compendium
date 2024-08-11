@@ -1,5 +1,5 @@
 import {numberToText}                                                                                           from "../../../../../../common/common";
-import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
 import {NpcID}                                                                                                  from "../../../../../data/npcIndex";
 import {D1, D10, D12, D8}                                                                                       from "../../../../../rolling/Dice";
 import {Action}                                  from "../../../../action/Action";
@@ -58,7 +58,7 @@ export function setupHarpooners()
     c.dStats.pb = 3;
     c.dStats.finalize();
 
-    c.dSkills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Athletics, ProficiencyLevel.Expert);
     c.dSkills.finalize();
 
     const harpoonerHitDiceCount = D8.countHavingE(90, c.CON);

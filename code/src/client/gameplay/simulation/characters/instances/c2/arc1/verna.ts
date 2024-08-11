@@ -1,4 +1,4 @@
-import {DSkill, Hidden} from "../../../../../data/constants";
+import {DSkill, } from "../../../../../data/constants";
 import {NpcID}          from "../../../../../data/npcIndex";
 import {Character}      from "../../../Character";
 
@@ -16,7 +16,7 @@ export function setupVerna()
     c.dStats.finalize();
 
     //todo
-    c.dSkills.setSkillProficiency(DSkill.Athletics, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Athletics, );
     c.dSkills.finalize();
 
     c.opinions.isOpinionated = true;

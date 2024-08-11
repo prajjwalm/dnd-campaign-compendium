@@ -1,9 +1,9 @@
-import {Activation, AdventurerClass, ClassHitDice, Condition, CreatureSize, DamageType, DSkill, DStat, E, pbMod, ProficiencyLevel, SizeToDice, Speed, StatForSkill, statMod, VisibilityLevel,} from "../data/constants";
-import {D1, Dice}                                                                                                                                                                              from "../rolling/Dice";
-import {ISheetAction}                                                                                                                                                                          from "../simulation/action/ISheetAction";
-import {wrapRoll}                                                                                                                                                                              from "../simulation/action/Wrap";
-import {IDStats}                                                                                                                                                                               from "../simulation/characters/aspects/IDStats";
-import {IAttack, IBuffedAttack}                                                                                                                                                                from "./attack";
+import {Activation, AdventurerClass, ClassHitDice, Condition, CreatureSize, DamageType, DSkill, DStat, E, pbMod, ProficiencyLevel, SizeToDice, Speed, StatForSkill, statMod,} from "../data/constants";
+import {D1, Dice}               from "../rolling/Dice";
+import {ISheetAction}           from "../simulation/action/ISheetAction";
+import {wrapRoll}               from "../simulation/action/Wrap";
+import {IDStats}                from "../simulation/characters/aspects/IDStats";
+import {IAttack, IBuffedAttack} from "./attack";
 
 
 /**
@@ -199,10 +199,6 @@ export class StatSheet
                                        hpBlock.hpDiceCount * hpBlock.conHpPerDice
                                    ],
                                ]);
-    }
-
-    visibility(stat: DStat): VisibilityLevel {
-        throw new Error("Method not implemented.");
     }
 
     // TODO: LANGUAGES, SENSES

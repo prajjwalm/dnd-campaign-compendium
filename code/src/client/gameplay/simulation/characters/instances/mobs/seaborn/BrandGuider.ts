@@ -1,4 +1,4 @@
-import {Activation, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
 import {NpcID}                                                                                       from "../../../../../data/npcIndex";
 import {D10, D8}                                                                                     from "../../../../../rolling/Dice";
 import {Action}                                                                                      from "../../../../action/Action";
@@ -19,10 +19,10 @@ export function setupBrandGuiders()
     c.dStats.pb = 4;
     c.dStats.finalize();
 
-    c.dSkills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Religion, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Arcana, Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Athletics, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Religion, );
+    c.dSkills.setSkillProficiency(DSkill.Arcana, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Perception, ProficiencyLevel.Expert);
     c.dSkills.finalize();
 
     const hpDice = D8.countHavingE(190, c.CON);

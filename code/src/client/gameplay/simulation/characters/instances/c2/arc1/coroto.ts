@@ -1,4 +1,4 @@
-import {DSkill, Hidden, ProficiencyLevel} from "../../../../../data/constants";
+import {DSkill, ProficiencyLevel} from "../../../../../data/constants";
 import {NpcID}                            from "../../../../../data/npcIndex";
 import {Character}                        from "../../../Character";
 
@@ -17,12 +17,12 @@ export function setupCoroto()
     c.dStats.finalize();
 
     // Setup D&D skills.
-    c.dSkills.setSkillProficiency(DSkill.Intimidation, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Nature, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Performance, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Stealth, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Deception, Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Persuasion, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Intimidation, );
+    c.dSkills.setSkillProficiency(DSkill.Nature, );
+    c.dSkills.setSkillProficiency(DSkill.Performance, );
+    c.dSkills.setSkillProficiency(DSkill.Stealth, );
+    c.dSkills.setSkillProficiency(DSkill.Deception,  ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Persuasion, ProficiencyLevel.Expert);
     c.dSkills.finalize();
 
     c.card.setCampaignArc(2, 1);

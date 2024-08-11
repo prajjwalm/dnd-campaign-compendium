@@ -1,9 +1,9 @@
-import {DSkill, pbMod, ProficiencyLevel, Shown, StatForSkill, VisibilityLevel} from "../../../data/constants";
-import {Rating}                                                                from "../../../data/Rarity";
-import {Character}                                                             from "../Character";
-import {BaseAspect}                                                            from "./BaseAspect";
-import {IDSkills}                                                              from "./IDSkills";
-import {IDSkillsFactory}                                                       from "./IDSkillsFactory";
+import {DSkill, pbMod, ProficiencyLevel, StatForSkill} from "../../../data/constants";
+import {Rating}                                        from "../../../data/Rarity";
+import {Character}                                     from "../Character";
+import {BaseAspect}                                    from "./BaseAspect";
+import {IDSkills}                                      from "./IDSkills";
+import {IDSkillsFactory}                               from "./IDSkillsFactory";
 
 
 /**
@@ -47,7 +47,7 @@ export class DSkillsAspect
     /**
      * The skills this character is notable in.
      */
-    private readonly skills: Map<DSkill, [ProficiencyLevel, number, VisibilityLevel]>;
+    private readonly skills: Map<DSkill, [ProficiencyLevel, number]>;
 
     /**
      * CTOR.
@@ -64,8 +64,8 @@ export class DSkillsAspect
     public duplicate(other: Character): this
     {
         const aspect = new DSkillsAspect(other);
-        for (const [skill, [prof, mod, vis]] of this.skills.entries()) {
-            aspect.skills.set(skill, [prof, mod, vis]);
+        for (const [skill, [prof, mod]] of this.skills.entries()) {
+            aspect.skills.set(skill, [prof, mod]);
         }
         return aspect as this;
     }
@@ -74,11 +74,10 @@ export class DSkillsAspect
      * @inheritDoc
      */
     public setSkillProficiency(skill: DSkill,
-                               visibility: VisibilityLevel,
                                proficiency: ProficiencyLevel = ProficiencyLevel.Prof,
                                mod: number = 0)
     {
-        this.skills.set(skill, [proficiency, mod, visibility]);
+        this.skills.set(skill, [proficiency, mod]);
     }
 
     /**
@@ -87,7 +86,7 @@ export class DSkillsAspect
     public getSkillMod(skill: DSkill,
                        profOverride: ProficiencyLevel = null,
                        tentative: boolean = false):
-        [number, VisibilityLevel]
+        number
     {
         // First get the contribution from the stat.
         let statMod = this.c.mod(StatForSkill.get(skill));
@@ -95,46 +94,18 @@ export class DSkillsAspect
         // Now find the proficiency level to apply.
         let prof: ProficiencyLevel;
         let mod: number;
-        let vis: VisibilityLevel;
         if (this.skills.has(skill)) {
-            [prof, mod, vis] = this.skills.get(skill);
+            [prof, mod] = this.skills.get(skill);
         } else if (this.skills.has(DSkill._ALL)) {
-            [prof, mod, vis] = this.skills.get(DSkill._ALL);
+            [prof, mod] = this.skills.get(DSkill._ALL);
         } else {
-            [prof, mod, vis] = [ProficiencyLevel.None, 0, Shown];
+            [prof, mod] = [ProficiencyLevel.None, 0];
         }
 
         if (profOverride) {
             prof = profOverride;
         }
-        return [statMod + pbMod(this.c.pb, prof) + mod, vis];
-
-        // if (!this.skills.has(skill)) {
-        //     prof = ProficiencyLevel.None;
-        //     mod = 0;
-        //     vis = Shown;
-        // }
-        // else {
-        //     [prof, mod, vis] = this.skills.get(skill);
-        // }
-        // if (profOverride) {
-        //     prof = profOverride;
-        // }
-        // if (this.skills.has(DSkill._ALL)) {
-        //     const [minProf, minMod, _] = this.skills.get(DSkill._ALL);
-        //     if (prof < minProf) {
-        //         prof = minProf;
-        //     }
-        //     if (mod < minMod) {
-        //         mod = minMod;
-        //     }
-        // }
-        //
-        // return [this.c.mod(StatForSkill.get(skill)) +
-        //         this.c.pb.mod(prof) +
-        //         mod,
-        //         vis
-        // ];
+        return statMod + pbMod(this.c.pb, prof) + mod;
     }
 
     /**
@@ -143,11 +114,11 @@ export class DSkillsAspect
     public finalizeSkills()
     {}
 
-    public get upgradedSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
+    public get upgradedSkills(): ReadonlyMap<DSkill, number>
     {
-        const upgradedSkills: Map<DSkill, [number, VisibilityLevel]> = new Map();
+        const upgradedSkills: Map<DSkill, number> = new Map();
         if (this.skills.has(DSkill._ALL)) {
-            const [minProf, minMod, allVis] = this.skills.get(DSkill._ALL);
+            const [minProf, minMod] = this.skills.get(DSkill._ALL);
             for (const skill of [
                 DSkill.Acrobatics,
                 DSkill.AnimalHandling,
@@ -171,24 +142,16 @@ export class DSkillsAspect
             {
                 upgradedSkills.set(
                     skill,
-                    [
-                        this.c.mod(StatForSkill.get(skill)) +
-                        pbMod(this.c.pb, minProf) + minMod,
-                        allVis
-                    ]
+                    this.c.mod(StatForSkill.get(skill)) + pbMod(this.c.pb, minProf) + minMod
                 );
             }
         }
 
-        for (const [skill, [profLevel, mod, vis]] of this.skills.entries()) {
+        for (const [skill, [profLevel, mod]] of this.skills.entries()) {
             if (skill == DSkill._ALL) {
                 continue;
             }
-            upgradedSkills.set(skill,
-                [
-                    this.c.mod(StatForSkill.get(skill)) +
-                    pbMod(this.c.pb, profLevel) + mod, vis
-                ]);
+            upgradedSkills.set(skill, this.c.mod(StatForSkill.get(skill)) + pbMod(this.c.pb, profLevel) + mod);
         }
         return upgradedSkills;
     }
@@ -196,7 +159,7 @@ export class DSkillsAspect
     public get dSkillRatings(): ReadonlyMap<DSkill, Rating>
     {
         const ratings: Map<DSkill, Rating> = new Map();
-        for (const [skill, [value, _]] of this.upgradedSkills.entries()) {
+        for (const [skill, value] of this.upgradedSkills.entries()) {
             ratings.set(skill, DSkillsAspect.getRatingForSkillModifier(value));
         }
         return ratings;

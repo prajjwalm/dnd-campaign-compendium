@@ -1,8 +1,8 @@
-import {DStat, statMod, VisibilityLevel} from "../../../data/constants";
-import {Character}                       from "../Character";
-import {BaseAspect}                      from "./BaseAspect";
-import {IDStats}                         from "./IDStats";
-import {IDStatsFactory}                  from "./IDStatsFactory";
+import {DStat, statMod} from "../../../data/constants";
+import {Character}      from "../Character";
+import {BaseAspect}     from "./BaseAspect";
+import {IDStats}        from "./IDStats";
+import {IDStatsFactory} from "./IDStatsFactory";
 
 
 /**
@@ -18,8 +18,6 @@ export class DStatsAspect
      */
     private readonly _stats: Map<DStat, number>;
 
-    private readonly _statVisibilities: Map<DStat, VisibilityLevel>;
-
     private _pb: number;
 
     /**
@@ -29,7 +27,6 @@ export class DStatsAspect
     {
         super(c);
         this._stats = new Map();
-        this._statVisibilities = new Map();
         this._pb = null;
     }
 
@@ -38,9 +35,6 @@ export class DStatsAspect
         const aspect = new DStatsAspect(other);
         for (const [stat, val] of this._stats.entries()) {
             aspect._stats.set(stat, val);
-        }
-        for (const [stat, vis] of this._statVisibilities.entries()) {
-            aspect._statVisibilities.set(stat, vis);
         }
         aspect._pb = this._pb;
         return aspect as this;
@@ -62,27 +56,6 @@ export class DStatsAspect
         this._stats.set(DStat.Int, int);
         this._stats.set(DStat.Wis, wis);
         this._stats.set(DStat.Cha, cha);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public setVisibilityLevel(vis: VisibilityLevel, stat: DStat=null)
-    {
-        if (stat == null) {
-            for (const stat of [DStat.Str,
-                                DStat.Dex,
-                                DStat.Con,
-                                DStat.Int,
-                                DStat.Wis,
-                                DStat.Cha,])
-            {
-                this._statVisibilities.set(stat, vis);
-            }
-        }
-        else {
-            this._statVisibilities.set(stat, vis);
-        }
     }
 
     /**
@@ -115,14 +88,5 @@ export class DStatsAspect
     public mod(stat: DStat): number
     {
         return statMod(this._stats.get(stat));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public visibility(stat: DStat): VisibilityLevel
-    {
-        return this._statVisibilities.has(stat) ? this._statVisibilities.get(stat)
-                                                : VisibilityLevel.Hinted;
     }
 }

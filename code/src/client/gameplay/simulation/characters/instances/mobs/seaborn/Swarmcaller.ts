@@ -1,4 +1,4 @@
-import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
 import {NpcID}                                                                                                  from "../../../../../data/npcIndex";
 import {D1, D10, D12}                                                                                           from "../../../../../rolling/Dice";
 import {Action}                                                                                                 from "../../../../action/Action";
@@ -17,9 +17,9 @@ export function setupSwarmCaller()
     c.dStats.pb = 3;
     c.dStats.finalize();
 
-    c.dSkills.setSkillProficiency(DSkill.Intimidation, Hidden, ProficiencyLevel.Half);
-    c.dSkills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Prof);
+    c.dSkills.setSkillProficiency(DSkill.Intimidation, ProficiencyLevel.Half);
+    c.dSkills.setSkillProficiency(DSkill.Performance, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Athletics, ProficiencyLevel.Prof);
     c.dSkills.finalize();
 
     c.combat.addBioHpDice(D10.countHavingE(100, c.CON), D10);

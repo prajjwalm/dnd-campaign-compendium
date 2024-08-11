@@ -1,4 +1,4 @@
-import {Activation, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
 import {NpcID}                                                                                       from "../../../../../data/npcIndex";
 import {D1, D12, D6, D8}                                                                             from "../../../../../rolling/Dice";
 import {Action}                                                                                      from "../../../../action/Action";
@@ -18,8 +18,8 @@ export function setupShriekers()
     c.dStats.pb = 3;
     c.dStats.finalize();
 
-    c.dSkills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Athletics, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Performance, ProficiencyLevel.Expert);
     c.dSkills.finalize();
 
     c.combat.addBioHpDice(D6.countHavingE(120, c.CON), D6);
@@ -44,24 +44,15 @@ export function setupShriekers()
 
     c.combat.addAction(new Action(
         Activation.Special,
-        (c) => `<p><em><strong>Sated Humming.</strong></em> The shrieker roams around, 
-        apparently aimless (but with a tendency to move towards other seaborn), 
-        at half speed, until it takes damage...<br/>
-        While in this state, it restores ${wrapRoll([c.CON, D12])} HP per 
-        round to all seaborn that get within 20 ft of it at any point of time.</p>`
-    ));
-
-    c.combat.addAction(new Action(
-        Activation.Special,
         (c) => `<p><em><strong>Frenzied Shrieking.</strong></em> The shrieker dashes 
         (apparantly) randomly (but with a tendancy to move towards the highest 
         concentration of non-seaborn it can detect). While in 
-        this state it deals ${wrapRoll([[2 * c.CON, D12], [c.CON, D1]])} 
+        this state it deals ${wrapRoll([[c.CON, D12], [c.CON, D1]])} 
         ${wrapDamageType(DamageType.Neural)} damage per round (halved on a DC 
         ${c.dc(DStat.Cha) + c.Prof} WIS save) to all non-seaborn that get within
-        60 ft of it at any point of time. At the end of each of 
+        30 ft of it at any point of time. At the end of each of 
         its turns it takes 50 true damage.</p>`
-    ));
+    ), "shriek");
 
     c.combat.cr = 8;
     c.combat.finalize();
@@ -89,6 +80,27 @@ export function setupShriekers()
 
     n.combat.setSpeed(Speed.Walking, 40);
     n.combat.setSpeed(Speed.Swimming, 60);
+
+    n.combat.addAction(new Action(
+        Activation.Special,
+        (c) => `<p><em><strong>Sated Humming.</strong></em> The shrieker roams around, 
+        apparently aimless (but with a tendency to move towards other seaborn), 
+        at half speed, until it takes damage...<br/>
+        While in this state, it restores ${wrapRoll([c.CON, D12])} HP per 
+        round to all seaborn that get within 20 ft of it at any point of time.</p>`
+    ));
+
+    n.combat.addAction(new Action(
+        Activation.Special,
+        (c) => `<p><em><strong>Frenzied Shrieking.</strong></em> The shrieker dashes 
+        (apparantly) randomly (but with a tendancy to move towards the highest 
+        concentration of non-seaborn it can detect). While in 
+        this state it deals ${wrapRoll([[2 * c.CON, D12], [c.CON, D1]])} 
+        ${wrapDamageType(DamageType.Neural)} damage per round (halved on a DC 
+        ${c.dc(DStat.Cha) + c.Prof} WIS save) to all non-seaborn that get within
+        60 ft of it at any point of time. At the end of each of 
+        its turns it takes 50 true damage.</p>`
+    ), "shriek");
 
     n.combat.addAction(new Action(
         Activation.LegendaryAction,

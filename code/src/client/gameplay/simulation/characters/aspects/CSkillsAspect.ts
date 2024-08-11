@@ -1,9 +1,9 @@
-import {CSkill, VisibilityLevel} from "../../../data/constants";
-import {Rating}                  from "../../../data/Rarity";
-import {Character}               from "../Character";
-import {BaseAspect}              from "./BaseAspect";
-import {ICSkills}                from "./ICSkills";
-import {ICSkillsFactory}         from "./ICSkillsFactory";
+import {CSkill}          from "../../../data/constants";
+import {Rating}          from "../../../data/Rarity";
+import {Character}       from "../Character";
+import {BaseAspect}      from "./BaseAspect";
+import {ICSkills}        from "./ICSkills";
+import {ICSkillsFactory} from "./ICSkillsFactory";
 
 
 /**
@@ -110,7 +110,7 @@ export class CSkillsAspect
     /**
      * The skills this character is notable in.
      */
-    private readonly skills: Map<CSkill, [number, VisibilityLevel]>;
+    private readonly skills: Map<CSkill, number>;
 
     /**
      * CTOR.
@@ -124,41 +124,39 @@ export class CSkillsAspect
     public duplicate(other: Character): this
     {
         const aspect = new CSkillsAspect(other);
-        for (const [skill, [val, vis]] of this.skills.entries()) {
-            aspect.skills.set(skill, [val, vis]);
+        for (const [skill, val] of this.skills.entries()) {
+            aspect.skills.set(skill, val);
         }
         return aspect as this;
     }
 
-    public getSkillVal(skill: CSkill): [number, VisibilityLevel]
+    public getSkillVal(skill: CSkill): number
     {
         return this.skills.get(skill);
     }
 
-    public setSkillValue(skill: CSkill,
-                         value: number,
-                         visibility: VisibilityLevel)
+    public setSkillValue(skill: CSkill, value: number)
     {
         if (value == CSkillsAspect.BASE_VALUES.get(skill)) {
             return;
         }
-        this.skills.set(skill, [value, visibility]);
+        this.skills.set(skill, value);
     }
 
-    public setSkillValues(data: [CSkill, number, VisibilityLevel][])
+    public setSkillValues(data: [CSkill, number][])
     {
         for (const datum of data) {
             if (datum[1] == CSkillsAspect.BASE_VALUES.get(datum[0])) {
                 continue;
             }
-            this.skills.set(datum[0], [datum[1], datum[2]]);
+            this.skills.set(datum[0], datum[1]);
         }
     }
 
     public get cSkillRatings(): ReadonlyMap<CSkill, Rating>
     {
         const ratings: Map<CSkill, Rating> = new Map();
-        for (const [skill, [value, _]] of this.skills.entries()) {
+        for (const [skill, value] of this.skills.entries()) {
             ratings.set(skill, CSkillsAspect.getRatingForSkillModifier(value));
         }
         return ratings;

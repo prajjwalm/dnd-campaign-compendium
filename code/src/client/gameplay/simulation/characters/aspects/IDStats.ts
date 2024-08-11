@@ -1,4 +1,4 @@
-import {DStat, VisibilityLevel} from "../../../data/constants";
+import {DStat} from "../../../data/constants";
 
 
 /**
@@ -10,11 +10,6 @@ export interface IDStats
      * Return a map from each {@link DStat} to their value.
      */
     get stats(): ReadonlyMap<DStat, number>;
-
-    /**
-     * Returns this visibility level of the given stat.
-     */
-    visibility(stat: DStat): VisibilityLevel;
 
     /**
      * Acronym for {@link stats}.get(stat).mod

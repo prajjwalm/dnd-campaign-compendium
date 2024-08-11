@@ -1,4 +1,4 @@
-import {Activation, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
 import {NpcID}                                                                                       from "../../../../../data/npcIndex";
 import {D1, D6}                                                                                      from "../../../../../rolling/Dice";
 import {Action}                                                                                      from "../../../../action/Action";
@@ -17,7 +17,7 @@ export function setupSucker()
     c.dStats.pb = 3;
     c.dStats.finalize();
 
-    c.dSkills.setSkillProficiency(DSkill.Stealth, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Stealth, ProficiencyLevel.Expert);
     c.dSkills.finalize();
 
     c.combat.addBioHpDice(D6.countHavingE(40, c.CON), D6);

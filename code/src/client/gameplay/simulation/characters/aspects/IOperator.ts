@@ -1,7 +1,7 @@
-import {CSkill, DSkill, Era, VisibilityLevel} from "../../../data/constants";
-import {IDOMGenerator}                        from "../../../IDomGenerator";
-import {Morale}                               from "../Morale";
-import {CombatRatingMetric}                   from "./IOperatorFactory";
+import {CSkill, DSkill, Era} from "../../../data/constants";
+import {IDOMGenerator}       from "../../../IDomGenerator";
+import {Morale}              from "../Morale";
+import {CombatRatingMetric}  from "./IOperatorFactory";
 
 
 export interface IOperator
@@ -35,12 +35,12 @@ export interface IOperator
     /**
      * Get the notable D&D skills of this operator.
      */
-    get notableDSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>;
+    get notableDSkills(): ReadonlyMap<DSkill, number>;
 
     /**
      * Get the notable CoC skills of this operator.
      */
-    get notableCSkills(): ReadonlyMap<CSkill, [number, VisibilityLevel]>;
+    get notableCSkills(): ReadonlyMap<CSkill, number>;
 
     /**
      * Any other information we'd like to display. (Pretty much everything)

@@ -90,7 +90,7 @@
 }
 
 .page {
-  background-color: #FAFCFF;
+  background-color: #F2EDF5;
   border-radius: 4px;
   min-width: 320px;
   overflow: hidden;
@@ -108,7 +108,7 @@
   padding: 48px 32px 16px;
   margin-top: 0;
   margin-bottom: 16px;
-  color: #FAFCFF;
+  color: #F2EDF5;
   background-color: #1c1c24;
 }
 
@@ -125,7 +125,7 @@
   align-items: stretch;
   gap: 8px;
   padding: 8px;
-  color: #FAFCFF;
+  color: #F2EDF5;
   font-family: "Roboto", sans-serif;
   font-size: 20px;
 }
@@ -161,7 +161,7 @@
   border-radius: 8px;
   position: sticky;
   background-color: #1c1c24;
-  color: #FAFCFF;
+  color: #F2EDF5;
 }
 .page_zone_shift i {
   margin-left: 16px;
@@ -187,7 +187,7 @@
   font-family: "RobotoCondensed", sans-serif;
 }
 .tag:not(.disabled) {
-  background-color: #822000;
+  background-color: #BA1921;
 }
 .tag.disabled {
   background-color: #555;
@@ -208,7 +208,7 @@
 #history_bar {
   width: 4px;
   border-radius: 2px;
-  background-color: #7286A0;
+  background-color: #EDE7EC;
   flex-grow: 0;
   z-index: 3;
 }
@@ -219,9 +219,9 @@
   flex-grow: 0;
   border-radius: 6px 4px 4px 6px;
   overflow: visible;
-  background-color: #21364d;
+  background-color: #58176A;
   font-variant-caps: small-caps;
-  color: #FAFCFF;
+  color: #F2EDF5;
   flex-shrink: 0;
   z-index: 2;
 }
@@ -253,7 +253,7 @@
   content: "";
 }
 #history_zones .history_zone:nth-child(2n+1) {
-  background: linear-gradient(0deg, rgba(114, 134, 160, 0.1) 0%, rgba(114, 134, 160, 0.04) 22%, rgba(114, 134, 160, 0.02) 50%, rgba(114, 134, 160, 0.04) 78%, rgba(114, 134, 160, 0.1) 100%);
+  background: linear-gradient(0deg, rgba(237, 231, 236, 0.1) 0%, rgba(237, 231, 236, 0.04) 22%, rgba(237, 231, 236, 0.02) 50%, rgba(237, 231, 236, 0.04) 78%, rgba(237, 231, 236, 0.1) 100%);
 }
 
 #history_right_desc {
@@ -278,7 +278,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 #history_right_tags .history_event:not(.disabled), #history_left_tags .history_event:not(.disabled) {
-  background-color: #822000;
+  background-color: #BA1921;
 }
 #history_right_tags .history_event.disabled, #history_left_tags .history_event.disabled {
   background-color: #555;
@@ -292,7 +292,7 @@
   transform: translate(-100%);
   content: "";
   height: 4px;
-  background-color: #7286A0;
+  background-color: #EDE7EC;
   display: block;
   z-index: -1;
 }
@@ -315,15 +315,15 @@ table.simple_table tr, .opinion_summary_table .simple_table__row, .simple_table 
   color: #00031D;
 }
 table.simple_table tr:nth-child(2n), .opinion_summary_table .simple_table__row:nth-child(2n), .simple_table .simple_table__row:nth-child(2n) {
-  background-color: rgba(114, 134, 160, 0.1);
+  background-color: rgba(237, 231, 236, 0.1);
 }
 table.simple_table tr:nth-child(2n+1), .opinion_summary_table .simple_table__row:nth-child(2n+1), .simple_table .simple_table__row:nth-child(2n+1) {
-  background-color: rgba(114, 134, 160, 0.15);
+  background-color: rgba(237, 231, 236, 0.15);
 }
 
 .opinion_summary_table, .simple_table {
   border-radius: 8px;
-  border: solid 4px #21364d;
+  border: solid 4px #58176A;
   font-family: "RobotoCondensed", sans-serif;
 }
 .opinion_summary_table .simple_table__body, .simple_table .simple_table__body {
@@ -331,8 +331,8 @@ table.simple_table tr:nth-child(2n+1), .opinion_summary_table .simple_table__row
   overflow-x: hidden;
 }
 .opinion_summary_table .simple_table__row--header, .simple_table .simple_table__row--header {
-  background-color: #21364d !important;
-  color: #FAFCFF;
+  background-color: #58176A !important;
+  color: #F2EDF5;
 }
 .opinion_summary_table .simple_table__row--header .simple_table__row__cell, .simple_table .simple_table__row--header .simple_table__row__cell {
   font-family: "Montserrat", sans-serif;
@@ -399,8 +399,8 @@ table.simple_table {
   margin-top: -16px;
   margin-left: -16px;
   z-index: 2;
-  background-color: #FAFCFF;
-  color: #240B36;
+  background-color: #F2EDF5;
+  color: #58176A;
   font-family: "Roboto", sans-serif;
   display: inline-flex;
   align-items: center;
@@ -551,9 +551,9 @@ table.simple_table {
   font-weight: 500;
 }
 .effect_tag[data-emo=Affection]:not(.disabled) {
-  border: solid 2px #21364d;
-  background-color: rgba(33, 54, 77, 0.2);
-  color: #21364d;
+  border: solid 2px #58176A;
+  background-color: rgba(88, 23, 106, 0.2);
+  color: #58176A;
 }
 .effect_tag[data-emo=Affection].disabled {
   border: solid 2px #555;
@@ -607,9 +607,9 @@ table.simple_table {
   font-weight: 500;
 }
 .effect_tag[data-emo=Hatred]:not(.disabled) {
-  border: solid 2px #21364d;
-  background-color: rgba(33, 54, 77, 0.2);
-  color: #21364d;
+  border: solid 2px #58176A;
+  background-color: rgba(88, 23, 106, 0.2);
+  color: #58176A;
 }
 .effect_tag[data-emo=Hatred].disabled {
   border: solid 2px #555;
@@ -696,7 +696,7 @@ table.simple_table {
   justify-content: flex-start;
   margin-left: 8px;
   margin-right: 16px;
-  border-right: solid 1px rgba(114, 134, 160, 0.2);
+  border-right: solid 1px rgba(237, 231, 236, 0.2);
   flex-grow: 0;
   flex-shrink: 0;
 }
@@ -830,20 +830,20 @@ table.simple_table {
   border-bottom: solid 1px;
 }
 .advanced_style .stat_sheet .sheet_header .header_zone, .page[data-nav-id=beastiary] .stat_sheet .sheet_header .header_zone {
-  border-bottom-color: #822000;
+  border-bottom-color: #BA1921;
 }
 .advanced_style .stat_sheet .sheet_header .header_zone .sheet_title, .page[data-nav-id=beastiary] .stat_sheet .sheet_header .header_zone .sheet_title {
-  color: #822000;
+  color: #BA1921;
 }
 .advanced_style .stat_sheet .sheet_header .header_zone table th, .page[data-nav-id=beastiary] .stat_sheet .sheet_header .header_zone table th {
-  color: #822000;
+  color: #BA1921;
 }
 .advanced_style .stat_sheet .sheet_header .header_zone table:not(.stats_table) td:first-child, .page[data-nav-id=beastiary] .stat_sheet .sheet_header .header_zone table:not(.stats_table) td:first-child {
-  color: #822000;
+  color: #BA1921;
 }
 .advanced_style .stat_sheet .sheet_section_header, .page[data-nav-id=beastiary] .stat_sheet .sheet_section_header {
-  color: #822000;
-  border-bottom-color: #822000;
+  color: #BA1921;
+  border-bottom-color: #BA1921;
 }
 
 /**
@@ -904,7 +904,7 @@ table.simple_table {
 }
 #workshop .selectable_radio_container.translational_flags .translation_base {
   background-color: #151515;
-  box-shadow: 0 0 10px 3px rgba(250, 252, 255, 0.19);
+  box-shadow: 0 0 10px 3px rgba(242, 237, 245, 0.19);
 }
 #workshop .selectable_radio_container.translational_flags .selectable {
   background: #252d3d;
@@ -954,9 +954,9 @@ table.simple_table {
   object-fit: contain;
 }
 #workshop .selectable_radio_container.translational_flags .selectable .title {
-  color: #FAFCFF;
+  color: #F2EDF5;
   font-family: "Montserrat", sans-serif;
-  border-bottom: solid 1px #7286A0;
+  border-bottom: solid 1px #EDE7EC;
   height: 50px !important;
   text-align: center;
   margin-bottom: 8px;
@@ -981,8 +981,8 @@ table.simple_table {
 }
 #workshop .selectable_radio_container.translational_flags .selectable .confirm i {
   display: block;
-  color: #FAFCFF;
-  text-shadow: 0 0 5px rgba(250, 252, 255, 0.5);
+  color: #F2EDF5;
+  text-shadow: 0 0 5px rgba(242, 237, 245, 0.5);
 }
 #workshop .selectable_radio_container.translational_flags .selectable.selected .confirm {
   display: flex;
@@ -1150,7 +1150,7 @@ table.simple_table {
   flex-grow: 1;
   width: 50%;
   height: 256px;
-  background-color: #21364d;
+  background-color: #58176A;
   color: #f3f3f3;
   padding: 16px;
   transition: all 0.3s;
@@ -1228,7 +1228,7 @@ table.simple_table {
   padding: 8px 8px 8px 80px;
   border-radius: 4px;
   background-color: #eee;
-  color: #21364d;
+  color: #58176A;
   font-family: "RobotoCondensed", sans-serif;
   overflow: hidden;
   z-index: 0;
@@ -1277,8 +1277,8 @@ table.simple_table {
   justify-content: space-between;
 }
 #beastiary .rollable {
-  background-color: #FAFCFF;
-  border: solid 2px #822000;
+  background-color: #F2EDF5;
+  border: solid 2px #BA1921;
   font-family: Montserrat, sans-serif;
   border-radius: 4px;
   padding: 0 4px;
@@ -1321,7 +1321,7 @@ table.simple_table {
 }
 #beastiary .selectable_radio_container.translational_flags .selectable .title {
   font-family: Montserrat, sans-serif;
-  color: #FAFCFF;
+  color: #F2EDF5;
   font-size: 16px;
 }
 #beastiary .selectable_radio_container.translational_flags .selectable .icon_img {
@@ -1653,7 +1653,7 @@ table.simple_table {
 }
 .theme--black .theme_label {
   background-color: #00031D;
-  border: solid 2px #822000;
+  border: solid 2px #BA1921;
 }
 .theme--black .theme_subheader {
   color: #CA1412;
@@ -2132,7 +2132,7 @@ table.simple_table {
  * * Also note: https://m3.material.io/styles/elevation/tokens
  * */
 h6, h5, h4, h3, h2 {
-  color: #240B36;
+  color: #58176A;
 }
 
 h2 {
@@ -2192,7 +2192,7 @@ img {
 
 .section {
   border-radius: 12px;
-  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  background: linear-gradient(90deg, rgba(88, 23, 106, 0.05) 0%, rgba(88, 23, 106, 0.07) 73%, rgba(88, 23, 106, 0.08) 100%);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -2208,7 +2208,7 @@ img {
 }
 
 .card_link {
-  color: #576CA8;
+  color: #58176A;
 }
 
 .log_tag--critical, .log_level--critical .log_tag, .log_tag--important, .log_level--important .log_tag, .log_tag--notable, .log_level--notable .log_tag, .log_tag--info, .log_level--info .log_tag, #material_plane .country_space .country_desc .country .country_card .tags .t1, #material_plane .country_space .country_desc .country .country_card .tags .t2, #material_plane .country_space .country_desc .country .country_card .tags .t3, #material_plane .country_space .country_desc .country .country_card .tags .t4, #material_plane .country_space .country_desc .country .country_card .tags .t5, #material_plane .country_space .country_desc .country .country_card .tags .t6, .token_selector, .tag {
@@ -2229,7 +2229,7 @@ img {
 }
 
 .tag:not(.disabled) {
-  background-color: #822000;
+  background-color: #BA1921;
 }
 
 .tag.disabled {
@@ -2295,7 +2295,7 @@ img {
  * * Also note: https://m3.material.io/styles/elevation/tokens
  * */
 h2, h3, h4, h5, h6 {
-  color: #240B36;
+  color: #58176A;
 }
 
 h2 {
@@ -2355,7 +2355,7 @@ img {
 
 .section {
   border-radius: 12px;
-  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  background: linear-gradient(90deg, rgba(88, 23, 106, 0.05) 0%, rgba(88, 23, 106, 0.07) 73%, rgba(88, 23, 106, 0.08) 100%);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -2371,7 +2371,7 @@ img {
 }
 
 .card_link {
-  color: #576CA8;
+  color: #58176A;
 }
 
 #tokens .token {
@@ -2382,7 +2382,7 @@ img {
 .character_card {
   width: 100%;
   min-width: 300px;
-  background-color: #FAFCFF;
+  background-color: #F2EDF5;
   margin: 8px auto;
   display: flex;
   flex-flow: row wrap;
@@ -2423,7 +2423,7 @@ img {
   min-height: 100%;
 }
 .character_card .content .name {
-  color: #822000 !important;
+  color: #BA1921 !important;
 }
 .character_card .content .summary {
   font-style: italic;
@@ -2480,7 +2480,7 @@ img {
   cursor: pointer;
 }
 .token_selector:not(.disabled) {
-  background-color: #822000;
+  background-color: #BA1921;
 }
 .token_selector.disabled {
   background-color: #555;
@@ -2537,7 +2537,7 @@ img {
 }
 
 .tag:not(.disabled) {
-  background-color: #822000;
+  background-color: #BA1921;
 }
 
 .tag.disabled {
@@ -2574,7 +2574,7 @@ img {
  * * Also note: https://m3.material.io/styles/elevation/tokens
  * */
 h2, h3, h4, h5, h6 {
-  color: #240B36;
+  color: #58176A;
 }
 
 h2 {
@@ -2634,7 +2634,7 @@ img {
 
 .section {
   border-radius: 12px;
-  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  background: linear-gradient(90deg, rgba(88, 23, 106, 0.05) 0%, rgba(88, 23, 106, 0.07) 73%, rgba(88, 23, 106, 0.08) 100%);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -2650,7 +2650,7 @@ img {
 }
 
 .card_link {
-  color: #576CA8;
+  color: #58176A;
 }
 
 #material_plane a {
@@ -2663,7 +2663,7 @@ img {
   flex-grow: 1;
 }
 #material_plane .country_space h2, #material_plane .country_space h3, #material_plane .country_space h4, #material_plane .country_space h5, #material_plane .country_space h6 {
-  color: #822000 !important;
+  color: #BA1921 !important;
 }
 #material_plane .country_space .country_names {
   width: 180px;
@@ -2674,16 +2674,16 @@ img {
 #material_plane .country_space .country_names .country_name {
   font-weight: bold;
   font-variant-caps: small-caps;
-  color: #822000;
+  color: #BA1921;
   margin: 8px;
   padding: 8px;
   border-radius: 4px;
-  background-color: rgba(36, 11, 54, 0.03);
+  background-color: rgba(88, 23, 106, 0.03);
   cursor: pointer;
   font-size: 16px;
 }
 #material_plane .country_space .country_names .country_name.active {
-  background-color: rgba(36, 11, 54, 0.07);
+  background-color: rgba(88, 23, 106, 0.07);
 }
 #material_plane .country_space .country_desc {
   width: 70%;
@@ -2701,7 +2701,7 @@ img {
   width: 300px;
   flex-grow: 1;
   border-radius: 4px;
-  background-color: #FAFCFF;
+  background-color: #F2EDF5;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   padding: 8px;
   font-size: 12px;
@@ -2715,7 +2715,7 @@ img {
 }
 #material_plane .country_space .country_desc .country .country_card table td:first-child {
   font-variant-caps: small-caps;
-  color: #822000;
+  color: #BA1921;
 }
 #material_plane .country_space .country_desc .country .country_card table td:last-child {
   width: 100%;
@@ -2859,7 +2859,7 @@ img {
  * * Also note: https://m3.material.io/styles/elevation/tokens
  * */
 h2, h3, h4, h5, h6 {
-  color: #240B36;
+  color: #58176A;
 }
 
 h2 {
@@ -2919,7 +2919,7 @@ img {
 
 .section {
   border-radius: 12px;
-  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  background: linear-gradient(90deg, rgba(88, 23, 106, 0.05) 0%, rgba(88, 23, 106, 0.07) 73%, rgba(88, 23, 106, 0.08) 100%);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -2935,7 +2935,7 @@ img {
 }
 
 .card_link {
-  color: #576CA8;
+  color: #58176A;
 }
 
 .cool_intro {
@@ -2989,7 +2989,7 @@ img {
   flex-flow: column nowrap;
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
-  background-color: #21364d;
+  background-color: #58176A;
   z-index: 5;
   padding: 16px;
   gap: 8px;
@@ -3001,13 +3001,13 @@ img {
 }
 #toast-container .toast .roll_result {
   font-size: 24px;
-  color: #FAFCFF;
+  color: #F2EDF5;
 }
 #toast-container .toast .roll_buildup {
   display: block;
   width: 100%;
   font-size: 16px;
-  color: #7286A0;
+  color: #EDE7EC;
   text-align: right;
 }
 
@@ -3139,7 +3139,7 @@ img {
   align-items: center;
   justify-content: center;
   font-family: "Montserrat", sans-serif;
-  border-bottom: solid 3px #822000;
+  border-bottom: solid 3px #BA1921;
   padding: 8px;
   margin: 8px 8px 16px;
   font-size: 18px;
@@ -4250,7 +4250,7 @@ img {
 }
 
 .tag:not(.disabled) {
-  background-color: #822000;
+  background-color: #BA1921;
 }
 
 .tag.disabled {
@@ -4385,7 +4385,7 @@ img {
  * * Also note: https://m3.material.io/styles/elevation/tokens
  * */
 h2, h3, h4, h5, h6 {
-  color: #240B36;
+  color: #58176A;
 }
 
 h2 {
@@ -4445,7 +4445,7 @@ img {
 
 .section {
   border-radius: 12px;
-  background: linear-gradient(90deg, rgba(87, 108, 168, 0.05) 0%, rgba(87, 108, 168, 0.07) 73%, rgba(87, 108, 168, 0.08) 100%);
+  background: linear-gradient(90deg, rgba(88, 23, 106, 0.05) 0%, rgba(88, 23, 106, 0.07) 73%, rgba(88, 23, 106, 0.08) 100%);
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -4461,7 +4461,7 @@ img {
 }
 
 .card_link {
-  color: #576CA8;
+  color: #58176A;
 }
 
 .base_management {
@@ -4801,7 +4801,7 @@ img {
   transform: translate(calc(-50% - 8px), -70px);
   font-size: 16px;
   font-family: "RobotoCondensed", sans-serif;
-  border: solid 2px #FAFCFF;
+  border: solid 2px #F2EDF5;
   font-weight: bold;
   background-color: #444548;
   border-radius: 50%;
@@ -4820,7 +4820,7 @@ img {
 }
 .infrastructure .building__icon .icon_bar {
   width: 100%;
-  background-color: #FAFCFF;
+  background-color: #F2EDF5;
   height: 2px;
 }
 .infrastructure .building__art {
@@ -5018,11 +5018,11 @@ body {
   overflow: hidden;
   font-family: "Roboto", sans-serif;
   font-size: 13px;
-  background: linear-gradient(to bottom, #FAFCFF 50%, #BABDC0 50%);
+  background: linear-gradient(to bottom, #F2EDF5 50%, #BABDC0 50%);
 }
 
 #pages {
-  background: linear-gradient(to bottom, #FAFCFF 0%, #BABDC0 100%);
+  background: linear-gradient(to bottom, #F2EDF5 0%, #BABDC0 100%);
 }
 
 img {

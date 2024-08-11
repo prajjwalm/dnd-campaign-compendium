@@ -1,14 +1,14 @@
-import {CSkill, DSkill, Era, ProficiencyLevel, StatForSkill, VisibilityLevel} from "../../../data/constants";
-import {NpcID}                                                                from "../../../data/npcIndex";
-import {Rarity, Rating}                                                       from "../../../data/Rarity";
-import {IDOMGenerator}                                                        from "../../../IDomGenerator";
-import {wrapCSkill, wrapDSkill}                                               from "../../action/Wrap";
-import {OperatorProfiles}                                                     from "../../base/Operator";
-import {Character}                                                            from "../Character";
-import {Morale, MoraleEffects, NpcMoraleEffects}                              from "../Morale";
-import {BaseAspect}                                                           from "./BaseAspect";
-import {IOperator}                                                            from "./IOperator";
-import {CombatRatingMetric, IOperatorFactory}                                 from "./IOperatorFactory";
+import {CSkill, DSkill, Era, ProficiencyLevel, StatForSkill} from "../../../data/constants";
+import {NpcID}                                               from "../../../data/npcIndex";
+import {Rarity, Rating}                                      from "../../../data/Rarity";
+import {IDOMGenerator}                                       from "../../../IDomGenerator";
+import {wrapCSkill, wrapDSkill}                              from "../../action/Wrap";
+import {OperatorProfiles}                                    from "../../base/Operator";
+import {Character}                                           from "../Character";
+import {Morale, MoraleEffects, NpcMoraleEffects}             from "../Morale";
+import {BaseAspect}                                          from "./BaseAspect";
+import {IOperator}                                           from "./IOperator";
+import {CombatRatingMetric, IOperatorFactory}                from "./IOperatorFactory";
 
 
 export class OperatorAspect
@@ -267,11 +267,10 @@ export class OperatorAspect
                 (this.c.pb + effects.get(NpcMoraleEffects.ProficiencyBonusModifier));
         }
         if (effects.has(NpcMoraleEffects.SkillModifier)) {
-            for (let [skill, [num, vis]] of this.c.upgradedSkills) {
+            for (let [skill, num] of this.c.upgradedSkills) {
                 num -= this.c.mod(StatForSkill.get(skill));
                 this.c.dSkills.setSkillProficiency(
                     skill,
-                    vis,
                     ProficiencyLevel.None,
                     num + effects.get(NpcMoraleEffects.SkillModifier)
                 );
@@ -282,7 +281,7 @@ export class OperatorAspect
     /**
      * @inheritDoc
      */
-    public get notableCSkills(): ReadonlyMap<CSkill, [number, VisibilityLevel]>
+    public get notableCSkills(): ReadonlyMap<CSkill, number>
     {
         throw new Error("Not implemented");
     }
@@ -290,7 +289,7 @@ export class OperatorAspect
     /**
      * @inheritDoc
      */
-    public get notableDSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
+    public get notableDSkills(): ReadonlyMap<DSkill, number>
     {
         return this.c.upgradedSkills;
     }

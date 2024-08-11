@@ -1,4 +1,4 @@
-import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
 import {NpcID}                                                                                                  from "../../../../../data/npcIndex";
 import {D10, D6, D8, Dice}                                                                                      from "../../../../../rolling/Dice";
 import {Action}                                                                                                 from "../../../../action/Action";
@@ -35,8 +35,8 @@ export function setupUrchins()
     c.dStats.pb = 3;
     c.dStats.finalize();
 
-    c.dSkills.setSkillProficiency(DSkill.Athletics, Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Prof);
+    c.dSkills.setSkillProficiency(DSkill.Athletics, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Perception, ProficiencyLevel.Prof);
     c.dSkills.finalize();
 
     c.combat.addBioHpDice(D8.countHavingE(250, c.CON), D8);

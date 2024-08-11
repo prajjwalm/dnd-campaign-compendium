@@ -790,7 +790,7 @@ export function arc23OpinionEvents()
 
     addInteractionEvent(
         NpcID.Cellinia,
-        [PcIndex.ID_HELIOS],
+        [PcIndex.ID_HELIOS, PcIndex.ID_CYRION],
         new GameTimestamp(0, 30, 9, 5),
         `Relied upon by Elysium, and Cecilia, it seems. Ezell too probably.`,
         new Map([
@@ -825,18 +825,18 @@ export function arc23OpinionEvents()
         cel.passiveDeception + cel.Prof,
     );
 
-    addInteractionEvent(
-        NpcID.Cellinia,
-        [],
-        new GameTimestamp(0, 30, 9, 5),
-        `Had her servant help out instead of stooping to perform manual labour.
-         Lazy, efficient, prideful. Expected of invested mages, I suppose. Let's
-         see... University of Veteres, huh. Far from home, are we?`,
-        new Map([
-            [PositiveEmotion.Respect, 2]
-        ]),
-        cel.passiveDeception + cel.Prof,
-    );
+    // addInteractionEvent(
+    //     NpcID.Cellinia,
+    //     [],
+    //     new GameTimestamp(0, 30, 9, 5),
+    //     `Had her servant help out instead of stooping to perform manual labour.
+    //      Lazy, efficient, prideful. Expected of invested mages, I suppose. Let's
+    //      see... University of Veteres, huh. Far from home, are we?`,
+    //     new Map([
+    //         [PositiveEmotion.Respect, 2]
+    //     ]),
+    //     cel.passiveDeception + cel.Prof,
+    // );
 
     addInteractionEvent(
         NpcID.Erica,
@@ -859,7 +859,7 @@ export function arc23OpinionEvents()
         `He could... communicate... with the God of the inklings? With Ms Dusk's 
          own persona? How- That's amazing. To not let anyone know, but literally
          secure the most reliable, and most dangerous, of help to protect us. I
-         can see why Ms Dusk was so infatuated with you now.`,
+         can see why Ms Dusk was so taken by you now.`,
         new Map([
             [PositiveEmotion.Gratitude, 5],
             [PositiveEmotion.Respect, 8],

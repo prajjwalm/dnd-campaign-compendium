@@ -1,6 +1,6 @@
-import {DSkill, Hidden, ProficiencyLevel} from "../../../../../data/constants";
-import {NpcID}                            from "../../../../../data/npcIndex";
-import {Character}                        from "../../../Character";
+import {DSkill, ProficiencyLevel} from "../../../../../data/constants";
+import {NpcID}                    from "../../../../../data/npcIndex";
+import {Character}                from "../../../Character";
 
 export function setupErica()
 {
@@ -17,10 +17,10 @@ export function setupErica()
     c.dStats.finalize();
 
     // Setup D&D skills.
-    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Insight, Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Performance, Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill._ALL, Hidden, ProficiencyLevel.Half);
+    c.dSkills.setSkillProficiency(DSkill.Perception,);
+    c.dSkills.setSkillProficiency(DSkill.Insight, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Performance, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill._ALL, ProficiencyLevel.Half);
     c.dSkills.finalize();
 
     c.card.setCampaignArc(2, 1);

@@ -14,6 +14,11 @@ export interface ICoreFactory
     set name(val: string);
 
     /**
+     * Set the active status.
+     */
+    set isActive(val: boolean);
+
+    /**
      * Set the relative image path.
      */
     set imgPath(val: string);

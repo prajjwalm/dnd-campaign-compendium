@@ -1,4 +1,4 @@
-import {Activation, AdventurerClass, Condition, CreatureSize, CSkill, DamageType, DSkill, DStat, Era, Hidden, ProficiencyLevel, Sense, Speed, Vague} from "../../../../../data/constants";
+import {Activation, AdventurerClass, Condition, CreatureSize, CSkill, DamageType, DSkill, DStat, Era, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
 import {NpcID}                                                                                                                                       from "../../../../../data/npcIndex";
 import {D1, D12, D6}                                                                                                                                 from "../../../../../rolling/Dice";
 import {Action}                                                                                                                                      from "../../../../action/Action";
@@ -22,78 +22,78 @@ export function setupHina()
     c.dStats.finalize();
 
     // Setup D&D skills.
-    c.dSkills.setSkillProficiency(DSkill.Investigation, Hidden, ProficiencyLevel.Prof,   5);
-    c.dSkills.setSkillProficiency(DSkill.Medicine,      Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Athletics,     Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.History,       Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Perception,    Hidden, ProficiencyLevel.Expert, 5);
-    c.dSkills.setSkillProficiency(DSkill.SlightOfHand,  Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Stealth,       Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Survival,      Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Investigation, ProficiencyLevel.Prof,   5);
+    c.dSkills.setSkillProficiency(DSkill.Medicine,      );
+    c.dSkills.setSkillProficiency(DSkill.Athletics,     ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.History,       ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Perception,    ProficiencyLevel.Expert, 5);
+    c.dSkills.setSkillProficiency(DSkill.SlightOfHand,  );
+    c.dSkills.setSkillProficiency(DSkill.Stealth,       ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Survival,      ProficiencyLevel.Expert);
     c.dSkills.finalize();
 
     // CoC Skills information
     c.cSkills.setSkillValues([
-        [CSkill.Accounting,             80,   Vague],
-        [CSkill.Anthropology,            0,   Vague],
-        [CSkill.Appraise,                0,   Vague],
-        [CSkill.Archaeology,             0,   Vague],
-        [CSkill.Artillery,               0,   Vague],
-        [CSkill.Charm,                   5,   Vague],
-        [CSkill.ComputerUse,           100,   Vague],
-        [CSkill.Demolitions,            90,   Vague],
-        [CSkill.Disguise,                5,   Vague],
-        [CSkill.Diving,                  0,   Vague],
-        [CSkill.DriveAuto,              70,   Vague],
-        [CSkill.ElectricalRepair,       40,   Vague],
-        [CSkill.Electronics,            50,   Vague],
-        [CSkill.FirstAid,               30,   Vague],
-        [CSkill.Hypnosis,                0,   Vague],
-        [CSkill.Law,                     5,   Vague],
-        [CSkill.LibraryUse,             20,   Vague],
-        [CSkill.Locksmith,               0,   Vague],
-        [CSkill.MechanicalRepair,       35,   Vague],
-        [CSkill.ModernMedicine, 0, Vague],
-        [CSkill.NaturalWorld,           10,   Vague],
-        [CSkill.Navigate,               10,   Vague],
-        [CSkill.Occult,                  5,   Vague],
-        [CSkill.OperateHeavyMachinery,  60,   Vague],
-        [CSkill.Psychoanalysis,          0,   Vague],
-        [CSkill.ReadLips,                0,   Vague],
-        [CSkill.Ride,                   15,   Vague],
-        [CSkill.Throw,                  20,   Vague],
-        [CSkill.Acting,                  5,   Vague],
-        [CSkill.Calligraphy,             0,   Vague],
-        [CSkill.Carpentry,              10,   Vague],
-        [CSkill.Cooking,                20,   Vague],
-        [CSkill.Dancing,                 5,   Vague],
-        [CSkill.FineArt,                20,   Vague],
-        [CSkill.Forgery,                 0,   Vague],
-        [CSkill.Writing,                 5,   Vague],
-        [CSkill.Singing,                 5,   Vague],
-        [CSkill.Painting,               75,   Vague],
-        [CSkill.Photography,             0,   Vague],
-        [CSkill.Sculpting,               0,   Vague],
-        [CSkill.Chainsaw,               10,   Vague],
-        [CSkill.HeavyWeapons,           10,   Vague],
-        [CSkill.Flamethrower,           10,   Vague],
-        [CSkill.MachineGun,             10,   Vague],
-        [CSkill.SubmachineGun,          10,   Vague],
-        [CSkill.Aircraft,               20,   Vague],
-        [CSkill.Boat,                   30,   Vague],
-        [CSkill.Astronomy,               0,   Vague],
-        [CSkill.Biology,                30,   Vague],
-        [CSkill.Botany,                 20,   Vague],
-        [CSkill.Chemistry,              50,   Vague],
-        [CSkill.Cryptography,           90,   Vague],
-        [CSkill.Engineering,            60,   Vague],
-        [CSkill.Forensics,              30,   Vague],
-        [CSkill.Geology,                 0,   Vague],
-        [CSkill.Mathematics,            80,   Vague],
-        [CSkill.Meteorology,             0,   Vague],
-        [CSkill.Pharmacy,               30,   Vague],
-        [CSkill.Physics,                60,   Vague],
-        [CSkill.Zoology,                 0,   Vague],
+        [CSkill.Accounting,             80],
+        [CSkill.Anthropology,            0],
+        [CSkill.Appraise,                0],
+        [CSkill.Archaeology,             0],
+        [CSkill.Artillery,               0],
+        [CSkill.Charm,                   5],
+        [CSkill.ComputerUse,           100],
+        [CSkill.Demolitions,            90],
+        [CSkill.Disguise,                5],
+        [CSkill.Diving,                  0],
+        [CSkill.DriveAuto,              70],
+        [CSkill.ElectricalRepair,       40],
+        [CSkill.Electronics,            50],
+        [CSkill.FirstAid,               30],
+        [CSkill.Hypnosis,                0],
+        [CSkill.Law,                     5],
+        [CSkill.LibraryUse,             20],
+        [CSkill.Locksmith,               0],
+        [CSkill.MechanicalRepair,       35],
+        [CSkill.ModernMedicine,          0],
+        [CSkill.NaturalWorld,           10],
+        [CSkill.Navigate,               10],
+        [CSkill.Occult,                  5],
+        [CSkill.OperateHeavyMachinery,  60],
+        [CSkill.Psychoanalysis,          0],
+        [CSkill.ReadLips,                0],
+        [CSkill.Ride,                   15],
+        [CSkill.Throw,                  20],
+        [CSkill.Acting,                  5],
+        [CSkill.Calligraphy,             0],
+        [CSkill.Carpentry,              10],
+        [CSkill.Cooking,                20],
+        [CSkill.Dancing,                 5],
+        [CSkill.FineArt,                20],
+        [CSkill.Forgery,                 0],
+        [CSkill.Writing,                 5],
+        [CSkill.Singing,                 5],
+        [CSkill.Painting,               75],
+        [CSkill.Photography,             0],
+        [CSkill.Sculpting,               0],
+        [CSkill.Chainsaw,               10],
+        [CSkill.HeavyWeapons,           10],
+        [CSkill.Flamethrower,           10],
+        [CSkill.MachineGun,             10],
+        [CSkill.SubmachineGun,          10],
+        [CSkill.Aircraft,               20],
+        [CSkill.Boat,                   30],
+        [CSkill.Astronomy,               0],
+        [CSkill.Biology,                30],
+        [CSkill.Botany,                 20],
+        [CSkill.Chemistry,              50],
+        [CSkill.Cryptography,           90],
+        [CSkill.Engineering,            60],
+        [CSkill.Forensics,              30],
+        [CSkill.Geology,                 0],
+        [CSkill.Mathematics,            80],
+        [CSkill.Meteorology,             0],
+        [CSkill.Pharmacy,               30],
+        [CSkill.Physics,                60],
+        [CSkill.Zoology,                 0],
     ]);
     c.cSkills.finalize();
 
@@ -129,7 +129,7 @@ export function setupHina()
     c.card.addCardTag("From | Innovation / Ruin / Materia / Devotion");
     c.card.addCardTag("Race | Human <span class='verbose'>(Cyberpunk)</span>");
     c.card.addCardTag("OS | Berserk MK5");
-    c.card.addCardTag("Mutation | Greater Green");
+    c.card.addCardTag("Mutagen | Greater Green");
     c.card.addCardTag("<span class='verbose'>Project Diablo |</span> #41");
     c.card.addCardTag("Edgedancer <span class='verbose'>(Cultivation)</span>");
     c.card.addCardTag("Bondsmith <span class='verbose'>(Preservation)</span>");
@@ -218,7 +218,7 @@ export function setupHina()
         `<p><strong><em>Chamber of Guilt.</em></strong> Being possessed by Penance,
         Hina can telepathically gauge and selectively influence a creature's
         mental state, as long as the creature is within 1 mile and aware of her 
-        (consequently such a creature could never be hidden from her).
+        (consequently such a creature could never be  from her).
         Because of the same possession, she cannot dream and gains advantage on Wis saving 
         throws.</p>`
     ));

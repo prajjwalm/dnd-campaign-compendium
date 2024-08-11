@@ -1,5 +1,5 @@
-import {CSkill, VisibilityLevel} from "../../../data/constants";
-import {IBaseAspectFactory}      from "./IBaseAspectFactory";
+import {CSkill}             from "../../../data/constants";
+import {IBaseAspectFactory} from "./IBaseAspectFactory";
 
 
 /**
@@ -11,12 +11,10 @@ export interface ICSkillsFactory
     /**
      * Add / Override value in the given skill.
      */
-    setSkillValue(skill: CSkill,
-                  value: number,
-                  visibility: VisibilityLevel);
+    setSkillValue(skill: CSkill, value: number);
 
     /**
      * Add / Override value in the given skills.
      */
-    setSkillValues(data: [CSkill, number, VisibilityLevel][]);
+    setSkillValues(data: [CSkill, number][]);
 }

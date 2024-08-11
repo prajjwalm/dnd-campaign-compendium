@@ -23,11 +23,17 @@ export class CoreAspect
     private _imgPath;
 
     /**
+     * Simplified public field which servers as getter and setter.
+     */
+    public isActive: boolean;
+
+    /**
      * CTOR.
      */
     constructor(c: Character)
     {
         super(c);
+        this.isActive = true;
     }
 
     public duplicate(other: Character): this

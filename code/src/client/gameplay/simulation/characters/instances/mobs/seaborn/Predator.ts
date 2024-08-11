@@ -1,5 +1,5 @@
 import {numberToText}                                                                                           from "../../../../../../common/common";
-import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
 import {NpcID}                                                                                                  from "../../../../../data/npcIndex";
 import {D1, D12, D8}                                                                                            from "../../../../../rolling/Dice";
 import {Action}                                                                                                 from "../../../../action/Action";
@@ -38,8 +38,8 @@ export function setupPredators()
     c.dStats.pb = 3;
     c.dStats.finalize();
 
-    c.dSkills.setSkillProficiency(DSkill.Stealth, Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Acrobatics, Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Stealth, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Acrobatics, ProficiencyLevel.Expert);
     c.dSkills.finalize();
 
     const predHpDice = D8.countHavingE(40, c.CON);
@@ -49,6 +49,7 @@ export function setupPredators()
     c.combat.setLightArmor(13);
 
     c.combat.setSave(DStat.Dex, ProficiencyLevel.Prof);
+    c.combat.setSave(DStat.Cha, ProficiencyLevel.Prof);
 
     c.combat.setSpeed(Speed.Walking, 35);
     c.combat.setSpeed(Speed.Swimming, 40);

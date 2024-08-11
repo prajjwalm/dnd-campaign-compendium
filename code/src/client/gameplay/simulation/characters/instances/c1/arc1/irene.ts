@@ -1,10 +1,10 @@
-import {Activation, AdventurerClass, Condition, CreatureSize, CSkill, DamageType, DSkill, DStat, Era, Hidden, ProficiencyLevel, Sense, Speed, Vague} from "../../../../../data/constants";
-import {NpcID}                                                                                                                                       from "../../../../../data/npcIndex";
-import {D1, D10, D8}                                                                                                                                 from "../../../../../rolling/Dice";
-import {Action}                                                                                                                                      from "../../../../action/Action";
-import {wrapCreatureSize, wrapDamageType, wrapRoll}                                                                                                  from "../../../../action/Wrap";
-import {Character}                                                                                                                                   from "../../../Character";
-import {Morale}                                                                                                                                      from "../../../Morale";
+import {Activation, AdventurerClass, Condition, CreatureSize, CSkill, DamageType, DSkill, DStat, Era, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {NpcID}                                                                                                                        from "../../../../../data/npcIndex";
+import {D1, D10, D8}                                                                                                                  from "../../../../../rolling/Dice";
+import {Action}                                                                                                                       from "../../../../action/Action";
+import {wrapCreatureSize, wrapDamageType, wrapRoll}                                                                                   from "../../../../action/Wrap";
+import {Character}                                                                                                                    from "../../../Character";
+import {Morale}                                                                                                                       from "../../../Morale";
 
 export function setupIrene()
 {
@@ -18,74 +18,74 @@ export function setupIrene()
     c.dStats.pb = 7;
     c.dStats.finalize();
 
-    c.dSkills.setSkillProficiency(DSkill.Acrobatics,   Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Insight,      Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Intimidation, Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Religion,     Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Stealth,      Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Acrobatics,   );
+    c.dSkills.setSkillProficiency(DSkill.Insight,      ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Intimidation, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Religion,     );
+    c.dSkills.setSkillProficiency(DSkill.Stealth,      ProficiencyLevel.Expert);
     c.dSkills.finalize();
 
     c.cSkills.setSkillValues([
-        [CSkill.Accounting,                    5,    Vague],
-        [CSkill.Anthropology,                  0,    Vague],
-        [CSkill.Appraise,                     70,    Vague],
-        [CSkill.Archaeology,                  40,    Vague],
-        [CSkill.Artillery,                     0,    Vague],
-        [CSkill.Charm,                        15,    Vague],
-        [CSkill.ComputerUse,                   5,    Vague],
-        [CSkill.Demolitions,                   0,    Vague],
-        [CSkill.Disguise,                      5,    Vague],
-        [CSkill.Diving,                      150,    Vague],
-        [CSkill.DriveAuto,                    20,    Vague],
-        [CSkill.ElectricalRepair,             10,    Vague],
-        [CSkill.Electronics,                   0,    Vague],
-        [CSkill.FirstAid,                     90,    Vague],
-        [CSkill.Hypnosis,                      0,    Vague],
-        [CSkill.Law,                           5,    Vague],
-        [CSkill.LibraryUse,                   20,    Vague],
-        [CSkill.Locksmith,                     0,    Vague],
-        [CSkill.MechanicalRepair,             10,    Vague],
-        [CSkill.ModernMedicine,                0,    Vague],
-        [CSkill.NaturalWorld,                 60,    Vague],
-        [CSkill.Navigate,                     90,    Vague],
-        [CSkill.Occult,                       50,    Vague],
-        [CSkill.OperateHeavyMachinery,         0,    Vague],
-        [CSkill.Psychoanalysis,                0,    Vague],
-        [CSkill.ReadLips,                      0,    Vague],
-        [CSkill.Ride,                         15,    Vague],
-        [CSkill.Throw,                        20,    Vague],
-        [CSkill.Acting,                        5,    Vague],
-        [CSkill.Calligraphy,                   0,    Vague],
-        [CSkill.Carpentry,                    10,    Vague],
-        [CSkill.Cooking,                      20,    Vague],
-        [CSkill.Dancing,                       5,    Vague],
-        [CSkill.FineArt,                       5,    Vague],
-        [CSkill.Forgery,                       0,    Vague],
-        [CSkill.Writing,                       5,    Vague],
-        [CSkill.Singing,                       5,    Vague],
-        [CSkill.Painting,                      5,    Vague],
-        [CSkill.Photography,                   0,    Vague],
-        [CSkill.Sculpting,                     0,    Vague],
-        [CSkill.Chainsaw,                     10,    Vague],
-        [CSkill.HeavyWeapons,                 10,    Vague],
-        [CSkill.Flamethrower,                 10,    Vague],
-        [CSkill.MachineGun,                   10,    Vague],
-        [CSkill.SubmachineGun,                10,    Vague],
-        [CSkill.Aircraft,                      0,    Vague],
-        [CSkill.Boat,                         65,    Vague],
-        [CSkill.Astronomy,                     0,    Vague],
-        [CSkill.Biology,                      35,    Vague],
-        [CSkill.Botany,                       50,    Vague],
-        [CSkill.Chemistry,                     0,    Vague],
-        [CSkill.Cryptography,                  0,    Vague],
-        [CSkill.Engineering,                   0,    Vague],
-        [CSkill.Forensics,                     0,    Vague],
-        [CSkill.Geology,                       0,    Vague],
-        [CSkill.Mathematics,                  10,    Vague],
-        [CSkill.Meteorology,                   0,    Vague],
-        [CSkill.Pharmacy,                      0,    Vague],
-        [CSkill.Physics,                       0,    Vague],
-        [CSkill.Zoology,                      50,    Vague],
+        [CSkill.Accounting,                    5],
+        [CSkill.Anthropology,                  0],
+        [CSkill.Appraise,                     70],
+        [CSkill.Archaeology,                  40],
+        [CSkill.Artillery,                     0],
+        [CSkill.Charm,                        15],
+        [CSkill.ComputerUse,                   5],
+        [CSkill.Demolitions,                   0],
+        [CSkill.Disguise,                      5],
+        [CSkill.Diving,                      150],
+        [CSkill.DriveAuto,                    20],
+        [CSkill.ElectricalRepair,             10],
+        [CSkill.Electronics,                   0],
+        [CSkill.FirstAid,                     90],
+        [CSkill.Hypnosis,                      0],
+        [CSkill.Law,                           5],
+        [CSkill.LibraryUse,                   20],
+        [CSkill.Locksmith,                     0],
+        [CSkill.MechanicalRepair,             10],
+        [CSkill.ModernMedicine,                0],
+        [CSkill.NaturalWorld,                 60],
+        [CSkill.Navigate,                     90],
+        [CSkill.Occult,                       50],
+        [CSkill.OperateHeavyMachinery,         0],
+        [CSkill.Psychoanalysis,                0],
+        [CSkill.ReadLips,                      0],
+        [CSkill.Ride,                         15],
+        [CSkill.Throw,                        20],
+        [CSkill.Acting,                        5],
+        [CSkill.Calligraphy,                   0],
+        [CSkill.Carpentry,                    10],
+        [CSkill.Cooking,                      20],
+        [CSkill.Dancing,                       5],
+        [CSkill.FineArt,                       5],
+        [CSkill.Forgery,                       0],
+        [CSkill.Writing,                       5],
+        [CSkill.Singing,                       5],
+        [CSkill.Painting,                      5],
+        [CSkill.Photography,                   0],
+        [CSkill.Sculpting,                     0],
+        [CSkill.Chainsaw,                     10],
+        [CSkill.HeavyWeapons,                 10],
+        [CSkill.Flamethrower,                 10],
+        [CSkill.MachineGun,                   10],
+        [CSkill.SubmachineGun,                10],
+        [CSkill.Aircraft,                      0],
+        [CSkill.Boat,                         65],
+        [CSkill.Astronomy,                     0],
+        [CSkill.Biology,                      35],
+        [CSkill.Botany,                       50],
+        [CSkill.Chemistry,                     0],
+        [CSkill.Cryptography,                  0],
+        [CSkill.Engineering,                   0],
+        [CSkill.Forensics,                     0],
+        [CSkill.Geology,                       0],
+        [CSkill.Mathematics,                  10],
+        [CSkill.Meteorology,                   0],
+        [CSkill.Pharmacy,                      0],
+        [CSkill.Physics,                       0],
+        [CSkill.Zoology,                      50],
     ]);
     c.cSkills.finalize();
 

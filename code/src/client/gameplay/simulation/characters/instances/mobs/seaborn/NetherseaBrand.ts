@@ -16,6 +16,7 @@ export function setupNetherseaBrand()
     c.dStats.initializeStats(30, 1, 30, 30, 30, 30);
     c.dStats.pb = 10;
     c.dStats.finalize();
+    c.dSkills.finalize();
 
     c.combat.addBioHpDice(D100.countHavingE(1_000_000, c.CON), D100);
     c.combat.computeHP();

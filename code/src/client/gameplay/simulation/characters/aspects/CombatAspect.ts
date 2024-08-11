@@ -403,7 +403,7 @@ export class CombatAspect
 
     public get passivePerception(): number
     {
-        return this.c.getSkillMod(DSkill.Perception)[0] + 10;
+        return this.c.getSkillMod(DSkill.Perception) + 10;
     }
 
     public cr: number;

@@ -240,7 +240,7 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                 ),
             new Achievement(
                 "The Passages, Sunless",
-                "Reach the TimeShifted town of Takemaria.",
+                "Reach the TimeShifted town of Rocamarea.",
                 2000,
                 true,
             )
@@ -396,7 +396,7 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                         ))
                         .nest(new Achievement(
                             "Sore losers get what they deserve",
-                            "Use the game to destroy at least one dreadful foe.",
+                            "Use the game to destroy Ephremis.",
                             10000,
                             false
                         ))
@@ -414,6 +414,21 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                             false
                         ))
                     )
+                    .nest(new Achievement(
+                        "A Spearhead Plunge",
+                        "Leave the town of Rocamarea by breaking through the " +
+                        "seaborn nest between it and the Bastion de Canticos.",
+                        3000,
+                        true
+                    )
+                        .nest(new Achievement(
+                            "The Church of the Hallowed Chorus",
+                            "Explore the abandoned church of the inquisition from " +
+                            "the plane of water and find (2K xp for each) - a cursed relic, " +
+                            "an unusual weapon, a secret item and a painting carrying a secret.",
+                            8000,
+                            false
+                        )))
                 )
                 .nest(new Achievement(
                     "The Lord of the Faceless",
@@ -484,7 +499,7 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                 ))
                 .nest(new Achievement(
                     "Fishing in a dry pond",
-                    "Barter at least 2 items with Cannot while in Takemaria.",
+                    "Barter at least 2 items with Cannot while in Rocamarea.",
                     300,
                     false
                 ))
@@ -509,7 +524,7 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                         "Zaadimus should be dead for good when you sail the " +
                         "Nethersea).",
                         8000,
-                        false
+                        true
                     ))
                 )
             ]
@@ -605,7 +620,7 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                 "Silencing the Opposition",
                 "Defeat the First to Talk, Ephremis.",
                 21000,
-                false
+                true
             )
                 .nest(new Achievement(
                     "By the Flames of Castigation",
@@ -614,6 +629,12 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                     false
                 ))
                 .nest(new Achievement(
+                    "Act in haste and die, Fool",
+                    "Before entering the deep sea woodland.",
+                    6000,
+                    true)
+                )
+                .nest(new Achievement(
                     "Tick. Tock. Tick. Tock.",
                     "Defeat the Nourished Big Sad Lock.",
                     40000,
@@ -621,7 +642,7 @@ const achievements: Map<string, Map<string, Achievement[]>> = new Map([
                 )),
             new Achievement(
                 "Ignoring the Call",
-                "Defeat the Core of We Many, Amaia.",
+                "Defeat the EndSpeaker, and The Core of We Many, Amaia.",
                 60000,
                 false
             )

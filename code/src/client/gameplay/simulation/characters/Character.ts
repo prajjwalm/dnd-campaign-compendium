@@ -1,8 +1,8 @@
-import {Condition, CSkill, DamageType, DSkill, DStat, Era, pbMod, ProficiencyLevel, Sense, Speed, VisibilityLevel} from "../../data/constants";
-import {NpcID}                                                                                                     from "../../data/npcIndex";
-import {PcIndex}                                                                                                   from "../../data/pcIndex";
-import {Rating}                                                                                                    from "../../data/Rarity";
-import {Dice}                                                                                                      from "../../rolling/Dice";
+import {Condition, CSkill, DamageType, DSkill, DStat, Era, pbMod, ProficiencyLevel, Sense, Speed} from "../../data/constants";
+import {NpcID}                                from "../../data/npcIndex";
+import {PcIndex}                              from "../../data/pcIndex";
+import {Rating}                               from "../../data/Rarity";
+import {Dice}                                 from "../../rolling/Dice";
 import {Action}                               from "../action/Action";
 import {AspectNotSetupException}              from "./aspects/AspectNotSetupException";
 import {AspectOutOfOrderException}            from "./aspects/AspectOutOfOrderException";
@@ -208,6 +208,13 @@ export class Character
     /**
      * @inheritDoc
      */
+    public get isActive(): boolean
+    {
+        return this.coreAspect.isActive;
+    }
+    /**
+     * @inheritDoc
+     */
     public get imgPath(): string
     {
         return this.coreAspect.imgPath;
@@ -221,13 +228,6 @@ export class Character
         return this.dStatsAspect.stats;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public visibility(stat: DStat): VisibilityLevel
-    {
-        return this.dStatsAspect.visibility(stat);
-    }
 
     /**
      * @inheritDoc
@@ -250,7 +250,7 @@ export class Character
      */
     public getSkillMod(skill: DSkill,
                        profOverride: ProficiencyLevel = null,
-                       tentative: boolean = false): [number, VisibilityLevel]
+                       tentative: boolean = false): number
     {
         return this.dSkillsAspect.getSkillMod(skill, profOverride, tentative);
     }
@@ -258,7 +258,7 @@ export class Character
     /**
      * @inheritDoc
      */
-    public get upgradedSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
+    public get upgradedSkills(): ReadonlyMap<DSkill, number>
     {
         return this.dSkillsAspect.upgradedSkills;
     }
@@ -274,7 +274,7 @@ export class Character
     /**
      * @inheritDoc
      */
-    public getSkillVal(skill: CSkill): [number, VisibilityLevel]
+    public getSkillVal(skill: CSkill): number
     {
         return this.cSkillsAspect.getSkillVal(skill);
     }
@@ -312,12 +312,12 @@ export class Character
         return this.operatorAspect.ratings;
     }
 
-    public get notableDSkills(): ReadonlyMap<DSkill, [number, VisibilityLevel]>
+    public get notableDSkills(): ReadonlyMap<DSkill, number>
     {
         return this.operatorAspect.notableDSkills;
     }
 
-    public get notableCSkills(): ReadonlyMap<CSkill, [number, VisibilityLevel]>
+    public get notableCSkills(): ReadonlyMap<CSkill, number>
     {
         return this.operatorAspect.notableCSkills;
     }
@@ -397,7 +397,8 @@ export class Character
      */
     get isOpinionated(): boolean
     {
-        return this.aspects[EAspect.Opinions] != null && this.opinionAspect.isOpinionated;;
+        return this.aspects[EAspect.Opinions] != null &&
+               this.opinionAspect.isOpinionated;
     }
 
     /**

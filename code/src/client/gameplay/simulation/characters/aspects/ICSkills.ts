@@ -1,5 +1,5 @@
-import {CSkill, VisibilityLevel} from "../../../data/constants";
-import {Rating}                  from "../../../data/Rarity";
+import {CSkill} from "../../../data/constants";
+import {Rating} from "../../../data/Rarity";
 
 
 /**
@@ -11,7 +11,7 @@ export interface ICSkills
     /**
      * Return the value for the given skill.
      */
-    getSkillVal(skill: CSkill): [number, VisibilityLevel];
+    getSkillVal(skill: CSkill): number;
 
     /**
      * @returns All the skills that were improved beyond usual.

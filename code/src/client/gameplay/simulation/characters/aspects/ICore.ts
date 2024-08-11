@@ -10,6 +10,13 @@ export interface ICore
     get name(): string;
 
     /**
+     * False implies the character is probably dead and gone, and not coming
+     * back anytime soon. Several other aspects may use this info to not render/
+     * include this character anymore.
+     */
+    get isActive(): boolean;
+
+    /**
      * The file path of the character's token image.
      *
      * While setting, the directory must be specified wrt. assets/images.

@@ -1,4 +1,3 @@
-import {DStat, VisibilityLevel} from "../../../data/constants";
 import {IBaseAspectFactory}     from "./IBaseAspectFactory";
 
 
@@ -18,11 +17,6 @@ export interface IDStatsFactory
                     int: number,
                     wis: number,
                     cha: number): void;
-
-    /**
-     * Set the visibility level of a particular or all stats.
-     */
-    setVisibilityLevel(vis: VisibilityLevel, stat?: DStat);
 
     /**
      * Set the proficiency bonus.

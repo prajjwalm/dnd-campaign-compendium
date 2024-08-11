@@ -95,7 +95,7 @@ export class SheetAspect
 
         console.log(`Skills for ${this.c.name}`);
         const skillList = [];
-        for (const [skill, [mod, _]] of this.c.upgradedSkills.entries()) {
+        for (const [skill, mod] of this.c.upgradedSkills.entries()) {
             skillList.push(`<span style="display: inline-block;">${wrapDSkill(skill)} ${wrapRoll(mod)}</span>`);
         }
 
@@ -105,18 +105,18 @@ export class SheetAspect
 
         for (const [dt, r] of this.c.damageRes.entries()) {
             if (r < 0) {
-                const details = r == -100 ? "" : `(${100 - r}% damage)`;
-                vul.push(`${wrapDamageType(dt)} ${details}`);
+                const details = r == -100 ? "" : ` (${100 - r}% damage)`;
+                vul.push(`${wrapDamageType(dt)}${details}`);
             }
             else if (r == 0) {
             }
             else if (r < 100) {
-                const details = r == 50 ? "" : `(${100 - r}% damage)`;
-                res.push(`${wrapDamageType(dt)} ${details}`);
+                const details = r == 50 ? "" : ` (${100 - r}% damage)`;
+                res.push(`${wrapDamageType(dt)}${details}`);
             }
             else {
-                const details = r == 100 ? "" : `(Heals for ${r - 100}% damage)`;
-                imm.push(`${wrapDamageType(dt)} ${details}`);
+                const details = r == 100 ? "" : (r == 200 ? " (Absorb)" : ` (Heals for ${r - 100}% damage)`);
+                imm.push(`${wrapDamageType(dt)}${details}`);
             }
         }
 

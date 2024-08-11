@@ -1,9 +1,9 @@
-import {Activation, AdventurerClass, Condition, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                                   from "../../../../../data/npcIndex";
-import {D1, D10, D100, D12}                                                                                                      from "../../../../../rolling/Dice";
-import {Action}                                                                                                                  from "../../../../action/Action";
-import {wrapCondition, wrapDamageType, wrapRoll}                                                                                 from "../../../../action/Wrap";
-import {Character}                                                                                                               from "../../../Character";
+import {Activation, AdventurerClass, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {NpcID}                                                                                                           from "../../../../../data/npcIndex";
+import {D1, D10, D100, D12}                                                                                              from "../../../../../rolling/Dice";
+import {Action}                                                                                                          from "../../../../action/Action";
+import {wrapCondition, wrapDamageType, wrapRoll}                                                                         from "../../../../action/Wrap";
+import {Character}                                                                                                       from "../../../Character";
 
 export function setupCluster()
 {
@@ -19,13 +19,13 @@ export function setupCluster()
     c.dStats.pb = 8;
     c.dStats.finalize();
 
-    c.dSkills.setSkillProficiency(DSkill.Arcana,     Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Deception,  Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.History,    Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Nature,     Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Religion,   Hidden, ProficiencyLevel.Expert);
-    c.dSkills.setSkillProficiency(DSkill.Stealth,    Hidden, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Arcana, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Deception, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.History, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Nature, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Perception, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Religion, ProficiencyLevel.Expert);
+    c.dSkills.setSkillProficiency(DSkill.Stealth, ProficiencyLevel.Expert);
     c.dSkills.finalize();
 
     c.combat.addBioHpDice(D12.countHavingE(988, c.CON), D12);

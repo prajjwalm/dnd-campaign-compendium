@@ -1,4 +1,4 @@
-import {DSkill, Hidden} from "../../../../../data/constants";
+import {DSkill, } from "../../../../../data/constants";
 import {NpcID}          from "../../../../../data/npcIndex";
 import {Character}      from "../../../Character";
 
@@ -17,14 +17,14 @@ export function setupIona()
     c.dStats.finalize();
 
     // Setup D&D skills.
-    c.dSkills.setSkillProficiency(DSkill.Arcana, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.History, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Investigation, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Nature, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Religion, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Stealth, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Survival, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Arcana, );
+    c.dSkills.setSkillProficiency(DSkill.History, );
+    c.dSkills.setSkillProficiency(DSkill.Investigation, );
+    c.dSkills.setSkillProficiency(DSkill.Nature, );
+    c.dSkills.setSkillProficiency(DSkill.Perception, );
+    c.dSkills.setSkillProficiency(DSkill.Religion, );
+    c.dSkills.setSkillProficiency(DSkill.Stealth, );
+    c.dSkills.setSkillProficiency(DSkill.Survival, );
     c.dSkills.finalize();
 
     c.opinions.isOpinionated = true;

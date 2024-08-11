@@ -1,4 +1,4 @@
-import {Activation, AdventurerClass, CreatureSize, DamageType, DSkill, DStat, Hidden, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
+import {Activation, AdventurerClass, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
 import {NpcID}                                                                                                        from "../../../../../data/npcIndex";
 import {D1, D20, D6, D8}                                                                                              from "../../../../../rolling/Dice";
 import {Action}                                                                                                       from "../../../../action/Action";
@@ -19,11 +19,11 @@ export function setupYuki()
     c.dStats.finalize();
 
     // Setup D&D skills.
-    c.dSkills.setSkillProficiency(DSkill.Stealth, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Deception, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Intimidation, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Insight, Hidden);
-    c.dSkills.setSkillProficiency(DSkill.Perception, Hidden);
+    c.dSkills.setSkillProficiency(DSkill.Stealth, );
+    c.dSkills.setSkillProficiency(DSkill.Deception, );
+    c.dSkills.setSkillProficiency(DSkill.Intimidation, );
+    c.dSkills.setSkillProficiency(DSkill.Insight, );
+    c.dSkills.setSkillProficiency(DSkill.Perception, );
     c.dSkills.finalize();
 
     c.opinions.isOpinionated = true;
