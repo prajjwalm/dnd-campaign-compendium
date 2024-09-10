@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupAthlon()
 {
-    const c = new Character(NpcID.Athlon);
+    const c = new Character(NpcId.Athlon);
 
     c.core.name = "Athlon";
     c.core.imgPath = "character_tokens/C2/Arc1/Athlon.png";

@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupLemuen()
 {
-    const c = new Character(NpcID.Lemuen);
+    const c = new Character(NpcId.Lemuen);
 
     c.core.name = "Lemuen";
     c.core.imgPath = "character_tokens/C1/Arc2/lemuen.png";
@@ -21,7 +21,7 @@ export function setupLemuen()
     c.card.addCardTag('CR | 14');
 
     c.card.summary = () =>`
-    ${Character.get(NpcID.Mostima).createLink("Mostima")}'s half-sister and ${Character.get(NpcID.Shimarin).createLink("Rin")}'s
+    ${Character.get(NpcId.Mostima).createLink("Mostima")}'s half-sister and ${Character.get(NpcId.Shimarin).createLink("Rin")}'s
       teacher - she was reputed to be a sniper without compare. While her life had a great deal of ups and downs,
       very few individuals would know her full life story - probably only Mostima. And yet, one adventurer did begin
       to bond with a part of her left behind after she died, inheriting her skills and small pieces of her memories.`;

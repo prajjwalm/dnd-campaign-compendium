@@ -1,6 +1,6 @@
-import {Era}                from "../../../data/constants";
-import {NpcID}              from "../../../data/npcIndex";
-import {Rarity}             from "../../../data/Rarity";
+import {Era}    from "../../../data/constants";
+import {NpcId}  from "../../../data/npcIndex";
+import {Rarity} from "../../../data/Rarity";
 import {Morale}             from "../Morale";
 import {IBaseAspectFactory} from "./IBaseAspectFactory";
 
@@ -39,7 +39,7 @@ export interface IOperatorFactory
     /**
      * Mention a numerical value of what an operator thinks of another.
      */
-    setChemistryWith(npc: NpcID, v: number, s: string);
+    setChemistryWith(npc: NpcId, v: number, s: string);
 
     /**
      * Grant the character the possession of an item.

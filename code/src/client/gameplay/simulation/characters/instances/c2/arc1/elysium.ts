@@ -1,6 +1,6 @@
 import {Activation, AdventurerClass, CreatureSize, CSkill, DamageType, DSkill, DStat, Era, ProficiencyLevel, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                                     from "../../../../../data/npcIndex";
-import {D1, D4, D6}                                                                                                                from "../../../../../rolling/Dice";
+import {NpcId}                                                                                                      from "../../../../../data/npcIndex";
+import {D1, D4, D6}                                                                                                 from "../../../../../rolling/Dice";
 import {Action}                                                                                                                    from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                                                  from "../../../../action/Wrap";
 import {Character}                                                                                                                 from "../../../Character";
@@ -8,7 +8,7 @@ import {Morale}                                                                 
 
 export function setupElysium()
 {
-    const c = new Character(NpcID.Elysium);
+    const c = new Character(NpcId.Elysium);
 
     c.core.name = "Elysium";
     c.core.imgPath = "character_tokens/C2/Arc1/Elysium.png";
@@ -120,20 +120,20 @@ export function setupElysium()
     c.operator.addNotableStuff("Combat Experience", "B Grade (5 years / in logistics)");
     c.operator.addNotableStuff("Challenge Rating", "9");
 
-    c.operator.setChemistryWith(NpcID.Ezell, 31,
+    c.operator.setChemistryWith(NpcId.Ezell, 31,
                                       "(Boyfriend) During the course of his latest assignment in assisting the Saints, " +
                                       "the two have been through a lot of perilous missions together - including some " +
                                       "outside of professional scope (like finding a cure for Cecilia).");
-    c.operator.setChemistryWith(NpcID.Jordi, 17,
+    c.operator.setChemistryWith(NpcId.Jordi, 17,
                                       "Though Jordi doesn't remember, Elysium knows him from a time long ago...");
-    c.operator.setChemistryWith(NpcID.Dawn, 14,
+    c.operator.setChemistryWith(NpcId.Dawn, 14,
                                       "Was aware that she was in touch with the entity 'guarding' the village. He could see " +
                                       "her burying sadness and strongly felt she was a good person, despite her secrets. " +
                                       "His respect for her increased significantly after recent events.");
-    c.operator.setChemistryWith(NpcID.Hina, 13,
+    c.operator.setChemistryWith(NpcId.Hina, 13,
                                       "Feels a strong sense of sympathy and a slight paternal instinct for her. Understands " +
                                       "her situation and periodically smuggles stuff she needs. Also spoils her rotten.");
-    c.operator.setChemistryWith(NpcID.Cecelia, 11,
+    c.operator.setChemistryWith(NpcId.Cecelia, 11,
                                       "Has known her from almost the day she was born. Is quite empathetic to her situation " +
                                       "and feels she is too good a person to die so young. Also Ezell's concern for her has " +
                                       "made him quite invested in her fate.");

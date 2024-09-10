@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupLogos()
 {
-    const c = new Character(NpcID.LogosPlaywright);
+    const c = new Character(NpcId.LogosPlaywright);
 
     c.core.name = "The Playwright";
     c.core.imgPath = "character_tokens/C1/Arc2/logos_normal.png";

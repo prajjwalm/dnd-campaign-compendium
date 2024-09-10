@@ -1,0 +1,141 @@
+@use "../definitions/colors";
+@use "../definitions/shadows";
+
+@import "../game_modules/stat_sheet";
+@import "../game_modules/translational_selectable";
+@import "../game_modules/cc";
+
+#beastiary {
+  display: flex;
+  align-items: flex-start;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+
+  .rollable {
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    padding: 0 4px;
+    cursor: pointer;
+    border: solid 2px colors.$primary;
+    border-radius: 4px;
+    background-color: colors.$white;
+  }
+
+  .translational_flags_radio_container {
+    @include translational_selectable("right",
+                                      $card_length: 96px,
+                                      $active_card_length: 320px,
+                                      $card_cross: 84px,
+                                      $base_width: 80px,
+                                      $card_gap: 8px,
+                                      $align_start: true);
+
+    overflow: unset;
+    flex-grow: 0;
+    width: 40%;
+    min-width: 400px;
+    min-height: 480px;
+
+    .translation_base {
+      padding-top: 16px;
+      padding-bottom: 16px;
+      background-color: #77777F;
+      @include shadows.Uniform(3, colors.$black);
+
+      .mob_category_icon {
+        width: 60px;
+        height: 70px;
+        margin-bottom: 8px;
+        cursor: pointer;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+
+    .radio {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .danger_control {
+      display: flex;
+      align-content: center;
+      justify-content: flex-end;
+      gap: 6px;
+
+      i {
+        font-size: 24px;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 4px;
+        background-color: colors.$graph_background;
+        --fa-secondary-opacity: 0.7;
+
+        &.fa-chevrons-up {
+          --fa-primary-color:   #EA1412; // colors.$node_deadly + red;
+          --fa-secondary-color: #EA1412; // colors.$node_deadly + red;
+        }
+
+        &.fa-chevrons-down {
+          --fa-primary-color:   #157FE3; // colors.$node_safe;
+          --fa-secondary-color: #157FE3; // colors.$node_safe;
+        }
+
+        &.fa-duotone.disabled {
+          background-color:     colors.$true_grey;
+          --fa-primary-color:   #eee;
+          --fa-secondary-color: #eee;
+        }
+      }
+    }
+
+    .creature {
+      display: flex;
+      align-items: center;
+      flex-flow: row-reverse nowrap;
+      justify-content: space-between;
+      width: 240px;
+      padding: 8px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      @include translational_selectable_selector_color($theme_ocean_blue, "right");
+
+      &.danger_1 {
+        @include translational_selectable_selector_color($theme_blood_red, "right");
+      }
+
+      .title {
+        font-family: Montserrat, sans-serif;
+        font-size: 16px;
+        color: colors.$white;
+      }
+
+      .icon_img {
+        width: 64px;
+        height: 64px;
+        margin: 0;
+        object-fit: contain;
+      }
+    }
+  }
+
+  #sheet_zone {
+    width: 50%;
+    min-width: 320px;
+
+    #cr_table {
+      td {
+        text-align: center;
+      }
+    }
+  }
+}

@@ -1,13 +1,13 @@
 import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                  from "../../../../../data/npcIndex";
-import {D1, D10, D12}                                                                                           from "../../../../../rolling/Dice";
+import {NpcId}                                                                                          from "../../../../../data/npcIndex";
+import {D1, D10, D12}                                                                                   from "../../../../../rolling/Dice";
 import {Action}                                                                                                 from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                               from "../../../../action/Wrap";
 import {Character}                                                                                              from "../../../Character";
 
 export function setupSwarmCaller()
 {
-    const c = new Character(NpcID.SwarmCaller);
+    const c = new Character(NpcId.SwarmCaller);
 
     c.core.name = "SwarmCaller";
     c.core.imgPath = "mob_tokens/seaborn/Swarmcaller.png";
@@ -50,8 +50,8 @@ export function setupSwarmCaller()
     c.combat.addAction(new Action(
         Activation.Special,
         `<p><em><strong>LifeSoup Orbs.</strong></em> The SwarmCaller controls 
-         two orbs apparently made of pure essence of one of the Firstborn. All 
-         its abilities involve manipulation of these orbs. Each orb has 20 HP, 
+         ${c.pb} orbs apparently made of pure essence of one of the Firstborn. All 
+         its abilities involve manipulation of these orbs. Each orb has 50 HP, 
          15 AC and ${wrapRoll(c.DEX + 5)} to DEX saves - other saves mirror
          those of the SwarmCaller. Each orb can be in the dormant, active or 
          broken state. While dormant, the orbs take 10% damage (rounded down) 
@@ -71,7 +71,7 @@ export function setupSwarmCaller()
         Activation.Special,
          c => `<p><em><strong>NetherSea Echoes.</strong></em> If any orb is active, 
          the SwarmCaller and each of its active orbs become sources of nethersea 
-         echoes, each dealing ${wrapRoll([[3, D12], [c.CHA, D1]])}
+         echoes, each dealing ${wrapRoll([[c.CON, D12], [c.CHA, D1]])}
          ${wrapDamageType(DamageType.Psychic)} damage (once per round) to each
          creature that comes within 20 ft of them at any point of time.</p>`
     ));

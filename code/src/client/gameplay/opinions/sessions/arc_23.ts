@@ -1,5 +1,5 @@
-import {NpcID}               from "../../data/npcIndex";
-import {PcIndex}             from "../../data/pcIndex";
+import {NpcId}   from "../../data/npcIndex";
+import {PcIndex} from "../../data/pcIndex";
 import {GameTimestamp}       from "../../GameTimestamp";
 import {Character}           from "../../simulation/characters/Character";
 import {PositiveEmotion}     from "../PositiveEmotion";
@@ -7,13 +7,13 @@ import {addInteractionEvent} from "./s9";
 
 export function arc23OpinionEvents()
 {
-    const hina = Character.get(NpcID.Hina);
-    const yuki = Character.get(NpcID.Yuki);
-    const dawn = Character.get(NpcID.Dawn);
-    const elysium = Character.get(NpcID.Elysium);
+    const hina = Character.get(NpcId.Hina);
+    const yuki = Character.get(NpcId.Yuki);
+    const dawn = Character.get(NpcId.Dawn);
+    const elysium = Character.get(NpcId.Elysium);
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_TIBALT],
         new GameTimestamp(0, 29, 16),
         `Who's he? Quite the resistance to-`,
@@ -26,7 +26,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_TIBALT],
         new GameTimestamp(0, 29, 16),
         `I.. feel so... exalted, ecstatic. I'm not dying. I'M NOT DYING. And 
@@ -39,7 +39,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Elysium,
+        NpcId.Elysium,
         [PcIndex.ID_TIBALT],
         new GameTimestamp(0, 29, 16, 15),
         `Ezell and the other's are caught in the fight, so they didn't notice, 
@@ -51,7 +51,7 @@ export function arc23OpinionEvents()
     )
 
     addInteractionEvent(
-        NpcID.Ezell,
+        NpcId.Ezell,
         [PcIndex.ID_TIBALT],
         new GameTimestamp(0, 29, 16, 15),
         `Quite adept with the shadows and the darkness... why do I feel it should 
@@ -63,7 +63,7 @@ export function arc23OpinionEvents()
     )
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_TIBALT],
         new GameTimestamp(0, 29, 16, 30),
         `Oh, he's another Ruin boy. Nice. Po'Shan's certainly on its way to 
@@ -77,7 +77,7 @@ export function arc23OpinionEvents()
 
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_TIBALT],
         new GameTimestamp(0, 29, 16, 30),
         `Ah well, not from the castle at least, and no metal piercing fetish. 
@@ -88,7 +88,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 29, 16, 30),
         `Whoa that's a lot of passion. He's going to break my screen, isn't he? 
@@ -99,7 +99,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 29, 16, 30),
         `Though, I should've taken out more time for them. He'd do well with around 
@@ -114,7 +114,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_TIBALT],
         new GameTimestamp(0, 29, 16, 45),
         `Wait. wait. wait. When he turned. There's a bond between him and-<br/>
@@ -129,7 +129,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [],
         new GameTimestamp(0, 29, 17, 0),
         `You really feel bad about me going on this mission, don't you? But if 
@@ -143,7 +143,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [],
         new GameTimestamp(0, 29, 17, 0),
         `But no, don't hold me back now, Aurelia. I don't need a comfortable 
@@ -157,7 +157,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [],
         new GameTimestamp(0, 29, 16, 45),
         `<i>She's</i> the one Odium chose? But why??!<br/>
@@ -178,7 +178,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 29, 16, 45),
         `We're all so lucky to have you here, Cyrion. Hina told me- Plus, even
@@ -195,7 +195,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Roberta,
+        NpcId.Roberta,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 29, 16, 45),
         `Hey real druid, I'm done cookin'. Whew, this has been a real nice vacation.`,
@@ -205,7 +205,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Roberta,
+        NpcId.Roberta,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 29, 17, 0),
         `Wait. You're telling me you guys don't give into primal rage and transform
@@ -217,7 +217,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [],
         new GameTimestamp(0, 29, 17, 0),
         `Damn, wizards sure are fast learners. It's only been a couple of days 
@@ -230,7 +230,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Ezell,
+        NpcId.Ezell,
         [],
         new GameTimestamp(0, 29, 17, 0),
         `She's a bit cautious, but her heart's in the right direction. Prefers 
@@ -244,7 +244,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Ezell,
+        NpcId.Ezell,
         [],
         new GameTimestamp(0, 29, 17, 0),
         `She really does care about Cecilia, doesn't she? That's... really kind of 
@@ -258,7 +258,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Elysium,
+        NpcId.Elysium,
         [],
         new GameTimestamp(0, 29, 17, 15),
         `I see, willing to pitch for Cecilia, huh. Nice of her. Ordering food 
@@ -275,7 +275,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 29, 17, 0),
         `Not above hunting for survival, huh. You sure are one with nature.<br/>
@@ -287,7 +287,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_TIBALT],
         new GameTimestamp(0, 29, 18, 0),
         `Umm.. you're new here, yet you help out fix the mess Ms. Dusk has 
@@ -302,7 +302,7 @@ export function arc23OpinionEvents()
     // Todo: Tibalt tree cutting interactions.
 
     addInteractionEvent(
-        NpcID.Tomasa,
+        NpcId.Tomasa,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 29, 19, 30),
         `Thanks for the cooking assistance, appreciate it. (He and the others 
@@ -315,7 +315,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [],
         new GameTimestamp(0, 30, 0, 0),
         `Immediately got the message... I'd have expected more resistance or 
@@ -327,7 +327,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [],
         new GameTimestamp(0, 30, 0, 15),
         `So you won't sell Hina out. The loyalty is commendable... yet if I'm 
@@ -341,7 +341,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [],
         new GameTimestamp(0, 30, 0, 20),
         `Take the damn blade, I cannot bear to-`,
@@ -351,7 +351,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [],
         new GameTimestamp(0, 30, 0, 20),
         `Damn! The prince's emotions have gone completely haywire. This is bad. 
@@ -365,7 +365,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [],
         new GameTimestamp(0, 30, 0, 25),
         `Why are you still agreeing? YOU WERE SUPPOSED TO COWER AND BACK DOWN, 
@@ -381,7 +381,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [],
         new GameTimestamp(0, 30, 0, 30),
         `And now you show your true colors. Watch over me, Odium, as I smite 
@@ -394,7 +394,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [],
         new GameTimestamp(0, 30, 0, 30),
         `Wait.. I'm loosing? No... it can't be. IT CAN'T BE. ODIUM WHY-
@@ -407,7 +407,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [],
         new GameTimestamp(0, 30, 0, 40),
         `So Hina <em>is</em> the one who- <span style="font-size: 11px;">Did you know, 
@@ -420,7 +420,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [PcIndex.ID_TIBALT],
         new GameTimestamp(0, 30, 0, 40),
         `No wait! Wait! You don't understand... you're siding with the wrong 
@@ -437,7 +437,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_TIBALT],
         new GameTimestamp(0, 30, 0, 40),
         `Put Cyrion out of commission too. Pro shit, very pro. And you don't 
@@ -449,7 +449,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Roberta,
+        NpcId.Roberta,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 1, 50),
         `Wha- I was... about TO DIE??! Gods! That- Spear?! If it... <span style="font-size: 9px;">hit</span>...<br/>
@@ -460,7 +460,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Roberta,
+        NpcId.Roberta,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 30, 1, 50),
         `He's escorting us.. to safety. So far from home, yet it's good to have 
@@ -472,7 +472,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Roberta,
+        NpcId.Roberta,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 1, 50),
         `But wait, how did he even manage to hit a spear in motion? Via a 
@@ -489,7 +489,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Jordi,
+        NpcId.Jordi,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 1, 50),
         `Oh thank the Fools, someone came! She was definitely looking in trouble.`,
@@ -499,7 +499,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Irene,
+        NpcId.Irene,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 1, 50),
         `Wait. Stop! Ugh, not now, I can't hold this one back and guard you at the 
@@ -510,7 +510,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Irene,
+        NpcId.Irene,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 1, 50),
         `Ok wait... you might be able to- If I take out all three spheres...
@@ -520,7 +520,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Jordi,
+        NpcId.Jordi,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 1, 50),
         `He... charged into the brand?! At the strongest foe? Without even a 
@@ -535,7 +535,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Jordi,
+        NpcId.Jordi,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 1, 50),
         `The jump, the strikes... depths below, what was that? She felt it,
@@ -550,7 +550,7 @@ export function arc23OpinionEvents()
 
 
     addInteractionEvent(
-        NpcID.Irene,
+        NpcId.Irene,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 1, 50),
         `That worked!! YES! a bit more brutality would be nice, but this was 
@@ -563,7 +563,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Irene,
+        NpcId.Irene,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 1, 50),
         `I would've killed Jordi if you weren't here now. I... feel good I 
@@ -574,7 +574,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Jordi,
+        NpcId.Jordi,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 1, 50),
         `She... really was a hair's breath away from killing me, wasn't she? I-
@@ -587,7 +587,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Elysium,
+        NpcId.Elysium,
         [PcIndex.ID_CYRION, PcIndex.ID_TIBALT],
         new GameTimestamp(0, 30, 1, 50),
         `Hmm... it is very injured; almost dying. To take on a nourished 
@@ -600,7 +600,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Elysium,
+        NpcId.Elysium,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 30, 1, 50),
         `I, revived?<br/>
@@ -612,7 +612,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Ezell,
+        NpcId.Ezell,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 30, 1, 50),
         `Thank you. Thank you! Thank you!<br/>
@@ -626,7 +626,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 30, 1, 50),
         `I suppose- that would be too convenient, and too easy.`,
@@ -635,7 +635,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Kastor,
+        NpcId.Kastor,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 30, 1, 50),
         `WHY-`,
@@ -645,7 +645,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Verna,
+        NpcId.Verna,
         [PcIndex.ID_CYRION, PcIndex.ID_HELIOS, PcIndex.ID_TIBALT],
         new GameTimestamp(0, 30, 1, 50),
         `Once again, it's you all who save us all. Once again, Iona lives 
@@ -659,7 +659,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_CYRION, PcIndex.ID_HELIOS, PcIndex.ID_TIBALT],
         new GameTimestamp(0, 30, 1, 50),
         `Even in Dusk's absence, we keep faith we'll live to see another day. 
@@ -670,7 +670,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [PcIndex.ID_HELIOS, PcIndex.ID_CYRION, PcIndex.ID_TIBALT],
         new GameTimestamp(0, 30, 1, 55),
         `They consider my loss as their own. They make constructive and ambitious, 
@@ -682,7 +682,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Irene,
+        NpcId.Irene,
         [PcIndex.ID_HELIOS, PcIndex.ID_CYRION, PcIndex.ID_TIBALT],
         new GameTimestamp(0, 30, 1, 55),
         `Yes that's right. Even when the tides rise, we must never back down, never cower away! It is 
@@ -693,7 +693,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Jordi,
+        NpcId.Jordi,
         [PcIndex.ID_HELIOS, PcIndex.ID_CYRION, PcIndex.ID_TIBALT],
         new GameTimestamp(0, 30, 1, 55),
         `What is this madness? This psychotic frenzy? You can't seriously be 
@@ -704,7 +704,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [PcIndex.ID_HELIOS, PcIndex.ID_TIBALT],
         new GameTimestamp(0, 30, 2, 0),
         `Thank you, for allowing my husband to have some dignity in death. Thank
@@ -715,7 +715,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Kastor,
+        NpcId.Kastor,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 9, 0),
         `He's right, if I die, Mother- <br/>
@@ -728,7 +728,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Irene,
+        NpcId.Irene,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 9, 5),
         `Thanks... for taking Jordi's side. I'll.. feel better knowing he's with
@@ -739,7 +739,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Jordi,
+        NpcId.Jordi,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 9, 5),
         `Thank you! For agreeing to me coming along. I promise you, it'll be 
@@ -750,7 +750,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [PcIndex.ID_HELIOS, PcIndex.ID_CYRION],
         new GameTimestamp(0, 30, 9, 0),
         `I'm really sorry for my son...`,
@@ -760,7 +760,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Cecelia,
+        NpcId.Cecelia,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 9, 5),
         `You're becoming a Saint, too? Can one even become a Saint? By Virtuous 
@@ -771,10 +771,10 @@ export function arc23OpinionEvents()
         ]),
     );
 
-    const cel = Character.get(NpcID.Cellinia);
+    const cel = Character.get(NpcId.Cellinia);
 
     addInteractionEvent(
-        NpcID.Cellinia,
+        NpcId.Cellinia,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 9, 5),
         `Aasimar, not saint... but part saint? Very curious. Associated with 
@@ -789,7 +789,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Cellinia,
+        NpcId.Cellinia,
         [PcIndex.ID_HELIOS, PcIndex.ID_CYRION],
         new GameTimestamp(0, 30, 9, 5),
         `Relied upon by Elysium, and Cecilia, it seems. Ezell too probably.`,
@@ -801,7 +801,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Cellinia,
+        NpcId.Cellinia,
         [PcIndex.ID_TIBALT],
         new GameTimestamp(0, 30, 9, 5),
         `Highly invested armor. Only ones who give this now are... Hmm. 
@@ -814,7 +814,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Cellinia,
+        NpcId.Cellinia,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 30, 9, 5),
         `Druid, reasonably invested. Yet they ordered food. Hmm, were caught 
@@ -839,7 +839,7 @@ export function arc23OpinionEvents()
     // );
 
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [PcIndex.ID_HELIOS, PcIndex.ID_CYRION, PcIndex.ID_TIBALT],
         new GameTimestamp(0, 30, 9, 30),
         `Thank you, for going through with this. For putting the safety of our 
@@ -853,7 +853,7 @@ export function arc23OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 30, 10, 30),
         `He could... communicate... with the God of the inklings? With Ms Dusk's 

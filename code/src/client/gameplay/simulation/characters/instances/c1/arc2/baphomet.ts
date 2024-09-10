@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupBaphomet()
 {
-    const c = new Character(NpcID.Baphomet);
+    const c = new Character(NpcId.Baphomet);
 
     c.core.name = "Baphomet";
     c.core.imgPath = "character_tokens/C1/Arc2/baphomet.png";

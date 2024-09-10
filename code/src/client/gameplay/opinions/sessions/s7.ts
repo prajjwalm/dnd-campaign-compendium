@@ -1,5 +1,5 @@
-import {NpcID}               from "../../data/npcIndex";
-import {PcIndex}             from "../../data/pcIndex";
+import {NpcId}   from "../../data/npcIndex";
+import {PcIndex} from "../../data/pcIndex";
 import {GameTimestamp}       from "../../GameTimestamp";
 import {Character}           from "../../simulation/characters/Character";
 import {PositiveEmotion}     from "../PositiveEmotion";
@@ -9,7 +9,7 @@ import {addInteractionEvent} from "./s9";
 export function sessionOpinionEvents07()
 {
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 8, 0),
         "Remained business-like in investigating last night even in the " +
@@ -20,7 +20,7 @@ export function sessionOpinionEvents07()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
@@ -34,12 +34,12 @@ export function sessionOpinionEvents07()
         new Map([
                     [PositiveEmotion.Trust, -2]
                 ]),
-        Character.get(NpcID.Dawn).passiveDeception,
+        Character.get(NpcId.Dawn).passiveDeception,
         new Set([PositiveEmotion.Trust,])
     );
 
     addInteractionEvent(
-        NpcID.Tomasa,
+        NpcId.Tomasa,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 6, 8, 0),
         "Tried to examine Taihe's body and analyze what happened.",
@@ -52,7 +52,7 @@ export function sessionOpinionEvents07()
     // 2], [PositiveEmotion.Trust, 1], ]) ) );
 
     addInteractionEvent(
-        NpcID.Roberta,
+        NpcId.Roberta,
         [],
         new GameTimestamp(0, 6, 8, 0),
         "Seems to have some passing knowledge of alchemy.",
@@ -62,7 +62,7 @@ export function sessionOpinionEvents07()
     );
 
     addInteractionEvent(
-        NpcID.Vitacia,
+        NpcId.Vitacia,
         [
             PcIndex.ID_CYRION,
             PcIndex.ID_HELIOS
@@ -81,7 +81,7 @@ export function sessionOpinionEvents07()
     );
 
     addInteractionEvent(
-        NpcID.Vitacia,
+        NpcId.Vitacia,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 6, 8, 15),
         "His face betrays his crime. The way he avoids my gaze. The weird " +
@@ -105,7 +105,7 @@ export function sessionOpinionEvents07()
     ])
     {
         addInteractionEvent(
-            NpcID.Vitacia,
+            NpcId.Vitacia,
             [pc],
             new GameTimestamp(0, 6, 8, 18),
             "Oh Saints above! What was wrong with me? How did I just blame " +
@@ -135,7 +135,7 @@ export function sessionOpinionEvents07()
     }
 
     addInteractionEvent(
-        NpcID.Vitacia,
+        NpcId.Vitacia,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 6, 8, 30),
         "Even though I don't blame him for Taihe's death anymore, he seems to have " +
@@ -156,7 +156,7 @@ export function sessionOpinionEvents07()
     // [PositiveEmotion.Gratitude, 3] ]), ) );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 6, 8, 30),
         "Fell under a powerful wave of guilt. But that clearly was his " +
@@ -166,7 +166,7 @@ export function sessionOpinionEvents07()
         new Map([
                     [PositiveEmotion.Trust, 4]
                 ]),
-        Character.get(NpcID.Hina).passiveDeception + 5
+        Character.get(NpcId.Hina).passiveDeception + 5
     );
 
     // npcInteractionEvents.get(NpcId.Hina).get(PcIndex.ID_PANZER).addEvent(
@@ -177,7 +177,7 @@ export function sessionOpinionEvents07()
     // NpcIndex.get(NpcId.Hina).passiveDeception + 10 ) );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [],
         new GameTimestamp(0, 6, 8, 30),
         "Heh, decently suppressed, and I was distracted by the starry guy overreacting... " +
@@ -188,11 +188,11 @@ export function sessionOpinionEvents07()
         new Map([
                     [PositiveEmotion.Trust, -3],
                 ]),
-        Character.get(NpcID.Hina).passiveDeception + 5
+        Character.get(NpcId.Hina).passiveDeception + 5
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 8, 30),
         "Hmm, actually mitigated the guilt of his friend to some degree, " +
@@ -203,7 +203,7 @@ export function sessionOpinionEvents07()
                     [PositiveEmotion.Trust, 2],
                     [PositiveEmotion.Respect, 2]
                 ]),
-        Character.get(NpcID.Hina).passiveDeception + 5
+        Character.get(NpcId.Hina).passiveDeception + 5
     );
 
     // npcInteractionEvents.get(NpcIndex.ID_COROTO).get(PcIndex.ID_QUINN).addEvent(
@@ -214,7 +214,7 @@ export function sessionOpinionEvents07()
     // [PositiveEmotion.Trust, -4], [PositiveEmotion.Respect, 4] ]), 17 ) );
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 9, 0),
         "A soul sheared. A paladin. A druid digging up the pasts of people " +
@@ -226,11 +226,11 @@ export function sessionOpinionEvents07()
                     [PositiveEmotion.Affection, -4],
                     [PositiveEmotion.Respect, -2]
                 ]),
-        Character.get(NpcID.Yuki).passiveDeception + 5
+        Character.get(NpcId.Yuki).passiveDeception + 5
     );
 
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [],
         new GameTimestamp(0, 6, 9, 30),
         "So it was spying after all... sigh. I'd hoped I was wrong. " +
@@ -243,7 +243,7 @@ export function sessionOpinionEvents07()
                     [PositiveEmotion.Trust, 2],
                     [PositiveEmotion.Respect, 4],
                 ]),
-        Character.get(NpcID.Erica).passiveDeception - 5,
+        Character.get(NpcId.Erica).passiveDeception - 5,
         new Set([PositiveEmotion.Trust])
     )
 
@@ -255,7 +255,7 @@ export function sessionOpinionEvents07()
     // 2], ]), ) );
 
     addInteractionEvent(
-        NpcID.Genefe,
+        NpcId.Genefe,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 9, 30),
         "Hey! um... well.. yeah you may hold her wheelchair I suppose.",
@@ -278,7 +278,7 @@ export function sessionOpinionEvents07()
     // );
 
     addInteractionEvent(
-        NpcID.Cecelia,
+        NpcId.Cecelia,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 9, 30),
         "Seems to know something is wrong here. Also gave off weird vibes " +
@@ -289,7 +289,7 @@ export function sessionOpinionEvents07()
     )
 
     addInteractionEvent(
-        NpcID.Cecelia,
+        NpcId.Cecelia,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 9, 30),
         "Claims he would try to search for a way to save me. I wish I " +
@@ -302,7 +302,7 @@ export function sessionOpinionEvents07()
     );
 
     addInteractionEvent(
-        NpcID.Cecelia,
+        NpcId.Cecelia,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 9, 30),
         "No, no, no. Don't do that. Don't give me hope. Being alive " +
@@ -311,7 +311,7 @@ export function sessionOpinionEvents07()
         new Map([
                     [PositiveEmotion.Gratitude, -3],
                 ]),
-        Character.get(NpcID.Cecelia).passiveDeception + 5,
+        Character.get(NpcId.Cecelia).passiveDeception + 5,
         new Set([PositiveEmotion.Affection])
     );
 
@@ -327,7 +327,7 @@ export function sessionOpinionEvents07()
     // new Map([ [PositiveEmotion.Respect, 3], [PositiveEmotion.Gratitude, -1],
     // ]), 19, new Map([[PositiveEmotion.Gratitude, true]]) ) );
     addInteractionEvent(
-        NpcID.Cecelia,
+        NpcId.Cecelia,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 10, 30),
         "It's clear how much mutual trust and joviality lies in their " +
@@ -336,7 +336,7 @@ export function sessionOpinionEvents07()
                     [PositiveEmotion.Respect, 3],
                     [PositiveEmotion.Gratitude, -1],
                 ]),
-        Character.get(NpcID.Cecelia).passiveDeception + 5,
+        Character.get(NpcId.Cecelia).passiveDeception + 5,
         new Set([PositiveEmotion.Gratitude])
     );
 
@@ -349,7 +349,7 @@ export function sessionOpinionEvents07()
     // Map([[PositiveEmotion.Trust, true]]) ) );
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 11, 30),
         "Wait an alias attestable by the brat's father himself? And now " +
@@ -361,11 +361,11 @@ export function sessionOpinionEvents07()
                     [PositiveEmotion.Affection, 6],
                     [PositiveEmotion.Respect, 2]
                 ]),
-        Character.get(NpcID.Yuki).passiveDeception + 5,
+        Character.get(NpcId.Yuki).passiveDeception + 5,
         new Set([PositiveEmotion.Affection]));
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 11, 30),
         "All that said, the way he glows. That radiance is blinding. " +
@@ -374,11 +374,11 @@ export function sessionOpinionEvents07()
                     [PositiveEmotion.Respect, 2],
                     [PositiveEmotion.Gratitude, -4]
                 ]),
-        Character.get(NpcID.Yuki).passiveDeception
+        Character.get(NpcId.Yuki).passiveDeception
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [],
         new GameTimestamp(0, 6, 11, 30),
         "Made a superficial attempt to console me, changing to her topics " +
@@ -390,7 +390,7 @@ export function sessionOpinionEvents07()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [],
         new GameTimestamp(0, 6, 11, 45),
         "Took the initiative to teach the kids! I... that's... Thank you! " +
@@ -402,14 +402,14 @@ export function sessionOpinionEvents07()
                 ]));
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 6, 11, 30),
         "Oh you poor boy, here we go. You did nothing wrong.",
         new Map([
                     [PositiveEmotion.Trust, 1]
                 ]),
-        Character.get(NpcID.Hina).passiveDeception + 5
+        Character.get(NpcId.Hina).passiveDeception + 5
     );
 
     for (const pc of [
@@ -419,7 +419,7 @@ export function sessionOpinionEvents07()
     ])
     {
         addInteractionEvent(
-            NpcID.Dawn,
+            NpcId.Dawn,
             [pc],
             new GameTimestamp(0, 6, 12, 0),
             "Finally, after all these years... people I could open up to...",
@@ -441,7 +441,7 @@ export function sessionOpinionEvents07()
     }
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 6, 12, 0),
         "Feels sorry for my state. But if only he knew... just how little " +
@@ -450,6 +450,6 @@ export function sessionOpinionEvents07()
                     [PositiveEmotion.Gratitude, 4],
                     [PositiveEmotion.Affection, 2],
                 ]),
-        Character.get(NpcID.Dawn).passiveDeception
+        Character.get(NpcId.Dawn).passiveDeception
     );
 }

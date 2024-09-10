@@ -106,23 +106,24 @@
             <h1 class="page_header">Beastiary</h1>
             <div class="page__content advanced_style" id="combat">
                 <div id="beastiary">
-                    <div class="selectable_radio_container translational_flags">
+                    <div class="translational_flags_radio_container">
                         <div class="translation_base">
-                            <div id="mob_group_humans" class="mob_group_icon" data-mob-group-id="human">
+                            <div id="mob_category_humans" class="mob_category_icon" data-category-id="human">
                                 <img src="assets/images/character_tokens/C2/Arc1/Jaye.png" alt="[HUMANS]">
                             </div>
-                            <div id="mob_group_inklings" class="mob_group_icon" data-mob-group-id="inkling">
+                            <div id="mob_category_inklings" class="mob_category_icon" data-category-id="inkling">
                                 <img src="assets/images/mob_tokens/inkling/envy.png" alt="[INKLINGS]">
                             </div>
-                            <div id="mob_group_seaborn" class="mob_group_icon"
-                                 data-mob-group-id="seaborn">
-                                <img src="assets/images/mob_tokens/seaborn/Ephremis.png" alt="[SEABORN]">
+                            <div id="mob_category_seaborn" class="mob_category_icon" data-category-id="seaborn">
+                                <img src="assets/images/mob_tokens/seaborn/HarpoonerN.png" alt="[SEABORN]">
                             </div>
-                            <div id="mob_group_fiends" class="mob_group_icon"
-                                 data-mob-group-id="fiends">
+                            <div id="mob_category_seaborn_boss" class="mob_category_icon" data-category-id="seaborn_boss">
+                                <img src="assets/images/mob_tokens/seaborn/Ephremis.png" alt="[SEABORN_BOSS]">
+                            </div>
+                            <div id="mob_category_fiends" class="mob_category_icon" data-category-id="fiends">
                                 <img src="assets/images/character_tokens/C1/Arc2/logos_banshee.png" alt="[FIENDS]">
                             </div>
-<!--                            <div id="mob_group_misc" class="mob_group_icon"-->
+<!--                            <div id="mob_group_misc" class="mob_category_icon"-->
 <!--                                 data-mob-group-id="misc">-->
 <!--                                <img src="assets/images/mob_tokens/misc/witchking.png" alt="[MISC]">-->
 <!--                            </div>-->
@@ -132,7 +133,7 @@
                         <div id="cr_table"></div>
                     </div>
                 </div>
-                <div class="combat_picker">
+                <div class="combat_picker"  style="display: none;">
                     <div class="combat_picker__item" data-picker-id="cc">Exceptional Combat Scenarios&nbsp;<i class="fa-sharp fa-solid fa-caret-down"></i></div>
                 </div>
 
@@ -584,34 +585,45 @@
                     </tr>
                     <tr>
                         <td>Psychic</td><td>Neural</td><td>INT</td>
-                        <td>Stunned until the end of the same initiative count in the next round. Paralyzed on the second
-                            failed save in that duration. Death on the third failed save.</td>
+                        <td>Incapacitated until the end of your next turn. Paralysed on the second failed save in that
+                            duration.</td>
                     </tr>
                     <tr>
                         <td>Acid</td><td>Corrosive</td><td>DEX</td>
-                        <td>AC reduced by 1. Non-magical armor based AC is preferentially reduced, and is reduced forever.
-                            Any other AC reduction reverts on a long rest. Magical AC is not reduced, but the base 10 AC can
-                            be. Death if the base AC falls to zero.</td>
+                        <td>AC reduced by 1, or by 2 if no armor is worn. Armor based AC is preferentially reduced, and is reduced
+                            until repaired. AC bonuses from spells are unaffected. Non-armor AC recovers on a long rest. Death
+                            if AC falls to 0 (while disregarding spell bonuses).</td>
                     </tr>
                     <tr>
-                        <td>Poison</td><td>Biochemical (Hazard)</td><td>CON</td>
-                        <td>Gain a "negative HP" equal to the damage taken, and gain the same negative HP after 1 + Con Mod
-                            rounds, unless no negative HP remains. Healing reduces the negative HP instead, and doesn't heal
-                            until that falls to zero. Poisoned (disregards immunity) / Paralyzed / Unconscious (DC 30 graded) when
-                            negative HP exceeds half health and death when it exceeds health.</td>
+                        <td>Poison</td><td>Biochemical</td><td>CON</td>
+                        <td>Loose immunity to the poisoned condition until the end of your turn, and gain the poisoned condition.
+                            On the start of each of your turns, reduce your CON score by 1d4. At the end of each of your turns,
+                            make another save to escape the poisoned condition. Once cured, CON increases by 1 on each long rest.</td>
                     </tr>
                     <tr>
                         <td>Fire</td><td>Hellfire</td><td>WIS</td>
-                        <td>Take the same amount of Fire damage at the start and end of your next turn. This application
-                            disregards vulnerability.</td>
+                        <td>Take the same amount of Fire damage at the start and end of your next turn.</td>
+                    </tr>
+                    <tr>
+                        <td>Cold</td><td>Cyrostatic</td><td>CON</td>
+                        <td>Suffer from slow and lose the ability to gain HP until the end of your turn. On second stack within
+                            that duration be frozen. This condition is similar to restrained, except that the victim is now
+                            vulnerable to thunder and force damage. Should any of those damage types be taken, the ice shatters,
+                            dealing an additional 20 damage.</td>
+                    </tr>
+                    <tr>
+                        <td>Force</td><td>Collapsal</td><td>INT</td>
+                        <td>Collapsal damage is always True damage. Suffer from slow and the effects of the first three levels
+                            of exhaustion until the end of your turn. Death on second stack.</td>
                     </tr>
                     <tr>
                         <td>Necrotic</td><td>Void</td><td>DC 16 DEATH</td>
-                        <td>Gain 1 Wither (Permanent Exhaustion that can only be undone by a Lv 9 healing spell or Wish).</td>
+                        <td>Void damage is always True damage. Gain 1 Wither (Permanent Exhaustion that can only be
+                            undone by a Lv 9 healing spell or Wish).</td>
                     </tr>
                     <tr>
                         <td>Radiant</td><td>Almighty</td><td>DC 16 DEATH</td>
-                        <td>The base Almighty damage is always True damage. If after the attack the victim's remaining HP
+                        <td>Almighty damage is always True damage. If after the attack the victim's remaining HP
                             is more than 3 &times; the damage, they don't make a save. If it isn't, and they fail the save,
                             they die instantly dealing radiant damage equal to their remaining HP (after the attack) to all
                             creatures within as many feet as their remaining HP (rounded down to 5) that do not have RES to

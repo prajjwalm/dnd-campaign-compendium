@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupMuelsyse()
 {
-    const c = new Character(NpcID.Mumu);
+    const c = new Character(NpcId.Mumu);
 
     c.core.name = "Muelsyse";
     c.core.imgPath = "character_tokens/C1/Arc2/muelsyse.png";
@@ -20,7 +20,7 @@ export function setupMuelsyse()
     c.card.summary = () =>`
     A well known research specialist from Innovation who specialized in nanomachines and fluid automation. Had 
       come to the castle of Ruin for reasons unknown and there happened to meet, and protect from imminent 
-      destruction, ${Character.get(NpcID.Fiest).createLink("one of the fans of her research")} and also helped out his group of adventurer 
+      destruction, ${Character.get(NpcId.Fiest).createLink("one of the fans of her research")} and also helped out his group of adventurer 
       friends. However, being in a rush they couldn't really get to know her better then.`;
 
     c.card.finalize();

@@ -1,10 +1,10 @@
 import {DSkill}    from "../../../../../data/constants";
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupCecilia()
 {
-    const c = new Character(NpcID.Cecelia);
+    const c = new Character(NpcId.Cecelia);
 
     c.core.name = "Cecilia";
     c.core.imgPath = "character_tokens/C2/Arc1/Cecilia.png";

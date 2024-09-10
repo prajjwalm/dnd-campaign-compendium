@@ -1,7 +1,7 @@
 import {numberToText}                                                                                from "../../../../../../common/common";
 import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                       from "../../../../../data/npcIndex";
-import {D1, D12, D6, D8}                                                                             from "../../../../../rolling/Dice";
+import {NpcId}                                                                               from "../../../../../data/npcIndex";
+import {D1, D12, D6, D8}                                                                     from "../../../../../rolling/Dice";
 import {Action}                                                                                      from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                    from "../../../../action/Wrap";
 import {Character}                                                                                   from "../../../Character";
@@ -17,7 +17,7 @@ function generateMultiattack(count: number)
 
 export function setupPincers()
 {
-    const c = new Character(NpcID.Pincer);
+    const c = new Character(NpcId.Pincer);
 
     c.core.name = "Pincer";
     c.core.imgPath = "mob_tokens/seaborn/Pincer.png";
@@ -82,7 +82,7 @@ export function setupPincers()
     c.sheet.category = "seaborn";
     c.sheet.finalize();
 
-    const n = new CharacterVariant(NpcID.PincerN, NpcID.Pincer);
+    const n = new CharacterVariant(NpcId.PincerN, NpcId.Pincer);
 
     n.core.name = "Nourished Pincer";
     n.core.imgPath = "mob_tokens/seaborn/PincerN.png";
@@ -122,6 +122,6 @@ export function setupPincers()
     n.combat.cr = 6;
     n.combat.finalize();
 
-    n.sheet.theme = "danger_1";
+    n.sheet.danger = 1;
     n.sheet.finalize();
 }

@@ -1,13 +1,13 @@
 import {Activation, AdventurerClass, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed, statMod} from "../../../../../data/constants";
-import {NpcID}                                                                                                                            from "../../../../../data/npcIndex";
-import {D1, D10, D12, D4, D6, D8}                                                                                                         from "../../../../../rolling/Dice";
+import {NpcId}                                                                                                                    from "../../../../../data/npcIndex";
+import {D1, D10, D12, D4, D6, D8}                                                                                                 from "../../../../../rolling/Dice";
 import {Action}                                                                                                                           from "../../../../action/Action";
 import {wrapCondition, wrapDamageType, wrapRoll}                                                                                          from "../../../../action/Wrap";
 import {Character}                                                                                                                        from "../../../Character";
 
 export function setupEphremis()
 {
-    const Ephremis = new Character(NpcID.Ephremis);
+    const Ephremis = new Character(NpcId.Ephremis);
 
     Ephremis.core.name = "Ephremis";
     Ephremis.core.imgPath = "mob_tokens/seaborn/Ephremis.png";
@@ -213,7 +213,7 @@ export function setupEphremis()
 
     Ephremis.sheet.subtitle = " Seaborn, Neutral Evil";
     Ephremis.sheet.acDesc = " (Con/Dex)";
-    Ephremis.sheet.category = "seaborn";
+    Ephremis.sheet.category = "seaborn_boss";
 
     Ephremis.sheet.finalize();
 }

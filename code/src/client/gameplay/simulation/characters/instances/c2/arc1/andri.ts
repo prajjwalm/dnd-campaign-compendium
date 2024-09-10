@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupAndri()
 {
-    const c = new Character(NpcID.Andri);
+    const c = new Character(NpcId.Andri);
 
     c.core.name = "Andri";
     c.core.imgPath = "character_tokens/C2/Arc1/Andri.png";

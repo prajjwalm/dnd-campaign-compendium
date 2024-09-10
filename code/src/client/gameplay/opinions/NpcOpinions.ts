@@ -79,9 +79,9 @@
  *
  */
 
-import {getEnumIterator}                              from "../../common/common";
-import {NpcID}                                        from "../data/npcIndex";
-import {PcCharismaMods, PcIndex}                      from "../data/pcIndex";
+import {getEnumIterator}         from "../../common/common";
+import {NpcId}                   from "../data/npcIndex";
+import {PcCharismaMods, PcIndex} from "../data/pcIndex";
 import {GameTimestamp}                                from "../GameTimestamp";
 import {IDOMGenerator}                                from "../IDomGenerator";
 import {getZone}                                      from "./common";
@@ -105,7 +105,7 @@ export class NpcOpinion
 
     private currentTime: GameTimestamp;
 
-    public constructor(public readonly npc: NpcID,
+    public constructor(public readonly npc: NpcId,
                        public readonly pc: PcIndex)
     {
         this.currentTime = null;

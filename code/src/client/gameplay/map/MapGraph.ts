@@ -86,8 +86,8 @@ function setupMapGraphLogic($area: JQuery, graph: MapGraph)
         $mapGraph.find(".map_vertex").addClass("inactive");
         $(this).removeClass("inactive");
 
-        const selectedVertexElement: HTMLElement = $(this)[0];
-        const domRect: DOMRect = selectedVertexElement.getBoundingClientRect();
+        const selectedVertexElement = $(this)[0];
+        const domRect = selectedVertexElement.getBoundingClientRect();
 
         const vid = $(this).attr("id");
         const vertex = graph.lookupVertexById(vid);

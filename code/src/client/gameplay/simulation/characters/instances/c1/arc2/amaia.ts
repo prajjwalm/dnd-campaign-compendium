@@ -1,5 +1,5 @@
 import {Activation, AdventurerClass, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                           from "../../../../../data/npcIndex";
+import {NpcId}                                                                                                           from "../../../../../data/npcIndex";
 import {D1, D6, D8}                                                                                                      from "../../../../../rolling/Dice";
 import {Action}                                                                                                          from "../../../../action/Action";
 import {wrapCondition, wrapDamageType, wrapRoll}                                                                         from "../../../../action/Wrap";
@@ -7,7 +7,7 @@ import {Character}                                                              
 
 export function setupAmaia()
 {
-    const c = new Character(NpcID.Amaia);
+    const c = new Character(NpcId.Amaia);
 
     c.core.name = "Amaia";
     c.core.imgPath = "character_tokens/C1/Arc2/amaia.png";
@@ -28,7 +28,7 @@ export function setupAmaia()
     conjunction of the planes of Water and Devotion and is a highly feared figure
     in the Church of the Deep. It remains to be seen what role she plays in the
     rise of the Seaborn, yet for some reason she seems awfully anxious to get a 
-    hold of a ${Character.get(NpcID.Jordi).createLink("certain unassuming sea-elf")}.
+    hold of a ${Character.get(NpcId.Jordi).createLink("certain unassuming sea-elf")}.
     <div class="effect_tag">Incomplete</div>`;
 
     c.core.finalize();

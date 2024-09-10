@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupVerrader()
 {
-    const c = new Character(NpcID.Verrader);
+    const c = new Character(NpcId.Verrader);
 
     c.core.name = "Verrader";
     c.core.imgPath = "character_tokens/C1/Arc2/verrader.png";
@@ -26,7 +26,7 @@ export function setupVerrader()
     An influential fixer in Night Castle. Made it big thanks to his incredible charisma and deception skills. 
       Gained Nightblood in an accident - a result of his first betrayal - during his
       early years spent on the field in a forge which submerged his whole team, except 
-      ${Character.get(NpcID.Shimarin).createLink("Shimarin")}, in magma. Died at the hands of the Steel Inquisitors, 
+      ${Character.get(NpcId.Shimarin).createLink("Shimarin")}, in magma. Died at the hands of the Steel Inquisitors, 
       his soul burnt to power Rin's hemalurgy.`;
 
     c.card.finalize();

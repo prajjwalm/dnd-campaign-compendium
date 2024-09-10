@@ -1,5 +1,5 @@
-import {NpcID}         from "../../data/npcIndex";
-import {Rarity}        from "../../data/Rarity";
+import {NpcId}  from "../../data/npcIndex";
+import {Rarity} from "../../data/Rarity";
 import {IDOMGenerator} from "../../IDomGenerator";
 import {Character}     from "../characters/Character";
 
@@ -20,8 +20,8 @@ export class Building
                 private readonly iconDOM: string,
                 private readonly level: Rarity,
                 private readonly levelValue: number,
-                private readonly employeeValueComputer: (c: NpcID) => number,
-                private readonly pros: NpcID[] // todo: this could later become a character aspect.
+                private readonly employeeValueComputer: (c: NpcId) => number,
+                private readonly pros: NpcId[] // todo: this could later become a character aspect.
     )
     {}
 
@@ -35,7 +35,7 @@ export class Building
         for (const npcID of this.pros) {
             const npc = Character.get(npcID);
             if (npc == null) {
-                workforce.set(NpcID[npcID], this.employeeValueComputer(npcID));
+                workforce.set(NpcId[npcID], this.employeeValueComputer(npcID));
                 continue;
             }
             workforce.set(npc.name, this.employeeValueComputer(npcID));

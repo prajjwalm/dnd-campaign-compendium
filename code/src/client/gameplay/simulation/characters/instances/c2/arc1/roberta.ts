@@ -1,11 +1,11 @@
 import {CSkill, DSkill, Era, ProficiencyLevel} from "../../../../../data/constants";
-import {NpcID}                                 from "../../../../../data/npcIndex";
+import {NpcId}                                 from "../../../../../data/npcIndex";
 import {Character}                             from "../../../Character";
 import {Morale}                                from "../../../Morale";
 
 export function setupRoberta()
 {
-    const c = new Character(NpcID.Roberta);
+    const c = new Character(NpcId.Roberta);
 
     // Setup core.
     c.core.name = "Roberta";
@@ -106,18 +106,18 @@ export function setupRoberta()
     c.operator.addNotableStuff("Combat Experience", "D Grade (None)");
     c.operator.addNotableStuff("Challenge Rating", "5");
 
-    c.operator.setChemistryWith(NpcID.Vitacia, 18,
+    c.operator.setChemistryWith(NpcId.Vitacia, 18,
                                       "(Cousin) Though the two belonged to completely different worlds 'back home', " +
                                       "and rarely interacted, they always had a decent level of mutual respect. Became " +
                                       "much closer after moving into the village of Po'Shan.");
-    c.operator.setChemistryWith(NpcID.Dawn, 16,
+    c.operator.setChemistryWith(NpcId.Dawn, 16,
                                       "Trusts Dawn quite a bit and so often treats her as a personal therapist. Greatly " +
                                       "respects her for always lending a ear, despite any superficial attempts to wriggle out.");
-    c.operator.setChemistryWith(NpcID.Tomasa, 14,
+    c.operator.setChemistryWith(NpcId.Tomasa, 14,
                                       "Pretty much considers her a 'best friend'.");
-    c.operator.setChemistryWith(NpcID.Jaye, 10,
+    c.operator.setChemistryWith(NpcId.Jaye, 10,
                                       "As a neighbour, she is one of his few regular customers. Loves his sandwiches.");
-    c.operator.setChemistryWith(NpcID.Kastor, 10,
+    c.operator.setChemistryWith(NpcId.Kastor, 10,
                                       "Had a minor crush on him at first, but soon realized he was quite emotionally insecure. " +
                                       "Despite that she feels he's a good person caught up in a bad mess and doesn't mind " +
                                       "spending time with him.");

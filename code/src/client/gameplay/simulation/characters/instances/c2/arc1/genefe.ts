@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupGenefe()
 {
-    const c = new Character(NpcID.Genefe);
+    const c = new Character(NpcId.Genefe);
 
     c.core.name = "Genefe";
     c.core.imgPath = "character_tokens/C2/Arc1/Genefe.png";

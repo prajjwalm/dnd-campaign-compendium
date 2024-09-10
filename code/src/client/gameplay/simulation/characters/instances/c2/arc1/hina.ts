@@ -1,6 +1,6 @@
 import {Activation, AdventurerClass, Condition, CreatureSize, CSkill, DamageType, DSkill, DStat, Era, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                                                       from "../../../../../data/npcIndex";
-import {D1, D12, D6}                                                                                                                                 from "../../../../../rolling/Dice";
+import {NpcId}                                                                                                                        from "../../../../../data/npcIndex";
+import {D1, D12, D6}                                                                                                                  from "../../../../../rolling/Dice";
 import {Action}                                                                                                                                      from "../../../../action/Action";
 import {wrapCondition, wrapDamageType, wrapRoll, wrapSense}                                                                                          from "../../../../action/Wrap";
 import {Character}                                                                                                                                   from "../../../Character";
@@ -9,7 +9,7 @@ import {Morale}                                                                 
 export function setupHina()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Hina);
+    const c = new Character(NpcId.Hina);
 
     // Setup core info.
     c.core.name = "Hina";
@@ -110,9 +110,9 @@ export function setupHina()
     c.operator.addNotableStuff("Strong against", "Aberrations, Machines, Huge creatures");
     c.operator.addNotableStuff("Weak against", "Humanoids");
     c.operator.addNotableStuff("Combat Experience", "S Grade (7 years)");
-    c.operator.setChemistryWith(NpcID.Dawn, 21, "Although they don't interact that much, in her mind, Hina virtually sees Dawn as a mother.");
-    c.operator.setChemistryWith(NpcID.Elysium, 17, "The only one in the village who truly knows her - identity, past, nature, everything...");
-    c.operator.setChemistryWith(NpcID.Iona, 12, "For some reason, Hina treats her as though she were her little sister.");
+    c.operator.setChemistryWith(NpcId.Dawn, 21, "Although they don't interact that much, in her mind, Hina virtually sees Dawn as a mother.");
+    c.operator.setChemistryWith(NpcId.Elysium, 17, "The only one in the village who truly knows her - identity, past, nature, everything...");
+    c.operator.setChemistryWith(NpcId.Iona, 12, "For some reason, Hina treats her as though she were her little sister.");
 
     c.operator.era = Era.Future;
     c.operator.professions = ["Bionic Tank", "Student / Laborer"];
@@ -154,20 +154,20 @@ export function setupHina()
     by herself (or so she claimed). The unusual occurances around her only began after the 
     first time a villager died. The strangest time was when some adventurers 
     stumbled onto her sitting alone in a demiplane of black ink. As if in a 
-    trance, she was leaning on ${Character.get(NpcID.Dusk).createLink("a dragon")}
+    trance, she was leaning on ${Character.get(NpcId.Dusk).createLink("a dragon")}
     and they were surrounded by humanoid spectres rising from the ink.
     Her hands were limp, and she was deleriously painting with her toes, she was smoking
     heavily.  
      
     It was only after the curse affecting the 
-    village was lifted that the ${Character.get(NpcID.Dusk).createLink("local guardian deity")}
+    village was lifted that the ${Character.get(NpcId.Dusk).createLink("local guardian deity")}
     revealed to the others that the child had bondsmith powers. Alongside this 
-    revelation, several adventurers noted ${Character.get(NpcID.Shimaken).createLink("a certain spirit")}
+    revelation, several adventurers noted ${Character.get(NpcId.Shimaken).createLink("a certain spirit")}
     haunting her.</p>
     <p>
     She would soon after use her powers, somewhat reluctantly, to teleport the plane of Honor along with
     a group of adventurers. In there she seemed to come across a figure of long
-    past, ${Character.get(NpcID.Ruzaki).createLink("a scholar")} whose very sight
+    past, ${Character.get(NpcId.Ruzaki).createLink("a scholar")} whose very sight
     crippled her entire psyche, reducing the bored, droll kid to a broken, 
     psychotic mess.
     He addressed her solely, like many after him did, as #41. After

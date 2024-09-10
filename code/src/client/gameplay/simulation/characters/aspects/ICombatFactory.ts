@@ -26,6 +26,7 @@ export interface ICombatFactory
     addClassLevels(klass: AdventurerClass, levels: number);
 
     set bonusHP(val:number);
+    set hp(val:number);
     addBioHpDice(count: number, dice: Dice);
     computeHP();
 

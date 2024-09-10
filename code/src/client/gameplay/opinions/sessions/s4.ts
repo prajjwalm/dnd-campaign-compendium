@@ -1,5 +1,5 @@
-import {NpcID}               from "../../data/npcIndex";
-import {PcIndex}             from "../../data/pcIndex";
+import {NpcId}   from "../../data/npcIndex";
+import {PcIndex} from "../../data/pcIndex";
 import {GameTimestamp}       from "../../GameTimestamp";
 import {Character}           from "../../simulation/characters/Character";
 import {PositiveEmotion}     from "../PositiveEmotion";
@@ -10,7 +10,7 @@ export function sessionOpinionEvents04()
 {
     // Previous session.
     addInteractionEvent(
-        NpcID.Coroto,
+        NpcId.Coroto,
         [],
         new GameTimestamp(0, 5, 13, 30),
         "Didn't seem to hold respect for my position.",
@@ -19,7 +19,7 @@ export function sessionOpinionEvents04()
 
     // Talk with Coroto.
     addInteractionEvent(
-        NpcID.Coroto,
+        NpcId.Coroto,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 14, 0),
         "Acknowledged my honor for the fatherland.",
@@ -30,7 +30,7 @@ export function sessionOpinionEvents04()
     );
 
     addInteractionEvent(
-        NpcID.Coroto,
+        NpcId.Coroto,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 14, 0),
         "Comes from a weak country and a feminine race.",
@@ -41,7 +41,7 @@ export function sessionOpinionEvents04()
     );
 
     addInteractionEvent(
-        NpcID.Coroto,
+        NpcId.Coroto,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 14, 0),
         "Appears to have respect for our fatherland.",
@@ -49,7 +49,7 @@ export function sessionOpinionEvents04()
     );
 
     addInteractionEvent(
-        NpcID.Coroto,
+        NpcId.Coroto,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 14, 0),
         "Comes from a powerful country and a noble race.",
@@ -60,7 +60,7 @@ export function sessionOpinionEvents04()
     );
 
     addInteractionEvent(
-        NpcID.Coroto,
+        NpcId.Coroto,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 14, 0),
         "Was worried about our safety.",
@@ -71,7 +71,7 @@ export function sessionOpinionEvents04()
     );
 
     addInteractionEvent(
-        NpcID.Coroto,
+        NpcId.Coroto,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 14, 0),
         "Promised with honor to defend us should the need arise.",
@@ -82,7 +82,7 @@ export function sessionOpinionEvents04()
     );
 
     addInteractionEvent(
-        NpcID.Coroto,
+        NpcId.Coroto,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
@@ -94,7 +94,7 @@ export function sessionOpinionEvents04()
                     [PositiveEmotion.Trust, -1],
                     [PositiveEmotion.Gratitude, -1],
                 ]),
-        Character.get(NpcID.Coroto).passiveDeception + 5
+        Character.get(NpcId.Coroto).passiveDeception + 5
     );
 
 
@@ -114,7 +114,7 @@ export function sessionOpinionEvents04()
     // Ivangrad.", new Map([[PositiveEmotion.Gratitude, 2]]) ) );
 
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 14, 25),
         "Reminded me of happier times in my father's estate and Ivangrad.",
@@ -122,7 +122,7 @@ export function sessionOpinionEvents04()
     );
 
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
@@ -138,7 +138,7 @@ export function sessionOpinionEvents04()
 
 
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [
             PcIndex.ID_CYRION,
             PcIndex.ID_HELIOS
@@ -146,11 +146,11 @@ export function sessionOpinionEvents04()
         new GameTimestamp(0, 5, 14, 30),
         "Their coming here will shake things up.",
         new Map([[PositiveEmotion.Trust, -2]]),
-        Character.get(NpcID.Erica).passiveDeception + 5
+        Character.get(NpcId.Erica).passiveDeception + 5
     );
 
     addInteractionEvent(
-        NpcID.Coroto,
+        NpcId.Coroto,
         [
             PcIndex.ID_CYRION,
             PcIndex.ID_HELIOS
@@ -158,12 +158,12 @@ export function sessionOpinionEvents04()
         new GameTimestamp(0, 5, 14, 30),
         "Their coming here can cause much trouble.",
         new Map([[PositiveEmotion.Trust, -2]]),
-        Character.get(NpcID.Coroto).passiveDeception + 5
+        Character.get(NpcId.Coroto).passiveDeception + 5
     )
 
     // In Jordi's house.
     addInteractionEvent(
-        NpcID.Jordi,
+        NpcId.Jordi,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
@@ -177,7 +177,7 @@ export function sessionOpinionEvents04()
     );
 
     addInteractionEvent(
-        NpcID.Jordi,
+        NpcId.Jordi,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 15, 30),
         "Gazed at the sea wistfully. Does he too belong there?",
@@ -187,7 +187,7 @@ export function sessionOpinionEvents04()
                 ]));
 
     addInteractionEvent(
-        NpcID.Jordi,
+        NpcId.Jordi,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
@@ -202,7 +202,7 @@ export function sessionOpinionEvents04()
     );
 
     addInteractionEvent(
-        NpcID.Jordi,
+        NpcId.Jordi,
         [
             // PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
@@ -217,7 +217,7 @@ export function sessionOpinionEvents04()
     );
 
     addInteractionEvent(
-        NpcID.Jordi,
+        NpcId.Jordi,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 16, 0),
         "He realizes the value of fishing in enriching the local diet. (The " +
@@ -227,7 +227,7 @@ export function sessionOpinionEvents04()
     // At Petra's meal.
 
     addInteractionEvent(
-        NpcID.Petra,
+        NpcId.Petra,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
@@ -243,7 +243,7 @@ export function sessionOpinionEvents04()
 
 
     addInteractionEvent(
-        NpcID.Petra,
+        NpcId.Petra,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
@@ -253,7 +253,7 @@ export function sessionOpinionEvents04()
         new Map([[PositiveEmotion.Gratitude, 3]]));
 
     addInteractionEvent(
-        NpcID.Petra,
+        NpcId.Petra,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 16, 45),
         "I'm surprised and happy that they are willing to hear out the " +
@@ -265,7 +265,7 @@ export function sessionOpinionEvents04()
                 ]));
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 16, 30),
         "Starry-dude's not too fond of gaming, it seems.",
@@ -288,7 +288,7 @@ export function sessionOpinionEvents04()
     // timer.", new Map([[PositiveEmotion.Respect, 1]]) ) );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 16, 45),
         "Heh, his holiness would also go down the path of the gaming addict...",
@@ -299,7 +299,7 @@ export function sessionOpinionEvents04()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 16, 45),
         "Wait, the investiture changed... that intent... hmm...",
@@ -307,12 +307,12 @@ export function sessionOpinionEvents04()
                     [PositiveEmotion.Trust, -3],
                     [PositiveEmotion.Respect, 2]
                 ]),
-        Character.get(NpcID.Hina).passiveDeception,
+        Character.get(NpcId.Hina).passiveDeception,
         new Set([PositiveEmotion.Trust])
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 16, 45),
         "He actually beat the boss, guy's got a bright future. (even if...)",
@@ -327,7 +327,7 @@ export function sessionOpinionEvents04()
     // [PositiveEmotion.Trust, 1]]) ) );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 16, 45),
         "Starry-dude speaks fondly to gran.",
@@ -338,7 +338,7 @@ export function sessionOpinionEvents04()
                 ]));
 
     addInteractionEvent(
-        NpcID.Petra,
+        NpcId.Petra,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 16, 45),
         "He's having fun with Hina.",

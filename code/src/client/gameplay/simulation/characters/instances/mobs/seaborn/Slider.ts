@@ -1,13 +1,13 @@
 import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                       from "../../../../../data/npcIndex";
-import {D6, D8}                                                                                      from "../../../../../rolling/Dice";
+import {NpcId}                                                                               from "../../../../../data/npcIndex";
+import {D6, D8}                                                                              from "../../../../../rolling/Dice";
 import {Action}                                                                                      from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                    from "../../../../action/Wrap";
 import {Character}                                                                                   from "../../../Character";
 
 export function setupSlider()
 {
-    const c = new Character(NpcID.Slider);
+    const c = new Character(NpcId.Slider);
 
     c.core.name = "Slider";
     c.core.imgPath = "mob_tokens/seaborn/Slider.png";

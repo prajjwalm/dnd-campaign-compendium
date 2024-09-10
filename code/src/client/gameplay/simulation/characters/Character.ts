@@ -1,6 +1,6 @@
 import {Condition, CSkill, DamageType, DSkill, DStat, Era, pbMod, ProficiencyLevel, Sense, Speed} from "../../data/constants";
-import {NpcID}                                from "../../data/npcIndex";
-import {PcIndex}                              from "../../data/pcIndex";
+import {NpcId}                                                                                    from "../../data/npcIndex";
+import {PcIndex}                                                                                  from "../../data/pcIndex";
 import {Rating}                               from "../../data/Rarity";
 import {Dice}                                 from "../../rolling/Dice";
 import {Action}                               from "../action/Action";
@@ -125,13 +125,13 @@ export class Character
     /**
      * An index to make sure we don't ever get two objects for one character.
      */
-    private static readonly _Index: Map<NpcID, Character> =
-        new Map<NpcID, Character>();
+    private static readonly _Index: Map<NpcId, Character> =
+        new Map<NpcId, Character>();
 
     /**
      * Fetch the {@link Character} for the given id.
      */
-    public static get(npcId: NpcID)
+    public static get(npcId: NpcId)
     {
         return Character._Index.get(npcId);
     }
@@ -142,7 +142,7 @@ export class Character
     /**
      * CTOR.
      */
-    public constructor(public readonly id: NpcID)
+    public constructor(public readonly id: NpcId)
     {
         Character._Index.set(id, this);
 
@@ -150,7 +150,7 @@ export class Character
         this.aspects.fill(null);
     }
 
-    public GetOrCreateAspect(newAspect: EAspect): BaseAspect
+    public getOrCreateAspect(newAspect: EAspect): BaseAspect
     {
         if (this.aspects[newAspect] == null) {
             if (AspectDependants.has(newAspect)) {
@@ -165,7 +165,7 @@ export class Character
         return this.aspects[newAspect];
     }
 
-    public GetOrThrowAspect(aspect: EAspect): BaseAspect
+    public getOrThrowAspect(aspect: EAspect): BaseAspect
     {
         if (this.aspects[aspect] == null) {
             throw new AspectNotSetupException(EAspect[aspect]);
@@ -177,25 +177,30 @@ export class Character
     // The following methods have been made public only so that the subclass
     // CharacterVariant can access these for another Character.
 
-    protected get coreAspect()     : ICore         { return this.GetOrThrowAspect(EAspect.Core)      as CoreAspect     ; }
-    protected get dStatsAspect()   : IDStats       { return this.GetOrThrowAspect(EAspect.DStats)    as DStatsAspect   ; }
-    protected get dSkillsAspect()  : IDSkills      { return this.GetOrThrowAspect(EAspect.DSkills)   as DSkillsAspect  ; }
-    protected get cSkillsAspect()  : ICSkills      { return this.GetOrThrowAspect(EAspect.CSkills)   as CSkillsAspect  ; }
-    protected get operatorAspect() : IOperator     { return this.GetOrThrowAspect(EAspect.Operator)  as OperatorAspect ; }
-    protected get cardAspect()     : ICard         { return this.GetOrThrowAspect(EAspect.Card)      as CardAspect     ; }
-    protected get opinionAspect()  : IOpinionated  { return this.GetOrThrowAspect(EAspect.Opinions)  as OpinionAspect  ; }
-    protected get combatAspect()   : ICombat       { return this.GetOrThrowAspect(EAspect.Combat)    as CombatAspect   ; }
-    protected get sheetAspect()    : ISheet        { return this.GetOrThrowAspect(EAspect.Sheet)     as SheetAspect    ; }
+    public hasAspect(aspect: EAspect): boolean
+    {
+        return this.aspects[aspect] != null;
+    }
 
-    public get core()     : ICoreFactory        { return this.GetOrCreateAspect(EAspect.Core)     as CoreAspect     ; }
-    public get dStats()   : IDStatsFactory      { return this.GetOrCreateAspect(EAspect.DStats)   as DStatsAspect   ; }
-    public get dSkills()  : IDSkillsFactory     { return this.GetOrCreateAspect(EAspect.DSkills)  as DSkillsAspect  ; }
-    public get cSkills()  : ICSkillsFactory     { return this.GetOrCreateAspect(EAspect.CSkills)  as CSkillsAspect  ; }
-    public get operator() : IOperatorFactory    { return this.GetOrCreateAspect(EAspect.Operator) as OperatorAspect ; }
-    public get card()     : ICardFactory        { return this.GetOrCreateAspect(EAspect.Card)     as CardAspect     ; }
-    public get opinions() : IOpinionatedFactory { return this.GetOrCreateAspect(EAspect.Opinions) as OpinionAspect  ; }
-    public get combat()   : ICombatFactory      { return this.GetOrCreateAspect(EAspect.Combat)   as CombatAspect   ; }
-    public get sheet()    : ISheetFactory       { return this.GetOrCreateAspect(EAspect.Sheet)    as SheetAspect    ; }
+    protected get coreAspect()     : ICore         { return this.getOrThrowAspect(EAspect.Core)      as CoreAspect     ; }
+    protected get dStatsAspect()   : IDStats       { return this.getOrThrowAspect(EAspect.DStats)    as DStatsAspect   ; }
+    protected get dSkillsAspect()  : IDSkills      { return this.getOrThrowAspect(EAspect.DSkills)   as DSkillsAspect  ; }
+    protected get cSkillsAspect()  : ICSkills      { return this.getOrThrowAspect(EAspect.CSkills)   as CSkillsAspect  ; }
+    protected get operatorAspect() : IOperator     { return this.getOrThrowAspect(EAspect.Operator)  as OperatorAspect ; }
+    protected get cardAspect()     : ICard         { return this.getOrThrowAspect(EAspect.Card)      as CardAspect     ; }
+    protected get opinionAspect()  : IOpinionated  { return this.getOrThrowAspect(EAspect.Opinions)  as OpinionAspect  ; }
+    protected get combatAspect()   : ICombat       { return this.getOrThrowAspect(EAspect.Combat)    as CombatAspect   ; }
+    protected get sheetAspect()    : ISheet        { return this.getOrThrowAspect(EAspect.Sheet)     as SheetAspect    ; }
+
+    public get core()     : ICoreFactory        { return this.getOrCreateAspect(EAspect.Core)     as CoreAspect     ; }
+    public get dStats()   : IDStatsFactory      { return this.getOrCreateAspect(EAspect.DStats)   as DStatsAspect   ; }
+    public get dSkills()  : IDSkillsFactory     { return this.getOrCreateAspect(EAspect.DSkills)  as DSkillsAspect  ; }
+    public get cSkills()  : ICSkillsFactory     { return this.getOrCreateAspect(EAspect.CSkills)  as CSkillsAspect  ; }
+    public get operator() : IOperatorFactory    { return this.getOrCreateAspect(EAspect.Operator) as OperatorAspect ; }
+    public get card()     : ICardFactory        { return this.getOrCreateAspect(EAspect.Card)     as CardAspect     ; }
+    public get opinions() : IOpinionatedFactory { return this.getOrCreateAspect(EAspect.Opinions) as OpinionAspect  ; }
+    public get combat()   : ICombatFactory      { return this.getOrCreateAspect(EAspect.Combat)   as CombatAspect   ; }
+    public get sheet()    : ISheetFactory       { return this.getOrCreateAspect(EAspect.Sheet)    as SheetAspect    ; }
 
     /**
      * @inheritDoc
@@ -513,16 +518,17 @@ export class Character
     /**
      * @inheritDoc
      */
+    public get bannerDom(): string { return this.sheetAspect.bannerDom; }
+
+    public get danger(): number { return this.sheetAspect.danger; }
+
+    /**
+     * @inheritDoc
+     */
     public render(): string
     {
         return this.sheetAspect.render();
     }
-
-    /**
-     * Finalize({@link BaseAspect.finalize}) all the completed aspects.
-     */
-    public finalize(): void
-    {}
 
     /**
      * Shortcut getter for STR.

@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupEbenezar()
 {
-    const c = new Character(NpcID.Ebenezar);
+    const c = new Character(NpcId.Ebenezar);
 
     c.core.name = "Ebenezar";
     c.core.imgPath = "character_tokens/C1/Arc1/ebenezar.png";
@@ -21,7 +21,7 @@ export function setupEbenezar()
     c.card.summary = () =>`
      A human kid born in the the classical era. Accidentally entered a perpendicularity inside a 
      subterranean lake into the Gardens. Lived there for a few centuries and trained fanatically as a mage under his
-     then-girlfriend ${Character.get(NpcID.Lesley).createLink()}'s tutelage and soon surpassed her. Became a Lich
+     then-girlfriend ${Character.get(NpcId.Lesley).createLink()}'s tutelage and soon surpassed her. Became a Lich
      and would often roam in shady alleys of Materia, appearing helpless - then feeding on the souls of any who 
      assaulted him. Stabilized the perpendicularity between the lake he once drowned in - making it his 'lair' - and 
      the Mistflame in the Gardens near Bunker#371. Went to the castle to 'fight death', but failed and died, his 

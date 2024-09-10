@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupSArch()
 {
-    const c = new Character(NpcID.Sanguinarch);
+    const c = new Character(NpcId.Sanguinarch);
 
     c.core.name = "The SanguineArch";
     c.core.imgPath = "character_tokens/C1/Arc2/sarch_m.png";

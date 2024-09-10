@@ -85,12 +85,12 @@ export class AttackAbstraction
 
     public static expectedDamage(cr: number)
     {
-        return Math.round(8 + cr * (2 + cr * (1 / 8 + cr / 100)));
+        return Math.round(8 + cr * (4 + cr * (1 / 8 + cr / 200)));
     }
 
     public static expectedToHit(cr: number)
     {
-        return Math.round(3 + cr * (1 + Math.sqrt(cr) / 50));
+        return 3 + Math.round(cr / 4) + Math.round(cr / 3) + Math.round(cr / 6) + Math.round(cr / 10);
     }
 
     public static expectedSaveDC(cr: number)

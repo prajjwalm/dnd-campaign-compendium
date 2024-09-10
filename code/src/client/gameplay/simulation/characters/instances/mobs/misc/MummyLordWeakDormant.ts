@@ -1,13 +1,13 @@
 import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                  from "../../../../../data/npcIndex";
-import {D1, D10, D6, D8}                                                                                        from "../../../../../rolling/Dice";
+import {NpcId}                                                                                          from "../../../../../data/npcIndex";
+import {D1, D10, D6, D8}                                                                                from "../../../../../rolling/Dice";
 import {Action}                                                                                                 from "../../../../action/Action";
 import {wrapRoll}                                                                                               from "../../../../action/Wrap";
 import {Character}                                                                                              from "../../../Character";
 
 export function setupMummyLord()
 {
-    const c = new Character(NpcID.MummyLordWeakDormant);
+    const c = new Character(NpcId.MummyLordWeakDormant);
 
     c.core.name = "Witch King (Mummy; Dormant+Weakened)";
     c.core.imgPath = "mob_tokens/misc/witchking.png";

@@ -1,4 +1,4 @@
-import {IStatSheet} from "../../../monsters/sheet";
+import {IStatSheet} from "../legacy/sheet";
 
 
 export interface ISheet

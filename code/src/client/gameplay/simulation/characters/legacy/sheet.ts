@@ -1,9 +1,12 @@
-import {Activation, AdventurerClass, ClassHitDice, Condition, CreatureSize, DamageType, DSkill, DStat, E, pbMod, ProficiencyLevel, SizeToDice, Speed, StatForSkill, statMod,} from "../data/constants";
-import {D1, Dice}               from "../rolling/Dice";
-import {ISheetAction}           from "../simulation/action/ISheetAction";
-import {wrapRoll}               from "../simulation/action/Wrap";
-import {IDStats}                from "../simulation/characters/aspects/IDStats";
-import {IAttack, IBuffedAttack} from "./attack";
+import {Activation, AdventurerClass, ClassHitDice, Condition, CreatureSize, DamageType, DSkill, DStat, E, pbMod, ProficiencyLevel, SizeToDice, Speed, StatForSkill, statMod,} from "../../../data/constants";
+import {NpcId}                                                                                                                                                                from "../../../data/npcIndex";
+import {D1, Dice}                                                                                                                                                             from "../../../rolling/Dice";
+import {ISheetAction}                                                                                                                                                         from "../../action/ISheetAction";
+import {wrapRoll}                                                                                                                                                             from "../../action/Wrap";
+import {IDStats}                                                                                                                                                              from "../aspects/IDStats";
+import {SheetAspect}                                                                                                                                                          from "../aspects/SheetAspect";
+import {Character}                                                                                                                                                            from "../Character";
+import {IAttack, IBuffedAttack}                                                                                                                                               from "./attack";
 
 
 /**
@@ -45,7 +48,7 @@ class HpBlock
  * @deprecated
  */
 interface StatBlockParams {
-    monster_id: string;
+    monster_id: NpcId;
     title: string;
     subtitle: string;
     crValue: number;
@@ -69,7 +72,10 @@ interface StatBlockParams {
 
 export interface IStatSheet
 {
+    get id(): NpcId;
+    get bannerDom(): string;
     render(): string;
+    get danger(): number;
 }
 
 
@@ -79,7 +85,7 @@ export interface IStatSheet
 export interface IBuffedStatSheet
     extends IStatSheet
 {
-    get monster_id(): string;
+    get monster_id(): NpcId;
     get hpDice(): Map<Dice, number>;
     get attacks(): Map<string, IBuffedAttack>;
     get ac(): number;
@@ -90,7 +96,6 @@ export interface IBuffedStatSheet
 }
 
 
-export const ID_TO_SHEET_GENERATOR: Map<string, () => IStatSheet> = new Map();
 
 export const contractIndex: Map<string, ISheetContract> = new Map<string, ISheetContract>();
 
@@ -109,7 +114,7 @@ export class StatSheet
     implements IDStats,
                IStatSheet
 {
-    public readonly monster_id: string;
+    public readonly monster_id: NpcId;
 
     private readonly title: string;
 
@@ -201,7 +206,39 @@ export class StatSheet
                                ]);
     }
 
-    // TODO: LANGUAGES, SENSES
+    public get bannerDom(): string
+    {
+        const c = Character.get(this.id);
+        return `
+        <div class="creature danger_${this.danger}" 
+             data-creature-id="${this.id}"
+             data-category="inkling"
+             data-danger="${this.danger}"
+             style="display: none;">
+            <img class="icon_img" src="${c.imgPath}" alt="[NULL]">
+            <div class="title selected_only">${c.name}</div>
+        </div>`;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    get id()
+    {
+        return this.monster_id;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    get danger()
+    {
+        return 0;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public render(): string {
         const speedList = [];
         for (const [speed, value] of this.speeds.entries()) {
@@ -283,7 +320,7 @@ export class StatSheet
                         `<tr><td>Condition Immunities</td><td>${cimm.join(", ")}</td></tr>`;
 
         return `
-        <div class="stat_sheet" id="stat_sheet_${this.monster_id}">
+        <div class="stat_sheet buffable" id="stat_sheet_${this.monster_id}">
             <div class="sheet_header">
                 <div class="header_zone">
                     <h3 class="sheet_title">${this.title}</h3>
@@ -368,7 +405,6 @@ export class StatSheet
     }
 }
 
-
 /**
  * @deprecated
  */
@@ -412,7 +448,6 @@ export class SheetContract
     }
 }
 
-
 /**
  * @deprecated
  */
@@ -422,6 +457,7 @@ export class BuffedStatSheet
 {
     constructor(props: StatBlockParams) {
         super(props);
+        SheetAspect.CreatureSets.get("inkling").set(this.id, [0, [this]]);
     }
 
     public get hpDice(): Map<Dice, number> {

@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupIngrid()
 {
-    const c = new Character(NpcID.Ingrid);
+    const c = new Character(NpcId.Ingrid);
 
     c.core.name = "Ingrid";
     c.core.imgPath = "character_tokens/C2/Arc1/Ingrid.png";

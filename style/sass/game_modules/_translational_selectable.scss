@@ -10,27 +10,154 @@
 // from under a cover.
 //
 
+@mixin translational_selectable($direction: "up",
+                                $card_length: 300px,
+                                $active_card_length: $card_length * 1.2,
+                                $card_cross: $card_length * 0.6,
+                                $base_width: 64px,
+                                $card_gap: null,
+                                $align_start: false)
+{
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+  padding: 16px;
+  gap: 8px;
+
+  .translation_base {
+    position: absolute;
+    border-radius: 4px;
+  }
+
+  .radio {
+    transition: all 200ms;
+
+    &:not(.disabled) {
+      cursor: pointer;
+    }
+  }
+
+  @if ($align_start) {
+    justify-content: flex-start;
+    @if ($card_gap != null) {
+      gap: $card_gap;
+    }
+    @else {
+      gap: 16px;
+    }
+  }
+  @else {
+    @if ($card_gap != null) {
+      justify-content: center;
+      gap: $card_gap;
+    }
+    @else {
+      justify-content: space-evenly;
+    }
+  }
+
+  @if ($direction == "up") {
+    flex-direction: row;
+    align-items: flex-end;
+    padding-bottom: $base_width;
+
+    .translation_base {
+      width: 100%;
+      height: $base_width;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .radio {
+      width: $card_cross;
+      height: $card_length;
+
+      &.selected {
+        height: $active_card_length;
+      }
+    }
+  }
+  @else if ($direction == "right") {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: $base_width;
+
+    .translation_base {
+      width: $base_width;
+      height: 100%;
+      top: 0;
+      left: 0;
+      bottom: 0;
+    }
+
+    .radio {
+      height: $card_cross;
+      width: $card_length;
+
+      &.selected {
+        width: $active_card_length;
+      }
+    }
+  }
+  @else if ($direction == "down") {
+    flex-direction: row;
+    align-items: flex-start;
+    padding-top: $base_width;
+
+    .translation_base {
+      width: 100%;
+      height: $base_width;
+      left: 0;
+      right: 0;
+      top: 0;
+    }
+
+    .radio {
+      width: $card_cross;
+      height: $card_length;
+
+      &.selected {
+        height: $active_card_length;
+      }
+    }
+  }
+  @else if ($direction == "left") {
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: $base_width;
+
+    .translation_base {
+      width: $base_width;
+      height: 100%;
+      top: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .radio {
+      height: $card_cross;
+      width: $card_length;
+
+      &.selected {
+        width: $active_card_length;
+      }
+    }
+  }
+  @else {
+    @error "The value of $direction (#{$direction}) must be a cardinal " +
+           "direction (up/down/left/right).";
+  }
+}
+
+
 $theme_ocean_blue: "ocean_blue";
 $theme_blood_red:  "blood_red";
 $default_theme: $theme_ocean_blue;
 
-@mixin translational_selectable_colors($direction: "up",
-                                       $color_theme: $default_theme,
-                                       $base_color: #151515,
-                                       $base_shadow: colors.$white)
-{
-  .translation_base {
-    background-color: $base_color;
-    @include shadows.Uniform(3, $base_shadow);
-  }
-
-  .selectable {
-    @include translational_selectable_colors_selector_only($direction, $color_theme);
-  }
-}
-
-@mixin translational_selectable_colors_selector_only($direction: "up",
-                                                     $color_theme: $default_theme)
+@mixin translational_selectable_selector_color($color_theme: $default_theme,
+                                               $direction: "up")
 {
   //
   // Since the card lights up from the direction from with it is drawn, when the
@@ -128,148 +255,6 @@ $default_theme: $theme_ocean_blue;
   }
 }
 
-@mixin translational_selectable_dimensions($direction: "up",
-                                           $card_length: 300px,
-                                           $active_card_length: $card_length * 1.2,
-                                           $card_cross: $card_length * 0.6,
-                                           $base_width: 64px,
-                                           $card_gap: null,
-                                           $align_start: false)
-{
-  overflow: hidden;
-  display: flex;
-  flex-wrap: nowrap;
-  position: relative;
-
-  @if ($align_start) {
-    justify-content: flex-start;
-    @if ($card_gap != null) {
-      gap: $card_gap;
-    }
-    @else {
-      gap: 16px;
-    }
-  }
-  @else {
-    @if ($card_gap != null) {
-      justify-content: center;
-      gap: $card_gap;
-    }
-    @else {
-      justify-content: space-evenly;
-    }
-  }
-
-  .translation_base {
-    position: absolute;
-  }
-
-  padding: 16px;
-
-  @if ($direction == "up") {
-    flex-direction: row;
-    align-items: flex-end;
-    padding-bottom: $base_width;
-
-    .translation_base {
-      width: 100%;
-      height: $base_width;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-
-    .selectable {
-      width: $card_cross;
-      height: $card_length;
-
-      &.selected {
-        height: $active_card_length;
-      }
-    }
-  }
-  @else if ($direction == "right") {
-    flex-direction: column;
-    align-items: flex-start;
-    padding-left: $base_width;
-
-    .translation_base {
-      width: $base_width;
-      height: 100%;
-      top: 0;
-      left: 0;
-      bottom: 0;
-    }
-
-    .selectable {
-      height: $card_cross;
-      width: $card_length;
-
-      &.selected {
-        width: $active_card_length;
-      }
-    }
-  }
-  @else if ($direction == "down") {
-    flex-direction: row;
-    align-items: flex-start;
-    padding-top: $base_width;
-
-    .translation_base {
-      width: 100%;
-      height: $base_width;
-      left: 0;
-      right: 0;
-      top: 0;
-    }
-
-    .selectable {
-      width: $card_cross;
-      height: $card_length;
-
-      &.selected {
-        height: $active_card_length;
-      }
-    }
-  }
-  @else if ($direction == "left") {
-    flex-direction: column;
-    align-items: flex-end;
-    padding-right: $base_width;
-
-    .translation_base {
-      width: $base_width;
-      height: 100%;
-      top: 0;
-      right: 0;
-      bottom: 0;
-    }
-
-    .selectable {
-      height: $card_cross;
-      width: $card_length;
-
-      &.selected {
-        width: $active_card_length;
-      }
-    }
-  }
-  @else {
-    @error "The value of $direction (#{$direction}) must be a cardinal " +
-           "direction (up/down/left/right).";
-  }
-}
-
-@mixin translational_selectable_misc()
-{
-  .selectable {
-    transition: all 200ms;
-
-    &:not(.disabled) {
-      cursor: pointer;
-    }
-  }
-}
 
 #workshop {
 
@@ -277,24 +262,28 @@ $default_theme: $theme_ocean_blue;
    * Selectable container styles. This sets the size/color of the cards
    * themselves.
    */
-  .selectable_radio_container.translational_flags {
-    @include translational_selectable_misc();
-    @include translational_selectable_colors("up");
-    @include translational_selectable_dimensions("up",
-                                                 $card_length: 350px,
-                                                 $card_gap: 32px);
+  .translational_flags_radio_container {
+    @include translational_selectable("up",
+                                      $card_length: 350px,
+                                      $card_gap: 32px);
+
+    .translation_base {
+      background-color: #151515;
+      @include shadows.Uniform(3, colors.$white);
+    }
 
     /**
-     * Selectable content styling. This formats the interiors of the cards.
+     * Radio content styling. This formats the interiors of the cards.
      */
-    .selectable {
-      padding: 12px;
-      padding-top: 16px;
+    .radio {
+      padding: 16px 12px 12px;
       display: flex;
       flex-flow: column nowrap;
       align-items: center;
       justify-content: flex-start;
       overflow: hidden;
+
+      @include translational_selectable_selector_color($default_theme, "up");
 
       * {
         flex-grow: 0;
@@ -348,26 +337,6 @@ $default_theme: $theme_ocean_blue;
           display: flex;
         }
       }
-    }
-  }
-}
-
-#beastiary {
-  .selectable_radio_container.translational_flags {
-    @include translational_selectable_misc();
-    @include translational_selectable_colors("right",
-                                             $base_color: #77777f,
-                                             $base_shadow: colors.$black);
-    @include translational_selectable_dimensions("right",
-                                                 $card_length: 96px,
-                                                 $active_card_length: 256px,
-                                                 $card_cross: 84px,
-                                                 $base_width: 76px,
-                                                 $card_gap: 8px,
-                                                 $align_start: true);
-
-    .selectable.danger_1 {
-      @include translational_selectable_colors_selector_only("right", $theme_blood_red);
     }
   }
 }

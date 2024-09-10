@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupOthello()
 {
-    const c = new Character(NpcID.TraitorOthello);
+    const c = new Character(NpcId.TraitorOthello);
 
     c.core.name = "The traitor";
     c.core.imgPath = "character_tokens/C1/Arc2/othello.png";
@@ -25,12 +25,12 @@ export function setupOthello()
     c.card.summary = () =>`
     Once the apprentice guardian of defense, he betrayed the people in Preservation to kill everyone in the bunker
       with the help of the troupe and escaped into the castle. The only person, other than himself, who would've 
-      known all the details was ${Character.get(NpcID.TheMaster).createLink("The Guardian of Order")} before he passed away.
+      known all the details was ${Character.get(NpcId.TheMaster).createLink("The Guardian of Order")} before he passed away.
       <br/>
       By the time he was found again by a group of adventurers, he was imprisoned by the troupe next to a rather 
       large explosive, and had completely lost his mind - as he kept babbling some gibberish. As they were escaping
       with him, however, the mists touched him causing him to fully become himself again. Unfortunately, this was but
-      for a moment since soon after he was assassinated by ${Character.get(NpcID.Lucian).createLink("Solitaire")}.`;
+      for a moment since soon after he was assassinated by ${Character.get(NpcId.Lucian).createLink("Solitaire")}.`;
 
     c.card.finalize();
 }

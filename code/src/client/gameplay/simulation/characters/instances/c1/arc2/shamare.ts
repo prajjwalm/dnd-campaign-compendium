@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupShamare()
 {
-    const c = new Character(NpcID.Shamare);
+    const c = new Character(NpcId.Shamare);
 
     c.core.name = "Shamare";
     c.core.imgPath = "character_tokens/C1/Arc2/shamare.png";
@@ -24,8 +24,8 @@ export function setupShamare()
       to inherit her nightblood and learn of her 'arts'. These 'arts' involved weaving the souls of people, and 
       others, into inanimate objects - twisting their identity and spiritual energy to perform certain tasks. The
       first soul she weaved was that of her own sister's, who had been shot - as she was trying to go incognito - by 
-      ${Character.get(NpcID.Shimarin).createLink("a sniper")} at the behest of her 
-      ${Character.get(NpcID.Mouthpiece).createLink("last employer")} after she had completed a certain contract supposedly
+      ${Character.get(NpcId.Shimarin).createLink("a sniper")} at the behest of her 
+      ${Character.get(NpcId.Mouthpiece).createLink("last employer")} after she had completed a certain contract supposedly
       involving a lock. Shamare finally gave up her quest for vengeance when she realized she was being manipulated.`;
 
     c.card.finalize();

@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupFiest()
 {
-    const c = new Character(NpcID.Fiest);
+    const c = new Character(NpcId.Fiest);
 
     c.core.name = "Fiest";
     c.core.imgPath = "character_tokens/C1/Arc2/fiest.png";
@@ -18,9 +18,9 @@ export function setupFiest()
     c.card.addCardTag('CR | 9');
 
     c.card.summary = () =>`
-    While he rarely stepped on to the field himself, ${Character.get(NpcID.Shimaken).createLink("Shimaken")} and the 
+    While he rarely stepped on to the field himself, ${Character.get(NpcId.Shimaken).createLink("Shimaken")} and the 
       others owed a lot to his technical genius. Since he rarely even left the confines of his lab, his life was
-      rather sheltered and happy. ${Character.get(NpcID.Lemuen).createLink("Lemuen")}'s boyfriend before she died.`;
+      rather sheltered and happy. ${Character.get(NpcId.Lemuen).createLink("Lemuen")}'s boyfriend before she died.`;
 
     c.card.finalize();
 }

@@ -1,5 +1,5 @@
-import {NpcID}               from "../../data/npcIndex";
-import {PcIndex}             from "../../data/pcIndex";
+import {NpcId}   from "../../data/npcIndex";
+import {PcIndex} from "../../data/pcIndex";
 import {GameTimestamp}       from "../../GameTimestamp";
 import {Character}           from "../../simulation/characters/Character";
 import {PositiveEmotion}     from "../PositiveEmotion";
@@ -7,10 +7,10 @@ import {addInteractionEvent} from "./s9";
 
 export function arc21OpinionEvents()
 {
-    const hinaDeception = Character.get(NpcID.Hina).passiveDeception;
+    const hinaDeception = Character.get(NpcId.Hina).passiveDeception;
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 28, 12),
         `So literally the minute they found about my bondsmith powers, they 
@@ -28,7 +28,7 @@ export function arc21OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 28, 12, 5),
         `Wait a minute, Ruin has been talking to all of them too? All this time?`,
@@ -39,7 +39,7 @@ export function arc21OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 28, 12, 5),
         `Hmm... I don't really see Ruin's investiture on him - at least none 
@@ -51,7 +51,7 @@ export function arc21OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 28, 12, 35),
         `Huh, was I sleep paralyzed? Possessed? Can't be- <br/>
@@ -66,7 +66,7 @@ export function arc21OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 28, 12, 40),
         `...<br/>
@@ -83,7 +83,7 @@ export function arc21OpinionEvents()
 
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 28, 12, 40),
         `Wait, you protected me?? Again?<br/>
@@ -101,7 +101,7 @@ export function arc21OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 28, 12, 40),
         `You really brought <i>me</i> back to life? lmao...`,
@@ -113,7 +113,7 @@ export function arc21OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [],
         new GameTimestamp(0, 28, 12, 45),
         `Two very different professors, two very different lifetimes.<br/>

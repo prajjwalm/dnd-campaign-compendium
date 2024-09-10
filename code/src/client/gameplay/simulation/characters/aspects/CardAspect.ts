@@ -1,9 +1,9 @@
-import {Card}         from "../../../card";
-import {Character}    from "../Character";
-import {BaseAspect}   from "./BaseAspect";
-import {ICard}        from "./ICard";
-import {ICardFactory} from "./ICardFactory";
-import {ICore}        from "./ICore";
+import {waitForFinalEvent} from "../../../../common/common";
+import {Character}         from "../Character";
+import {BaseAspect}        from "./BaseAspect";
+import {ICard}             from "./ICard";
+import {ICardFactory}      from "./ICardFactory";
+import {ICore}             from "./ICore";
 
 
 /**
@@ -22,6 +22,8 @@ export class CardAspect
     implements ICard,
                ICardFactory
 {
+    private static Index: Map<string, ICard> = new Map<string, ICard>();
+
     private static readonly defaultPrimaryImageName = "default";
 
     /**
@@ -220,7 +222,8 @@ export class CardAspect
             .append(
                 $(this.generatePrimaryToken())
             );
-        Card.register(this);
+
+        CardAspect.Index.set(this.getCardIndex(), this);
     }
 
     /**
@@ -258,5 +261,160 @@ export class CardAspect
         this.images.set(s, this.images.get(CardAspect.defaultPrimaryImageName));
         this.primaryImageName = s;
         this.images.delete(CardAspect.defaultPrimaryImageName);
+    }
+
+    /**
+     * All the logic regarding the set-up of character cards. Wrapped up in a
+     * single method since it looks self-contained and complete.
+     */
+    public static setupCharacterCards()
+    {
+        const $commonCentralView : JQuery = $("#character_idx .central_view");
+        const $tokenSpace        : JQuery = $("#tokens");
+        const $floatingCard      : JQuery = $("#floating_card");
+        const $window            : JQuery = $(window);
+
+        let floatingCardWidth: number;
+        let floatingCardHeight: number;
+        let viewportWidthInPx: number;
+        let viewportHeightInPx: number;
+
+        function revealFloatingCard(): void
+        {
+            $floatingCard.show();
+            floatingCardWidth  = $floatingCard.width();
+            floatingCardHeight = $floatingCard.height();
+        }
+
+        function moveFloatingCard(x: number, y: number): void
+        {
+            const postX: boolean = x + floatingCardWidth + 24 < viewportWidthInPx;
+            const preX: boolean  = x > floatingCardWidth + 24;
+
+            const postY: boolean = y + floatingCardHeight + 24 < viewportHeightInPx;
+            const preY: boolean  = y > floatingCardHeight + 24;
+
+            if (postX) {
+                if (postY) {
+                    $floatingCard.css({ top: y + 12, left: x + 12 });
+                }
+                else if (preY) {
+                    $floatingCard.css({ top : y - 12 - floatingCardHeight,
+                                        left: x + 12 });
+                }
+                else {
+                    $floatingCard.hide();
+                }
+            }
+            else if (preX) {
+                if (postY) {
+                    $floatingCard.css({ top : y + 12,
+                                        left: x - 12 - floatingCardWidth });
+                }
+                else if (preY) {
+                    $floatingCard.css({ top : y - 12 - floatingCardHeight,
+                                        left: x - 12 - floatingCardWidth });
+                }
+                else {
+                    $floatingCard.hide();
+                }
+            }
+            else {
+                // Risky? I don't expect the code to ever actually reach here, since
+                // I'm not planning for mobile devices.
+                $floatingCard.hide();
+            }
+        }
+
+        function showCardFullSize(card: ICard): void
+        {
+            $commonCentralView.children().hide();
+
+            const cardIndex = card.getCardIndex();
+            const $existingCard = $commonCentralView.children(`[data-index-key='${cardIndex}']`);
+            if ($existingCard.length > 0) {
+                $existingCard.show();
+            }
+            else {
+                const $card = $(card.generateCard(false));
+                $commonCentralView.append($card);
+                $card.show();
+            }
+        }
+
+        function showCardFloating(card: ICard): void
+        {
+            $floatingCard.children().hide();
+
+            const cardIndex = card.getCardIndex();
+            const $existingCard = $floatingCard.children(`[data-index-key='${cardIndex}']`);
+            if ($existingCard.length > 0) {
+                $existingCard.show();
+            }
+            else {
+                const $card = $(card.generateCard(true));
+                $card.addClass("floating");
+                $floatingCard.append($card);
+                $card.show();
+            }
+        }
+
+        $commonCentralView.on("click", ".token_selector", function () {
+            const $tokens = $(this).parent().siblings(".tokens");
+            $tokens.children().hide();
+            $tokens.children(`[data-token='${$(this).data("token")}']`).show();
+        });
+
+        viewportHeightInPx = $window.height();
+        viewportWidthInPx = $window.width();
+
+        // noinspection JSDeprecatedSymbols
+        $(window).resize(() => {
+            waitForFinalEvent(() => {
+                viewportHeightInPx = $window.height();
+                viewportWidthInPx = $window.width();
+            }, 500, "Indexible.loadFromDOM");
+        });
+
+        $tokenSpace.on("mouseenter", ".token", function (e) {
+            const indexKey = $(this).data("indexKey");
+            const card = CardAspect.Index.get(indexKey);
+            showCardFloating(card);
+            revealFloatingCard();
+            moveFloatingCard(e.clientX, e.clientY);
+        });
+        $tokenSpace.on("mouseleave", ".token", function () {
+            $floatingCard.hide();
+        });
+        $tokenSpace.on("mousemove", ".token", function (e) {
+            moveFloatingCard(e.clientX, e.clientY);
+        });
+        $tokenSpace.on("click", ".token", function () {
+            $floatingCard.hide();
+            const indexKey = $(this).data("indexKey");
+            const card = CardAspect.Index.get(indexKey);
+            showCardFullSize(card);
+        });
+
+        const $card_links = $(".page");
+        $card_links.on("mouseenter", ".card_link", function (e) {
+            const indexKey = $(this).data("indexKey");
+            const card = CardAspect.Index.get(indexKey);
+            showCardFloating(card);
+            revealFloatingCard();
+            moveFloatingCard(e.clientX, e.clientY);
+        });
+        $card_links.on("mouseleave", ".card_link", function () {
+            $floatingCard.hide();
+        });
+        $card_links.on("mousemove", ".card_link", function (e) {
+            moveFloatingCard(e.clientX, e.clientY);
+        });
+        $card_links.on("click", ".card_link", function () {
+            $floatingCard.hide();
+            const indexKey = $(this).data("indexKey");
+            const card = CardAspect.Index.get(indexKey);
+            showCardFullSize(card);
+        });
     }
 }

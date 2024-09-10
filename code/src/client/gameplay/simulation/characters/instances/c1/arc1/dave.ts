@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupDave()
 {
-    const c = new Character(NpcID.DaveRuhl);
+    const c = new Character(NpcId.DaveRuhl);
 
     c.core.name = "Dave Ruhl";
     c.core.imgPath = "character_tokens/C1/Arc1/dave.png";
@@ -18,7 +18,7 @@ export function setupDave()
     c.card.addCardTag("<span class='verbose'>Samurai</span> Fighter");
     c.card.addCardTag("Faction: Defenders");
 
-    c.card.summary = () =>`A warforged automaton that was purchased by ${Character.get(NpcID.Caelynn).createLink("Caelynn")}'s 
+    c.card.summary = () =>`A warforged automaton that was purchased by ${Character.get(NpcId.Caelynn).createLink("Caelynn")}'s 
       batch-mates at a heavy price upon her graduation, to serve and protect her. His modules were heavily operated 
       upon by Lesley who practiced her coding skills on him. Failed to defend Caelynn at one point long ago, and 
       gave his life holding out against a deep-sea aberration to atone for it.`;

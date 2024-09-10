@@ -1,7 +1,7 @@
 import {numberToText}                                                                                           from "../../../../../../common/common";
 import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                  from "../../../../../data/npcIndex";
-import {D1, D10, D12, D8}                                                                                       from "../../../../../rolling/Dice";
+import {NpcId}                                                                                          from "../../../../../data/npcIndex";
+import {D1, D10, D12, D8}                                                                               from "../../../../../rolling/Dice";
 import {Action}                                  from "../../../../action/Action";
 import {AttackAbstraction, DebuffT3}             from "../../../../action/AttackAbstraction";
 import {wrapCondition, wrapDamageType, wrapRoll} from "../../../../action/Wrap";
@@ -48,7 +48,7 @@ function harpoonAttackGenerator(harpoonStrength: number,
 
 export function setupHarpooners()
 {
-    const c = new Character(NpcID.Harpooner);
+    const c = new Character(NpcId.Harpooner);
 
     c.core.name = "Harpooner";
     c.core.imgPath = "mob_tokens/seaborn/Harpooner.png";
@@ -122,7 +122,7 @@ export function setupHarpooners()
     c.sheet.finalize();
 
 
-    const n = new CharacterVariant(NpcID.HarpoonerN, NpcID.Harpooner);
+    const n = new CharacterVariant(NpcId.HarpoonerN, NpcId.Harpooner);
 
     n.core.name = "Nourished Harpooner";
     n.core.imgPath = "mob_tokens/seaborn/HarpoonerN.png";
@@ -158,6 +158,6 @@ export function setupHarpooners()
     n.combat.finalize();
 
     n.sheet.size  = CreatureSize.Large;
-    n.sheet.theme = "danger_1";
+    n.sheet.danger = 1;
     n.sheet.finalize();
 }

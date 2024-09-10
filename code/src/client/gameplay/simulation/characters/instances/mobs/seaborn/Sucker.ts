@@ -1,13 +1,13 @@
 import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                       from "../../../../../data/npcIndex";
-import {D1, D6}                                                                                      from "../../../../../rolling/Dice";
+import {NpcId}                                                                               from "../../../../../data/npcIndex";
+import {D1, D6}                                                                              from "../../../../../rolling/Dice";
 import {Action}                                                                                      from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                    from "../../../../action/Wrap";
 import {Character}                                                                                   from "../../../Character";
 
 export function setupSucker()
 {
-    const c = new Character(NpcID.Sucker);
+    const c = new Character(NpcId.Sucker);
 
     c.core.name = "Sucker";
     c.core.imgPath = "mob_tokens/seaborn/Sucker.png";

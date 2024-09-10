@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupKastor()
 {
-    const c = new Character(NpcID.Kastor);
+    const c = new Character(NpcId.Kastor);
 
     c.core.name = "Kastor";
     c.core.imgPath = "character_tokens/C2/Arc1/Kastor.png";

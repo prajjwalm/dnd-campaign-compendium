@@ -1,10 +1,10 @@
-import {DSkill, } from "../../../../../data/constants";
-import {NpcID}          from "../../../../../data/npcIndex";
-import {Character}      from "../../../Character";
+import {DSkill, }  from "../../../../../data/constants";
+import {NpcId}     from "../../../../../data/npcIndex";
+import {Character} from "../../../Character";
 
 export function setupVerna()
 {
-    const c = new Character(NpcID.Verna);
+    const c = new Character(NpcId.Verna);
 
     c.core.name = "Verna";
     c.core.imgPath = "character_tokens/C2/Arc1/Verna.png";

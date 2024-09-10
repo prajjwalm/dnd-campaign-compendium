@@ -1,6 +1,6 @@
-import {getEnumIterator}                       from "../../../common/common";
-import {NpcID}                                 from "../../data/npcIndex";
-import {PcIndex}                               from "../../data/pcIndex";
+import {getEnumIterator} from "../../../common/common";
+import {NpcId}           from "../../data/npcIndex";
+import {PcIndex}         from "../../data/pcIndex";
 import {GameTimestamp}                         from "../../GameTimestamp";
 import {Character}                             from "../../simulation/characters/Character";
 import {PositiveEmotion}                       from "../PositiveEmotion";
@@ -10,7 +10,7 @@ import {addInteractionEvent, addTimeSkipEvent} from "./s9";
 export function sessionOpinionEvents05()
 {
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [
             PcIndex.ID_HELIOS,
 
@@ -19,7 +19,7 @@ export function sessionOpinionEvents05()
         "It seems they're wreaking havoc on the paintbrushes.",
         new Map([[PositiveEmotion.Affection, 1]]));
 
-    for (const npc of [NpcID.Dawn, NpcID.Tomasa]) {
+    for (const npc of [NpcId.Dawn, NpcId.Tomasa]) {
         addInteractionEvent(
             npc,
             [PcIndex.ID_CYRION],
@@ -30,7 +30,7 @@ export function sessionOpinionEvents05()
     }
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [],
         new GameTimestamp(0, 5, 17, 35),
         "Got assaulted by my innocent canvas. So cute.",
@@ -38,7 +38,7 @@ export function sessionOpinionEvents05()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [],
         new GameTimestamp(0, 5, 17, 35),
         "Has a good imagination and a poetic painting in mind.",
@@ -46,7 +46,7 @@ export function sessionOpinionEvents05()
     );
 
     addTimeSkipEvent(
-        NpcID.Dusk,
+        NpcId.Dusk,
         [PcIndex.ID_HELIOS],
         GameTimestamp.fromDays(2),
         GameTimestamp.fromDays(5),
@@ -55,7 +55,7 @@ export function sessionOpinionEvents05()
     );
 
     addInteractionEvent(
-        NpcID.Dusk,
+        NpcId.Dusk,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 17, 40),
         "Go ahead. Your intent did rouse me before. Now humour me ...",
@@ -66,7 +66,7 @@ export function sessionOpinionEvents05()
     );
 
     addInteractionEvent(
-        NpcID.Dusk,
+        NpcId.Dusk,
         [],
         new GameTimestamp(0, 5, 17, 40),
         "Know your place. It is not you the canvas beckons.",
@@ -78,7 +78,7 @@ export function sessionOpinionEvents05()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 17, 35),
         "Ms. Dusk Herself chose to give him a chance. And requested that " +
@@ -87,11 +87,11 @@ export function sessionOpinionEvents05()
                     [PositiveEmotion.Respect, 5],
                     [PositiveEmotion.Trust, 2]
                 ]),
-        Character.get(NpcID.Dawn).passiveDeception
+        Character.get(NpcId.Dawn).passiveDeception
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 17, 40),
         "The painting comes out rather nice. He is clearly not a painter " +
@@ -101,7 +101,7 @@ export function sessionOpinionEvents05()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 17, 40),
         "Helped stabilize his friend's hand by guiding it with the powers " +
@@ -113,7 +113,7 @@ export function sessionOpinionEvents05()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 17, 45),
         "The painting turned out so... inspired. <em>Honor holding back the " +
@@ -125,7 +125,7 @@ export function sessionOpinionEvents05()
     );
 
     addInteractionEvent(
-        NpcID.Dusk,
+        NpcId.Dusk,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 17, 45),
         "I am humoured. Nothing holds interest forever, but this work does " +
@@ -138,7 +138,7 @@ export function sessionOpinionEvents05()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 17, 50),
         "<span style='font-size: 10px;'>I'm not the person they seem to think me to be.</span> <span style='font-size: 9px;'>I cannot give " +
@@ -149,10 +149,10 @@ export function sessionOpinionEvents05()
                     [PositiveEmotion.Respect, 1],
                     [PositiveEmotion.Gratitude, 4]
                 ]),
-        Character.get(NpcID.Dawn).passiveDeception
+        Character.get(NpcId.Dawn).passiveDeception
     );
 
-    for (const npc of [NpcID.Dawn, NpcID.Tomasa]) {
+    for (const npc of [NpcId.Dawn, NpcId.Tomasa]) {
         // for (const npc of [NpcIndex.ID_DAWN, NpcIndex.ID_TAIHE,
         // NpcIndex.ID_TOMASA]) {
         addInteractionEvent(
@@ -176,7 +176,7 @@ export function sessionOpinionEvents05()
     }
 
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [],
         new GameTimestamp(0, 5, 19, 25),
         "Seemed to be interested in books and literature in all forms.",
@@ -184,7 +184,7 @@ export function sessionOpinionEvents05()
     );
 
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [],
         new GameTimestamp(0, 5, 19, 30),
         "Nudged me to write. Was being genuine when she mentioned she would " +
@@ -197,7 +197,7 @@ export function sessionOpinionEvents05()
     )
 
     addInteractionEvent(
-        NpcID.Dusk,
+        NpcId.Dusk,
         [],
         new GameTimestamp(0, 5, 19, 30),
         "<em style='font-size: 11px'>(Musing) " +
@@ -213,7 +213,7 @@ export function sessionOpinionEvents05()
     );
 
     addInteractionEvent(
-        NpcID.Coroto,
+        NpcId.Coroto,
         [],
         new GameTimestamp(0, 5, 19, 30),
         "What's her game here? Why's this strange elf woman encouraging " +
@@ -223,12 +223,12 @@ export function sessionOpinionEvents05()
                     [PositiveEmotion.Trust, -2],
                     [PositiveEmotion.Respect, 1]
                 ]),
-        Character.get(NpcID.Coroto).passiveDeception - 5,
+        Character.get(NpcId.Coroto).passiveDeception - 5,
         new Set([PositiveEmotion.Trust])
     )
 
     addInteractionEvent(
-        NpcID.Jordi,
+        NpcId.Jordi,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 19, 30),
         "Seemed to be even more interested in my tales from the seas.",
@@ -236,7 +236,7 @@ export function sessionOpinionEvents05()
     );
 
     addInteractionEvent(
-        NpcID.Yuki,
+        NpcId.Yuki,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 19, 30),
         "Why's he suddenly so interested in Hav? This druid's clearly not " +
@@ -244,12 +244,12 @@ export function sessionOpinionEvents05()
         "Jordi's too naive for his own good, but this seems a touch too " +
         "blatant. I'll have to keep an eye out...",
         new Map([[PositiveEmotion.Trust, -3]]),
-        Character.get(NpcID.Yuki).passiveDeception,
+        Character.get(NpcId.Yuki).passiveDeception,
         new Set([PositiveEmotion.Trust])
     );
 
     addInteractionEvent(
-        NpcID.Kastor,
+        NpcId.Kastor,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 19, 30),
         "Ugh.. the way he socializes with those two losers. It's " +
@@ -259,7 +259,7 @@ export function sessionOpinionEvents05()
     );
 
     addInteractionEvent(
-        NpcID.Petra,
+        NpcId.Petra,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 19, 30),
         "It's good to see how the kid can bring Jordi out of his shell " +
@@ -270,7 +270,7 @@ export function sessionOpinionEvents05()
     const originalTimestamp = new GameTimestamp(0, 5, 19, 45);
     // Some will retain their memories after what happens...
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         originalTimestamp,
         "Kept his cutlery back slowly and primly before standing and drawing his " +
@@ -285,7 +285,7 @@ export function sessionOpinionEvents05()
     )
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_CYRION],
         originalTimestamp,
         "The others didn't seem to notice, but was a large part " +
@@ -307,7 +307,7 @@ export function sessionOpinionEvents05()
     // exclusionListP.push(NpcId.Hina);
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [],
         originalTimestamp,
         "Hmm... a spellcaster... they're typically the first to be targeted, " +
@@ -323,7 +323,7 @@ export function sessionOpinionEvents05()
     // Map([[PositiveEmotion.Respect, 1], [PositiveEmotion.Trust, 1]]), ) );
     // exclusionListQ.push(NpcIndex.ID_HINA);
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_HELIOS],
         originalTimestamp,
         "Acted as a beacon of hope and helped keep the villagers calm" +
@@ -334,7 +334,7 @@ export function sessionOpinionEvents05()
                 ]));
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_CYRION],
         originalTimestamp,
         "Helped in organizing the villagers and keeping the inklings " +
@@ -345,7 +345,7 @@ export function sessionOpinionEvents05()
                 ]));
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [],
         originalTimestamp,
         "Fireball after fireball. Teleporting roof-to-roof in the " +
@@ -381,49 +381,49 @@ export function combatMemories(memoriesErased, applicableTimestamp)
     // a unique interaction.
 
     // todo: please make this shit better.
-    const exclusionListH: NpcID[] = [
-        NpcID.Elysium,
-        NpcID.Bjorn,
-        NpcID.Hav,
-        NpcID.Sasha,
-        NpcID.Cecelia,
-        NpcID.Irene,
-        NpcID.Dusk,
-        NpcID.Dawn,
-        NpcID.Hina,
-        NpcID.Ezell,
-        NpcID.Cellinia
+    const exclusionListH: NpcId[] = [
+        NpcId.Elysium,
+        NpcId.Bjorn,
+        NpcId.Hav,
+        NpcId.Sasha,
+        NpcId.Cecelia,
+        NpcId.Irene,
+        NpcId.Dusk,
+        NpcId.Dawn,
+        NpcId.Hina,
+        NpcId.Ezell,
+        NpcId.Cellinia
     ];
 
-    const exclusionListC: NpcID[] = [
-        NpcID.Elysium,
-        NpcID.Bjorn,
-        NpcID.Hav,
-        NpcID.Sasha,
-        NpcID.Cecelia,
-        NpcID.Irene,
-        NpcID.Dusk,
-        NpcID.Dawn,
-        NpcID.Hina,
-        NpcID.Kastor,
-        NpcID.Ezell,
-        NpcID.Cellinia
+    const exclusionListC: NpcId[] = [
+        NpcId.Elysium,
+        NpcId.Bjorn,
+        NpcId.Hav,
+        NpcId.Sasha,
+        NpcId.Cecelia,
+        NpcId.Irene,
+        NpcId.Dusk,
+        NpcId.Dawn,
+        NpcId.Hina,
+        NpcId.Kastor,
+        NpcId.Ezell,
+        NpcId.Cellinia
     ];
 
-    const exclusionListA: NpcID[] = [
-        NpcID.Elysium,
-        NpcID.Bjorn,
-        NpcID.Hav,
-        NpcID.Sasha,
-        NpcID.Cecelia,
-        NpcID.Irene,
-        NpcID.Dusk,
-        NpcID.Dawn,
-        NpcID.Hina,
-        NpcID.Ezell,
-        NpcID.Yuki,
-        NpcID.Kastor,
-        NpcID.Cellinia
+    const exclusionListA: NpcId[] = [
+        NpcId.Elysium,
+        NpcId.Bjorn,
+        NpcId.Hav,
+        NpcId.Sasha,
+        NpcId.Cecelia,
+        NpcId.Irene,
+        NpcId.Dusk,
+        NpcId.Dawn,
+        NpcId.Hina,
+        NpcId.Ezell,
+        NpcId.Yuki,
+        NpcId.Kastor,
+        NpcId.Cellinia
     ];
 
     // const exclusionListP: NpcId[] = [
@@ -457,7 +457,7 @@ export function combatMemories(memoriesErased, applicableTimestamp)
 
     if (!memoriesErased) {
         addInteractionEvent(
-            NpcID.Yuki,
+            NpcId.Yuki,
             [PcIndex.ID_HELIOS],
             applicableTimestamp,
             "He shines so bright... ugh, it burns. Also the way <em>that man</em> " +
@@ -467,12 +467,12 @@ export function combatMemories(memoriesErased, applicableTimestamp)
                         [PositiveEmotion.Gratitude, -4],
                         [PositiveEmotion.Respect, 4]
                     ]),
-            Character.get(NpcID.Yuki).passiveDeception,
+            Character.get(NpcId.Yuki).passiveDeception,
         );
-        exclusionListH.push(NpcID.Yuki);
+        exclusionListH.push(NpcId.Yuki);
 
         addInteractionEvent(
-            NpcID.Iona,
+            NpcId.Iona,
             [PcIndex.ID_HELIOS],
             applicableTimestamp,
             "Saved me!! Gods below, I didn't see that coming... Rusts, " +
@@ -482,12 +482,12 @@ export function combatMemories(memoriesErased, applicableTimestamp)
                         [PositiveEmotion.Gratitude, 4],
                         [PositiveEmotion.Respect, 2]
                     ]),
-            Character.get(NpcID.Iona).passiveDeception - 5,
+            Character.get(NpcId.Iona).passiveDeception - 5,
         );
-        exclusionListH.push(NpcID.Iona);
+        exclusionListH.push(NpcId.Iona);
 
         addInteractionEvent(
-            NpcID.Cecelia,
+            NpcId.Cecelia,
             [PcIndex.ID_HELIOS],
             applicableTimestamp,
             "Chosen by a Ryshadium! A ryshadium who came to our aid " +
@@ -501,7 +501,7 @@ export function combatMemories(memoriesErased, applicableTimestamp)
         );
 
         addInteractionEvent(
-            NpcID.Sasha,
+            NpcId.Sasha,
             [PcIndex.ID_HELIOS],
             applicableTimestamp,
             "Sent his mount to protect Cecilia and me.",
@@ -512,7 +512,7 @@ export function combatMemories(memoriesErased, applicableTimestamp)
                     ]));
 
         addInteractionEvent(
-            NpcID.Kastor,
+            NpcId.Kastor,
             [PcIndex.ID_HELIOS],
             applicableTimestamp,
             "The way he was so completely in command... I wish " +
@@ -526,7 +526,7 @@ export function combatMemories(memoriesErased, applicableTimestamp)
             new Set([PositiveEmotion.Gratitude]));
 
         addInteractionEvent(
-            NpcID.Kastor,
+            NpcId.Kastor,
             [PcIndex.ID_HELIOS],
             applicableTimestamp,
             "Did he not consider me worthy of assisting him in combat? " +
@@ -540,10 +540,10 @@ export function combatMemories(memoriesErased, applicableTimestamp)
             10,
             new Set([PositiveEmotion.Gratitude])
         );
-        exclusionListH.push(NpcID.Kastor);
+        exclusionListH.push(NpcId.Kastor);
 
         addInteractionEvent(
-            NpcID.Jaye,
+            NpcId.Jaye,
             [PcIndex.ID_HELIOS],
             applicableTimestamp,
             "Now, why did he throw the spear towards me?",
@@ -551,7 +551,7 @@ export function combatMemories(memoriesErased, applicableTimestamp)
         );
 
         addInteractionEvent(
-            NpcID.Verna,
+            NpcId.Verna,
             [PcIndex.ID_HELIOS],
             applicableTimestamp,
             "Was more comfortable when the attack started compared " +
@@ -567,16 +567,16 @@ export function combatMemories(memoriesErased, applicableTimestamp)
         );
 
         addInteractionEvent(
-            NpcID.Verna,
+            NpcId.Verna,
             [PcIndex.ID_HELIOS],
             applicableTimestamp,
             "Saved Iona in the nick of time from that monster.",
             new Map([[PositiveEmotion.Gratitude, 7]])
         );
-        exclusionListH.push(NpcID.Verna);
+        exclusionListH.push(NpcId.Verna);
 
         addInteractionEvent(
-            NpcID.Coroto,
+            NpcId.Coroto,
             [PcIndex.ID_HELIOS],
             applicableTimestamp,
             "Just as he warned, <em>the monsters from the north</em> came. How did he know? " +
@@ -589,10 +589,10 @@ export function combatMemories(memoriesErased, applicableTimestamp)
                     ]),
             10,
             new Set([PositiveEmotion.Trust]));
-        exclusionListH.push(NpcID.Coroto);
+        exclusionListH.push(NpcId.Coroto);
 
         addInteractionEvent(
-            NpcID.Coroto,
+            NpcId.Coroto,
             [PcIndex.ID_CYRION],
             applicableTimestamp,
             "Was in good command of the powers of nature as he covered " +
@@ -606,10 +606,10 @@ export function combatMemories(memoriesErased, applicableTimestamp)
                     ]),
             10,
             new Set([PositiveEmotion.Gratitude]));
-        exclusionListC.push(NpcID.Coroto);
+        exclusionListC.push(NpcId.Coroto);
 
         addInteractionEvent(
-            NpcID.Jordi,
+            NpcId.Jordi,
             [PcIndex.ID_CYRION],
             applicableTimestamp,
             "Amazing! I was considering him to be like myself, but there's " +
@@ -621,20 +621,20 @@ export function combatMemories(memoriesErased, applicableTimestamp)
                         [PositiveEmotion.Respect, 5]
                     ]),
         );
-        exclusionListC.push(NpcID.Jordi);
+        exclusionListC.push(NpcId.Jordi);
 
         addInteractionEvent(
-            NpcID.Yuki,
+            NpcId.Yuki,
             [PcIndex.ID_CYRION],
             applicableTimestamp,
             "Well, ig he doesn't want us dead at least. Too easy to feign " +
             "weakness in this crisis and let the monsters do the rest.",
             new Map([[PositiveEmotion.Trust, 3]]),
         )
-        exclusionListC.push(NpcID.Jordi);
+        exclusionListC.push(NpcId.Jordi);
 
         addInteractionEvent(
-            NpcID.Erica,
+            NpcId.Erica,
             [],
             applicableTimestamp,
             "I suspected she was a powerful spellcaster, but damn, I don't " +
@@ -647,9 +647,9 @@ export function combatMemories(memoriesErased, applicableTimestamp)
                         [PositiveEmotion.Gratitude, 3],
                     ]),
         );
-        exclusionListA.push(NpcID.Erica);
+        exclusionListA.push(NpcId.Erica);
 
-        for (const npcIndex of getEnumIterator(NpcID) as Generator<NpcID>) {
+        for (const npcIndex of getEnumIterator(NpcId) as Generator<NpcId>) {
             const npc = Character.get(npcIndex);
             if (!npc || !npc.isOpinionated) {
                 continue;

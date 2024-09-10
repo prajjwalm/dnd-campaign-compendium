@@ -1,5 +1,5 @@
 import {Activation, AdventurerClass, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                           from "../../../../../data/npcIndex";
+import {NpcId}                                                                                                           from "../../../../../data/npcIndex";
 import {D1, D10, D100, D12}                                                                                              from "../../../../../rolling/Dice";
 import {Action}                                                                                                          from "../../../../action/Action";
 import {wrapCondition, wrapDamageType, wrapRoll}                                                                         from "../../../../action/Wrap";
@@ -7,7 +7,7 @@ import {Character}                                                              
 
 export function setupCluster()
 {
-    const c = new Character(NpcID.Cluster);
+    const c = new Character(NpcId.Cluster);
 
     const name = "Ubbo Sathla";
 

@@ -1,11 +1,11 @@
 import {DSkill, ProficiencyLevel} from "../../../../../data/constants";
-import {NpcID}                            from "../../../../../data/npcIndex";
-import {Character}                        from "../../../Character";
+import {NpcId}                    from "../../../../../data/npcIndex";
+import {Character}                from "../../../Character";
 
 export function setupDusk()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Dusk);
+    const c = new Character(NpcId.Dusk);
 
     c.core.name = "Dusk";
     c.core.imgPath = "character_tokens/C2/Arc1/Dusk.png";

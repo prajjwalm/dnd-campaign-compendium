@@ -1,6 +1,6 @@
 import {Activation, AdventurerClass, CreatureSize, CSkill, DamageType, DSkill, DStat, Era, ProficiencyLevel, Sense, Speed, } from "../../../../../data/constants";
-import {NpcID}                                                                                                                             from "../../../../../data/npcIndex";
-import {D1, D12, D6}                                                                                                                       from "../../../../../rolling/Dice";
+import {NpcId}                                                                                                               from "../../../../../data/npcIndex";
+import {D1, D12, D6}                                                                                                         from "../../../../../rolling/Dice";
 import {Action}                                                                                                                            from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                                                          from "../../../../action/Wrap";
 import {Character}                                                                                                                         from "../../../Character";
@@ -8,7 +8,7 @@ import {Morale}                                                                 
 
 export function setupJordi()
 {
-    const c = new Character(NpcID.Jordi);
+    const c = new Character(NpcId.Jordi);
 
     c.core.name = "Jordi";
     c.core.imgPath = "character_tokens/C2/Arc1/Jordi.png";
@@ -102,15 +102,15 @@ export function setupJordi()
     c.operator.addNotableStuff("Strong against", "Seaborn, Status-Inflicting Enemies");
     c.operator.addNotableStuff("Weak against", "Martials");
     c.operator.addNotableStuff("Combat Experience", "C Grade (1 years)");
-    c.operator.setChemistryWith(NpcID.Hav, 21, "His GodFather/adoptive uncle, and the only link to his past. Had a great deal of respect for Hav.");
-    c.operator.setChemistryWith(NpcID.Irene, 17, "Really took to her after she arrived. Perceived a  depth of character to her and resonated " +
-                                                     "strongly with that. Crushes on her.");
-    c.operator.setChemistryWith(NpcID.Elysium, 16, "For some reason, Elysium had always been kind to him, and Jordi reciprocates that. Now he " +
-                                                       "begins to remember that he might've met him before...");
-    c.operator.setChemistryWith(NpcID.Petra, 14, "She's been a really kind grandma to him since she arrived. Perhaps too late, he finally " +
+    c.operator.setChemistryWith(NpcId.Hav, 21, "His GodFather/adoptive uncle, and the only link to his past. Had a great deal of respect for Hav.");
+    c.operator.setChemistryWith(NpcId.Irene, 17, "Really took to her after she arrived. Perceived a  depth of character to her and resonated " +
+                                                 "strongly with that. Crushes on her.");
+    c.operator.setChemistryWith(NpcId.Elysium, 16, "For some reason, Elysium had always been kind to him, and Jordi reciprocates that. Now he " +
+                                                   "begins to remember that he might've met him before...");
+    c.operator.setChemistryWith(NpcId.Petra, 14, "She's been a really kind grandma to him since she arrived. Perhaps too late, he finally " +
                                                  "remembers his adoptive younger sister from before he was lost in the tides of the profound silence.");
-    c.operator.setChemistryWith(NpcID.Yuki, 10, "Always took his side against Kastor's bullying and to Jordi he seems to radiate the aura of a " +
-                                                    "noble warrior.");
+    c.operator.setChemistryWith(NpcId.Yuki, 10, "Always took his side against Kastor's bullying and to Jordi he seems to radiate the aura of a " +
+                                                "noble warrior.");
     c.operator.professions = ["Church Keeper", "Fisherman"];
     c.operator.era = Era.Renaissance;
     c.operator.morale = Morale.Average;

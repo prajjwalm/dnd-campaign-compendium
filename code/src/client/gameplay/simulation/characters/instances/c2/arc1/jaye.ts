@@ -1,5 +1,5 @@
 import {Activation, AdventurerClass, Condition, CreatureSize, CSkill, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                                   from "../../../../../data/npcIndex";
+import {NpcId}                                                                                                                   from "../../../../../data/npcIndex";
 import {D1, D4, D6, D8}                                                                                                          from "../../../../../rolling/Dice";
 import {Action}                                                                                                                  from "../../../../action/Action";
 import {wrapCondition, wrapDamageType, wrapRoll}                                                                                 from "../../../../action/Wrap";
@@ -8,7 +8,7 @@ import {Character}                                                              
 export function setupJaye()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Jaye);
+    const c = new Character(NpcId.Jaye);
 
     c.core.name = "Jaye";
     c.core.imgPath = "character_tokens/C2/Arc1/Jaye.png";

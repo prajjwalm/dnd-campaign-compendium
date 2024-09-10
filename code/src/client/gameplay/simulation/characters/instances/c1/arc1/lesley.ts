@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupLesley()
 {
-    const c = new Character(NpcID.Lesley);
+    const c = new Character(NpcId.Lesley);
 
     c.core.name = "Lesley Aeternus";
     c.core.imgPath = "character_tokens/C1/Arc1/lesley.png";
@@ -21,18 +21,18 @@ export function setupLesley()
     c.card.addCardTag("Faction: Projectors");
 
     c.card.summary = () =>`A rich higher vampire mage with powerful time control powers. Came to The Gardens after a failed attempt to
-      kill ${Character.get(NpcID.Caelynn).createLink("Caelynn")}. Lived for two millennia there as her closest friend/advisor. Detested 
+      kill ${Character.get(NpcId.Caelynn).createLink("Caelynn")}. Lived for two millennia there as her closest friend/advisor. Detested 
       her family and avoided using her higher vampiric and bloodline powers. Instead, spent all that time cultivating her arcane skills,
       becoming a highly skilled mage/enchanter over time. Her skills eventually becoming so well known in the right circles that clients
       from various planes would give her contracts to research new spells or enchantments at their direction.<br/>
       In her time during the gardens, she took on two students - both of whom left her after their training was complete. One, 
-      ${Character.get(NpcID.Ebenezar).createLink("a human with whom she was romantically involved with")}, eventually ditched her to 
-      persue lichdom and delve deeper into the arcane. The other? Well ${Character.get(NpcID.Mostima).createLink("that fallen angel")} was 
+      ${Character.get(NpcId.Ebenezar).createLink("a human with whom she was romantically involved with")}, eventually ditched her to 
+      persue lichdom and delve deeper into the arcane. The other? Well ${Character.get(NpcId.Mostima).createLink("that fallen angel")} was 
       clear from the start she wouldn't stay there forever, but would continue to occasionally drop in for a cup of tea, before 
       disappearing off to God knows where.<br/>
       In her last days, she went one step further and even stopped feeding on blood entirely. While a laudable step, it
       took a toll on her mental health, and though she didn't cause trouble to anyone, her resolve failed her when an 
-      ${Character.get(NpcID.Lucian).createLink("assassin in black")} finally came for her life. But by some twist of fate, she had forged a
+      ${Character.get(NpcId.Lucian).createLink("assassin in black")} finally came for her life. But by some twist of fate, she had forged a
       bond with a person who was supposed to be her judge, jury and executioner - but he had deemed her not guilty. And via that bond...`;
 
     c.card.story = () => `
@@ -86,7 +86,7 @@ most. And so, instead of fleeing and disappearing like the noblewoman advised, s
 drawing an angry glare from her more than once. As time passed, she learnt to function, to curtail her bloodlust 
 and just... function. Gradually, her time spent with Nohadon turned 
 considerably more honest, pure and, strangely, fun. The noblewoman too, Lesley learnt her true name was 
-${Character.get(NpcID.Caelynn).createLink("Caelynn")}, began to warm up to her. Her nightmare was again turning 
+${Character.get(NpcId.Caelynn).createLink("Caelynn")}, began to warm up to her. Her nightmare was again turning 
 into a dream... until her brother came.<br/>
 Everything shattered, utterly broken and traumatized by what proceeded, that very night Lesley assaulted Nohadon and fed
 on his lifeblood. As her suppressed addiction returned with a vengeance, she sucked out more and more - further than 
@@ -100,14 +100,14 @@ Until a single word forced the life back into him, a single word from Caelynn, m
 whole life. A word that carried mana considerably stronger than she could ever summon. That was when Caelynn told her 
 everything - including about the place where even <i>her</i> family could never reach her again, a place where a group of 
 eight could well take on a higher vampire, a place where the leaders were evenly matched against 
-${Character.get(NpcID.Sanguinarch).createLink("The SanguineArch")} themself...
+${Character.get(NpcId.Sanguinarch).createLink("The SanguineArch")} themself...
 <h5>Ebenezar</h5>  
 Lesley's time in Bunker#371 was satisfying, not entirely perfect - but as happy as a penance could be. Happier than 
 she felt she deserved anyway. And while the blacksmith and his wife pissed her off, subtly reminding her of her 
-family, Caelynn was a pure pleasure. Plus even ${Character.get(NpcID.Irene).createLink("an inquisitor")}, who had been 
+family, Caelynn was a pure pleasure. Plus even ${Character.get(NpcId.Irene).createLink("an inquisitor")}, who had been 
 so adamant that Lesley was a criminal, that there was something off about her - until Lesley had revealed
 her heritage, was becoming a great friend. And so she was sure she wasn't lacking in any way - until she met 
-${Character.get(NpcID.Ebenezar).createLink("Ben")}. A human 
+${Character.get(NpcId.Ebenezar).createLink("Ben")}. A human 
 boy who'd stumbled into a perpendicularity by accident (well he'd drowned in there), the teenager was solemn far beyond 
 his age. And his eyes seemed so <i>tired</i>, eyes that had seen way too much. Seeing a boy that dead inside reminded 
 Lesley of times long past, times before she'd tasted human blood, times when she still looked up to her brother... 
@@ -149,7 +149,7 @@ others always kept encouraging her that he would return - he had learnt magic st
 drink, and drink (becoming the reason for Caelynn to appear even paler than her natural complexion).
 <h5>Forgiveness</h5>
 The first break from her relapse into darkness was when people said a 
-${Character.get(NpcID.Mostima).createLink("mysterious girl with temporal control")} had shown up and wanted to be her ward.
+${Character.get(NpcId.Mostima).createLink("mysterious girl with temporal control")} had shown up and wanted to be her ward.
 Though she was in no mood to, Caelynn forced her to take her as a student, something Lesley thanked her for later.
 But the final reprieve came when, a few decades later, Caelynn brought home a group of guests - one of them an aasimar paladin,
 of an oath high enough to be a full knight radiant. From the first day, he could feel something was off in the 

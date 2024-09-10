@@ -1,5 +1,5 @@
-import {NpcID}               from "../../data/npcIndex";
-import {PcIndex}             from "../../data/pcIndex";
+import {NpcId}   from "../../data/npcIndex";
+import {PcIndex} from "../../data/pcIndex";
 import {GameTimestamp}       from "../../GameTimestamp";
 import {Character}           from "../../simulation/characters/Character";
 import {PositiveEmotion}     from "../PositiveEmotion";
@@ -8,7 +8,7 @@ import {addInteractionEvent} from "./s9";
 export function sessionOpinionEvents08()
 {
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 12, 15),
         "Oh, an Honorspren-bound. Well he at least won't massacre us, " +
@@ -20,7 +20,7 @@ export function sessionOpinionEvents08()
                 ]));
     // for (const pc of [PcIndex.ID_HELIOS, PcIndex.ID_QUINN]) { }
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 12, 15),
         "Wait, is that honorspren bound to the both of them? And are two" +
@@ -30,7 +30,7 @@ export function sessionOpinionEvents08()
                 ]));
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 12, 15),
         "Hmm... he's clearly never met another Windrunner, yet it's strange " +
@@ -43,6 +43,6 @@ export function sessionOpinionEvents08()
                     [PositiveEmotion.Respect, 4],
                     [PositiveEmotion.Affection, 3],
                 ]),
-        Character.get(NpcID.Hina).passiveDeception
+        Character.get(NpcId.Hina).passiveDeception
     );
 }

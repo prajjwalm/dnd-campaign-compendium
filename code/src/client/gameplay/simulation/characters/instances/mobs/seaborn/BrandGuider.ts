@@ -1,6 +1,6 @@
 import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                       from "../../../../../data/npcIndex";
-import {D10, D8}                                                                                     from "../../../../../rolling/Dice";
+import {NpcId}                                                                               from "../../../../../data/npcIndex";
+import {D10, D8}                                                                             from "../../../../../rolling/Dice";
 import {Action}                                                                                      from "../../../../action/Action";
 import {wrapRoll}                                                                                    from "../../../../action/Wrap";
 import {Character}                                                                                   from "../../../Character";
@@ -9,7 +9,7 @@ import {CharacterVariant}                                                       
 
 export function setupBrandGuiders()
 {
-    const c = new Character(NpcID.BrandGuider);
+    const c = new Character(NpcId.BrandGuider);
 
     c.core.name = "BrandGuider";
     c.core.imgPath = "mob_tokens/seaborn/BrandGuider.png";
@@ -51,7 +51,8 @@ export function setupBrandGuiders()
         Activation.Special,
         c => `<p><strong><em>Beacon.</em></strong> 
         Upon falling below ${Math.floor(c.hp * 0.5)} HP, BrandGuiders gain +20ft
-        movement speed and generate the nethersea brand at each tile they pass.
+        movement speed and generate the nethersea brand at each tile they stand on 
+        or pass through.
         </p>`
     ));
 
@@ -65,18 +66,21 @@ export function setupBrandGuiders()
         Activation.Special,
         c => `<p><strong><em>Spellcasting.</em></strong> While standing on the 
         Nethersea brand, brandguiders can cast the following spells as much as 
-        they want, each spell is cast as if on 4th level (${wrapRoll(c.mod(DStat.Int))} 
+        they want, each spell is cast as if on ${c.Prof}th level (${wrapRoll(c.mod(DStat.Int))} 
         to hit, Save DC ${c.dc(DStat.Int)})-<br/>
-        <em>Ice Knife</em>, <em>Sleet Storm</em>, <em>Control Water</em>, <em>Wall of water</em>, <em>Ice Storm</em>, <em>Counterspell</em>.</p> 
+        <em>Ice Knife</em>, <em>Sleet Storm</em>, <em>Control Water</em>, 
+        <em>Wall of water</em>, <em>Ice Storm</em>, <em>Counterspell</em>
+        <em>Misty Step</em>.</p> 
         `
     ));
 
     c.combat.addAction(new Action(
         Activation.BonusAction,
         c => `<p><strong><em>Hunger of We Many.</em></strong> The BrandGuider 
-        chooses ${c.Prof} spots within 150 ft of itself. At each of those, ${10 * c.SemiProf}ft 
+        chooses ${c.SemiProf} spots within 150 ft of itself. At each of those, ${10 * c.SemiProf}ft 
         radius spheres with effects similar to those created by the spell 
-        Hunger of Hadar appear.</p>`
+        Hunger of Hadar appear. If it is standing on the nethersea brand, then
+        ${c.Prof} spheres appear instead, and they each deal <em>triple</em> damage.</p>`
     ));
 
 
@@ -91,7 +95,7 @@ export function setupBrandGuiders()
 
 
 
-    const c2 = new CharacterVariant(NpcID.BrandGuiderN, NpcID.BrandGuider);
+    const c2 = new CharacterVariant(NpcId.BrandGuiderN, NpcId.BrandGuider);
 
     c2.core.name = "Nourished BrandGuider";
     c2.core.imgPath = "mob_tokens/seaborn/BrandGuiderN.png";
@@ -110,7 +114,7 @@ export function setupBrandGuiders()
     c2.combat.finalize();
 
     c2.sheet.size  = CreatureSize.Large;
-    c2.sheet.theme = "danger_1";
+    c2.sheet.danger = 1;
 
     c2.sheet.finalize();
 }

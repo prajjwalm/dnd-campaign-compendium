@@ -1,6 +1,6 @@
 import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                  from "../../../../../data/npcIndex";
-import {D10, D6, D8, Dice}                                                                                      from "../../../../../rolling/Dice";
+import {NpcId}                                                                                          from "../../../../../data/npcIndex";
+import {D10, D6, D8, Dice}                                                                              from "../../../../../rolling/Dice";
 import {Action}                                                                                                 from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                               from "../../../../action/Wrap";
 import {Character}                                                                                              from "../../../Character";
@@ -25,7 +25,7 @@ function denseToxinsAttackGenerator(hpThreshold: number,
 
 export function setupUrchins()
 {
-    const c = new Character(NpcID.Urchin);
+    const c = new Character(NpcId.Urchin);
 
     c.core.name = "Urchin";
     c.core.imgPath = "mob_tokens/seaborn/Urchin.png";
@@ -90,7 +90,7 @@ export function setupUrchins()
     c.sheet.finalize();
 
 
-    const n = new CharacterVariant(NpcID.UrchinN, NpcID.Urchin);
+    const n = new CharacterVariant(NpcId.UrchinN, NpcId.Urchin);
 
     n.core.name    = "Nourished Urchin";
     n.core.imgPath = "mob_tokens/seaborn/UrchinN.png";
@@ -120,7 +120,7 @@ export function setupUrchins()
     n.combat.finalize();
 
     n.sheet.size  = CreatureSize.Large;
-    n.sheet.theme = "danger_1";
+    n.sheet.danger = 1;
 
     n.sheet.finalize();
 }

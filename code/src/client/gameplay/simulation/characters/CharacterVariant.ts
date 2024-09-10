@@ -1,5 +1,5 @@
-import {NpcID}               from "../../data/npcIndex";
-import {BaseAspect}          from "./aspects/BaseAspect";
+import {NpcId}      from "../../data/npcIndex";
+import {BaseAspect} from "./aspects/BaseAspect";
 import {CardAspect}          from "./aspects/CardAspect";
 import {CombatAspect}        from "./aspects/CombatAspect";
 import {CoreAspect}          from "./aspects/CoreAspect";
@@ -35,7 +35,7 @@ export class CharacterVariant
     /**
      * CTOR.
      */
-    public constructor(id: NpcID, baseId: NpcID)
+    public constructor(id: NpcId, baseId: NpcId)
     {
         super(id);
         this.baseCharacter = Character.get(baseId);
@@ -45,7 +45,7 @@ export class CharacterVariant
     {
         if (this.aspects[aspect] == null) {
             this.aspects[aspect] = this.baseCharacter
-                                       .GetOrThrowAspect(aspect)
+                                       .getOrThrowAspect(aspect)
                                        .duplicate(this);
         }
         return this.aspects[aspect];

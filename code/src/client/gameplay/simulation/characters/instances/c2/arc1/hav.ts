@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupHav()
 {
-    const c = new Character(NpcID.Hav);
+    const c = new Character(NpcId.Hav);
 
     c.core.name = "Hav";
     c.core.imgPath = "character_tokens/C2/Arc1/Hav.png";

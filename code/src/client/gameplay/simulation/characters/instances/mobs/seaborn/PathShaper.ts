@@ -1,6 +1,6 @@
 import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}           from "../../../../../data/npcIndex";
-import {D1, D12, D4, D8} from "../../../../../rolling/Dice";
+import {NpcId}                                                                               from "../../../../../data/npcIndex";
+import {D1, D12, D4, D8}                                                                     from "../../../../../rolling/Dice";
 import {Action}          from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                    from "../../../../action/Wrap";
 import {Character}                                                                                   from "../../../Character";
@@ -8,7 +8,7 @@ import {Character}                                                              
 
 export function setupPathShaper()
 {
-    const c = new Character(NpcID.PathShaper);
+    const c = new Character(NpcId.PathShaper);
 
     c.core.name = "PathShaper";
     c.core.imgPath = "mob_tokens/seaborn/PathShaper.png";
@@ -118,6 +118,6 @@ export function setupPathShaper()
     c.sheet.size = CreatureSize.Huge;
     c.sheet.subtitle = " Seaborn, Lawful Neutral";
     c.sheet.acDesc   = " (Natural Leather)";
-    c.sheet.category = "seaborn";
+    c.sheet.category = "seaborn_boss";
     c.sheet.finalize();
 }

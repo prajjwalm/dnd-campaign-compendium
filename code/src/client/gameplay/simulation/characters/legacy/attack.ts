@@ -1,8 +1,8 @@
-import {Activation, DamageType, DStat, E, pbMod, ProficiencyLevel} from "../data/constants";
-import {D1, Dice}                                                  from "../rolling/Dice";
-import {ISheetAction}                                              from "../simulation/action/ISheetAction";
-import {wrapRoll}                                                  from "../simulation/action/Wrap";
-import {IDStats}                                                   from "../simulation/characters/aspects/IDStats";
+import {Activation, DamageType, DStat, E, pbMod, ProficiencyLevel} from "../../../data/constants";
+import {D1, Dice}                                                  from "../../../rolling/Dice";
+import {ISheetAction}                                              from "../../action/ISheetAction";
+import {wrapRoll}                                                  from "../../action/Wrap";
+import {IDStats}                                                   from "../aspects/IDStats";
 
 
 interface IAttackDamageParams
@@ -165,7 +165,7 @@ abstract class Attack
         if (stat == undefined) {
             stat = this.mainStat;
         }
-        return this.sheet.stats.get(stat).mod;
+        return Math.floor((this.sheet.stats.get(stat) - 10) / 2);
     }
 
     public getDc({ stat, prof = ProficiencyLevel.Prof }:

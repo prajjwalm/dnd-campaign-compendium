@@ -1,5 +1,5 @@
 import {Activation, CreatureSize, DamageType, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                       from "../../../../../data/npcIndex";
+import {NpcId}                                                                       from "../../../../../data/npcIndex";
 import {D1, D4, D8}                                                                  from "../../../../../rolling/Dice";
 import {Action}                                                                      from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                    from "../../../../action/Wrap";
@@ -9,7 +9,7 @@ import {CharacterVariant}                                                       
 
 export function setupSpewers()
 {
-    const c = new Character(NpcID.Spewer);
+    const c = new Character(NpcId.Spewer);
 
     c.core.name = "Spewer";
     c.core.imgPath = "mob_tokens/seaborn/Spewer.png";
@@ -18,6 +18,8 @@ export function setupSpewers()
     c.dStats.initializeStats(17, 8, 21, 11, 9, 12);
     c.dStats.pb = 3;
     c.dStats.finalize();
+
+    c.dSkills.finalize();
 
     const predHpDice = D8.countHavingE(40, c.CON);
     c.combat.addBioHpDice(predHpDice, D8);
@@ -43,7 +45,7 @@ export function setupSpewers()
         Activation.Special,
         c => `<p><strong><em>Spiked Shell.</em></strong> 
         The spewer resides inside a dangerously spiked shell which grants 
-        it additional +3 AC against ranged attacks. Instead, if any creature attempts a 
+        it additional +5 AC against ranged attacks. Instead, if any creature attempts a 
         melee attack against it and misses they take ${wrapRoll([c.ac - 10, D4])} 
         ${wrapDamageType(DamageType.Piercing)} damage. Furthermore, when it 
         retreats completely within its shell it gains +${c.ac - 10} AC, immunity
@@ -87,7 +89,7 @@ export function setupSpewers()
 
     c.sheet.finalize();
 
-    const n = new CharacterVariant(NpcID.SpewerN, NpcID.Spewer);
+    const n = new CharacterVariant(NpcId.SpewerN, NpcId.Spewer);
 
     n.core.name = "Nourished Spewer";
     n.core.imgPath = "mob_tokens/seaborn/SpewerN.png";
@@ -105,6 +107,6 @@ export function setupSpewers()
     n.combat.cr = 10
     n.combat.finalize();
 
-    n.sheet.theme = "danger_1";
+    n.sheet.danger = 1;
     n.sheet.finalize();
 }

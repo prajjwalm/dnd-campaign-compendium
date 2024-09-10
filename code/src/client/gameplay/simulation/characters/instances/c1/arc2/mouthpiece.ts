@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupMouthpiece()
 {
-    const c = new Character(NpcID.Mouthpiece);
+    const c = new Character(NpcId.Mouthpiece);
 
     c.core.name = "Troupe Mouthpiece";
     c.core.imgPath = "character_tokens/C1/Arc2/ahrendts.png";
@@ -21,8 +21,8 @@ export function setupMouthpiece()
     c.card.summary = () =>`
     Was somehow related to the Witch King of lore. The most loyal member of the troupe, he took it upon himself
       to be the host/announcer of the Troupe's 'shows'. Responsible for their most grotesque creations which often 
-      were looked down upon by ${Character.get(NpcID.LogosPlaywright).createLink("The Playwright")} as being crude and tasteless. 
-      Was killed by a group of adventurers and ${Character.get(NpcID.Lucian).createLink("Solitare")} but he had already 
+      were looked down upon by ${Character.get(NpcId.LogosPlaywright).createLink("The Playwright")} as being crude and tasteless. 
+      Was killed by a group of adventurers and ${Character.get(NpcId.Lucian).createLink("Solitare")} but he had already 
       accomplished what his master needed...`;
 
     c.card.finalize();

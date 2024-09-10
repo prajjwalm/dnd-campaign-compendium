@@ -1,5 +1,5 @@
-import {NpcID}                                 from "../../data/npcIndex";
-import {PcIndex}                               from "../../data/pcIndex";
+import {NpcId}   from "../../data/npcIndex";
+import {PcIndex} from "../../data/pcIndex";
 import {GameTimestamp}                         from "../../GameTimestamp";
 import {Character}                             from "../../simulation/characters/Character";
 import {PositiveEmotion}                       from "../PositiveEmotion";
@@ -8,7 +8,7 @@ import {addInteractionEvent, addTimeSkipEvent} from "./s9";
 export function sessionOpinionEvents10()
 {
     addInteractionEvent(
-        NpcID.Petra,
+        NpcId.Petra,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 6, 12, 45),
         `Prodded me to confront the past. About what happened to... to... 
@@ -22,7 +22,7 @@ export function sessionOpinionEvents10()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [
 
             PcIndex.ID_HELIOS,
@@ -35,7 +35,7 @@ export function sessionOpinionEvents10()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [
 
             PcIndex.ID_HELIOS,
@@ -47,11 +47,11 @@ export function sessionOpinionEvents10()
                     [PositiveEmotion.Respect, -1],
                     [PositiveEmotion.Gratitude, 1],
                 ]),
-        Character.get(NpcID.Hina).passiveDeception
+        Character.get(NpcId.Hina).passiveDeception
     );
 
     addInteractionEvent(
-        NpcID.Elysium,
+        NpcId.Elysium,
         [
 
             PcIndex.ID_HELIOS,
@@ -65,21 +65,21 @@ export function sessionOpinionEvents10()
                     [PositiveEmotion.Respect, 4],
                     [PositiveEmotion.Trust, -3],
                 ]),
-        Character.get(NpcID.Elysium).passiveDeception,
+        Character.get(NpcId.Elysium).passiveDeception,
         new Set([PositiveEmotion.Trust])
     );
 
-    const timeSkips = new Map<NpcID, PcIndex[]>([
+    const timeSkips = new Map<NpcId, PcIndex[]>([
                                                     [
-                                                        NpcID.Dusk,
+                                                        NpcId.Dusk,
                                                         [
                                                             PcIndex.ID_HELIOS,
-                                                            
+
                                                         ]
                                                     ],
-                                                    [NpcID.Dawn, []],
+                                                    [NpcId.Dawn, []],
                                                     [
-                                                        NpcID.Andri,
+                                                        NpcId.Andri,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -87,7 +87,7 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Athlon,
+                                                        NpcId.Athlon,
                                                         [
 
                                                             PcIndex.ID_CYRION
@@ -98,22 +98,14 @@ export function sessionOpinionEvents10()
                                                     //
                                                     // PcIndex.ID_CYRION]],
                                                     [
-                                                        NpcID.Cecelia,
+                                                        NpcId.Cecelia,
                                                         [
                                                             PcIndex.ID_HELIOS,
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Coroto,
-                                                        [
-                                                            PcIndex.ID_HELIOS,
-
-                                                            PcIndex.ID_CYRION
-                                                        ]
-                                                    ],
-                                                    [
-                                                        NpcID.Elysium,
+                                                        NpcId.Coroto,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -121,14 +113,7 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Erica,
-                                                        [
-                                                            PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_CYRION
-                                                        ]
-                                                    ],
-                                                    [
-                                                        NpcID.Genefe,
+                                                        NpcId.Elysium,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -136,7 +121,14 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Hav,
+                                                        NpcId.Erica,
+                                                        [
+                                                            PcIndex.ID_HELIOS,
+                                                            PcIndex.ID_CYRION
+                                                        ]
+                                                    ],
+                                                    [
+                                                        NpcId.Genefe,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -144,14 +136,7 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Hina,
-                                                        [
-                                                            PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_CYRION
-                                                        ]
-                                                    ],
-                                                    [
-                                                        NpcID.Ingrid,
+                                                        NpcId.Hav,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -159,21 +144,14 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Iona,
+                                                        NpcId.Hina,
                                                         [
                                                             PcIndex.ID_HELIOS,
                                                             PcIndex.ID_CYRION
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Jaye,
-                                                        [
-
-                                                            PcIndex.ID_CYRION
-                                                        ]
-                                                    ],
-                                                    [
-                                                        NpcID.Jordi,
+                                                        NpcId.Ingrid,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -181,7 +159,21 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Kastor,
+                                                        NpcId.Iona,
+                                                        [
+                                                            PcIndex.ID_HELIOS,
+                                                            PcIndex.ID_CYRION
+                                                        ]
+                                                    ],
+                                                    [
+                                                        NpcId.Jaye,
+                                                        [
+
+                                                            PcIndex.ID_CYRION
+                                                        ]
+                                                    ],
+                                                    [
+                                                        NpcId.Jordi,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -189,7 +181,7 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Petra,
+                                                        NpcId.Kastor,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -197,21 +189,7 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Roberta,
-                                                        [
-                                                            PcIndex.ID_HELIOS,
-
-                                                        ]
-                                                    ],
-                                                    [
-                                                        NpcID.Sasha,
-                                                        [
-                                                            PcIndex.ID_HELIOS,
-                                                            PcIndex.ID_CYRION
-                                                        ]
-                                                    ],
-                                                    [
-                                                        NpcID.Sybilla,
+                                                        NpcId.Petra,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -219,7 +197,21 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Tomasa,
+                                                        NpcId.Roberta,
+                                                        [
+                                                            PcIndex.ID_HELIOS,
+
+                                                        ]
+                                                    ],
+                                                    [
+                                                        NpcId.Sasha,
+                                                        [
+                                                            PcIndex.ID_HELIOS,
+                                                            PcIndex.ID_CYRION
+                                                        ]
+                                                    ],
+                                                    [
+                                                        NpcId.Sybilla,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -227,11 +219,19 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Verna,
+                                                        NpcId.Tomasa,
+                                                        [
+                                                            PcIndex.ID_HELIOS,
+
+                                                            PcIndex.ID_CYRION
+                                                        ]
+                                                    ],
+                                                    [
+                                                        NpcId.Verna,
                                                         [PcIndex.ID_CYRION]
                                                     ],
                                                     [
-                                                        NpcID.Vitacia,
+                                                        NpcId.Vitacia,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -239,7 +239,7 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Yuki,
+                                                        NpcId.Yuki,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -247,7 +247,7 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Ezell,
+                                                        NpcId.Ezell,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -255,7 +255,7 @@ export function sessionOpinionEvents10()
                                                         ]
                                                     ],
                                                     [
-                                                        NpcID.Irene,
+                                                        NpcId.Irene,
                                                         [
                                                             PcIndex.ID_HELIOS,
 
@@ -265,7 +265,7 @@ export function sessionOpinionEvents10()
                                                 ]);
 
     addTimeSkipEvent(
-        NpcID.Roberta,
+        NpcId.Roberta,
         [PcIndex.ID_CYRION],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
@@ -283,7 +283,7 @@ export function sessionOpinionEvents10()
     );
 
     addTimeSkipEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
@@ -302,7 +302,7 @@ export function sessionOpinionEvents10()
     );
 
     addTimeSkipEvent(
-        NpcID.Iona,
+        NpcId.Iona,
         [],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
@@ -318,7 +318,7 @@ export function sessionOpinionEvents10()
     );
 
     addTimeSkipEvent(
-        NpcID.Verna,
+        NpcId.Verna,
         [],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
@@ -331,7 +331,7 @@ export function sessionOpinionEvents10()
     );
 
     addTimeSkipEvent(
-        NpcID.Cecelia,
+        NpcId.Cecelia,
         [],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
@@ -349,7 +349,7 @@ export function sessionOpinionEvents10()
     );
 
     addTimeSkipEvent(
-        NpcID.Sasha,
+        NpcId.Sasha,
         [],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
@@ -361,7 +361,7 @@ export function sessionOpinionEvents10()
     );
 
     addInteractionEvent(
-        NpcID.Roberta,
+        NpcId.Roberta,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 27, 20, 30),
         `You mean you grew all the herbs I'd mentioned in a secret grove to 
@@ -376,7 +376,7 @@ export function sessionOpinionEvents10()
     );
 
     addTimeSkipEvent(
-        NpcID.Verna,
+        NpcId.Verna,
         [PcIndex.ID_HELIOS],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
@@ -387,7 +387,7 @@ export function sessionOpinionEvents10()
     );
 
     addTimeSkipEvent(
-        NpcID.Jaye,
+        NpcId.Jaye,
         [PcIndex.ID_HELIOS],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
@@ -400,7 +400,7 @@ export function sessionOpinionEvents10()
     );
 
     addTimeSkipEvent(
-        NpcID.Athlon,
+        NpcId.Athlon,
         [PcIndex.ID_HELIOS],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(17),
@@ -408,7 +408,7 @@ export function sessionOpinionEvents10()
         new Map()
     );
     addInteractionEvent(
-        NpcID.Athlon,
+        NpcId.Athlon,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 17, 9, 30),
         "Negated the drink and forced me to face a world I can't bear to face.",
@@ -420,7 +420,7 @@ export function sessionOpinionEvents10()
         new Set([PositiveEmotion.Affection])
     );
     addTimeSkipEvent(
-        NpcID.Athlon,
+        NpcId.Athlon,
         [PcIndex.ID_HELIOS],
         GameTimestamp.fromDays(18),
         GameTimestamp.fromDays(27),
@@ -429,7 +429,7 @@ export function sessionOpinionEvents10()
     );
 
     addTimeSkipEvent(
-        NpcID.Dusk,
+        NpcId.Dusk,
         [PcIndex.ID_CYRION],
         GameTimestamp.fromDays(2),
         GameTimestamp.fromDays(27),
@@ -438,7 +438,7 @@ export function sessionOpinionEvents10()
     );
 
     addTimeSkipEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_HELIOS, PcIndex.ID_CYRION],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),
@@ -449,7 +449,7 @@ export function sessionOpinionEvents10()
     );
 
     addTimeSkipEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [],
         GameTimestamp.fromDays(7),
         GameTimestamp.fromDays(27),

@@ -1,13 +1,13 @@
 import {Activation, AdventurerClass, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                        from "../../../../../data/npcIndex";
-import {D1, D20, D6, D8}                                                                                              from "../../../../../rolling/Dice";
+import {NpcId}                                                                                                from "../../../../../data/npcIndex";
+import {D1, D20, D6, D8}                                                                                      from "../../../../../rolling/Dice";
 import {Action}                                                                                                       from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                                     from "../../../../action/Wrap";
 import {Character}                                                                                                    from "../../../Character";
 
 export function setupYuki()
 {
-    const c = new Character(NpcID.Yuki);
+    const c = new Character(NpcId.Yuki);
 
     c.core.name = "Yuki";
     c.core.imgPath = "character_tokens/C2/Arc1/Yuki.png";

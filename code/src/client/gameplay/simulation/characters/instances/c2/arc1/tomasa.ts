@@ -1,10 +1,10 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupTomasa()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Tomasa);
+    const c = new Character(NpcId.Tomasa);
 
     c.core.name = "Tomasa";
     c.core.imgPath = "character_tokens/C2/Arc1/Tomasa.png";

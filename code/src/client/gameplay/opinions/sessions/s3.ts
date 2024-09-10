@@ -1,5 +1,5 @@
-import {NpcID}               from "../../data/npcIndex";
-import {PcIndex}             from "../../data/pcIndex";
+import {NpcId}   from "../../data/npcIndex";
+import {PcIndex} from "../../data/pcIndex";
 import {GameTimestamp}       from "../../GameTimestamp";
 import {PositiveEmotion}     from "../PositiveEmotion";
 import {addInteractionEvent} from "./s9";
@@ -9,7 +9,7 @@ export function sessionOpinionEvents03()
 {
     // Cecelia-Helios/Aurelia
     addInteractionEvent(
-        NpcID.Cecelia,
+        NpcId.Cecelia,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 11, 0),
         "Bearer of an awful truth about Mostima/Andoain.",
@@ -21,7 +21,7 @@ export function sessionOpinionEvents03()
     );
 
     addInteractionEvent(
-        NpcID.Cecelia,
+        NpcId.Cecelia,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 11, 15),
         "Seemed concerned about my state.",
@@ -29,7 +29,7 @@ export function sessionOpinionEvents03()
     );
 
     addInteractionEvent(
-        NpcID.Cecelia,
+        NpcId.Cecelia,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 11, 30),
         "Seemed interested in helping out Andoain and myself.",
@@ -41,7 +41,7 @@ export function sessionOpinionEvents03()
     );
 
     addInteractionEvent(
-        NpcID.Cecelia,
+        NpcId.Cecelia,
         [],
         new GameTimestamp(0, 5, 12, 0),
         "Took an interest in my health and offered words of comfort.",
@@ -57,7 +57,7 @@ export function sessionOpinionEvents03()
     // true]]) ) );
 
     addInteractionEvent(
-        NpcID.Genefe,
+        NpcId.Genefe,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 11, 45),
         "Prying into how I look after these kids, like I were guilty of something.",
@@ -69,7 +69,7 @@ export function sessionOpinionEvents03()
     )
 
     addInteractionEvent(
-        NpcID.Sasha,
+        NpcId.Sasha,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 11, 45),
         "Thinks I'm mentally unstable.",
@@ -90,7 +90,7 @@ export function sessionOpinionEvents03()
     // Map([[PositiveEmotion.Trust, -1]]) ) );
 
     addInteractionEvent(
-        NpcID.Genefe,
+        NpcId.Genefe,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 12, 0),
         "Acknowledges how hard I work for these kids.",
@@ -102,7 +102,7 @@ export function sessionOpinionEvents03()
     );
 
     addInteractionEvent(
-        NpcID.Sasha,
+        NpcId.Sasha,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 12, 0),
         "Praising that hag.",
@@ -123,7 +123,7 @@ export function sessionOpinionEvents03()
     // Map([[PositiveEmotion.Gratitude, -1], [PositiveEmotion.Respect, -1]]), 10, new Map([[PositiveEmotion.Gratitude, true]]) ) ); npcInteractionEvents.get(NpcIndex.ID_CECELIA).get(PcIndex.ID_QUINN).addEvent( new NpcInteractionEvent( new GameTimestamp(0, 5, 12, 30), "Didn't mind me puking over him, and consoled me with an anecdote.", new Map([[PositiveEmotion.Gratitude, 2], [PositiveEmotion.Respect, 1], [PositiveEmotion.Trust, 1]]) ) );
 
     addInteractionEvent(
-        NpcID.Cecelia,
+        NpcId.Cecelia,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 5, 12, 30),
         "Hehe, puked in his first flight despite being healthy.",
@@ -142,11 +142,11 @@ export function sessionOpinionEvents03()
 
     // Interacting with Erica.
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION,
-            
+
         ],
         new GameTimestamp(0, 5, 13, 30),
         "Seem like a well-mannered bunch. Asked for permission to enter our garden instead of jumping over the bush.",

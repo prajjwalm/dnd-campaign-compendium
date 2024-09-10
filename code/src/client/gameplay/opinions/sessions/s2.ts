@@ -1,5 +1,5 @@
-import {NpcID}               from "../../data/npcIndex";
-import {PcIndex}             from "../../data/pcIndex";
+import {NpcId}   from "../../data/npcIndex";
+import {PcIndex} from "../../data/pcIndex";
 import {GameTimestamp}       from "../../GameTimestamp";
 import {PositiveEmotion}     from "../PositiveEmotion";
 import {addInteractionEvent} from "./s9";
@@ -8,7 +8,7 @@ import {addInteractionEvent} from "./s9";
 export function sessionOpinionEvents02()
 {
     addInteractionEvent(
-        NpcID.Dusk,
+        NpcId.Dusk,
         [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 1, 12, 0),
         "Why are Champions of Ruin here? I do not remember doing " +
@@ -23,7 +23,7 @@ export function sessionOpinionEvents02()
 
 
     addInteractionEvent(
-        NpcID.Dusk,
+        NpcId.Dusk,
         [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 1, 13, 0),
         "So these guys being here is probably not related to me too..",
@@ -45,17 +45,17 @@ export function sessionOpinionEvents02()
     for (const pc of [
         PcIndex.ID_HELIOS,
         PcIndex.ID_CYRION,
-        
+
     ])
     {
         addInteractionEvent(
-            NpcID.Dawn,
+            NpcId.Dawn,
             [pc],
             new GameTimestamp(0, 5, 9, 0),
             "A polite bunch it seems.",
             new Map([[PositiveEmotion.Respect, 1]]));
         addInteractionEvent(
-            NpcID.Tomasa,
+            NpcId.Tomasa,
             [pc],
             new GameTimestamp(0, 5, 9, 0),
             "Liked the soup I made.",
@@ -84,7 +84,7 @@ export function sessionOpinionEvents02()
     // );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 10, 0),
         "Cooler than I expected aasimar/paladins to be.",
@@ -92,7 +92,7 @@ export function sessionOpinionEvents02()
 
     // Interaction with Cec./Sasha pt.1.
     addInteractionEvent(
-        NpcID.Cecelia,
+        NpcId.Cecelia,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 5, 10, 30),
         "A friend of my brother. Seems to be as noble and kind as I'd expect.",

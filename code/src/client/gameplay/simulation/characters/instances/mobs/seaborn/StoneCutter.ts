@@ -1,13 +1,13 @@
 import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                       from "../../../../../data/npcIndex";
-import {D1, D4, D6}                                                                                  from "../../../../../rolling/Dice";
+import {NpcId}                                                                               from "../../../../../data/npcIndex";
+import {D1, D4, D6}                                                                          from "../../../../../rolling/Dice";
 import {Action}                                                                                      from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                    from "../../../../action/Wrap";
 import {Character}                                                                                   from "../../../Character";
 
 export function setupStoneCutter()
 {
-    const c = new Character(NpcID.StoneCutter);
+    const c = new Character(NpcId.StoneCutter);
 
     c.core.name = "StoneCutter";
     c.core.imgPath = "mob_tokens/seaborn/Stonecutter.png";

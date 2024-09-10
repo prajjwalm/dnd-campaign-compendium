@@ -1,9 +1,10 @@
-import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Speed} from "../data/constants";
-import {D1, D10, D12, D20, D4, D6, D8, Dice}                                                     from "../rolling/Dice";
+import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Speed} from "../../../data/constants";
+import {NpcId}                                                                                   from "../../../data/npcIndex";
+import {D1, D10, D12, D20, D4, D6, D8, Dice}                                                     from "../../../rolling/Dice";
 import {BuffedInternalAttack, IAttack}                                                           from "./attack";
 import {BuffedStatSheet}                                                                         from "./sheet";
 
-export function createInkling()
+function createInkling()
 {
     const inkSpray = new BuffedInternalAttack({
         title     : "Ink Spray",
@@ -43,7 +44,7 @@ export function createInkling()
     });
 
     return new BuffedStatSheet({
-        monster_id         : "inkling_insecurity",
+        monster_id         : NpcId.InkInsecurity,
         title              : "Inkling (Insecurity)",
         size               : CreatureSize.Medium,
         subtitle           : " Inkling(Ooze), Typically Chaotic Neutral",
@@ -95,7 +96,7 @@ export function createInkling()
     });
 }
 
-export function createInklingDog()
+function createInklingDog()
 {
     const multiattack = new BuffedInternalAttack({
         activation: Activation.Special,
@@ -132,7 +133,7 @@ export function createInklingDog()
     });
 
     return new BuffedStatSheet({
-        monster_id        : "inkling_impatience",
+        monster_id        : NpcId.InkImpatience,
         title             : "Inkling (Impatience)",
         size              : CreatureSize.Small,
         subtitle          : " Inkling(Fiend), Typically Chaotic Neutral",
@@ -174,7 +175,7 @@ export function createInklingDog()
     });
 }
 
-export function createInklingAberrant()
+function createInklingAberrant()
 {
     const inkSpit = new BuffedInternalAttack({
         contentGenerator(args: IAttack): string
@@ -247,7 +248,7 @@ export function createInklingAberrant()
     })
 
     return new BuffedStatSheet({
-        monster_id         : "inkling_envy",
+        monster_id         : NpcId.InkEnvy,
         title              : "Inkling (Envy)",
         size               : CreatureSize.Medium,
         subtitle           : " Inkling(Aberration), Typically Chaotic Evil",
@@ -293,7 +294,7 @@ export function createInklingAberrant()
     });
 }
 
-export function createInklingWannabeBoss()
+function createInklingWannabeBoss()
 {
     const slamText = new BuffedInternalAttack({
         contentGenerator(args: IAttack): string
@@ -349,7 +350,7 @@ export function createInklingWannabeBoss()
     });
 
     return new BuffedStatSheet({
-        monster_id        : "inkling_fury",
+        monster_id        : NpcId.InkFury,
         title             : "Inkling (Fury)",
         size              : CreatureSize.Huge,
         subtitle          : " Inkling(Beast), Typically Chaotic Neutral",
@@ -391,7 +392,7 @@ export function createInklingWannabeBoss()
     });
 }
 
-export function createInklingDynamite()
+function createInklingDynamite()
 {
 
     const boomText = new BuffedInternalAttack({
@@ -433,7 +434,7 @@ export function createInklingDynamite()
 
 
     return new BuffedStatSheet({
-        monster_id         : "inkling_arrogance",
+        monster_id         : NpcId.InkArrogance,
         title              : "Inkling (Arrogance)",
         size               : CreatureSize.Tiny,
         subtitle           : " Inkling(Aberration), Typically Neutral Evil",
@@ -485,7 +486,7 @@ export function createInklingDynamite()
     });
 }
 
-export function createInklingTank()
+function createInklingTank()
 {
     const tauntText = new BuffedInternalAttack({
         contentGenerator(_: IAttack): string
@@ -503,7 +504,7 @@ export function createInklingTank()
     });
 
     return new BuffedStatSheet({
-        monster_id         : "inkling_sloth",
+        monster_id         : NpcId.InkSloth,
         title              : "Inkling (Sloth)",
         size               : CreatureSize.Small,
         subtitle           : " Inkling(Construct), Typically Neutral",
@@ -564,7 +565,7 @@ export function createInklingTank()
     });
 }
 
-export function createFreedom()
+function createFreedom()
 {
     const amphibious = new BuffedInternalAttack({
         activation: Activation.Special,
@@ -729,7 +730,7 @@ export function createFreedom()
     });
 
     return new BuffedStatSheet({
-        monster_id         : "inkling_free",
+        monster_id         : NpcId.InkFreedom,
         title              : "Freedom",
         subtitle           : "dragon, typically Chaotic Neutral",
         stats              : new Map<DStat, number>([
@@ -796,3 +797,15 @@ export function createFreedom()
         ])
     })
 }
+
+
+export const InklingCreators =
+    new Map([
+        [NpcId.InkInsecurity, createInkling],
+        [NpcId.InkImpatience, createInklingDog],
+        [NpcId.InkEnvy,       createInklingAberrant],
+        [NpcId.InkFury,       createInklingWannabeBoss],
+        [NpcId.InkArrogance,  createInklingDynamite],
+        [NpcId.InkSloth,      createInklingTank],
+        [NpcId.InkFreedom,    createFreedom],
+    ]);

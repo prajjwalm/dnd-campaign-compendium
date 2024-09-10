@@ -1,6 +1,6 @@
 import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                       from "../../../../../data/npcIndex";
-import {D1, D4, D6, D8}                                                                              from "../../../../../rolling/Dice";
+import {NpcId}                                                                               from "../../../../../data/npcIndex";
+import {D1, D4, D6, D8}                                                                      from "../../../../../rolling/Dice";
 import {Action}                                                                                      from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                    from "../../../../action/Wrap";
 import {Character}                                                                                   from "../../../Character";
@@ -8,7 +8,7 @@ import {CharacterVariant}                                                       
 
 export function setupDrifter()
 {
-    const c = new Character(NpcID.Drifter);
+    const c = new Character(NpcId.Drifter);
 
     c.core.name = "Drifter";
     c.core.imgPath = "mob_tokens/seaborn/Drifter.png";
@@ -66,7 +66,7 @@ export function setupDrifter()
 
     c.sheet.finalize();
 
-    const n = new CharacterVariant(NpcID.DrifterN, NpcID.Drifter);
+    const n = new CharacterVariant(NpcId.DrifterN, NpcId.Drifter);
 
     n.core.name = "Nourished Drifter";
     n.core.imgPath = "mob_tokens/seaborn/DrifterN.png";
@@ -91,6 +91,6 @@ export function setupDrifter()
     n.combat.finalize();
 
     n.sheet.size = CreatureSize.Large;
-    n.sheet.theme = "danger_1";
+    n.sheet.danger = 1;
     n.sheet.finalize();
 }

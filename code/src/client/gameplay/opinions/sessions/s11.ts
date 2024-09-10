@@ -1,5 +1,5 @@
-import {NpcID}               from "../../data/npcIndex";
-import {PcIndex}             from "../../data/pcIndex";
+import {NpcId}   from "../../data/npcIndex";
+import {PcIndex} from "../../data/pcIndex";
 import {GameTimestamp}       from "../../GameTimestamp";
 import {Character}           from "../../simulation/characters/Character";
 import {PositiveEmotion}     from "../PositiveEmotion";
@@ -9,7 +9,7 @@ export function sessionOpinionEvents11()
 {
 
     addInteractionEvent(
-        NpcID.Jaye,
+        NpcId.Jaye,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 27, 21, 0),
         "You know boss, you got one hell of a silver tongue. Ok, I'm convinced, " +
@@ -25,7 +25,7 @@ export function sessionOpinionEvents11()
                                      // NpcId.Dusk,
                                      // NpcId.Dawn,
                                      [
-                                         NpcID.Andri,
+                                         NpcId.Andri,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -39,7 +39,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Athlon,
+                                         NpcId.Athlon,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -53,7 +53,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Cecelia,
+                                         NpcId.Cecelia,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -71,7 +71,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Coroto,
+                                         NpcId.Coroto,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -85,7 +85,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Elysium,
+                                         NpcId.Elysium,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -99,7 +99,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Erica,
+                                         NpcId.Erica,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -113,7 +113,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Genefe,
+                                         NpcId.Genefe,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -127,7 +127,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Hav,
+                                         NpcId.Hav,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -141,7 +141,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Hina,
+                                         NpcId.Hina,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -155,7 +155,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Ingrid,
+                                         NpcId.Ingrid,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -169,7 +169,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Iona,
+                                         NpcId.Iona,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -187,7 +187,7 @@ export function sessionOpinionEvents11()
                                      // [PositiveEmotion.Gratitude, 2],
                                      // [PositiveEmotion.Trust, 2]])],
                                      [
-                                         NpcID.Jordi,
+                                         NpcId.Jordi,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -201,7 +201,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Kastor,
+                                         NpcId.Kastor,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -215,7 +215,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Petra,
+                                         NpcId.Petra,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -229,7 +229,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Roberta,
+                                         NpcId.Roberta,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -243,7 +243,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Sasha,
+                                         NpcId.Sasha,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -257,7 +257,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Sybilla,
+                                         NpcId.Sybilla,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -271,7 +271,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Tomasa,
+                                         NpcId.Tomasa,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -285,7 +285,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Verna,
+                                         NpcId.Verna,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -299,7 +299,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Vitacia,
+                                         NpcId.Vitacia,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -313,7 +313,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Yuki,
+                                         NpcId.Yuki,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -327,7 +327,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Ezell,
+                                         NpcId.Ezell,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -341,7 +341,7 @@ export function sessionOpinionEvents11()
                                                  ])
                                      ],
                                      [
-                                         NpcID.Irene,
+                                         NpcId.Irene,
                                          new Map([
                                                      [
                                                          PositiveEmotion.Respect,
@@ -371,7 +371,7 @@ export function sessionOpinionEvents11()
     }
 
     addInteractionEvent(
-        NpcID.Jaye,
+        NpcId.Jaye,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION,
@@ -389,7 +389,7 @@ export function sessionOpinionEvents11()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION,
@@ -400,11 +400,11 @@ export function sessionOpinionEvents11()
                     [PositiveEmotion.Gratitude, -3],
                     [PositiveEmotion.Affection, -2],
                 ]),
-        Character.get(NpcID.Dawn).passiveDeception - 5
+        Character.get(NpcId.Dawn).passiveDeception - 5
     );
 
     addInteractionEvent(
-        NpcID.Verna,
+        NpcId.Verna,
         [PcIndex.ID_HELIOS],
         aftermathTime,
         "So that's what the sparring was about. (Sad smile) Pricks just a " +
@@ -412,12 +412,12 @@ export function sessionOpinionEvents11()
         new Map([
                     [PositiveEmotion.Gratitude, -1],
                 ]),
-        Character.get(NpcID.Verna).passiveDeception,
+        Character.get(NpcId.Verna).passiveDeception,
         new Set([PositiveEmotion.Gratitude])
     );
 
     addInteractionEvent(
-        NpcID.Dusk,
+        NpcId.Dusk,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 28, 9, 0),
         "Oh? He's hot.<br/>" +
@@ -434,7 +434,7 @@ export function sessionOpinionEvents11()
     );
 
     addInteractionEvent(
-        NpcID.Dusk,
+        NpcId.Dusk,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 28, 9, 0),
         "Stands back, out of the limelight. But without him, Mr. Shash " +

@@ -1,8 +1,8 @@
-import {NpcID}     from "../../data/npcIndex";
+import {NpcId}     from "../../data/npcIndex";
 import {Character} from "../characters/Character";
 
 
-export const OperatorProfiles: Map<NpcID, () => string> = new Map();
+export const OperatorProfiles: Map<NpcId, () => string> = new Map();
 
 export function generateOperatorProfileSelection()
 {
@@ -25,7 +25,7 @@ export function generateOperatorProfileSelection()
     </div>`
 }
 
-export function generateOperatorProfile(npcID: NpcID)
+export function generateOperatorProfile(npcID: NpcId)
 {
     if (OperatorProfiles.has(npcID)) {
         return OperatorProfiles.get(npcID)();

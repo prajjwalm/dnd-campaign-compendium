@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupUlrich()
 {
-    const c = new Character(NpcID.Ulrich);
+    const c = new Character(NpcId.Ulrich);
 
     c.core.name = "Ulrich Mistcloak";
     c.core.imgPath = "character_tokens/C1/Arc1/ulrich.png";

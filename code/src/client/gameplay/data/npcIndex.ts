@@ -1,4 +1,4 @@
-export enum NpcID {
+export enum NpcId {
     Lucian,
     Ebenezar,
     Caelynn,
@@ -71,6 +71,13 @@ export enum NpcID {
     Damatzi,
     Aulus,
     __MOBS__,
+    InkInsecurity,
+    InkImpatience,
+    InkEnvy,
+    InkFury,
+    InkSloth,
+    InkArrogance,
+    InkFreedom,
     NSBrand,
     Slider,
     SliderN,
@@ -95,6 +102,7 @@ export enum NpcID {
     BrandGuider,
     BrandGuiderN,
     PathShaper,
+    FathomKing,
     Ephremis,
     EndSpeaker,
     Cluster,

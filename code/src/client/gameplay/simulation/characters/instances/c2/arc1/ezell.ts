@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupEzell()
 {
-    const c = new Character(NpcID.Ezell);
+    const c = new Character(NpcId.Ezell);
 
     c.core.name = "Ezell";
     c.core.imgPath = "character_tokens/C2/Arc1/Ezell.png";

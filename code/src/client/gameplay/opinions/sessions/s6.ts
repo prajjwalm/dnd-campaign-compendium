@@ -1,5 +1,5 @@
-import {NpcID}               from "../../data/npcIndex";
-import {PcIndex}             from "../../data/pcIndex";
+import {NpcId}   from "../../data/npcIndex";
+import {PcIndex} from "../../data/pcIndex";
 import {GameTimestamp}       from "../../GameTimestamp";
 import {Character}           from "../../simulation/characters/Character";
 import {PositiveEmotion}     from "../PositiveEmotion";
@@ -9,7 +9,7 @@ import {addInteractionEvent} from "./s9";
 export function sessionOpinionEvents06()
 {
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [],
         new GameTimestamp(0, 6, 6, 0),
         "Huh that was quite a shove. But given how polite they were in " +
@@ -19,7 +19,7 @@ export function sessionOpinionEvents06()
     );
 
     addInteractionEvent(
-        NpcID.Erica,
+        NpcId.Erica,
         [],
         new GameTimestamp(0, 6, 6, 30),
         "<span style='font-size: 11px'>The way Aurelia's owl was staring after me, hiding in the " +
@@ -40,11 +40,11 @@ export function sessionOpinionEvents06()
                     [PositiveEmotion.Gratitude, -1],
                     [PositiveEmotion.Respect, -3],
                 ]),
-        Character.get(NpcID.Erica).passiveDeception + 5,
+        Character.get(NpcId.Erica).passiveDeception + 5,
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 7, 30),
         "Channeled his investiture to heal me. God knows I needed that, " +
@@ -56,7 +56,7 @@ export function sessionOpinionEvents06()
     );
 
     addInteractionEvent(
-        NpcID.Tomasa,
+        NpcId.Tomasa,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 6, 7, 30),
         "Healed me, probably saving me from the verge of death... but... " +

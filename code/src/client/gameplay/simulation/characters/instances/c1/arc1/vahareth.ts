@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupVahareth()
 {
-    const c = new Character(NpcID.Vahareth);
+    const c = new Character(NpcId.Vahareth);
 
     c.core.name = "Vahareth Tsav Anat";
     c.core.imgPath = "character_tokens/C1/Arc1/g_life.png";
@@ -20,7 +20,7 @@ export function setupVahareth()
     c.card.addCardTag("Faction: Inspector");
     c.card.addCardTag("Ex-Guardian of Life");
 
-    c.card.summary = () =>`${Character.get(NpcID.Caelynn).createLink("Caelynn")}'s predecessor as the Guardian of Life as well as a 
+    c.card.summary = () =>`${Character.get(NpcId.Caelynn).createLink("Caelynn")}'s predecessor as the Guardian of Life as well as a 
       father figure to her. Scouted her out in Materia, then got her to the gardens and personally trained her. 
       Known and feared throughout all the outer planes for his unbreakable will and eyes that could delve into the 
       deepest nature of a person's soul with just a glance. 'Retired' after Leras' death.`;

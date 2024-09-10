@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupPetra()
 {
-    const c = new Character(NpcID.Petra);
+    const c = new Character(NpcId.Petra);
 
     c.core.name = "Petra";
     c.core.imgPath = "character_tokens/C2/Arc1/Petra.png";

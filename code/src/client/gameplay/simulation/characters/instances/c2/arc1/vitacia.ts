@@ -1,10 +1,10 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupVitacia()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Vitacia);
+    const c = new Character(NpcId.Vitacia);
 
     c.core.name = "Vitacia";
     c.core.imgPath = "character_tokens/C2/Arc1/Vitacia.png";

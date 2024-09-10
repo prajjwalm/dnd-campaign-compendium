@@ -1,5 +1,5 @@
-import {NpcID}             from "../../data/npcIndex";
-import {MapEdge}           from "../MapEdge";
+import {NpcId}   from "../../data/npcIndex";
+import {MapEdge} from "../MapEdge";
 import {MapGraph}          from "../MapGraph";
 import {MapTransportation} from "../MapTransportation";
 import {MapVertex}         from "../MapVertex";
@@ -201,7 +201,7 @@ v31.addSiteOfInterest("The town of Nix",
                           [MapTransportation.Jet,        "~1  hour"],
                       ]))
 
-v31.addCharacterToken(NpcID.Gnosis);
+v31.addCharacterToken(NpcId.Gnosis);
 
 v58.intel = `Outpost #4d37335c of RyneTech Labs, Devotion Sector. Responsible 
              for low latency front line research concerning phenomenon observed in this

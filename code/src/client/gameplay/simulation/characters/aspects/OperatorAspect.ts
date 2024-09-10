@@ -1,5 +1,5 @@
 import {CSkill, DSkill, Era, ProficiencyLevel, StatForSkill} from "../../../data/constants";
-import {NpcID}                                               from "../../../data/npcIndex";
+import {NpcId}                                               from "../../../data/npcIndex";
 import {Rarity, Rating}                                      from "../../../data/Rarity";
 import {IDOMGenerator}                                       from "../../../IDomGenerator";
 import {wrapCSkill, wrapDSkill}                              from "../../action/Wrap";
@@ -25,7 +25,7 @@ export class OperatorAspect
 
     private readonly _afflictions: string[];
 
-    private readonly _chemistry: Map<NpcID, [number, string]>;
+    private readonly _chemistry: Map<NpcId, [number, string]>;
 
     private readonly _items: [string, Rarity][];
 
@@ -229,7 +229,7 @@ export class OperatorAspect
     /**
      * @inheritDoc
      */
-    public setChemistryWith(npc: NpcID, v: number, s: string)
+    public setChemistryWith(npc: NpcId, v: number, s: string)
     {
         this._chemistry.set(npc, [v, s]);
     }

@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupShimarin()
 {
-    const c = new Character(NpcID.Shimarin);
+    const c = new Character(NpcId.Shimarin);
 
     c.core.name = "Rin Shima";
     c.core.imgPath = "character_tokens/C1/Arc2/shimarin.png";
@@ -21,16 +21,16 @@ export function setupShimarin()
     c.card.addCardTag('CR | 13');
 
     c.card.summary = () =>`
-    An orphan adopted and raised by ${Character.get(NpcID.Lemuen).createLink()} who taught her sniping. Took it up as a job after 
-    Lemuen got crippled. Worked in a team until ${Character.get(NpcID.Verrader).createLink("Verrader")} sold them out, 
+    An orphan adopted and raised by ${Character.get(NpcId.Lemuen).createLink()} who taught her sniping. Took it up as a job after 
+    Lemuen got crippled. Worked in a team until ${Character.get(NpcId.Verrader).createLink("Verrader")} sold them out, 
     then worked solo. Was there, past midnight, when Ruin almost got complete - she made it back with 
-    ${Character.get(NpcID.LogosPlaywright).createLink("The Playwright")}'s aid.`;
+    ${Character.get(NpcId.LogosPlaywright).createLink("The Playwright")}'s aid.`;
 
     c.card.story = () => `
 <h5>Early Life and Capture</h5>
 It is hardly unusual for a child to lose their parents at a very young age in the Castle of the Night, and so when her
 parents went missing, eight-year-old Rin found a plenitude of odd jobs, not all very ethical, to support herself and 
-her four-year-old brother ${Character.get(NpcID.Shimaken).createLink("Ken")}. Not all her employers were the most scrupulous,
+her four-year-old brother ${Character.get(NpcId.Shimaken).createLink("Ken")}. Not all her employers were the most scrupulous,
 however - and on one occasion, now 14 yrs of age, she found herself in the service of a sadistic, hateful and dangerous
 (at least, so it seemed to her then) thug. For his amusement, he forced her to suffer from a round of 'Russian 
 Roulette', and experience that deeply terrified and traumatized her. He then told her that he'd found the trail of a 
@@ -41,11 +41,11 @@ perhaps fortunately, she was woefully under-prepared - while she was quite adept
 important fact, all 'Saints' were bonded to their firearms. The minute she touched the gun, her target knew. Alarms 
 went off everywhere, and she was surrounded in moments. As she was being apprehended, she couldn't help but notice 
 how all of them were aasimar who looked noble-to-a-fault and had halos and wings hovering around them that appeared
-like light reflected on a crystalline surface. ${Character.get(NpcID.Mostima).createLink("One of them")} however, also
+like light reflected on a crystalline surface. ${Character.get(NpcId.Mostima).createLink("One of them")} however, also
 seemed to have the black horns and tails of a fiend. She seemed a lot less noble, and so to Rin a lot more unnerving,
 more like a street thug she was used to instead of a divine being like the others.<br/>
 When her blindfolds were removed, she found herself in a cell. Sitting next to her, with her gun on her lap, was the
-${Character.get(NpcID.Lemuen).createLink("famed sniper")} she'd heard so much off. Her kindly - almost jovial - demeanour
+${Character.get(NpcId.Lemuen).createLink("famed sniper")} she'd heard so much off. Her kindly - almost jovial - demeanour
 completely shocked Rin. She seemed not a bit mad, merely amused and curious. The stark contrast between her target,
 supposedly her enemy, and her employer cracked something deep inside of her. She completely broke down, after half a 
 decade of keeping it together while living through hell, she - in the midst of hyperventilation and sobbing - unloaded
@@ -56,7 +56,7 @@ with them for now. Lemuen herself would train Rin to make her strong enough to g
 gratefully agreed, though she was sure she hadn't been offered a choice (which made her more happy than 
 it should have).<br/>
 Lemuen said the ones coming with her would be her half-sister and 
-${Character.get(NpcID.Fiest).createLink("her boyfriend")} - a human guy they'd met here who 
+${Character.get(NpcId.Fiest).createLink("her boyfriend")} - a human guy they'd met here who 
 used to work on making and maintaining their firearms and other equipment. Also, it turned out the 'half-sister' was
 none other than the half-fiend Rin had noticed earlier. Her earlier assessment was spot on, she was way rougher than
 Lemuen - at least superficially. Though with Lemuen, Mostima too completely let down her guard and was cheerful and
@@ -126,7 +126,7 @@ with threats and obstacles there while her brother sought the light.
 The years that followed did see life change for them all. Lemuen who'd been paralyzed below her waist was recovering 
 under the patient care of Fiest and continued to train Shimarin in the art of sniping. Shimarin chose to become part
 of a crew to persue bigger contracts, however that ended when 
-${Character.get(NpcID.Verrader).createLink("one member of the crew")} betrayed the others for personal gain,
+${Character.get(NpcId.Verrader).createLink("one member of the crew")} betrayed the others for personal gain,
 only to find he himself had been deluded by their 'fixer' - what resulted, therefore, was all of them drowing in 
 magma, except Shimarin, who was covering them from a distance. Of the rest of the crew, only the traitor survived, 
 gaining nightblood at exactly that point. This was something Shimarin learnt much later though, however she never 
@@ -139,7 +139,7 @@ could feel something was off, the death 'felt' unlike the others she'd seen. A f
 death, they were joined by a tiefling, who remained in hiding from the demons in the castle. The kindest person 
 they'd ever met, he had taken a liking to her, despite herself. As life looked a bit better, in the years to come, 
 she took many high profile contracts - and didn't ask questions. Some even came from almost mythic figures - like
-once when the troupe ${Character.get(NpcID.Mouthpiece).createLink("Mouthpiece")} himself asked her to kill a certain Vulpine soul weaver. <br/>   
+once when the troupe ${Character.get(NpcId.Mouthpiece).createLink("Mouthpiece")} himself asked her to kill a certain Vulpine soul weaver. <br/>   
 In all her missions
 she always followed one unsaid rule - after killing the target, she could also kill any one person near them of her 
 choice. That prevented her from being a mere pawn, a mere tool - and drove away a lot of petty schemers from her who
@@ -163,16 +163,16 @@ had delivered it this time - that she was to assassinate the executioner. But th
 - the same group of adventurers (she'd helped them earlier that day), had taken it upon themselves to resuce the guy.
 She was excited, and for once in a very long time dared to hope as she covered them as they escaped. Sadly, the 
 castle was not a place where hope can live, and with a deep horror, she realized that the party was cornered - and 
-by none other than ${Character.get(NpcID.Baphomet).createLink("Baphomet")} himself. There was no way out of this, and so she did what she had planned before, and
+by none other than ${Character.get(NpcId.Baphomet).createLink("Baphomet")} himself. There was no way out of this, and so she did what she had planned before, and
 put a bullet into her friend. Something which, by the tears in his eyes, he knew was coming.<br/>
 After that, she decided to bite back at the troupe by taking out their most valuable piece, someone she knew they 
-had big plans for - ${Character.get(NpcID.Lucian).createLink("The Solitaire")}. Things didn't go as planned however,
+had big plans for - ${Character.get(NpcId.Lucian).createLink("The Solitaire")}. Things didn't go as planned however,
 and instead she ended up in the fortress of the inquisitors, gaining an Atium spike and a Steel spike powered by 
 Verrader's soul followed by heading right past midnight into a showdown that involved more myths and legends than 
 she could even dream of - all the Guardians with Preservation himself in the mists, eight senior inquisitors moved
 by Ruin himself (who was also moving her - despite her best efforts), 
-${Character.get(NpcID.LogosPlaywright).createLink("The Playwright")} and the Mouthpiece and lastly 
-${Character.get(NpcID.Sanguinarch).createLink("The SanguineArch")} along with two other higher vampires. Finally, 
+${Character.get(NpcId.LogosPlaywright).createLink("The Playwright")} and the Mouthpiece and lastly 
+${Character.get(NpcId.Sanguinarch).createLink("The SanguineArch")} along with two other higher vampires. Finally, 
 there was one other - a single Honorspren who stood next to her, waiting, and had gone unnoticed by all...  
 `;
 

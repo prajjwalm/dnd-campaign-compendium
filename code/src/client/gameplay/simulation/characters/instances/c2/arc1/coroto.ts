@@ -1,11 +1,11 @@
 import {DSkill, ProficiencyLevel} from "../../../../../data/constants";
-import {NpcID}                            from "../../../../../data/npcIndex";
-import {Character}                        from "../../../Character";
+import {NpcId}                    from "../../../../../data/npcIndex";
+import {Character}                from "../../../Character";
 
 export function setupCoroto()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Coroto);
+    const c = new Character(NpcId.Coroto);
 
     c.core.name = "Coroto";
     c.core.imgPath = "character_tokens/C2/Arc1/Coroto.png";

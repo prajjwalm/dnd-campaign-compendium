@@ -1,7 +1,7 @@
 import {updateMap}                                                                                                           from "../../../../common/common";
 import {AdventurerClass, ClassHitDice, Condition, DamageType, DSkill, DStat, pbMod, ProficiencyLevel, Sense, Speed, statMod} from "../../../data/constants";
-import {NpcID}                                                                                                               from "../../../data/npcIndex";
-import {D1, Dice}                                                                                                   from "../../../rolling/Dice";
+import {NpcId}                                                                                                               from "../../../data/npcIndex";
+import {D1, Dice}                                                                                                            from "../../../rolling/Dice";
 import {Action}                                                                                                     from "../../action/Action";
 import {AttackAbstraction}                                                                                          from "../../action/AttackAbstraction";
 import {Character}                                                                                                  from "../Character";
@@ -126,7 +126,7 @@ export class CombatAspect
     public set bladeSingerAC(val: boolean)
     {
         if (!this.classes.has(AdventurerClass.Wizard)) {
-            console.warn("BladeSinger on non wizard:", NpcID[this.c.id]);
+            console.warn("BladeSinger on non wizard:", NpcId[this.c.id]);
         }
         this.baseACSources.push(
             this.c.mod(DStat.Dex) +
@@ -376,6 +376,11 @@ export class CombatAspect
     public get hp(): number
     {
         return this._hp;
+    }
+
+    public set hp(val: number)
+    {
+        this._hp = val;
     }
 
     public get speeds(): ReadonlyMap<Speed, number>

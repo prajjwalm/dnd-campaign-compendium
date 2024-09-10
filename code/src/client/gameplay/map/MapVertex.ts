@@ -1,5 +1,5 @@
-import {NpcID}                                                              from "../data/npcIndex";
-import {Character}                                                          from "../simulation/characters/Character";
+import {NpcId}     from "../data/npcIndex";
+import {Character} from "../simulation/characters/Character";
 import {MapGraph}                                                           from "./MapGraph";
 import {MapTransportation, TransportationToDOMString}                       from "./MapTransportation";
 import {MapVertexStatus, MapVertexStatusDescriptions, MapVertexStatusIcons} from "./MapVertexStatus";
@@ -42,7 +42,7 @@ export class MapVertex
      * here. The logic of mapping a {@link Character} to its location doesn't
      * come under the scope of this class.
      */
-    private readonly _characterPaths: NpcID[];
+    private readonly _characterPaths: NpcId[];
 
     /**
      * If this vertex is the home base.
@@ -173,7 +173,7 @@ export class MapVertex
      * Add a token image to be displayed as a character token. It needn't
      * specifically belong to a character.
      */
-    public addCharacterToken(character: NpcID)
+    public addCharacterToken(character: NpcId)
     {
         this._characterPaths.push(character);
     }

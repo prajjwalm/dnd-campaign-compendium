@@ -15,5 +15,5 @@ export interface ISheetFactory
 
     set category(s: string);
 
-    set theme(s: string);
+    set danger(s: number);
 }

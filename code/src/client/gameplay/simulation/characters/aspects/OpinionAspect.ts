@@ -1,7 +1,7 @@
 import {getEnumIterator}        from "../../../../common/common";
-import {DSkill}                 from "../../../data/constants";
-import {NpcID}                  from "../../../data/npcIndex";
-import {PcIndex, PcTokenNames}  from "../../../data/pcIndex";
+import {DSkill}                from "../../../data/constants";
+import {NpcId}                 from "../../../data/npcIndex";
+import {PcIndex, PcTokenNames} from "../../../data/pcIndex";
 import {GameTimestamp}          from "../../../GameTimestamp";
 import {NpcInteractionEvent}    from "../../../opinions/NpcInteractionEvent";
 import {NpcOpinion}             from "../../../opinions/NpcOpinions";
@@ -70,7 +70,7 @@ export class OpinionAspect
             );
         }
         const npcRows = [];
-        for (const npcIndex of getEnumIterator(NpcID) as Generator<NpcID>) {
+        for (const npcIndex of getEnumIterator(NpcId) as Generator<NpcId>) {
             const npc = Character.get(npcIndex);
             if (!npc || !npc.isOpinionated) {
                 continue;
@@ -92,7 +92,7 @@ export class OpinionAspect
     `);
 
         $table_area.on("click", ".npc_opinion_circle", function () {
-            const npcId: NpcID = $(this).data("npcId");
+            const npcId: NpcId = $(this).data("npcId");
             const pcId: PcIndex = $(this).data("pcId");
 
             $individualAst.html(Character.get(npcId).generateOpinionTimelineDOM(pcId));

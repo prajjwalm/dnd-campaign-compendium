@@ -1,11 +1,11 @@
-import {DSkill, } from "../../../../../data/constants";
-import {NpcID}          from "../../../../../data/npcIndex";
-import {Character}      from "../../../Character";
+import {DSkill, }  from "../../../../../data/constants";
+import {NpcId}     from "../../../../../data/npcIndex";
+import {Character} from "../../../Character";
 
 export function setupIona()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Iona);
+    const c = new Character(NpcId.Iona);
 
     c.core.name = "Iona";
     c.core.imgPath = "character_tokens/C2/Arc1/Iona.png";

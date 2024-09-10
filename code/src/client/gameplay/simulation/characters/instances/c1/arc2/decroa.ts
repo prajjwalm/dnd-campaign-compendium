@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupDecroa()
 {
-    const c = new Character(NpcID.DecroaSal);
+    const c = new Character(NpcId.DecroaSal);
 
     c.core.name = "Decroa Sal";
     c.core.imgPath = "character_tokens/C1/Arc2/decroa.png";
@@ -20,8 +20,8 @@ export function setupDecroa()
     A higher vampire who had been captured by the Troupe Long ago and used both as a trap against unwanted 
       intruders and for their 'plays' and research. Prolonged torture and withdrawal symptoms had made her a little 
       unhinged, and <i>very</i> thristy. Was finally freed by a group of adventurers and thereafter protected by 
-      ${Character.get(NpcID.Sanguinarch).createLink("The SanguineArch")} until she could escape the 
-      castle. Revealed herself to be a childhood friend of ${Character.get(NpcID.Lesley).createLink("Lesley")}'s.`;
+      ${Character.get(NpcId.Sanguinarch).createLink("The SanguineArch")} until she could escape the 
+      castle. Revealed herself to be a childhood friend of ${Character.get(NpcId.Lesley).createLink("Lesley")}'s.`;
 
     c.card.finalize();
 

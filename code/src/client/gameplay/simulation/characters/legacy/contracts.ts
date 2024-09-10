@@ -1,14 +1,16 @@
-import {Activation, DamageType, DStat, ProficiencyLevel}                                                           from "../data/constants";
-import {D1, D12, D20, D4, D8, Dice}                                                                                from "../rolling/Dice";
-import {AttackContracts, BuffedInternalAttack, IAttack, IAttackContract}                                           from "./attack";
-import {contractIndex, IBuffedStatSheet, ID_TO_SHEET_GENERATOR, isContractSelected, ISheetContract, SheetContract} from "./sheet";
+import {Activation, DamageType, DStat, ProficiencyLevel}                                    from "../../../data/constants";
+import {NpcId}                                                                              from "../../../data/npcIndex";
+import {D1, D12, D20, D4, D8, Dice}                                                         from "../../../rolling/Dice";
+import {SheetAspect}                                                                        from "../aspects/SheetAspect";
+import {AttackContracts, BuffedInternalAttack, IAttack, IAttackContract}                    from "./attack";
+import {contractIndex, IBuffedStatSheet, isContractSelected, ISheetContract, SheetContract} from "./sheet";
 
 
 const RiskCutoffs = new Map([
-    [0,  "D"],
-    [2,  "C"],
-    [5,  "B"],
-    [8,  "A"],
+    [0,   "D"],
+    [2,   "C"],
+    [5,   "B"],
+    [8,   "A"],
     [12,  "S"],
     [15,  "SS"],
     [18,  "SSS"],
@@ -16,72 +18,84 @@ const RiskCutoffs = new Map([
 ])
 
 
-export const GENERATED_IDS: Set<string> = new Set();
+function adjustRiskDisplay()
+{
+    const $riskEffects = $(".risk_effects");
+    $riskEffects.empty();
+
+    let totalRisk = 0;
+    for (const [id, contract] of contractIndex.entries()) {
+        if (!isContractSelected(id)) {
+            continue;
+        }
+
+        totalRisk += contract.risk;
+        $(`<div class='risk_effect'>
+               <img class="risk_icon" src="assets/images/risk/CC_Level_${contract.risk}.webp" alt=""> 
+               <span>${contract.desc}</span>
+           </div>`)
+            .appendTo($riskEffects);
+
+    }
+
+    $("#risk_value").text(totalRisk);
+
+    let displayGrade = "F";
+    for (const [cutoff, grade] of RiskCutoffs.entries()) {
+        if (totalRisk >= cutoff) {
+            displayGrade = grade;
+        } else {
+            break;
+        }
+    }
+
+    $("#grade").html(displayGrade);
+}
+
 
 export function renderContracts()
 {
-    function resetSheets(e) {
+    function resetSheets(e)
+    {
         // Timeout to ensure the selected class is added before this code runs.
         setTimeout(() => {
             e.stopPropagation();
-            const $currentSheet = $(".stat_sheet:visible");
-            const $riskEffects = $(".risk_effects");
-            $riskEffects.empty();
+            adjustRiskDisplay();
 
-            let totalRisk = 0;
-            for (const [id, contract] of contractIndex.entries())
-            {
-                if (!isContractSelected(id)) {
-                    continue;
-                }
-                totalRisk += contract.risk;
-                $(`<div class='risk_effect'>
-                       <img class="risk_icon" src="assets/images/risk/CC_Level_${contract.risk}.webp" alt=""> 
-                       <span>${contract.desc}</span>
-                   </div>`).appendTo($riskEffects);
+            const $currentSheet = $(".stat_sheet.buffable:visible");
 
-            }
-            $("#risk_value").text(totalRisk);
-
-            let displayGrade = "F";
-            for (const [cutoff, grade] of RiskCutoffs.entries()) {
-                if (totalRisk >= cutoff) {
-                    displayGrade = grade;
-                } else {
-                    break;
-                }
-            }
-            $("#grade").html(displayGrade);
+            $(".stat_sheet.buffable").remove();
 
             if ($currentSheet.length == 0) {
-                $(".stat_sheet").remove();
-                GENERATED_IDS.clear();
                 return;
             }
-            const creatureId = $currentSheet.attr("id").substring(11);
-            $(".stat_sheet").remove();
-            GENERATED_IDS.clear();
-            $("#sheet_zone").append(ID_TO_SHEET_GENERATOR.get(creatureId)().render());
+
+            const npcId: NpcId =
+                parseInt($currentSheet.attr("id").split("_").pop());
+
+            $("#sheet_zone").append(SheetAspect.getStatSheet(npcId).render());
         }, 10);
     }
+
     // Both need watchers since the selector stops propagation.
 
     // todo: every use case will need this fix.
     $("#contracts").on("click", ".contract_group", resetSheets);
-    $("#contracts").on("click", ".contract", resetSheets);
-    for (const contractGroups of Contracts.values()) {
+    $("#contracts").on("click", ".contract",       resetSheets);
 
+    for (const contractGroups of Contracts.values())
+    {
         const cList = [];
         for (const contract of contractGroups.values()) {
             contractIndex.set(contract.id, contract);
             cList.push(contract.render());
         }
-        $(`<div class="contract_group selectable_radio_container">${cList.join("")}</div>`)
+        $(`<div class="contract_group translational_flags_radio_container">${cList.join("")}</div>`)
             .appendTo("#contracts");
     }
 }
 
-// todo: make the inner thing a set.
+
 export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
     ["freedom", new Map([
         [1, new SheetContract(
@@ -90,7 +104,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "Unbreakable Freedom I",
             "CC-FreeBuffA1.webp",
             "Freedom has +20% HP/Attack Dice and +1 AC.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_free",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkFreedom,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {
@@ -115,7 +129,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "Freedom has +30% HP Dice and +3 AC. And <em>Break the Chains</em> " +
             "has shockwave radius, HP and probablity increased. She no longer " +
             "takes damage on the chains breaking.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_free",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkFreedom,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {
@@ -155,7 +169,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "Freedom has +50% HP Dice and +5 AC. And <em>Break the Chains</em> " +
             "has shockwave radius, HP and probablity significantly increased. " +
             "Freedom now retores HP on the chains breaking.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_free",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkFreedom,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {
@@ -195,7 +209,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "CC-FreeBuffB2.webp",
             "Freedom has +90% HP Dice, +70% Damage Dice and resistance to fire" +
             " and radiant damage. <em>Ink Swirl</em>'s cooldown is reduced.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_free",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkFreedom,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {
@@ -252,7 +266,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "Freedom has +200% HP Dice, +150% Atk Dice and resistance to fire and radiant damage. " +
             "<em>Ink Swirl</em>'s cooldown is greatly reduced, and it needn't be cast at the " +
             "start of the turn.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_free",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkFreedom,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {
@@ -371,7 +385,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "Deep Envy I",
             "CC-EnvyBuffA1.png",
             "Envies have +20% HP and gain semi-proficiency in Con Saving throws.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_envy",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkEnvy,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {
@@ -389,7 +403,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "Deep Envy II",
             "CC-EnvyBuffA2.png",
             "Envies have +70% HP, +30% ATK and gain proficiency in Con Saving throws.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_envy",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkEnvy,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {
@@ -412,7 +426,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "Deep Envy III",
             "CC-EnvyBuffA3.png",
             "Envies have +120% HP, +60% ATK and gain expertise in Con Saving throws.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_envy",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkEnvy,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {
@@ -436,7 +450,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "CC-EnvyBuffB2.png",
             "Envies have advantage in Con Saving throws. Also they now charge " +
             "their attacks in half a round and may begin charging anytime.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_envy",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkEnvy,
             (sheet: IBuffedStatSheet) => {
                 sheet.attacks.set("charging",  new BuffedInternalAttack({
                     activation : Activation.LegendaryAction,
@@ -484,7 +498,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "CC-EnvyBuffB3.png",
             "Envies have super-advantage in Con Saving throws. Also they now charge " +
             "their attacks in quarter of a round and may begin charging anytime.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_envy",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkEnvy,
             (sheet: IBuffedStatSheet) => {
                 sheet.attacks.set("charging", new BuffedInternalAttack({
                     activation : Activation.LegendaryAction,
@@ -566,11 +580,11 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "CC-EnemyASPDBuff1.webp",
             "Impatience, insecurity and Freedom have one more attack per action.",
             (sheet: IBuffedStatSheet) =>
-                ["inkling_insecurity", "inkling_impatience", "inkling_free"]
+                [NpcId.InkInsecurity, NpcId.InkImpatience, NpcId.InkFreedom]
                     .includes(sheet.monster_id),
             (sheet: IBuffedStatSheet) => {
-                const na = sheet.monster_id == "inkling_insecurity" ? "two"
-                                                                    : "three";
+                const na = sheet.monster_id == NpcId.InkInsecurity ? "two"
+                                                                   : "three";
                 sheet.attacks.set(
                     "multiattack",
                     new BuffedInternalAttack({
@@ -590,11 +604,11 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "CC-EnemyASPDBuff2.webp",
             "Impatience, insecurity and Freedom have two more bite attacks per action.",
             (sheet: IBuffedStatSheet) =>
-                ["inkling_insecurity", "inkling_impatience", "inkling_free"]
+                [NpcId.InkInsecurity, NpcId.InkImpatience, NpcId.InkFreedom]
                     .includes(sheet.monster_id),
             (sheet: IBuffedStatSheet) => {
-                const na = sheet.monster_id == "inkling_insecurity" ? "three"
-                                                                    : "four";
+                const na = sheet.monster_id == NpcId.InkInsecurity ? "three"
+                                                                   : "four";
                 sheet.attacks.set(
                     "multiattack",
                     new BuffedInternalAttack({
@@ -674,7 +688,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "Arrogance gain +70% HP and halves come back to life with full HP if " +
             "the other half is not killed until the start of their next-to-next turn. " +
             "They will now chase after friendlies.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_arrogance",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkArrogance,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {
@@ -693,7 +707,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "Arrogance gain +220% HP and halves come back to life with full HP if " +
             "the other half is not killed until the start of their next-to-next turn. " +
             "They will now chase after friendlies.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_arrogance",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkArrogance,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {
@@ -712,7 +726,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "Arrogance gain +300% HP and halves come back to life with full HP if " +
             "the other half is not killed until the start of their next-to-next turn. " +
             "They will now chase after friendlies.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_arrogance",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkArrogance,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {
@@ -730,7 +744,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "CC-ArroganceBuffB2.webp",
             "Arrogance gain +110% HP, increased movement speed (5ft) and a wider blast radius (+50%). " +
             "They will now chase after friendlies.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_arrogance",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkArrogance,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {
@@ -772,7 +786,7 @@ export const Contracts: Map<string, Map<number, ISheetContract>> = new Map([
             "CC-ArroganceBuffB3.webp",
             "Arrogance gain +110% HP, increased movement speed (10ft) and a wider blast radius (+100%) with " +
             "increased damage. They will now chase after friendlies.",
-            (sheet: IBuffedStatSheet) => sheet.monster_id == "inkling_arrogance",
+            (sheet: IBuffedStatSheet) => sheet.monster_id == NpcId.InkArrogance,
             (sheet: IBuffedStatSheet) => {
                 const hpDice = sheet.hpDice;
                 for (const [dice, number] of hpDice.entries()) {

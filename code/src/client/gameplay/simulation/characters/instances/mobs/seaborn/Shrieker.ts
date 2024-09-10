@@ -1,6 +1,6 @@
 import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                       from "../../../../../data/npcIndex";
-import {D1, D12, D6, D8}                                                                             from "../../../../../rolling/Dice";
+import {NpcId}                                                                               from "../../../../../data/npcIndex";
+import {D1, D12, D6, D8}                                                                     from "../../../../../rolling/Dice";
 import {Action}                                                                                      from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                                    from "../../../../action/Wrap";
 import {Character}                                                                                   from "../../../Character";
@@ -8,7 +8,7 @@ import {CharacterVariant}                                                       
 
 export function setupShriekers()
 {
-    const c = new Character(NpcID.Shrieker);
+    const c = new Character(NpcId.Shrieker);
 
     c.core.name = "Shrieker";
     c.core.imgPath = "mob_tokens/seaborn/Shrieker.png";
@@ -65,7 +65,7 @@ export function setupShriekers()
 
     c.sheet.finalize();
 
-    const n = new CharacterVariant(NpcID.ShriekerN, NpcID.Shrieker);
+    const n = new CharacterVariant(NpcId.ShriekerN, NpcId.Shrieker);
 
     n.core.name = "Nourished Shrieker";
     n.core.imgPath = "mob_tokens/seaborn/ShriekerN.png";
@@ -111,6 +111,6 @@ export function setupShriekers()
     n.combat.finalize();
 
     n.sheet.size = CreatureSize.Large;
-    n.sheet.theme = "danger_1";
+    n.sheet.danger = 1;
     n.sheet.finalize();
 }

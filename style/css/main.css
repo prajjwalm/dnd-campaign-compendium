@@ -881,79 +881,78 @@ table.simple_table {
    * themselves.
    */
 }
-#workshop .selectable_radio_container.translational_flags {
+#workshop .translational_flags_radio_container {
   overflow: hidden;
   display: flex;
   flex-wrap: nowrap;
   position: relative;
+  padding: 16px;
+  gap: 8px;
   justify-content: center;
   gap: 32px;
-  padding: 16px;
   flex-direction: row;
   align-items: flex-end;
   padding-bottom: 64px;
   /**
-   * Selectable content styling. This formats the interiors of the cards.
+   * Radio content styling. This formats the interiors of the cards.
    */
 }
-#workshop .selectable_radio_container.translational_flags .selectable {
+#workshop .translational_flags_radio_container .translation_base {
+  position: absolute;
+  border-radius: 4px;
+}
+#workshop .translational_flags_radio_container .radio {
   transition: all 200ms;
 }
-#workshop .selectable_radio_container.translational_flags .selectable:not(.disabled) {
+#workshop .translational_flags_radio_container .radio:not(.disabled) {
   cursor: pointer;
 }
-#workshop .selectable_radio_container.translational_flags .translation_base {
-  background-color: #151515;
-  box-shadow: 0 0 10px 3px rgba(242, 237, 245, 0.19);
-}
-#workshop .selectable_radio_container.translational_flags .selectable {
-  background: #252d3d;
-  background: linear-gradient(0deg, #252d3d 0%, #191f2c 30%, #131b27 45%, #090911 100%);
-  border: solid 1px #242d40;
-  box-shadow: 0 0 14px 5px rgba(46, 73, 131, 0.25);
-}
-#workshop .selectable_radio_container.translational_flags .selectable.disabled {
-  background: linear-gradient(0deg, rgba(37, 45, 61, 0.3) 0%, rgba(25, 31, 44, 0.3) 30%, rgba(19, 27, 39, 0.3) 45%, rgba(9, 9, 17, 0.3) 100%);
-  border: solid 1px rgba(36, 45, 64, 0.3);
-}
-#workshop .selectable_radio_container.translational_flags .selectable.selected {
-  background: #2e4983;
-  background: linear-gradient(0deg, #2e4983 0%, #293d68 12%, #141c25 45%, #090911 100%);
-}
-#workshop .selectable_radio_container.translational_flags .translation_base {
-  position: absolute;
-}
-#workshop .selectable_radio_container.translational_flags .translation_base {
+#workshop .translational_flags_radio_container .translation_base {
   width: 100%;
   height: 64px;
   left: 0;
   right: 0;
   bottom: 0;
 }
-#workshop .selectable_radio_container.translational_flags .selectable {
+#workshop .translational_flags_radio_container .radio {
   width: 210px;
   height: 350px;
 }
-#workshop .selectable_radio_container.translational_flags .selectable.selected {
+#workshop .translational_flags_radio_container .radio.selected {
   height: 420px;
 }
-#workshop .selectable_radio_container.translational_flags .selectable {
-  padding: 12px;
-  padding-top: 16px;
+#workshop .translational_flags_radio_container .translation_base {
+  background-color: #151515;
+  box-shadow: 0 0 10px 3px rgba(242, 237, 245, 0.19);
+}
+#workshop .translational_flags_radio_container .radio {
+  padding: 16px 12px 12px;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: flex-start;
   overflow: hidden;
+  background: #252d3d;
+  background: linear-gradient(0deg, #252d3d 0%, #191f2c 30%, #131b27 45%, #090911 100%);
+  border: solid 1px #242d40;
+  box-shadow: 0 0 14px 5px rgba(46, 73, 131, 0.25);
 }
-#workshop .selectable_radio_container.translational_flags .selectable * {
+#workshop .translational_flags_radio_container .radio.disabled {
+  background: linear-gradient(0deg, rgba(37, 45, 61, 0.3) 0%, rgba(25, 31, 44, 0.3) 30%, rgba(19, 27, 39, 0.3) 45%, rgba(9, 9, 17, 0.3) 100%);
+  border: solid 1px rgba(36, 45, 64, 0.3);
+}
+#workshop .translational_flags_radio_container .radio.selected {
+  background: #2e4983;
+  background: linear-gradient(0deg, #2e4983 0%, #293d68 12%, #141c25 45%, #090911 100%);
+}
+#workshop .translational_flags_radio_container .radio * {
   flex-grow: 0;
 }
-#workshop .selectable_radio_container.translational_flags .selectable img.icon_img {
+#workshop .translational_flags_radio_container .radio img.icon_img {
   width: 100%;
   object-fit: contain;
 }
-#workshop .selectable_radio_container.translational_flags .selectable .title {
+#workshop .translational_flags_radio_container .radio .title {
   color: #F2EDF5;
   font-family: "Montserrat", sans-serif;
   border-bottom: solid 1px #EDE7EC;
@@ -962,11 +961,11 @@ table.simple_table {
   margin-bottom: 8px;
   font-size: 16px;
 }
-#workshop .selectable_radio_container.translational_flags .selectable .subtext {
+#workshop .translational_flags_radio_container .radio .subtext {
   color: #aaa;
   font-size: 14px;
 }
-#workshop .selectable_radio_container.translational_flags .selectable .confirm {
+#workshop .translational_flags_radio_container .radio .confirm {
   display: none;
   padding-bottom: 16px;
   flex-direction: column;
@@ -975,85 +974,17 @@ table.simple_table {
   flex-grow: 1;
   gap: 4px;
 }
-#workshop .selectable_radio_container.translational_flags .selectable .confirm .confirm_msg {
+#workshop .translational_flags_radio_container .radio .confirm .confirm_msg {
   color: #aaa;
   font-size: 11px;
 }
-#workshop .selectable_radio_container.translational_flags .selectable .confirm i {
+#workshop .translational_flags_radio_container .radio .confirm i {
   display: block;
   color: #F2EDF5;
   text-shadow: 0 0 5px rgba(242, 237, 245, 0.5);
 }
-#workshop .selectable_radio_container.translational_flags .selectable.selected .confirm {
+#workshop .translational_flags_radio_container .radio.selected .confirm {
   display: flex;
-}
-
-#beastiary .selectable_radio_container.translational_flags {
-  overflow: hidden;
-  display: flex;
-  flex-wrap: nowrap;
-  position: relative;
-  justify-content: flex-start;
-  gap: 8px;
-  padding: 16px;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-left: 76px;
-}
-#beastiary .selectable_radio_container.translational_flags .selectable {
-  transition: all 200ms;
-}
-#beastiary .selectable_radio_container.translational_flags .selectable:not(.disabled) {
-  cursor: pointer;
-}
-#beastiary .selectable_radio_container.translational_flags .translation_base {
-  background-color: #77777f;
-  box-shadow: 0 0 10px 3px rgba(0, 3, 29, 0.19);
-}
-#beastiary .selectable_radio_container.translational_flags .selectable {
-  background: #252d3d;
-  background: linear-gradient(90deg, #252d3d 0%, #191f2c 30%, #131b27 45%, #090911 100%);
-  border: solid 1px #242d40;
-  box-shadow: 0 0 14px 5px rgba(46, 73, 131, 0.25);
-}
-#beastiary .selectable_radio_container.translational_flags .selectable.disabled {
-  background: linear-gradient(90deg, rgba(37, 45, 61, 0.3) 0%, rgba(25, 31, 44, 0.3) 30%, rgba(19, 27, 39, 0.3) 45%, rgba(9, 9, 17, 0.3) 100%);
-  border: solid 1px rgba(36, 45, 64, 0.3);
-}
-#beastiary .selectable_radio_container.translational_flags .selectable.selected {
-  background: #2e4983;
-  background: linear-gradient(90deg, #2e4983 0%, #293d68 12%, #141c25 45%, #090911 100%);
-}
-#beastiary .selectable_radio_container.translational_flags .translation_base {
-  position: absolute;
-}
-#beastiary .selectable_radio_container.translational_flags .translation_base {
-  width: 76px;
-  height: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-}
-#beastiary .selectable_radio_container.translational_flags .selectable {
-  height: 84px;
-  width: 96px;
-}
-#beastiary .selectable_radio_container.translational_flags .selectable.selected {
-  width: 256px;
-}
-#beastiary .selectable_radio_container.translational_flags .selectable.danger_1 {
-  background: #3d2525;
-  background: linear-gradient(90deg, #3d2525 0%, #2c1919 30%, #271313 45%, #110909 100%);
-  border: solid 1px #402424;
-  box-shadow: 0 0 14px 5px rgba(204, 13, 13, 0.25);
-}
-#beastiary .selectable_radio_container.translational_flags .selectable.danger_1.disabled {
-  background: linear-gradient(90deg, rgba(61, 37, 37, 0.3) 0%, rgba(44, 25, 25, 0.3) 30%, rgba(39, 19, 19, 0.3) 45%, rgba(17, 9, 9, 0.3) 100%);
-  border: solid 1px rgba(64, 36, 36, 0.3);
-}
-#beastiary .selectable_radio_container.translational_flags .selectable.danger_1.selected {
-  background: #2e4983;
-  background: linear-gradient(90deg, #cc0d0d 0%, #871a1a 12%, #320e0e 45%, #110909 100%);
 }
 
 /**
@@ -1269,66 +1200,161 @@ table.simple_table {
 }
 
 #beastiary {
-  width: 100%;
   display: flex;
-  flex-flow: row wrap;
-  gap: 8px;
   align-items: flex-start;
+  flex-flow: row wrap;
   justify-content: space-between;
+  width: 100%;
+  gap: 8px;
 }
 #beastiary .rollable {
-  background-color: #F2EDF5;
-  border: solid 2px #BA1921;
   font-family: Montserrat, sans-serif;
-  border-radius: 4px;
+  font-size: 14px;
   padding: 0 4px;
   cursor: pointer;
-  font-size: 14px;
+  border: solid 2px #BA1921;
+  border-radius: 4px;
+  background-color: #F2EDF5;
 }
-#beastiary .selectable_radio_container.translational_flags {
-  width: 40%;
-  min-width: 320px;
-  flex-grow: 0;
+#beastiary .translational_flags_radio_container {
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+  padding: 16px;
+  gap: 8px;
+  justify-content: flex-start;
+  gap: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 80px;
   overflow: unset;
+  flex-grow: 0;
+  width: 40%;
+  min-width: 400px;
   min-height: 480px;
 }
-#beastiary .selectable_radio_container.translational_flags .translation_base {
+#beastiary .translational_flags_radio_container .translation_base {
+  position: absolute;
   border-radius: 4px;
+}
+#beastiary .translational_flags_radio_container .radio {
+  transition: all 200ms;
+}
+#beastiary .translational_flags_radio_container .radio:not(.disabled) {
+  cursor: pointer;
+}
+#beastiary .translational_flags_radio_container .translation_base {
+  width: 80px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+#beastiary .translational_flags_radio_container .radio {
+  height: 84px;
+  width: 96px;
+}
+#beastiary .translational_flags_radio_container .radio.selected {
+  width: 320px;
+}
+#beastiary .translational_flags_radio_container .translation_base {
   padding-top: 16px;
   padding-bottom: 16px;
+  background-color: #77777F;
+  box-shadow: 0 0 10px 3px rgba(0, 3, 29, 0.19);
 }
-#beastiary .selectable_radio_container.translational_flags .translation_base .mob_group_icon {
+#beastiary .translational_flags_radio_container .translation_base .mob_category_icon {
   width: 60px;
   height: 70px;
   margin-bottom: 8px;
   cursor: pointer;
 }
-#beastiary .selectable_radio_container.translational_flags .translation_base .mob_group_icon img {
+#beastiary .translational_flags_radio_container .translation_base .mob_category_icon img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
-#beastiary .selectable_radio_container.translational_flags .selectable {
+#beastiary .translational_flags_radio_container .radio {
   display: flex;
-  flex-flow: row-reverse nowrap;
+  flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
-  padding-left: 8px;
-  padding-right: 8px;
   margin-bottom: 8px;
+}
+#beastiary .translational_flags_radio_container .danger_control {
+  display: flex;
+  align-content: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+#beastiary .translational_flags_radio_container .danger_control i {
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #272A2D;
+  --fa-secondary-opacity: 0.7;
+}
+#beastiary .translational_flags_radio_container .danger_control i.fa-chevrons-up {
+  --fa-primary-color: #EA1412;
+  --fa-secondary-color: #EA1412;
+}
+#beastiary .translational_flags_radio_container .danger_control i.fa-chevrons-down {
+  --fa-primary-color: #157FE3;
+  --fa-secondary-color: #157FE3;
+}
+#beastiary .translational_flags_radio_container .danger_control i.fa-duotone.disabled {
+  background-color: #aaa;
+  --fa-primary-color: #eee;
+  --fa-secondary-color: #eee;
+}
+#beastiary .translational_flags_radio_container .creature {
+  display: flex;
+  align-items: center;
+  flex-flow: row-reverse nowrap;
+  justify-content: space-between;
+  width: 240px;
+  padding: 8px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
+  background: #252d3d;
+  background: linear-gradient(90deg, #252d3d 0%, #191f2c 30%, #131b27 45%, #090911 100%);
+  border: solid 1px #242d40;
+  box-shadow: 0 0 14px 5px rgba(46, 73, 131, 0.25);
 }
-#beastiary .selectable_radio_container.translational_flags .selectable .title {
+#beastiary .translational_flags_radio_container .creature.disabled {
+  background: linear-gradient(90deg, rgba(37, 45, 61, 0.3) 0%, rgba(25, 31, 44, 0.3) 30%, rgba(19, 27, 39, 0.3) 45%, rgba(9, 9, 17, 0.3) 100%);
+  border: solid 1px rgba(36, 45, 64, 0.3);
+}
+#beastiary .translational_flags_radio_container .creature.selected {
+  background: #2e4983;
+  background: linear-gradient(90deg, #2e4983 0%, #293d68 12%, #141c25 45%, #090911 100%);
+}
+#beastiary .translational_flags_radio_container .creature.danger_1 {
+  background: #3d2525;
+  background: linear-gradient(90deg, #3d2525 0%, #2c1919 30%, #271313 45%, #110909 100%);
+  border: solid 1px #402424;
+  box-shadow: 0 0 14px 5px rgba(204, 13, 13, 0.25);
+}
+#beastiary .translational_flags_radio_container .creature.danger_1.disabled {
+  background: linear-gradient(90deg, rgba(61, 37, 37, 0.3) 0%, rgba(44, 25, 25, 0.3) 30%, rgba(39, 19, 19, 0.3) 45%, rgba(17, 9, 9, 0.3) 100%);
+  border: solid 1px rgba(64, 36, 36, 0.3);
+}
+#beastiary .translational_flags_radio_container .creature.danger_1.selected {
+  background: #2e4983;
+  background: linear-gradient(90deg, #cc0d0d 0%, #871a1a 12%, #320e0e 45%, #110909 100%);
+}
+#beastiary .translational_flags_radio_container .creature .title {
   font-family: Montserrat, sans-serif;
-  color: #F2EDF5;
   font-size: 16px;
+  color: #F2EDF5;
 }
-#beastiary .selectable_radio_container.translational_flags .selectable .icon_img {
+#beastiary .translational_flags_radio_container .creature .icon_img {
   width: 64px;
   height: 64px;
-  object-fit: contain;
   margin: 0;
+  object-fit: contain;
 }
 #beastiary #sheet_zone {
   width: 50%;

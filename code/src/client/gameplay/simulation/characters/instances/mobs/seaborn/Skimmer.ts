@@ -1,5 +1,5 @@
 import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                               from "../../../../../data/npcIndex";
+import {NpcId}                                                                               from "../../../../../data/npcIndex";
 import {D1, D12, D6, D8}                                                                     from "../../../../../rolling/Dice";
 import {Action}                                                                              from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                                            from "../../../../action/Wrap";
@@ -25,7 +25,7 @@ function corrosiveAttackGenerator(spitStrength: number,
 
 export function setupSkimmer()
 {
-    const c = new Character(NpcID.Skimmer);
+    const c = new Character(NpcId.Skimmer);
 
     c.core.name = "Skimmer";
     c.core.imgPath = "mob_tokens/seaborn/Skimmer.png";

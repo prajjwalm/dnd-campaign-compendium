@@ -1,11 +1,11 @@
-import {NpcID}           from "../../data/npcIndex";
-import {PcIndex}         from "../../data/pcIndex";
+import {NpcId}   from "../../data/npcIndex";
+import {PcIndex} from "../../data/pcIndex";
 import {GameTimestamp}   from "../../GameTimestamp";
 import {Character}       from "../../simulation/characters/Character";
 import {PositiveEmotion} from "../PositiveEmotion";
 
 export function addInteractionEvent(
-    npc: NpcID,
+    npc: NpcId,
     pcs: PcIndex[],
     timestamp: GameTimestamp,
     text: string,
@@ -26,7 +26,7 @@ export function addInteractionEvent(
 }
 
 export function addTimeSkipEvent(
-    npc: NpcID,
+    npc: NpcId,
     pcs: PcIndex[],
     timestamp1: GameTimestamp,
     timestamp2: GameTimestamp,
@@ -44,7 +44,7 @@ export function sessionOpinionEvents09()
 {
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [],
         new GameTimestamp(0, 6, 12, 20),
         `Ahh, so it was her tinkering that led to Taihe's death... Ms. Dusk says 
@@ -54,11 +54,11 @@ export function sessionOpinionEvents09()
                     [PositiveEmotion.Affection, -5],
                     [PositiveEmotion.Respect, -2]
                 ]),
-        Character.get(NpcID.Dawn).passiveDeception + 5
+        Character.get(NpcId.Dawn).passiveDeception + 5
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [],
         new GameTimestamp(0, 6, 12, 20),
         `STOP. She didn't know what she was doing, and it's a scholar's duty to 
@@ -68,12 +68,12 @@ export function sessionOpinionEvents09()
         new Map([
                     [PositiveEmotion.Affection, 5]
                 ]),
-        Character.get(NpcID.Dawn).passiveDeception + 5,
+        Character.get(NpcId.Dawn).passiveDeception + 5,
         new Set([PositiveEmotion.Affection])
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [],
         new GameTimestamp(0, 6, 12, 20),
         `I see, sent by Ruin, huh. Well, in that case nothing to do but to face
@@ -82,12 +82,12 @@ export function sessionOpinionEvents09()
         new Map([
                     [PositiveEmotion.Affection, -1]
                 ]),
-        Character.get(NpcID.Dawn).passiveDeception + 5,
+        Character.get(NpcId.Dawn).passiveDeception + 5,
         new Set([PositiveEmotion.Affection])
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [],
         new GameTimestamp(0, 6, 12, 20),
         `Wait, she is coming. Stop thinking. Help her help the villagers, that's
@@ -96,11 +96,11 @@ export function sessionOpinionEvents09()
         new Map([
                     [PositiveEmotion.Affection, -1]
                 ]),
-        Character.get(NpcID.Dawn).passiveDeception
+        Character.get(NpcId.Dawn).passiveDeception
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [],
         new GameTimestamp(0, 6, 12, 20),
         `Was concerned about how Ms Dusk treats us. Despite everything, it 
@@ -111,11 +111,11 @@ export function sessionOpinionEvents09()
                     [PositiveEmotion.Respect, 3],
                     [PositiveEmotion.Gratitude, 1],
                 ]),
-        Character.get(NpcID.Dawn).passiveDeception
+        Character.get(NpcId.Dawn).passiveDeception
     );
 
     addInteractionEvent(
-        NpcID.Ezell,
+        NpcId.Ezell,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 12, 20),
         `It's always a pleasure to meet a fellow aasimar. From Terra no less, 
@@ -129,7 +129,7 @@ export function sessionOpinionEvents09()
     );
 
     addInteractionEvent(
-        NpcID.Ezell,
+        NpcId.Ezell,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 12, 20),
         `Bound to an Honorspren, and the bond is strong enough for her to lead 
@@ -141,7 +141,7 @@ export function sessionOpinionEvents09()
     );
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 12, 25),
         `I was hungry. He gave me good food... ... want more...`,
@@ -152,7 +152,7 @@ export function sessionOpinionEvents09()
     );
 
     addInteractionEvent(
-        NpcID.Elysium,
+        NpcId.Elysium,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 6, 12, 20),
         `Windrunner? Good News.`,
@@ -162,7 +162,7 @@ export function sessionOpinionEvents09()
     );
 
     addInteractionEvent(
-        NpcID.Ezell,
+        NpcId.Ezell,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
@@ -178,7 +178,7 @@ export function sessionOpinionEvents09()
     );
 
     addInteractionEvent(
-        NpcID.Elysium,
+        NpcId.Elysium,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
@@ -193,7 +193,7 @@ export function sessionOpinionEvents09()
                 ]),
     );
     addInteractionEvent(
-        NpcID.Elysium,
+        NpcId.Elysium,
         [
             PcIndex.ID_HELIOS,
             PcIndex.ID_CYRION
@@ -207,7 +207,7 @@ export function sessionOpinionEvents09()
                 ]),
     );
     addInteractionEvent(
-        NpcID.Elysium,
+        NpcId.Elysium,
         [],
         new GameTimestamp(0, 6, 12, 35),
         `Not afraid to wade into the myriads of prosaic official journals I 
@@ -217,7 +217,7 @@ export function sessionOpinionEvents09()
                 ]),
     );
     addInteractionEvent(
-        NpcID.Ezell,
+        NpcId.Ezell,
         [
             PcIndex.ID_HELIOS
         ],

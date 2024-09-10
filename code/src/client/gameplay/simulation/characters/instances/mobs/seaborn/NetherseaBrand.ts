@@ -1,5 +1,5 @@
 import {Activation, CreatureSize, DamageType, DStat, ProficiencyLevel} from "../../../../../data/constants";
-import {NpcID}                                                         from "../../../../../data/npcIndex";
+import {NpcId}                                                         from "../../../../../data/npcIndex";
 import {D100, D12, D8}                                                 from "../../../../../rolling/Dice";
 import {Action}                                                        from "../../../../action/Action";
 import {wrapDamageType, wrapRoll}                                      from "../../../../action/Wrap";
@@ -7,7 +7,7 @@ import {Character}                                                     from "../
 
 export function setupNetherseaBrand()
 {
-    const c = new Character(NpcID.NSBrand);
+    const c = new Character(NpcId.NSBrand);
 
     c.core.name = "Nethersea Brand";
     c.core.imgPath = "mob_tokens/seaborn/NetherseaBrand.png";
@@ -31,7 +31,7 @@ export function setupNetherseaBrand()
 
     c.combat.addAction(new Action(
         Activation.Special,
-        `<p><em><strong>Domain of the Sea.</strong></em> <strong>[Land Specific Ability]</strong> 
+        `<p><em><strong>Domain of the Sea.</strong></em>
         Already occpying almost the entire ocean-floor of the plane of water and extending in vast
         patches over numerous other planes, the nethersea brand marks
         an area as belonging to the sea, and to all the terrors that arise from it.
@@ -56,10 +56,10 @@ export function setupNetherseaBrand()
 
     c.combat.addAction(new Action(
         Activation.LairAction,
-        `<p><em><strong>Predatory Expansion.</strong></em> <strong>[Land Specific Ability]</strong> While on land, every round at
+        `<p><em><strong>Predatory Expansion.</strong></em> Every round at
         initiative count 20, 10 and 0, the nethersea brand may attempt to expand in all neighbouring horizontal tiles 
         it prefers. If there are no such tiles, it may attempt to expand in all neighbouring
-        sloped / vertical tiles. It can not expand from in an area if someone is standing 
+        sloped / vertical tiles. It can not expand from in an area if a non-seaborn is standing 
         upon it there, instead it attempts to suck investiture out of them, till they die - dealing them 
         ${wrapRoll([2, D12])} ${wrapDamageType(DamageType.Neural)} 
         damage every round they remain standing.</p>`
@@ -73,6 +73,6 @@ export function setupNetherseaBrand()
     c.sheet.size = CreatureSize.Cosmic;
     c.sheet.subtitle = " Seaborn, Unaligned";
     c.sheet.acDesc = "";
-    c.sheet.category = "seaborn";
+    c.sheet.category = "seaborn_boss";
     c.sheet.finalize();
 }

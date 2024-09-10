@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupMostima()
 {
-    const c = new Character(NpcID.Mostima);
+    const c = new Character(NpcId.Mostima);
 
     c.core.name = "Mostima";
     c.core.imgPath = "character_tokens/C1/Arc2/mostima.png";

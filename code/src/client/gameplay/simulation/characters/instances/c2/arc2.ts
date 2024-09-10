@@ -1,5 +1,5 @@
 import {Activation, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../data/constants";
-import {NpcID}                                                                               from "../../../../data/npcIndex";
+import {NpcId}                                                                               from "../../../../data/npcIndex";
 import {D1, D12, D6}                                                                         from "../../../../rolling/Dice";
 import {Action}                                                                              from "../../../action/Action";
 import {AttackAbstraction, BuffT1, BuffT2, BuffT3, BuffT5, BuffT6, DebuffT4}                 from "../../../action/AttackAbstraction";
@@ -11,7 +11,7 @@ import {Character}                                                              
 export function setupRuzaki()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Ruzaki);
+    const c = new Character(NpcId.Ruzaki);
 
     c.core.name = "Ruzaki";
     c.core.imgPath = "character_tokens/C2/Arc2/Ruzaki.png";
@@ -30,7 +30,7 @@ export function setupRuzaki()
     revolutionary project from the plane of Innovation aimed at creating new 
     Gods for humanity, before he was fired and exiled following a certain tragedy.
     Something which may or may not be related to 
-    ${Character.get(NpcID.Hina).createLink("a certain child he referred to as #41")}
+    ${Character.get(NpcId.Hina).createLink("a certain child he referred to as #41")}
     loosing her entire Lebenslust at the mere sight of him.`;
 
     c.card.finalize();
@@ -39,7 +39,7 @@ export function setupRuzaki()
 export function setupElliot()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Elliot);
+    const c = new Character(NpcId.Elliot);
 
     c.core.name = "The Sand Soldier";
     c.core.imgPath = "character_tokens/C2/Arc2/Elliot.png";
@@ -55,7 +55,7 @@ export function setupElliot()
     A mysterious criminal of unknown origins wandering in the planet of Ashyn in
     the plane of Honor. Has acquired a certain notoriety as being the prime 
     suspect for the deaths of countless mercenaries. Was involved in some covert
-    dealings with ${Character.get(NpcID.Ruzaki).createLink()} when they were 
+    dealings with ${Character.get(NpcId.Ruzaki).createLink()} when they were 
     interrupted by a group of adventurers and a shardbearer assault.
     <div class="effect_tag">Incomplete</div>`;
 
@@ -65,7 +65,7 @@ export function setupElliot()
 export function setupShuo()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Shuo);
+    const c = new Character(NpcId.Shuo);
 
     c.core.name = "Shuo";
     c.core.imgPath = "character_tokens/C2/Arc2/Shuo.png";
@@ -94,7 +94,7 @@ export function setupShuo()
 export function setupGnosis()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Gnosis);
+    const c = new Character(NpcId.Gnosis);
 
     c.core.name = "Sir Gnosis Edelweiss";
     c.core.imgPath = "character_tokens/C2/Arc2/Gnosis.png";
@@ -118,7 +118,7 @@ export function setupGnosis()
 export function setupCellinia()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Cellinia);
+    const c = new Character(NpcId.Cellinia);
 
     c.core.name = "Cellinia Fiorre";
     c.core.imgPath = "character_tokens/C2/Arc2/CelBlueLarge.png";
@@ -137,14 +137,14 @@ export function setupCellinia()
 
     c.card.setCampaignArc(2, 2);
     c.card.addCardTag("F29");
-    c.card.addCardTag("From | Devotion <span class='verbose'> / Innovation</span>");
+    // c.card.addCardTag("From | Devotion <span class='verbose'> / Innovation</span>");
     c.card.addCardTag("Race | Lupine Shifter <span class='verbose'> (Cyberpunk) </span>");
-    c.card.addCardTag("OS | <span class='verbose'>Militech Epogee</span> Sandevistan Mk 7");
-    c.card.addCardTag("<span class='verbose'>Project Diablo |</span> #01");
-    c.card.addCardTag("Mutagen | Greater Red");
-    c.card.addCardTag("School of the Wolf");
-    c.card.addCardTag("Class | Blood Hunter");
-    c.card.addCardTag("CR | 29");
+    // c.card.addCardTag("OS | <span class='verbose'>Militech Epogee</span> Sandevistan Mk 7");
+    // c.card.addCardTag("<span class='verbose'>Project Diablo |</span> #01");
+    // c.card.addCardTag("Mutagen | Greater Red");
+    // c.card.addCardTag("School of the Wolf");
+    // c.card.addCardTag("Class | Blood Hunter");
+    // c.card.addCardTag("CR | 29");
 
     c.card.summary = () => `
     The last remaining survivor of a certain breed of Lycans in the city of
@@ -158,13 +158,13 @@ export function setupCellinia()
     #01 takes on contracts pertaining to her real guild...`;
 
     c.card.primaryImageTitle = "Logistics";
-    c.card.addAlternateImage("Witcher", "character_tokens/C2/Arc2/CelRedLarge.png");
+    c.card.addAlternateImage("???", "character_tokens/C2/Arc2/CelRedLarge.png");
     c.card.finalize();
 }
 
 export function setupMaaya()
 {
-    const c = new Character(NpcID.Maaya);
+    const c = new Character(NpcId.Maaya);
 
     c.core.name = "Maaya";
     c.core.imgPath = "character_tokens/C2/Arc2/Maaya.png";
@@ -388,7 +388,7 @@ export function setupMaaya()
 export function setupDamatzi()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Damatzi);
+    const c = new Character(NpcId.Damatzi);
 
     c.core.name = "Damatzi";
     c.core.imgPath = "character_tokens/C2/Arc2/Damatzi.png";
@@ -429,7 +429,7 @@ export function setupDamatzi()
 export function setupAulus()
 {
     // Prepare the character object.
-    const c = new Character(NpcID.Aulus);
+    const c = new Character(NpcId.Aulus);
 
     c.core.name = "Aulus";
     c.core.imgPath = "character_tokens/C2/Arc2/Aulus.png";

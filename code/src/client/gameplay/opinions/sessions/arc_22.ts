@@ -1,5 +1,5 @@
-import {NpcID}               from "../../data/npcIndex";
-import {PcIndex}             from "../../data/pcIndex";
+import {NpcId}   from "../../data/npcIndex";
+import {PcIndex} from "../../data/pcIndex";
 import {GameTimestamp}       from "../../GameTimestamp";
 import {Character}           from "../../simulation/characters/Character";
 import {PositiveEmotion}     from "../PositiveEmotion";
@@ -7,10 +7,10 @@ import {addInteractionEvent} from "./s9";
 
 export function arc22OpinionEvents()
 {
-    const hinaDeception = Character.get(NpcID.Hina).passiveDeception;
+    const hinaDeception = Character.get(NpcId.Hina).passiveDeception;
 
     addInteractionEvent(
-        NpcID.Hina,
+        NpcId.Hina,
         [],
         new GameTimestamp(0, 29, 8),
         `Being called an ingrate after I pledged to give up my life for them 
@@ -26,7 +26,7 @@ export function arc22OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Dawn,
+        NpcId.Dawn,
         [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 29, 8),
         `They actually made it? Meaning... I needn't disappear...</br>
@@ -40,7 +40,7 @@ export function arc22OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Elysium,
+        NpcId.Elysium,
         [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 29, 8),
         `These guys actually returned successful from a mission this perilous 
@@ -54,7 +54,7 @@ export function arc22OpinionEvents()
 
 
     addInteractionEvent(
-        NpcID.Ezell,
+        NpcId.Ezell,
         [PcIndex.ID_CYRION, PcIndex.ID_HELIOS],
         new GameTimestamp(0, 29, 8),
         `They're really amazing. To accomplish such a feat with such elegance. 
@@ -68,7 +68,7 @@ export function arc22OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Roberta,
+        NpcId.Roberta,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 29, 8, 15),
         `Oh dear, you really shouldn't go around accepting random injections from 
@@ -77,11 +77,11 @@ export function arc22OpinionEvents()
         new Map([
             [PositiveEmotion.Trust, 2],
         ]),
-        Character.get(NpcID.Roberta).passiveDeception
+        Character.get(NpcId.Roberta).passiveDeception
     );
 
     addInteractionEvent(
-        NpcID.Elysium,
+        NpcId.Elysium,
         [],
         new GameTimestamp(0, 29, 8, 15),
         `She spoke to the <i>survivor Himself</i>??! And to tell Him off because 
@@ -95,7 +95,7 @@ export function arc22OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Ezell,
+        NpcId.Ezell,
         [PcIndex.ID_HELIOS],
         new GameTimestamp(0, 29, 8, 15),
         `How can it be?? The sigil of a higher vampiric family? On an aasimar?
@@ -112,7 +112,7 @@ export function arc22OpinionEvents()
     );
 
     addInteractionEvent(
-        NpcID.Elysium,
+        NpcId.Elysium,
         [PcIndex.ID_CYRION],
         new GameTimestamp(0, 29, 8, 30),
         `One look at the sea terror and his conclusions already match mine. 

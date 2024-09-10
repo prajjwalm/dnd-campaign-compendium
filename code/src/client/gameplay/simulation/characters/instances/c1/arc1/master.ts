@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupMaster()
 {
-    const c = new Character(NpcID.TheMaster);
+    const c = new Character(NpcId.TheMaster);
 
     c.core.name = "The Master";
     c.core.imgPath = "character_tokens/C1/Arc1/g_order.png";
@@ -24,7 +24,7 @@ export function setupMaster()
       forceful arm-twisting kind, who always got his way. Unlike most others who took it easy in the garden, he spent
       his whole life scheming and ruthlessly executing ever-more-complex Machiavellian schemes. So complex that even
       his own loyalties were at times doubted, particularly when some links were found between him and
-      ${Character.get(NpcID.TraitorOthello).createLink("The Traitor")}. He was also a very strong warrior, rumoured to be a 
+      ${Character.get(NpcId.TraitorOthello).createLink("The Traitor")}. He was also a very strong warrior, rumoured to be a 
       radiant as well as have hemalurgic powers equivalent of Mistborn of old derived from an inordinate 
       number of spikes. A number equivalent to some of his seniormost counterparts within the castle itself, so many that 
       even Aluminium couldn't negate them in time. Committed suicide when Ruin attempted to assert his will via the

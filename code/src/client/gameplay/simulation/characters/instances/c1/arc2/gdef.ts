@@ -1,9 +1,9 @@
-import {NpcID}     from "../../../../../data/npcIndex";
+import {NpcId}     from "../../../../../data/npcIndex";
 import {Character} from "../../../Character";
 
 export function setupGDef()
 {
-    const c = new Character(NpcID.GDef);
+    const c = new Character(NpcId.GDef);
 
     c.core.name = "The Guardian of Defense";
     c.core.imgPath = "character_tokens/C1/Arc2/g_def.png";

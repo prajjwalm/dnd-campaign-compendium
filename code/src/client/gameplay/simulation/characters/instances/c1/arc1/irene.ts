@@ -1,5 +1,5 @@
 import {Activation, AdventurerClass, Condition, CreatureSize, CSkill, DamageType, DSkill, DStat, Era, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                                        from "../../../../../data/npcIndex";
+import {NpcId}                                                                                                                        from "../../../../../data/npcIndex";
 import {D1, D10, D8}                                                                                                                  from "../../../../../rolling/Dice";
 import {Action}                                                                                                                       from "../../../../action/Action";
 import {wrapCreatureSize, wrapDamageType, wrapRoll}                                                                                   from "../../../../action/Wrap";
@@ -8,7 +8,7 @@ import {Morale}                                                                 
 
 export function setupIrene()
 {
-    const c = new Character(NpcID.Irene);
+    const c = new Character(NpcId.Irene);
 
     c.core.name = "Irene";
     c.core.imgPath = "character_tokens/C1/Arc1/irene.png";
@@ -101,7 +101,7 @@ export function setupIrene()
     c.operator.addNotableStuff("Strong against", "Melee Opponents, Undead");
     c.operator.addNotableStuff("Weak against", "Flying enemies");
     c.operator.addNotableStuff("Combat Experience", "SSS Grade (>1000 years)");
-    c.operator.setChemistryWith(NpcID.Jordi, 11, "Thinks he's a nice person, appreciates being able to spend time with him in comfortable silence.");
+    c.operator.setChemistryWith(NpcId.Jordi, 11, "Thinks he's a nice person, appreciates being able to spend time with him in comfortable silence.");
     c.operator.addNotableStuff("Challenge Rating", "16");
     c.operator.professions = ["Inquisitor", "Unemployed (Amnesiac)"];
     c.operator.era = Era.Timeless;
@@ -120,10 +120,10 @@ export function setupIrene()
     c.card.summary = () =>`
       <div class="effect_tag">Incomplete</div><br/>
     An air genasi who was a junior member of the inquisition of the gardens. All her bunker-mates were killed in 
-    an attack by The Troupe around 300 years ago, but the ${Character.get(NpcID.Kjerra).createLink("Guardian of Magic")}
+    an attack by The Troupe around 300 years ago, but the ${Character.get(NpcId.Kjerra).createLink("Guardian of Magic")}
     took pity on her and replaced them all with physically intractable and sentient illusions. Despite them being 
     near-perfect replicas, Irene eventually figured out their true nature, but being grateful for the concern, she 
-    kept the pretense of believing in them. Even so, ${Character.get(NpcID.Lesley).createLink("Lesley")} took a personal 
+    kept the pretense of believing in them. Even so, ${Character.get(NpcId.Lesley).createLink("Lesley")} took a personal 
     interest in her and made sure to invite her every now and then to make sure she got to interact with real people.
     During the Hour of Loss, she displayed unexpected skill (leading others to suspect she had specifically been 
     trained for such situations), resolve, and fanaticism in fighting a deep-ocean aberration but went missing in

@@ -1,7 +1,7 @@
 import {numberToText}                                                                                           from "../../../../../../common/common";
 import {Activation, Condition, CreatureSize, DamageType, DSkill, DStat, ProficiencyLevel, Sense, Speed} from "../../../../../data/constants";
-import {NpcID}                                                                                                  from "../../../../../data/npcIndex";
-import {D1, D12, D8}                                                                                            from "../../../../../rolling/Dice";
+import {NpcId}                                                                                          from "../../../../../data/npcIndex";
+import {D1, D12, D8}                                                                                    from "../../../../../rolling/Dice";
 import {Action}                                                                                                 from "../../../../action/Action";
 import {wrapCondition, wrapDamageType, wrapRoll}                                                                from "../../../../action/Wrap";
 import {Character}                                                                                              from "../../../Character";
@@ -28,7 +28,7 @@ function generateMultiattack(count: number)
 
 export function setupPredators()
 {
-    const c = new Character(NpcID.Predator);
+    const c = new Character(NpcId.Predator);
 
     c.core.name = "Predator";
     c.core.imgPath = "mob_tokens/seaborn/Predator.png";
@@ -89,7 +89,7 @@ export function setupPredators()
     c.sheet.category = "seaborn";
     c.sheet.finalize();
 
-    const n = new CharacterVariant(NpcID.PredatorN, NpcID.Predator);
+    const n = new CharacterVariant(NpcId.PredatorN, NpcId.Predator);
 
     n.core.name = "Nourished Predator";
     n.core.imgPath = "mob_tokens/seaborn/PredatorN.png";
@@ -123,6 +123,6 @@ export function setupPredators()
     n.combat.cr = 8
     n.combat.finalize();
 
-    n.sheet.theme = "danger_1";
+    n.sheet.danger = 1;
     n.sheet.finalize();
 }
