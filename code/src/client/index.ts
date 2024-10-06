@@ -10,6 +10,7 @@ import {setupMapGraph}                 from "./gameplay/map/MapGraph";
 import {setupUpgradeGraph}             from "./gameplay/map/UpgradeGraph";
 import {activateCombatScenarios}       from "./gameplay/scenarios/activateCombatScenarios";
 import {enableRolling}                 from "./gameplay/simulation/action/Wrap";
+import {generateAchievementsPanel}     from "./gameplay/simulation/base/Achievements";
 import {setupBaseLogic}                from "./gameplay/simulation/base/Base";
 import {CardAspect}                    from "./gameplay/simulation/characters/aspects/CardAspect";
 import {setupNpcs}                     from "./gameplay/simulation/characters/instances/_init";
@@ -38,6 +39,7 @@ $(() => {
     activateCombatScenarios();
 
     CardAspect.setupCardLogic();
+    // $(".achievement__container").append(generateAchievementsPanel());
 
     setupMapGraph($("#map_graph_area"), devotionMap);
     setupUpgradeGraph($("#skill_graph_area"), skillMap);

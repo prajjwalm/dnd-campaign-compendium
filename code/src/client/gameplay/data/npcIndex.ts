@@ -97,6 +97,8 @@ export enum NpcId {
     PredatorN,
     Pincer,
     PincerN,
+    Founder,
+    FounderN,
     Spewer,
     SpewerN,
     BrandGuider,

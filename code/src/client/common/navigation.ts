@@ -4,6 +4,7 @@ const idToNavIcon = new Map([
     ["shards",       [`<i class="fa-duotone fa-solar-system"></i>`]],
     ["history",      [`<i class="fa-regular fa-timeline-arrow"></i>`]],
     ["rules",        [`<i class="fa-solid fa-gavel"></i>`]],
+    ["achievements", [`<i class="fa-solid fa-trophy-star"></i>`]],
     ["interactions", [`<i class="fa-duotone fa-user-secret"></i>`]],
     ["beastiary",    [`<i class="fa-solid fa-swords"></i>`]],
 ])

@@ -11,7 +11,7 @@ import {CharacterVariant}                                                       
 function generateMultiattack(count: number)
 {
     return () =>
-        `<p><em><strong>MultiAttack.</strong></em> The Predator makes ${numberToText(count)}
+        `<p><em><strong>MultiAttack.</strong></em> The Pincer makes ${numberToText(count)}
         bite attacks.</p>`
 }
 

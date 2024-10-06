@@ -333,6 +333,10 @@
                 </div>
             </div>
         </div>
+<!--        <div class="page" data-nav-id="achievements">-->
+<!--            <div class="page_header">Achievements</div>-->
+<!--            <div class="achievement__container"></div>-->
+<!--        </div>-->
         <div class="page" data-nav-id="rules">
             <h1 class="page_header">House Rules</h1>
             <div class="page__content">
@@ -572,10 +576,8 @@
                         <i>Resistance means nothing against escalated damage types</i> while vulnerabilities extend.
                     </li>
                     <li>Everytime an instance of escalated damage is taken a <b>DC 20 Save</b> (except when mentioned explicitly)
-                        must be attempted to resist the negative
-                        effects of this damage type. Depending on how much total damage has been so far this save can either be
-                        at advantage (<25), regular (<50) or at disadvantage (<100). After a total of 100 damage since the last
-                        failed save has been taken, the save is considered an auto fail.</li>
+                        must be attempted to resist the negative effects of this damage type. On the second instance of damage after
+                        a successful save, the next save is at disadvantage, and for the third instance of damage the save is an auto fail.</li>
                     <li>Upon a failed save, 10 true damage is taken and a negative side effect is applied.</li>
                 </ol>
                 <p>Some escalated damage types encountered so far are -</p>
@@ -585,8 +587,7 @@
                     </tr>
                     <tr>
                         <td>Psychic</td><td>Neural</td><td>INT</td>
-                        <td>Incapacitated until the end of your next turn. Paralysed on the second failed save in that
-                            duration.</td>
+                        <td>You are stunned until the end of your next turn.</td>
                     </tr>
                     <tr>
                         <td>Acid</td><td>Corrosive</td><td>DEX</td>
@@ -609,17 +610,22 @@
                         <td>Suffer from slow and lose the ability to gain HP until the end of your turn. On second stack within
                             that duration be frozen. This condition is similar to restrained, except that the victim is now
                             vulnerable to thunder and force damage. Should any of those damage types be taken, the ice shatters,
-                            dealing an additional 20 damage.</td>
+                            dealing an additional 20 true damage.</td>
+                    </tr>
+                    <tr>
+                        <td>Lightning</td><td>Electroclasmic</td><td>DEX</td>
+                        <td>You are paralysed until the end of the current turn. Take 5 true damage even on succeeding the DEX save.</td>
                     </tr>
                     <tr>
                         <td>Force</td><td>Collapsal</td><td>INT</td>
-                        <td>Collapsal damage is always True damage. Suffer from slow and the effects of the first three levels
-                            of exhaustion until the end of your turn. Death on second stack.</td>
+                        <td>Collapsal damage is always True damage. Suffer from slow, gain 1 Wither (permanent exhaustion) and
+                            permanently loose 1d4 Intelligence (Both effects undoable only by a Lv 9 healing spell or Wish).
+                            Death on second stack.</td>
                     </tr>
                     <tr>
                         <td>Necrotic</td><td>Void</td><td>DC 16 DEATH</td>
-                        <td>Void damage is always True damage. Gain 1 Wither (Permanent Exhaustion that can only be
-                            undone by a Lv 9 healing spell or Wish).</td>
+                        <td>Void damage cannot be reduced in any way, but can be amplified if the victim is vulnerable.
+                            Current HP and max HP are halved before damage is taken. This can only be undone by a Wish.</td>
                     </tr>
                     <tr>
                         <td>Radiant</td><td>Almighty</td><td>DC 16 DEATH</td>

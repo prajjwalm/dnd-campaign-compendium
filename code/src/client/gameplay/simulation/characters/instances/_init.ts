@@ -12,6 +12,7 @@ import {setupBrandGuiders}   from "./mobs/seaborn/BrandGuider";
 import {setupDrifter}        from "./mobs/seaborn/Drifter";
 import {setupEphremis}       from "./mobs/seaborn/Ephremis";
 import {setupFathomKing}     from "./mobs/seaborn/FathomKing";
+import {setupFounders}       from "./mobs/seaborn/Founder";
 import {setupHarpooners}     from "./mobs/seaborn/Harpooner";
 import {setupNetherseaBrand} from "./mobs/seaborn/NetherseaBrand";
 import {setupPathShaper}     from "./mobs/seaborn/PathShaper";
@@ -45,6 +46,7 @@ export function setupNpcs()
     setupUrchins();
     setupPredators();
     setupPincers();
+    setupFounders();
     setupHarpooners();
     setupSpewers();
     setupShriekers();

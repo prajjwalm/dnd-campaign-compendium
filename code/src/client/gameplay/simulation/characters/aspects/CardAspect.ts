@@ -272,7 +272,7 @@ export class CardAspect
         const $commonCentralView : JQuery = $("#character_idx .central_view");
         const $tokenSpace        : JQuery = $("#tokens");
         const $floatingCard      : JQuery = $("#floating_card");
-        const $window            : JQuery = $(window);
+        const $window                     = $(window);
 
         let floatingCardWidth: number;
         let floatingCardHeight: number;

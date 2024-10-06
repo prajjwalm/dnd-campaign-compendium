@@ -151,6 +151,9 @@ export enum DamageType {
     Corrosion,
     Neural,
     Hellfire,
+    Cyrostatic,
+    Electroclasmic,
+    Collapsal,
     Void,
     Almighty,
 }
